@@ -22,14 +22,13 @@ jobs:
 
       - name: Log Issue Parser
         run: |
-          echo 'Ticket Number: ${{ steps.issue-parser.outputs.__ticket }}'
+          echo 'Ticket Number: ${{ steps.issue-parser.outputs._ticket }}'
           echo 'Parsed JSON: ${{ steps.issue-parser.outputs.jsonString }}'
 
       - name: Create branch with Ticket number
         run: |
-          TICKET_NUMBER="${{ steps.issue-parser.outputs.issueparser__ticket }}"
-          ISSUE_TITLE="${{ steps.issue-parser.outputs.issueparser__branch }}"
-          GITHUB_ISSUE_NUMBER="${{ github.event.issue.number }}"
+          TICKET_NUMBER="${{ steps.issue-parser.outputs.issueparser_ticket_number }}"
+          ISSUE_TITLE="${{ steps.issue-parser.outputs.issueparser_branch }}"
           
           CLEAN_TITLE="$(echo ${ISSUE_TITLE} | sed 's/[^a-zA-Z0-9/_-]/-/g' | sed 's/ /-/g' | sed 's/--*/-/g')"
           
