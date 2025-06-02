@@ -1,0 +1,61 @@
+name: '이슈 생성'
+description: '깃허브 이슈를 생성하고 지라와 연동합니다'
+title: '"[Convention] 제목" 형식으로 작성해주세요 (예) [Feat] home'
+body:
+  - type: input
+    id: ticket
+    attributes:
+      label: '🎟️ Ticket Number'
+      description: '연동할 Ticket Number를 입력해주세요'
+      placeholder: 'PL-00'
+    validations:
+      required: true
+
+  - type: input
+    id: branch
+    attributes:
+      label: '😸 Branch'
+      description: 'Convention/name/title 양식으로 브랜치명을 작성해주세요'
+      placeholder: 'Feat/dodo/home'
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        |convention|purpose|
+        |:---|:---|
+        |Feat|새로운 기능 구현|
+        |Fix|버그 수정|
+        |Refactor|리팩토링|
+        |Hotfix|긴급 업데이트|
+
+  - type: input
+    id: description
+    attributes:
+      label: '🎨 Description'
+      description: '이슈에 대해 간략히 설명해주세요'
+      placeholder: '어떤 기능을 구현하시나요?'
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: '🌽 Tasks'
+      description: '이슈 구현에 필요한 하위 작업들을 남겨주세요'
+      value: |
+        -
+    validations:
+      required: true
+
+  - type: textarea
+    id: checks
+    attributes:
+      label: '👌 Checklist'
+      description: '이슈가 생성되면 꼭 확인해주세요'
+      value: |
+        - [ ] 담당자/라벨 설정했나요?
+        - [ ] 브랜치 연결했나요?
+    validations:
+      required: false
