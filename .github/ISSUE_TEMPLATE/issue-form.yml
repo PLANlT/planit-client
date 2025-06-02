@@ -59,3 +59,4 @@ body:
         - [ ] 브랜치 연결했나요?
     validations:
       required: false
+      
