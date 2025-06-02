@@ -27,7 +27,7 @@ jobs:
 
       - name: Create branch with Ticket number
         run: |
-          TICKET_NUMBER="${{ steps.issue-parser.outputs.issueparser__ticket_number }}"
+          TICKET_NUMBER="${{ steps.issue-parser.outputs.issueparser__ticket }}"
           ISSUE_TITLE="${{ steps.issue-parser.outputs.issueparser__branch }}"
           GITHUB_ISSUE_NUMBER="${{ github.event.issue.number }}"
           
