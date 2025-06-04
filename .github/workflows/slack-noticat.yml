@@ -33,6 +33,13 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
+                    "text": ":point_down: PR 바로가기"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
                     "text": "${{ steps.pr-url.outputs.url }}"
                   }
                 },
@@ -40,7 +47,14 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "@이창민 @전도연"
+                    "text": ":point_down: 확인 부탁드려요!"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "<@U08PRF5S1GA> <@U08PF7AN4TV>"
                   }
                 }
               ]
