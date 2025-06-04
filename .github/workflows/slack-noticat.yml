@@ -26,14 +26,21 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "잘 지냈냐옹? 새로운 PR이 올라왔다옹! 리뷰 달라옹!! <br> ${{ steps.pr-url.outputs.url }}"
+                    "text": "잘 지냈냐옹? 새로운 PR이 올라왔다옹! 리뷰 달라옹!!"
                   }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "<!이창민> <!전도연>"
+                    "text": "${{ steps.pr-url.outputs.url }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "@이창민 @전도연"
                   }
                 }
               ]
