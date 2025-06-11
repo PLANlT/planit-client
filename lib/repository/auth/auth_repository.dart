@@ -47,4 +47,6 @@ class AuthRepository {
       debugPrint('구글로 로그인 실패 $error');
     }
   }
+
+  // Todo(창민): 네이버 로그인 구현 시 여기에 연동 메서드 작성하시면 됩니다!
 }

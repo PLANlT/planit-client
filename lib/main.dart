@@ -40,17 +40,19 @@ class Home extends StatelessWidget {
           children: [
             // 카카오 로그인 테스트
             ElevatedButton(
-                onPressed: () async {
-                  AuthRepository().kakaoLogin();
-                },
-                child: Text('카카오 로그인')),
+              onPressed: () async {
+                AuthRepository().kakaoLogin();
+              },
+              child: Text('카카오 로그인'),
+            ),
             // 구글 로그인 테스트
             ElevatedButton(
               onPressed: () async {
                 AuthRepository().googleLogin();
               },
               child: Text('구글 로그인'),
-            )
+            ),
+            // Todo(창민): 네이버 로그인 구현 시 여기에 임시로 버튼 만드시면 됩니다!
           ],
         ),
       ),
