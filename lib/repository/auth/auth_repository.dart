@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 class AuthRepository {
@@ -34,6 +35,16 @@ class AuthRepository {
       } catch (error) {
         debugPrint('카카오계정으로 로그인 실패 $error');
       }
+    }
+  }
+
+  // 구글 로그인 연동 로직
+  Future<void> googleLogin() async {
+    try {
+      final data = await GoogleSignIn().signIn();
+      debugPrint('구글로 로그인 성공 ${data.toString()}');
+    } catch (error) {
+      debugPrint('구글로 로그인 실패 $error');
     }
   }
 }

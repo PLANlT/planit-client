@@ -43,7 +43,14 @@ class Home extends StatelessWidget {
                 onPressed: () async {
                   AuthRepository().kakaoLogin();
                 },
-                child: Text('카카오 로그인'))
+                child: Text('카카오 로그인')),
+            // 구글 로그인 테스트
+            ElevatedButton(
+              onPressed: () async {
+                AuthRepository().googleLogin();
+              },
+              child: Text('구글 로그인'),
+            )
           ],
         ),
       ),
