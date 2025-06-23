@@ -1,8 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
         android:label="planit"
-        android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- 네이버 메타데이터 설정 -->
+    <meta-data
+        android:name="com.naver.sdk.clientId"
+        android:value="@string/client_id" />
+    <meta-data
+        android:name="com.naver.sdk.clientSecret"
+        android:value="@string/client_secret" />
+    <meta-data
+        android:name="com.naver.sdk.clientName"
+        android:value="@string/client_name" />
+
+
         <!-- 카카오 로그인 커스텀 URL 스킴 설정 -->
         <activity
             android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
@@ -17,6 +28,10 @@
                 <data android:scheme="kakaof333821435deb5a3720e23c909952ee3" android:host="oauth"/>
             </intent-filter>
         </activity>
+
+
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -38,6 +53,15 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            
+             <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="naverhH28tRXp_AKhlRtUWqTJ" android:host="callback"/>
+            </intent-filter>
+
+
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
