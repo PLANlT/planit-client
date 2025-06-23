@@ -3,5 +3,8 @@ include: package:flutter_lints/flutter.yaml
 linter:
 
   rules:
-    avoid_print: false # debug print 사용
+    avoid_print: true # debug print 사용
     prefer_single_quotes: true  # 문자/문자열 '' 사용
+    lines_longer_than_80_chars: true # 한 라인은 최대 80글자>초과 시 줄바꿈
+    type_annotate_public_apis: true # 타입 어노테이션 작성 권장
+    prefer_typing_uninitialized_variables: true # 타입 어노테이션 작성 권장
