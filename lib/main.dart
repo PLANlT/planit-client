@@ -8,7 +8,7 @@ Future<void> main() async {
   // runApp 실행전 초기화
   WidgetsFlutterBinding.ensureInitialized();
 
-  //env 로드
+  // env 로드
   await dotenv.load(fileName: 'assets/.env');
 
   // Flutter SDK 초기화
@@ -16,6 +16,7 @@ Future<void> main() async {
     nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
     javaScriptAppKey: dotenv.env['KAKAO_JAVASCRIPT_APP_KEY'],
   );
+
   runApp(const MyApp());
 }
 
