@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
+import 'package:flutter_naver_login/interface/types/naver_login_status.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
@@ -48,5 +50,17 @@ class AuthRepository {
     }
   }
 
-  // Todo(창민): 네이버 로그인 구현 시 여기에 연동 메서드 작성하시면 됩니다!
+  Future<void> naverLogin() async {
+    try {
+      final data = await FlutterNaverLogin.logIn();
+
+      if (data.status == NaverLoginStatus.loggedIn) {
+        debugPrint('네이버로 로그인 성공 ${data.toString()}');
+      } else {
+        debugPrint('네이버로 로그인 실패 ${data.errorMessage}');
+      }
+    } catch (e) {
+      debugPrint('네이버로 로그인 실패  $e');
+    }
+  }
 }
