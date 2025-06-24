@@ -8,4 +8,12 @@ class Assets {
   static const String edit = 'assets/icons/edit.svg';
   static const String more = 'assets/icons/more.svg';
   static const String x = 'assets/icons/x.svg';
+
+  // images
+  static const String planet1 = 'assets/images/planet1.png';
+  static const String planet2 = 'assets/images/planet2.png';
+  static const String planet3 = 'assets/images/planet3.png';
+  static const String planet4 = 'assets/images/planet4.png';
+  static const String planet5 = 'assets/images/planet5.png';
+  static const String planet6 = 'assets/images/planet6.png';
 }
