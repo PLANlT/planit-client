@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:planit/repository/auth/auth_repository.dart';
 
@@ -52,7 +53,11 @@ class Home extends StatelessWidget {
               },
               child: Text('구글 로그인'),
             ),
-            // Todo(창민): 네이버 로그인 구현 시 여기에 임시로 버튼 만드시면 됩니다!
+            ElevatedButton(
+                onPressed: () async {
+                  AuthRepository().naverLogin();
+                },
+                child: Text('네이버 로그인'))
           ],
         ),
       ),
