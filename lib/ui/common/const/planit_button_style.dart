@@ -1,0 +1,4 @@
+enum PlanitButtonColor {
+  black,
+  white,
+}
