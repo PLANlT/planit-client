@@ -8,10 +8,6 @@ jobs:
     name: Slack Noticat
     runs-on: ubuntu-latest
     steps:
-      - name: getPrUrl
-        id: pr-url
-        uses: ammaratef45/pr-url-action@v1
-        
       - name: Send to Slack
         uses: slackapi/slack-github-action@v1.24.0
         with:
@@ -37,7 +33,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ steps.pr-url.outputs.url }}"
+                    "text": "${{ github.event.pull_request.html_url }}"
                   }
                 },
                 {
