@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:planit/repository/auth/auth_repository.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_chips.dart';
 import 'package:planit/ui/common/comopnent/planit_text_field.dart';
+import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
@@ -75,22 +79,22 @@ class Home extends StatelessWidget {
                 child: PlanitButton(
                   onPressed: () {},
                   buttonColor: PlanitButtonColor.black,
+                  buttonSize: PlanitButtonSize.large,
                   label: 'PlanitButton',
                 ),
               ),
-              SizedBox(
-                width: 320.0,
-                child: PlanitButton(
-                  onPressed: () {},
-                  buttonColor: PlanitButtonColor.white,
-                  label: '시작하기',
-                ),
+              PlanitButton(
+                onPressed: tmp,
+                buttonColor: PlanitButtonColor.white,
+                buttonSize: PlanitButtonSize.small,
+                label: '시작하기',
               ),
               SizedBox(
                 width: 320.0,
                 child: PlanitButton(
-                  onPressed: () {},
+                  onPressed: tmp,
                   buttonColor: PlanitButtonColor.white,
+                  buttonSize: PlanitButtonSize.large,
                   label: '길게길게 라벨을 길게길게길게 늘려보아요 길게길게 라벨을 길게길게길게 늘려보아요',
                 ),
               ),
@@ -112,7 +116,12 @@ class Home extends StatelessWidget {
                   hintText: '내용을 입력하세요',
                 ),
               ),
-              PlanitTextField(),
+              PlanitTextField(
+                maxLength: 50,
+              ),
+              PlanitTextField(
+                errorText: '에러메시지 내용입니다.',
+              ),
               ElevatedButton(
                 onPressed: () => showModalBottomSheet(
                   context: context,
@@ -140,6 +149,32 @@ class Home extends StatelessWidget {
                 ),
                 child: Text('루트탭으로 꼬우'),
               ),
+              SvgPicture.asset(
+                Assets.planet1,
+                width: 120,
+                height: 120,
+              ),
+              SvgPicture.asset(
+                Assets.planet2,
+                width: 80,
+                height: 80,
+              ),
+              SvgPicture.asset(
+                Assets.planet3,
+              ),
+              SvgPicture.asset(Assets.templateHealth),
+              SvgPicture.asset(Assets.high),
+              ElevatedButton(
+                onPressed: () {
+                  final toast = FToast().init(context);
+                  toast.showToast(
+                    child: PlanitToast(
+                      label: '짱이야, 해내버렸어요! 😍',
+                    ),
+                  );
+                },
+                child: Text('토스트 ON'),
+              ),
             ],
           ),
         ),
@@ -147,3 +182,5 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+void tmp() {}
