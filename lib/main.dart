@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+<<<<<<< PL-87/Feat/dodo/design-system
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+=======
+import 'package:flutter_naver_login/flutter_naver_login.dart';
+>>>>>>> develop
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:planit/repository/auth/auth_repository.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -49,6 +53,7 @@ class Home extends StatelessWidget {
       backgroundColor: PlanitColors.white01,
       body: Padding(
         padding: EdgeInsetsGeometry.all(40.0),
+<<<<<<< PL-87/Feat/dodo/design-system
         child: SingleChildScrollView(
           child: Column(
             spacing: 20.0,
@@ -177,6 +182,30 @@ class Home extends StatelessWidget {
               ),
             ],
           ),
+=======
+        child: Column(
+          children: [
+            // 카카오 로그인 테스트
+            ElevatedButton(
+              onPressed: () async {
+                AuthRepository().kakaoLogin();
+              },
+              child: Text('카카오 로그인'),
+            ),
+            // 구글 로그인 테스트
+            ElevatedButton(
+              onPressed: () async {
+                AuthRepository().googleLogin();
+              },
+              child: Text('구글 로그인'),
+            ),
+            ElevatedButton(
+                onPressed: () async {
+                  AuthRepository().naverLogin();
+                },
+                child: Text('네이버 로그인'))
+          ],
+>>>>>>> develop
         ),
       ),
     );
