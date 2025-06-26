@@ -8,12 +8,22 @@ class Assets {
   static const String edit = 'assets/icons/edit.svg';
   static const String more = 'assets/icons/more.svg';
   static const String x = 'assets/icons/x.svg';
+  static const String high = 'assets/icons/high.svg';
+  static const String low = 'assets/icons/low.svg';
 
-  // images
-  static const String planet1 = 'assets/images/planet1.png';
-  static const String planet2 = 'assets/images/planet2.png';
-  static const String planet3 = 'assets/images/planet3.png';
-  static const String planet4 = 'assets/images/planet4.png';
-  static const String planet5 = 'assets/images/planet5.png';
-  static const String planet6 = 'assets/images/planet6.png';
+  // planet
+  static const String planet1 = 'assets/planets/planet1.svg';
+  static const String planet2 = 'assets/planets/planet2.svg';
+  static const String planet3 = 'assets/planets/planet3.svg';
+  static const String planet4 = 'assets/planets/planet4.svg';
+  static const String planet5 = 'assets/planets/planet5.svg';
+  static const String planet6 = 'assets/planets/planet6.svg';
+
+  // template
+  static const String templateHealth = 'assets/templates/health.svg';
+  static const String templateMediation = 'assets/templates/mediation.svg';
+  static const String templateMoney = 'assets/templates/money.svg';
+  static const String templateSelfDevelopment =
+      'assets/templates/self_development.svg';
+  static const String templateSocial = 'assets/templates/social.svg';
 }
