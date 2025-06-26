@@ -18,5 +18,6 @@ class PlanitColors {
   static const Color black02 = Color(0xFF5A5A5A);
   static const Color black01 = Color(0xFF222222);
 
+  static const Color alert = Color(0xFFEC4343);
   static const Color transparent = Colors.transparent;
 }

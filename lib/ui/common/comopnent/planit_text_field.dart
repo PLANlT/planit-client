@@ -44,6 +44,7 @@ class PlanitTextField extends StatelessWidget {
       },
       onChanged: onChanged,
       keyboardType: keyboardType,
+      maxLines: 1,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
           horizontal: 20.0,
@@ -57,6 +58,20 @@ class PlanitTextField extends StatelessWidget {
         focusedBorder: baseBorder.copyWith(
           borderSide: BorderSide(
             color: PlanitColors.black01,
+          ),
+        ),
+        errorText: errorText,
+        errorStyle: PlanitTypos.caption.copyWith(
+          color: PlanitColors.alert,
+        ),
+        errorBorder: baseBorder.copyWith(
+          borderSide: BorderSide(
+            color: PlanitColors.alert,
+          ),
+        ),
+        focusedErrorBorder: baseBorder.copyWith(
+          borderSide: BorderSide(
+            color: PlanitColors.alert,
           ),
         ),
         hintText: hintText,
