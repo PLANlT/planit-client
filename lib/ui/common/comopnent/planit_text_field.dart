@@ -17,6 +17,7 @@ class PlanitTextField extends StatelessWidget {
   final String? hintText;
   final TextInputType? keyboardType;
   final bool enabled;
+  final int? maxLength;
 
   const PlanitTextField({
     super.key,
@@ -26,6 +27,7 @@ class PlanitTextField extends StatelessWidget {
     this.hintText,
     this.keyboardType,
     this.enabled = true,
+    this.maxLength,
   });
 
   @override
@@ -42,6 +44,7 @@ class PlanitTextField extends StatelessWidget {
       onTapOutside: (PointerDownEvent event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
+      maxLength: maxLength,
       onChanged: onChanged,
       keyboardType: keyboardType,
       maxLines: 1,
