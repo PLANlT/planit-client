@@ -12,18 +12,23 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 //   child: PlanitButton(
 //     onPressed: () {},
 //     buttonColor: PlanitButtonColor.white,
+//     buttonSize: PlanitButtonSize.large,
 //     label: '시작하기',
 //   ),
 // );
+/// Btn => PlanitButtonSize-large
+/// Btn_min => PlanitButtonSize-smalll
 class PlanitButton extends StatelessWidget {
   final VoidCallback onPressed;
   final PlanitButtonColor buttonColor;
+  final PlanitButtonSize buttonSize;
   final String label;
 
   const PlanitButton({
     super.key,
     required this.onPressed,
     required this.buttonColor,
+    required this.buttonSize,
     required this.label,
   });
 
@@ -41,17 +46,26 @@ class PlanitButton extends StatelessWidget {
         ? PlanitColors.black01
         : PlanitColors.white03;
 
+    final Color overlayColor = (buttonColor == PlanitButtonColor.black)
+        ? PlanitColors.white02
+        : PlanitColors.black04;
+
+    final double radius = (buttonSize == PlanitButtonSize.large) ? 30.0 : 37.0;
+
+    final double verticalPadding =
+        (buttonSize == PlanitButtonSize.large) ? 12.0 : 8.0;
+
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        overlayColor: PlanitColors.white03,
+        overlayColor: overlayColor,
         backgroundColor: backgroundColor,
         padding: EdgeInsets.symmetric(
-          vertical: 12.0,
-          horizontal: 16.0,
+          vertical: verticalPadding,
+          horizontal: 20.0,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(30.0),
+          borderRadius: BorderRadiusGeometry.circular(radius),
           side: BorderSide(
             color: borderColor,
             strokeAlign: 1.0,
