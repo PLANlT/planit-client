@@ -48,4 +48,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/
+    - assets/icons/
+    - assets/images/
+    - assets/planets/
+    - assets/templates/
     - assets/.env
+
+  fonts:
+    - family: Pretendard
+      fonts:
+        - asset: fonts/Pretendard-Regular.ttf
+          weight: 400
+        - asset: fonts/Pretendard-Medium.ttf
+          weight: 500
+        - asset: fonts/Pretendard-Bold.ttf
+          weight: 700

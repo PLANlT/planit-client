@@ -1,0 +1,29 @@
+// 오탈자 방지를 위해 Assets 경로를 String 변수로 관리합니다
+class Assets {
+  // icons
+  static const String chevronDown = 'assets/icons/chevron_down.svg';
+  static const String chevronLeft = 'assets/icons/chevron_left.svg';
+  static const String chevronRight = 'assets/icons/chevron_right.svg';
+  static const String chevronUp = 'assets/icons/chevron_up.svg';
+  static const String edit = 'assets/icons/edit.svg';
+  static const String more = 'assets/icons/more.svg';
+  static const String x = 'assets/icons/x.svg';
+  static const String high = 'assets/icons/high.svg';
+  static const String low = 'assets/icons/low.svg';
+
+  // planet
+  static const String planet1 = 'assets/planets/planet1.svg';
+  static const String planet2 = 'assets/planets/planet2.svg';
+  static const String planet3 = 'assets/planets/planet3.svg';
+  static const String planet4 = 'assets/planets/planet4.svg';
+  static const String planet5 = 'assets/planets/planet5.svg';
+  static const String planet6 = 'assets/planets/planet6.svg';
+
+  // template
+  static const String templateHealth = 'assets/templates/health.svg';
+  static const String templateMediation = 'assets/templates/mediation.svg';
+  static const String templateMoney = 'assets/templates/money.svg';
+  static const String templateSelfDevelopment =
+      'assets/templates/self_development.svg';
+  static const String templateSocial = 'assets/templates/social.svg';
+}

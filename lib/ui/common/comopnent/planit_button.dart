@@ -1,0 +1,83 @@
+import 'package:flutter/material.dart';
+import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/const/planit_button_style.dart';
+
+/// PlanitButtonColor는 enum값으로, 버튼 스타일입니다
+/// 크기 조절이 필요하다면 본 위젯을 SizedBox로 wrap해주세요
+/// 사용 예:
+/// SizedBox(
+//   width: 320.0,
+//   child: PlanitButton(
+//     onPressed: () {},
+//     buttonColor: PlanitButtonColor.white,
+//     buttonSize: PlanitButtonSize.large,
+//     label: '시작하기',
+//   ),
+// );
+/// Btn => PlanitButtonSize-large
+/// Btn_min => PlanitButtonSize-smalll
+class PlanitButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final PlanitButtonColor buttonColor;
+  final PlanitButtonSize buttonSize;
+  final String label;
+
+  const PlanitButton({
+    super.key,
+    required this.onPressed,
+    required this.buttonColor,
+    required this.buttonSize,
+    required this.label,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Color backgroundColor = (buttonColor == PlanitButtonColor.black)
+        ? PlanitColors.black01
+        : PlanitColors.white01;
+
+    final Color labelColor = (buttonColor == PlanitButtonColor.black)
+        ? PlanitColors.white01
+        : PlanitColors.black01;
+
+    final Color borderColor = (buttonColor == PlanitButtonColor.black)
+        ? PlanitColors.black01
+        : PlanitColors.white03;
+
+    final Color overlayColor = (buttonColor == PlanitButtonColor.black)
+        ? PlanitColors.white02
+        : PlanitColors.black04;
+
+    final double radius = (buttonSize == PlanitButtonSize.large) ? 30.0 : 37.0;
+
+    final double verticalPadding =
+        (buttonSize == PlanitButtonSize.large) ? 12.0 : 8.0;
+
+    return TextButton(
+      onPressed: onPressed,
+      style: TextButton.styleFrom(
+        overlayColor: overlayColor,
+        backgroundColor: backgroundColor,
+        padding: EdgeInsets.symmetric(
+          vertical: verticalPadding,
+          horizontal: 20.0,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(radius),
+          side: BorderSide(
+            color: borderColor,
+            strokeAlign: 1.0,
+          ),
+        ),
+      ),
+      child: PlanitText(
+        label,
+        style: PlanitTypos.body2.copyWith(
+          color: labelColor,
+        ),
+      ),
+    );
+  }
+}
