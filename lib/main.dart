@@ -5,15 +5,17 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:planit/repository/auth/auth_repository.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
-import 'package:planit/ui/common/comopnent/planit_chips.dart';
+import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text_field.dart';
 import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
+import 'package:planit/ui/main/component/task_widget.dart';
 
 Future<void> main() async {
   // runApp 실행전 초기화
@@ -45,6 +47,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final toast = FToast().init(context);
+
     return Scaffold(
       backgroundColor: PlanitColors.white01,
       body: Padding(
@@ -53,6 +57,10 @@ class Home extends StatelessWidget {
           child: Column(
             spacing: 20.0,
             children: [
+              Text(
+                '로그인 연동 테스트',
+                style: PlanitTypos.title1,
+              ),
               // 카카오 로그인 테스트
               ElevatedButton(
                 onPressed: () async {
@@ -74,20 +82,18 @@ class Home extends StatelessWidget {
                 child: Text('네이버 로그인'),
               ),
               // 위젯 테스트
+              Text(
+                'Btn',
+                style: PlanitTypos.title1,
+              ),
               SizedBox(
                 width: 320.0,
                 child: PlanitButton(
                   onPressed: () {},
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
-                  label: 'PlanitButton',
+                  label: 'Large Btn',
                 ),
-              ),
-              PlanitButton(
-                onPressed: tmp,
-                buttonColor: PlanitButtonColor.white,
-                buttonSize: PlanitButtonSize.small,
-                label: '시작하기',
               ),
               SizedBox(
                 width: 320.0,
@@ -95,32 +101,64 @@ class Home extends StatelessWidget {
                   onPressed: tmp,
                   buttonColor: PlanitButtonColor.white,
                   buttonSize: PlanitButtonSize.large,
-                  label: '길게길게 라벨을 길게길게길게 늘려보아요 길게길게 라벨을 길게길게길게 늘려보아요',
+                  label: '시작하기',
                 ),
               ),
-              PlanitChips(
-                chipsColor: PlanitChipsColor.black,
-                label: 'PlanitChips',
+              PlanitButton(
+                onPressed: () {},
+                buttonColor: PlanitButtonColor.black,
+                buttonSize: PlanitButtonSize.large,
+                label: 'Mini Btn',
+              ),              PlanitButton(
+                onPressed: () {},
+                buttonColor: PlanitButtonColor.black,
+                buttonSize: PlanitButtonSize.large,
+                label: '버튼 크기는 마구마구 조절할 수 있어요',
               ),
-              PlanitChips(
-                chipsColor: PlanitChipsColor.gray,
+
+              PlanitButton(
+                onPressed: tmp,
+                buttonColor: PlanitButtonColor.white,
+                buttonSize: PlanitButtonSize.small,
+                label: '시작하기',
+              ),
+              Text(
+                'Chip',
+                style: PlanitTypos.title1,
+              ),
+              PlanitChip(
+                chipColor: PlanitChipColor.black,
+                label: 'PlanitChip',
+              ),
+              PlanitChip(
+                chipColor: PlanitChipColor.gray,
                 label: 'Chip',
               ),
-              PlanitChips(
-                chipsColor: PlanitChipsColor.gray,
+              PlanitChip(
+                chipColor: PlanitChipColor.gray,
                 label: '길게길게 라벨을 길게길게길게 늘려보아요 길게길게 라벨을 길게길게길게 늘려보아요',
               ),
+              Text(
+                'Text Field',
+                style: PlanitTypos.title1,
+              ),
               SizedBox(
-                width: 80.0,
+                width: 180.0,
                 child: PlanitTextField(
-                  hintText: '내용을 입력하세요',
+                  hintText: '내용을 입력하세요.',
                 ),
               ),
               PlanitTextField(
+                hintText: '글자수 제한이 있습니다.',
                 maxLength: 50,
               ),
               PlanitTextField(
+                hintText: '에러가 있을 때는 이렇게 됩니다.',
                 errorText: '에러메시지 내용입니다.',
+              ),
+              Text(
+                'Bottom Sheet',
+                style: PlanitTypos.title1,
               ),
               ElevatedButton(
                 onPressed: () => showModalBottomSheet(
@@ -139,15 +177,11 @@ class Home extends StatelessWidget {
                     );
                   },
                 ),
-                child: Text('바텀시트 쇽'),
+                child: Text('바텀시트 올라오는 버튼이고 내부는 구현안했어요'),
               ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => RootTab(),
-                  ),
-                ),
-                child: Text('루트탭으로 꼬우'),
+              Text(
+                'Asset 잘 나오는지',
+                style: PlanitTypos.title1,
               ),
               SvgPicture.asset(
                 Assets.planet1,
@@ -164,16 +198,60 @@ class Home extends StatelessWidget {
               ),
               SvgPicture.asset(Assets.templateHealth),
               SvgPicture.asset(Assets.high),
+              Text(
+                'Toast',
+                style: PlanitTypos.title1,
+              ),
               ElevatedButton(
                 onPressed: () {
-                  final toast = FToast().init(context);
                   toast.showToast(
                     child: PlanitToast(
                       label: '짱이야, 해내버렸어요! 😍',
                     ),
                   );
                 },
-                child: Text('토스트 ON'),
+                child: Text('기본 토스트 뜨는 버튼'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  toast.showToast(
+                    child: PlanitToast(
+                      label: '일시적인 오류로 서비스 연결이 지연되고 있어요.\n같은 문제가 반복될 경우 고객센터에 문의해주세요.',
+                    ),
+                  );
+                },
+                child: Text('아주아주 긴 토스트 뜨는 버튼'),
+              ),
+              Text(
+                'Task',
+                style: PlanitTypos.title1,
+              ),
+              TaskWidget(
+                planTitle: '토익 890점 맞기',
+                tasks: [
+                  TempTaskModel(isCompleted: true, task: '동기부여 영상 1개 찾아보기'),
+                  TempTaskModel(isCompleted: true, task: '동기부여 영상 1개 찾아보기'),
+                ],
+                dDay: 32,
+              ),
+              TaskWidget(
+                planTitle: '토익 890점 맞기토익 890점 맞기토익 890',
+                tasks: [
+                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(isCompleted: true, task: '동기부여 영상 1개 찾아보기'),
+                ],
+                dDay: 3200,
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => RootTab(),
+                  ),
+                ),
+                child: Text('루트탭으로 꼬우'),
               ),
             ],
           ),
