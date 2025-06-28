@@ -9,6 +9,8 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_text_field.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/plan/component/custom_chip.dart';
+import 'package:planit/ui/plan/component/plan_warp_grid.dart';
 
 class PlanCreateView extends StatelessWidget {
   const PlanCreateView({super.key});
@@ -107,7 +109,7 @@ class PlanCreateView extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                    //DatePickerUI 구현
+                      //DatePickerUI 구현
                     },
                     child: CustomChip(title: '25.05.01')),
                 SizedBox(
@@ -169,69 +171,5 @@ class PlanCreateView extends StatelessWidget {
         ),
       ],
     ));
-  }
-}
-
-class PlanetWrapGrid extends StatelessWidget {
-  const PlanetWrapGrid({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final List<String> planetAssets = [
-      'assets/planets/planet1.svg',
-      'assets/planets/planet2.svg',
-      'assets/planets/planet3.svg',
-      'assets/planets/planet4.svg',
-      'assets/planets/planet5.svg',
-      'assets/planets/planet6.svg',
-    ];
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Wrap(
-        spacing: 20,
-        runSpacing: 20,
-        children: planetAssets.map((asset) {
-          return Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              color: PlanitColors.white02,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: SvgPicture.asset(asset),
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
-
-class CustomChip extends StatelessWidget {
-  final String title;
-  const CustomChip({
-    super.key,
-    required this.title,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 93,
-      height: 41,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-        border: Border.all(
-          color: PlanitColors.white03,
-          width: 1.5,
-        ),
-      ),
-      child: Center(
-        child: PlanitText(title,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: PlanitColors.black04)),
-      ),
-    );
   }
 }
