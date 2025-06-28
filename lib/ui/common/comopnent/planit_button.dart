@@ -55,6 +55,10 @@ class PlanitButton extends StatelessWidget {
     final double verticalPadding =
         (buttonSize == PlanitButtonSize.large) ? 12.0 : 8.0;
 
+    final TextStyle textStyle = (buttonSize == PlanitButtonSize.large)
+        ? PlanitTypos.body2
+        : PlanitTypos.body3;
+
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
@@ -74,7 +78,7 @@ class PlanitButton extends StatelessWidget {
       ),
       child: PlanitText(
         label,
-        style: PlanitTypos.body2.copyWith(
+        style: textStyle.copyWith(
           color: labelColor,
         ),
       ),
