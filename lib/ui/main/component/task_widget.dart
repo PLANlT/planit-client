@@ -70,10 +70,12 @@ class _Task extends StatelessWidget {
             width: 20.0,
             height: 20.0,
           ),
-          Text(
-            task.task,
-            style: PlanitTypos.body2.copyWith(
-              color: PlanitColors.black02,
+          Expanded(
+            child: Text(
+              task.task,
+              style: PlanitTypos.body2.copyWith(
+                color: PlanitColors.black02,
+              ),
             ),
           ),
         ],
