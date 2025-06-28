@@ -7,6 +7,7 @@ import 'package:planit/ui/common/comopnent/planit_chips.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/plan/plan_detail_view.dart';
 
 class PlanView extends StatelessWidget {
   const PlanView({super.key});
@@ -168,50 +169,60 @@ class planListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-            color: PlanitColors.white02,
-            borderRadius: BorderRadius.all(Radius.circular(8))),
-        width: 360,
-        height: 100,
-        child: Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            SvgPicture.asset(imagePath),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  PlanitText(title,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
-                  PlanitText(subtitle,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: PlanitColors.black02)),
-                  PlanitText('$routinNum개 루틴',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: PlanitColors.black02))
-                ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PlanDetailView(),
+          ),
+        );
+      },
+      child: Container(
+          decoration: BoxDecoration(
+              color: PlanitColors.white02,
+              borderRadius: BorderRadius.all(Radius.circular(8))),
+          width: 360,
+          height: 100,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10,
               ),
-            ),
-            PlanitChips(
-                chipsColor: PlanitChipsColor.black,
-                label: 'D-$dDay'), //COLOR: transparent 따로 구현
-            SizedBox(
-              width: 20,
-            ),
-          ],
-        ));
+              SvgPicture.asset(imagePath),
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    PlanitText(title,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w700)),
+                    PlanitText(subtitle,
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: PlanitColors.black02)),
+                    PlanitText('$routinNum개 루틴',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: PlanitColors.black02))
+                  ],
+                ),
+              ),
+              PlanitChips(
+                  chipsColor: PlanitChipsColor.black,
+                  label: 'D-$dDay'), 
+              SizedBox(
+                width: 20,
+              ),
+            ],
+          )),
+    );
   }
 }
 
