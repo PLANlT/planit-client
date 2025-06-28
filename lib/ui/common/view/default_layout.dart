@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/common/const/planit_button_style.dart';
-
-import '../comopnent/planit_button.dart';
 
 // 모든 view의 start 위젯입니다
 class DefaultLayout extends StatelessWidget {
