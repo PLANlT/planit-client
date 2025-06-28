@@ -64,7 +64,7 @@ class _PlanitBottomSheetHandle extends StatelessWidget {
         borderRadius: BorderRadius.circular(100.0),
         color: PlanitColors.white03,
       ),
-      width: 80.0,
+      width: 60.0,
       height: 3.0,
       margin: EdgeInsetsGeometry.only(
         top: 10.0,

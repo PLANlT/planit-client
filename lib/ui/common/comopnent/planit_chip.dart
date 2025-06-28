@@ -4,27 +4,27 @@ import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 
-/// PlanitChipsColor는 enum값으로, 칩 스타일입니다
+/// PlanitChipColor는 enum값으로, 칩 스타일입니다
 /// onTap은 선택값입니다
-class PlanitChips extends StatelessWidget {
-  final PlanitChipsColor chipsColor;
+class PlanitChip extends StatelessWidget {
+  final PlanitChipColor chipColor;
   final String label;
   final Function()? onTap;
 
-  const PlanitChips({
+  const PlanitChip({
     super.key,
-    required this.chipsColor,
+    required this.chipColor,
     required this.label,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color backgroundColor = (chipsColor == PlanitChipsColor.black)
+    final Color backgroundColor = (chipColor == PlanitChipColor.black)
         ? PlanitColors.black01
         : PlanitColors.white02;
 
-    final Color labelColor = (chipsColor == PlanitChipsColor.black)
+    final Color labelColor = (chipColor == PlanitChipColor.black)
         ? PlanitColors.white01
         : PlanitColors.black01;
 

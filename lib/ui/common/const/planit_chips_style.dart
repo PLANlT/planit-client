@@ -1,4 +1,4 @@
-enum PlanitChipsColor {
+enum PlanitChipColor {
   black,
   gray,
 }
