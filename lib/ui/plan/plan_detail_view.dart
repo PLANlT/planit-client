@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
-import 'package:planit/ui/common/comopnent/planit_chips.dart';
+import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_toggle.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
@@ -340,10 +340,10 @@ class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
                     }
                   });
                 },
-                child: PlanitChips(
-                  chipsColor: selectedConditions.contains('힘이 넘칠 때')
-                      ? PlanitChipsColor.black
-                      : PlanitChipsColor.gray,
+                child: PlanitChip(
+                  chipColor: selectedConditions.contains('힘이 넘칠 때')
+                      ? PlanitChipColor.black
+                      : PlanitChipColor.gray,
                   label: '🔥 힘이 넘칠 때',
                 ),
               ),
@@ -360,10 +360,10 @@ class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
                     }
                   });
                 },
-                child: PlanitChips(
-                  chipsColor: selectedConditions.contains('지쳤을 때')
-                      ? PlanitChipsColor.black
-                      : PlanitChipsColor.gray,
+                child: PlanitChip(
+                  chipColor: selectedConditions.contains('지쳤을 때')
+                      ? PlanitChipColor.black
+                      : PlanitChipColor.gray,
                   label: '💧 지쳤을 때',
                 ),
               ),
@@ -400,7 +400,6 @@ class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
                   showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
@@ -474,8 +473,8 @@ class ConditionTipBottomSheet extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              PlanitChips(
-                chipsColor: PlanitChipsColor.gray,
+              PlanitChip(
+                chipColor: PlanitChipColor.gray,
                 label: '🔥 힘이 넘칠 때',
               ),
             ],
@@ -507,9 +506,9 @@ class ConditionTipBottomSheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               children: [
-                _buildAlignedRow('자기소개서 플랜', '도입부 1차 완성'),
-                _buildAlignedRow('운동 플랜', '근력운동 30분'),
-                _buildAlignedRow('취업 플랜', '포트폴리오 항목 1개 정리'),
+                _conditionTipTableRow('자기소개서 플랜', '도입부 1차 완성'),
+                _conditionTipTableRow('운동 플랜', '근력운동 30분'),
+                _conditionTipTableRow('취업 플랜', '포트폴리오 항목 1개 정리'),
               ],
             ),
           ),
@@ -521,8 +520,8 @@ class ConditionTipBottomSheet extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              PlanitChips(
-                chipsColor: PlanitChipsColor.gray,
+              PlanitChip(
+                chipColor: PlanitChipColor.gray,
                 label: '💧 지쳤을 때',
               ),
             ],
@@ -554,9 +553,9 @@ class ConditionTipBottomSheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Column(
               children: [
-                _buildAlignedRow('자기소개서 플랜', '항목 별 키워드만 정리'),
-                _buildAlignedRow('운동 플랜', '스트레칭 5분'),
-                _buildAlignedRow('취업 플랜', '지원 기업 리스트 적기'),
+                _conditionTipTableRow('자기소개서 플랜', '항목 별 키워드만 정리'),
+                _conditionTipTableRow('운동 플랜', '스트레칭 5분'),
+                _conditionTipTableRow('취업 플랜', '지원 기업 리스트 적기'),
               ],
             ),
           ),
@@ -589,7 +588,7 @@ class ConditionTipBottomSheet extends StatelessWidget {
   }
 }
 
-Widget _buildAlignedRow(String left, String right) {
+Widget _conditionTipTableRow(String left, String right) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     child: Table(

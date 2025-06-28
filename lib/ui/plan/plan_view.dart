@@ -1,12 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:planit/theme/planit_colors.dart';
-import 'package:planit/ui/common/comopnent/planit_chips.dart';
+import 'package:planit/ui/common/comopnent/planit_button.dart';
+import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/plan/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_detail_view.dart';
 
 class PlanView extends StatelessWidget {
@@ -65,6 +67,22 @@ class PlanView extends StatelessWidget {
               automaticallyImplyLeading: false,
               title: PlanitText('내 플랜',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+              actions: [
+                PlanitButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlanCreateView(),
+                          ));
+                    },
+                    buttonColor: PlanitButtonColor.black,
+                    buttonSize: PlanitButtonSize.small,
+                    label: '+ 새 플랜'),
+                SizedBox(
+                  width: 20,
+                )
+              ],
             ),
             SizedBox(
               height: 20,
@@ -214,9 +232,7 @@ class planListCard extends StatelessWidget {
                   ],
                 ),
               ),
-              PlanitChips(
-                  chipsColor: PlanitChipsColor.black,
-                  label: 'D-$dDay'), 
+              PlanitChip(chipColor: PlanitChipColor.black, label: 'D-$dDay'),
               SizedBox(
                 width: 20,
               ),
