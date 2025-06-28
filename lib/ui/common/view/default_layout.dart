@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/const/planit_button_style.dart';
+
+import '../comopnent/planit_button.dart';
 
 // 모든 view의 start 위젯입니다
 class DefaultLayout extends StatelessWidget {
@@ -8,6 +11,7 @@ class DefaultLayout extends StatelessWidget {
   final Widget child;
   final String? title;
   final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton;
 
   const DefaultLayout({
     super.key,
@@ -15,6 +19,7 @@ class DefaultLayout extends StatelessWidget {
     this.backgroundColor,
     this.title,
     this.bottomNavigationBar,
+    this.floatingActionButton,
   });
 
   @override
@@ -24,6 +29,7 @@ class DefaultLayout extends StatelessWidget {
       appBar: renderAppBar(),
       body: child,
       bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
     );
   }
 
