@@ -7,12 +7,13 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/repository/plan/model/plan_overview_model.dart';
 import 'package:planit/ui/plan/component/custom_chip.dart';
+import 'package:planit/ui/plan/component/custom_plan_chip.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
-class planListCard extends StatelessWidget {
+class PlanListCard extends StatelessWidget {
   final PlanOverviewModel;
 
-  const planListCard({
+  const PlanListCard({
     super.key,
     this.PlanOverviewModel,
   });
@@ -32,20 +33,17 @@ class planListCard extends StatelessWidget {
           decoration: BoxDecoration(
               color: PlanitColors.white02,
               borderRadius: BorderRadius.all(Radius.circular(8))),
-          width: 360,
+          width: double.infinity,
           height: 100,
           child: Row(
             children: [
-              SizedBox(
-                width: 10,
-              ),
-              SvgPicture.asset(PlanOverviewModel.imagePath),
-              SizedBox(
-                width: 10,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: SvgPicture.asset(PlanOverviewModel.imagePath),
               ),
               Expanded(
                 child: Column(
-                  spacing: 5,
+                  spacing: 4,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -75,36 +73,3 @@ class planListCard extends StatelessWidget {
   }
 }
 
-class CustomPlanChip extends StatelessWidget {
-  final String title;
-  final Color backgroundcolor;
-  final Color textcolor;
-  final Color bordercolor;
-
-  const CustomPlanChip(
-      {super.key,
-      required this.title,
-      required this.backgroundcolor,
-      required this.textcolor,
-      required this.bordercolor});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 57,
-      height: 28,
-      decoration: BoxDecoration(
-        color: backgroundcolor,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
-        border: Border.all(
-          color: bordercolor,
-          width: 1.5,
-        ),
-      ),
-      child: Center(
-        child: PlanitText(title,
-            style: PlanitTypos.body3.copyWith(color: PlanitColors.black03)),
-      ),
-    );
-  }
-}

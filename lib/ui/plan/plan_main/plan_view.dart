@@ -39,96 +39,99 @@ class PlanView extends HookConsumerWidget {
               automaticallyImplyLeading: false,
               title: PlanitText('내 플랜', style: PlanitTypos.title2),
               actions: [
-                PlanitButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PlanCreateView(),
-                          ));
-                    },
-                    buttonColor: PlanitButtonColor.black,
-                    buttonSize: PlanitButtonSize.small,
-                    label: '+ 새 플랜'),
-                SizedBox(
-                  width: 20,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 25,
+                Padding(
+                  padding: EdgeInsetsGeometry.only(right: 20),
+                  child: PlanitButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PlanCreateView(),
+                            ));
+                      },
+                      buttonColor: PlanitButtonColor.black,
+                      buttonSize: PlanitButtonSize.small,
+                      label: '+ 새 플랜'),
                 ),
-                PlanitText('진행 중인 플랜',
-                    style: PlanitTypos.body2
-                        .copyWith(color: PlanitColors.black01)),
               ],
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24),
+                    child: PlanitText('진행 중인 플랜',
+                        style: PlanitTypos.body2
+                            .copyWith(color: PlanitColors.black01)),
+                  ),
+                ],
+              ),
             ),
 
             SizedBox(
               width: 360,
               child: ListView.builder(
-                  shrinkWrap: true,
+                  shrinkWrap:  true ,
                   itemCount: state.activePlans.length,
                   itemBuilder: (context, index) {
                     final item = state.activePlans[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: planListCard(
+                      child: PlanListCard(
                         PlanOverviewModel: item,
                       ),
                     );
                   }),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            //리스트뷰
-            Row(
-              children: [
-                SizedBox(
-                  width: 25,
-                ),
-                PlanitText('잠시 중단한 플랜',
-                    style: PlanitTypos.body2
-                        .copyWith(color: PlanitColors.black01)),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24),
+                    child: PlanitText('잠시 중단한 플랜',
+                        style: PlanitTypos.body2
+                            .copyWith(color: PlanitColors.black01)),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               width: 360,
               child: ListView.builder(
-                  shrinkWrap: true,
+                  shrinkWrap:  true ,
                   itemCount: state.pausePlans.length,
                   itemBuilder: (context, index) {
                     final item = state.pausePlans[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: planListCard(
+                      child: PlanListCard(
                         PlanOverviewModel: item,
                       ),
                     );
                   }),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 25,
-                ),
-                PlanitText(
-                  '템플릿',
-                  style:
-                      PlanitTypos.body2.copyWith(color: PlanitColors.black01),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24),
+                    child: PlanitText(
+                      '템플릿',
+                      style: PlanitTypos.body2
+                          .copyWith(color: PlanitColors.black01),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            templateList()
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: templateList(),
+            )
           ],
         ),
       ),
