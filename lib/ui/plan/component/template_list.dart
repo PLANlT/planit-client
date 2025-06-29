@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class templateList extends StatelessWidget {
-  final List<String> imagePath;
-
-  const templateList({super.key, required this.imagePath});
+  const templateList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<String> templateImage = [
+      'assets/templates/health.svg',
+      'assets/templates/mediation.svg',
+      'assets/templates/money.svg',
+      'assets/templates/self_development.svg',
+      'assets/templates/social.svg',
+    ];
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: SizedBox(
@@ -15,11 +20,11 @@ class templateList extends StatelessWidget {
         height: 100,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: imagePath.length,
+            itemCount: templateImage.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(right: 5),
-                child: SvgPicture.asset(imagePath[index]),
+                child: SvgPicture.asset(templateImage[index]),
               );
             }),
       ),

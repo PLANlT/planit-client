@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 
 class CustomChip extends StatelessWidget {
   final String title;
+  final Color backgroundcolor;
+  final Color textcolor;
+  final Color bordercolor;
   const CustomChip({
     super.key,
     required this.title,
+    required this.backgroundcolor,
+    required this.textcolor,
+    required this.bordercolor,
   });
 
   @override
@@ -15,18 +22,16 @@ class CustomChip extends StatelessWidget {
       width: 93,
       height: 41,
       decoration: BoxDecoration(
+        color: backgroundcolor,
         borderRadius: BorderRadius.all(Radius.circular(30)),
         border: Border.all(
-          color: PlanitColors.white03,
+          color: bordercolor,
           width: 1.5,
         ),
       ),
       child: Center(
         child: PlanitText(title,
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: PlanitColors.black04)),
+            style: PlanitTypos.body3.copyWith(color: PlanitColors.black03)),
       ),
     );
   }

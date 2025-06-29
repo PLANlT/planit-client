@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class planListCard extends StatelessWidget {
@@ -43,33 +45,66 @@ class planListCard extends StatelessWidget {
               ),
               Expanded(
                 child: Column(
+                  spacing: 5,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PlanitText(PlanOverviewModel.title,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700)),
+                        style: PlanitTypos.title3),
                     PlanitText(PlanOverviewModel.subtitle,
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: PlanitColors.black02)),
+                        style: PlanitTypos.caption
+                            .copyWith(color: PlanitColors.black02)),
                     PlanitText('${PlanOverviewModel.routinNum}개 루틴',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: PlanitColors.black02))
+                        style: PlanitTypos.caption
+                            .copyWith(color: PlanitColors.black02))
                   ],
                 ),
               ),
-              PlanitChip(
-                  chipColor: PlanitChipColor.black,
-                  label: 'D-${PlanOverviewModel.dDay}'),
+              CustomPlanChip(
+                bordercolor: PlanitColors.white01,
+                title: 'D-${PlanOverviewModel.dDay}',
+                backgroundcolor: PlanitColors.white01,
+                textcolor: PlanitColors.black03,
+              ),
               SizedBox(
                 width: 20,
               ),
             ],
           )),
+    );
+  }
+}
+
+class CustomPlanChip extends StatelessWidget {
+  final String title;
+  final Color backgroundcolor;
+  final Color textcolor;
+  final Color bordercolor;
+
+  const CustomPlanChip(
+      {super.key,
+      required this.title,
+      required this.backgroundcolor,
+      required this.textcolor,
+      required this.bordercolor});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 57,
+      height: 28,
+      decoration: BoxDecoration(
+        color: backgroundcolor,
+        borderRadius: BorderRadius.all(Radius.circular(30)),
+        border: Border.all(
+          color: bordercolor,
+          width: 1.5,
+        ),
+      ),
+      child: Center(
+        child: PlanitText(title,
+            style: PlanitTypos.body3.copyWith(color: PlanitColors.black03)),
+      ),
     );
   }
 }

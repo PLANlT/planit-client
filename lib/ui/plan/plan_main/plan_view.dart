@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
@@ -28,14 +29,6 @@ class PlanView extends HookConsumerWidget {
       return null;
     }, []);
 
-    final List<String> templateImage = [
-      'assets/templates/health.svg',
-      'assets/templates/mediation.svg',
-      'assets/templates/money.svg',
-      'assets/templates/self_development.svg',
-      'assets/templates/social.svg',
-    ];
-
     return DefaultLayout(
       child: SingleChildScrollView(
         child: Column(
@@ -44,8 +37,7 @@ class PlanView extends HookConsumerWidget {
               toolbarHeight: 92,
               backgroundColor: PlanitColors.white02,
               automaticallyImplyLeading: false,
-              title: PlanitText('내 플랜',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+              title: PlanitText('내 플랜', style: PlanitTypos.title2),
               actions: [
                 PlanitButton(
                     onPressed: () {
@@ -69,19 +61,18 @@ class PlanView extends HookConsumerWidget {
             Row(
               children: [
                 SizedBox(
-                  width: 20,
+                  width: 25,
                 ),
-                PlanitText(
-                  '진행 중인 플랜',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
+                PlanitText('진행 중인 플랜',
+                    style: PlanitTypos.body2
+                        .copyWith(color: PlanitColors.black01)),
               ],
             ),
 
             SizedBox(
               width: 360,
-              height: 400,
               child: ListView.builder(
+                  shrinkWrap: true,
                   itemCount: state.activePlans.length,
                   itemBuilder: (context, index) {
                     final item = state.activePlans[index];
@@ -93,22 +84,24 @@ class PlanView extends HookConsumerWidget {
                     );
                   }),
             ),
+            SizedBox(
+              height: 10,
+            ),
             //리스트뷰
             Row(
               children: [
                 SizedBox(
-                  width: 20,
+                  width: 25,
                 ),
-                PlanitText(
-                  '잠시 중단한 플랜',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
+                PlanitText('잠시 중단한 플랜',
+                    style: PlanitTypos.body2
+                        .copyWith(color: PlanitColors.black01)),
               ],
             ),
             SizedBox(
               width: 360,
-              height: 170,
               child: ListView.builder(
+                  shrinkWrap: true,
                   itemCount: state.pausePlans.length,
                   itemBuilder: (context, index) {
                     final item = state.pausePlans[index];
@@ -123,18 +116,19 @@ class PlanView extends HookConsumerWidget {
             Row(
               children: [
                 SizedBox(
-                  width: 20,
+                  width: 25,
                 ),
                 PlanitText(
                   '템플릿',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style:
+                      PlanitTypos.body2.copyWith(color: PlanitColors.black01),
                 ),
               ],
             ),
             SizedBox(
               height: 20,
             ),
-            templateList(imagePath: templateImage)
+            templateList()
           ],
         ),
       ),
