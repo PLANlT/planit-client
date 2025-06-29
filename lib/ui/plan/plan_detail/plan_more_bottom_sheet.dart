@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_edit_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/plan_edit_bottom_sheet.dart';
 
 class PlanMoreBottomSheet extends StatelessWidget {
   const PlanMoreBottomSheet({super.key});

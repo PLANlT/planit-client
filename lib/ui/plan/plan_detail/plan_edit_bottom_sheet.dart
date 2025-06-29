@@ -6,7 +6,7 @@ import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_toggle.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
-import 'package:planit/ui/plan/conditional_tip_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/conditional_tip_bottom_sheet.dart';
 
 
 

@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
@@ -7,45 +9,25 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/plan_list_card.dart';
 import 'package:planit/ui/plan/component/template_list.dart';
-import 'package:planit/ui/plan/plan_create_view.dart';
+import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
+import 'package:planit/ui/plan/plan_main/plan_state.dart';
+import 'package:planit/ui/plan/plan_main/plan_view_model.dart';
 
-class PlanView extends StatelessWidget {
+class PlanView extends HookConsumerWidget {
   const PlanView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> plan = [
-      {
-        'title': 'TOEIC 고득점',
-        'subtitle': '매일 조금씩 나아지는..',
-        'routinNum': 5,
-        'dDay': 12,
-        'imagePath': 'assets/planets/planet1.svg',
-      },
-      {
-        'title': '독서 습관',
-        'subtitle': '독서 습관을 기르자',
-        'routinNum': 2,
-        'dDay': 7,
-        'imagePath': 'assets/planets/planet3.svg',
-      },
-      {
-        'title': '헬스장 꾸준히 가기',
-        'subtitle': '작심삼일 10번이면 한달이다',
-        'routinNum': 3,
-        'dDay': 20,
-        'imagePath': 'assets/planets/planet6.svg',
-      },
-    ];
-    final List<Map<String, dynamic>> pausePlan = [
-      {
-        'title': '헬스장 꾸준히 가기',
-        'subtitle': '작심삼일 10번이면 한달이다',
-        'routinNum': 3,
-        'dDay': 20,
-        'imagePath': 'assets/planets/planet6.svg',
-      },
-    ];
+  Widget build(BuildContext context, WidgetRef ref) {
+    final PlanState state = ref.watch(planViewModelProvider);
+    final PlanViewModel viewmodel = ref.read(planViewModelProvider.notifier);
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        viewmodel.init();
+      });
+      return null;
+    }, []);
+
     final List<String> templateImage = [
       'assets/templates/health.svg',
       'assets/templates/mediation.svg',
@@ -55,7 +37,6 @@ class PlanView extends StatelessWidget {
     ];
 
     return DefaultLayout(
-      // TODO(창민): child 부터 수정하여 구현해주시면 됩니다!
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -101,17 +82,14 @@ class PlanView extends StatelessWidget {
               width: 360,
               height: 400,
               child: ListView.builder(
-                  itemCount: plan.length,
+                  itemCount: state.activePlans.length,
                   itemBuilder: (context, index) {
-                    final item = plan[index];
+                    final item = state.activePlans[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: planListCard(
-                          title: item['title'],
-                          subtitle: item['subtitle'],
-                          dDay: item['dDay'],
-                          imagePath: item['imagePath'],
-                          routinNum: item['routinNum']),
+                        PlanOverviewModel: item,
+                      ),
                     );
                   }),
             ),
@@ -131,17 +109,14 @@ class PlanView extends StatelessWidget {
               width: 360,
               height: 170,
               child: ListView.builder(
-                  itemCount: pausePlan.length,
+                  itemCount: state.pausePlans.length,
                   itemBuilder: (context, index) {
-                    final item = pausePlan[index];
+                    final item = state.pausePlans[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: planListCard(
-                          title: item['title'],
-                          subtitle: item['subtitle'],
-                          dDay: item['dDay'],
-                          imagePath: item['imagePath'],
-                          routinNum: item['routinNum']),
+                        PlanOverviewModel: item,
+                      ),
                     );
                   }),
             ),

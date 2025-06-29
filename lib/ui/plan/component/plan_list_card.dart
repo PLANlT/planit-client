@@ -4,31 +4,15 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
-import 'package:planit/ui/plan/plan_detail_view.dart';
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
+import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class planListCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final int routinNum;
-  final int dDay;
-  final String imagePath;
+  final PlanOverviewModel;
 
   const planListCard({
     super.key,
-    required this.title,
-    required this.subtitle,
-    required this.dDay,
-    required this.imagePath,
-    required this.routinNum,
+    this.PlanOverviewModel,
   });
 
   @override
@@ -53,7 +37,7 @@ class planListCard extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              SvgPicture.asset(imagePath),
+              SvgPicture.asset(PlanOverviewModel.imagePath),
               SizedBox(
                 width: 10,
               ),
@@ -62,15 +46,15 @@ class planListCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PlanitText(title,
+                    PlanitText(PlanOverviewModel.title,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w700)),
-                    PlanitText(subtitle,
+                    PlanitText(PlanOverviewModel.subtitle,
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: PlanitColors.black02)),
-                    PlanitText('$routinNum개 루틴',
+                    PlanitText('$PlanOverviewModel.routinNum개 루틴',
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -78,7 +62,9 @@ class planListCard extends StatelessWidget {
                   ],
                 ),
               ),
-              PlanitChip(chipColor: PlanitChipColor.black, label: 'D-$dDay'),
+              PlanitChip(
+                  chipColor: PlanitChipColor.black,
+                  label: 'D-${PlanOverviewModel.dDay}'),
               SizedBox(
                 width: 20,
               ),

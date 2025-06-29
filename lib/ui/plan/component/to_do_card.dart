@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_more_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/plan_more_bottom_sheet.dart';
 
 class todoCard extends StatelessWidget {
   final String title;
