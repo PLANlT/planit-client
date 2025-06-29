@@ -55,7 +55,6 @@ class PlanView extends HookConsumerWidget {
                 ),
               ],
             ),
-
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Row(
@@ -69,18 +68,17 @@ class PlanView extends HookConsumerWidget {
                 ],
               ),
             ),
-
             SizedBox(
               width: 360,
               child: ListView.builder(
-                  shrinkWrap:  true ,
+                  shrinkWrap: true,
                   itemCount: state.activePlans.length,
                   itemBuilder: (context, index) {
                     final item = state.activePlans[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: PlanListCard(
-                        PlanOverviewModel: item,
+                        plan: item,
                       ),
                     );
                   }),
@@ -101,14 +99,14 @@ class PlanView extends HookConsumerWidget {
             SizedBox(
               width: 360,
               child: ListView.builder(
-                  shrinkWrap:  true ,
+                  shrinkWrap: true,
                   itemCount: state.pausePlans.length,
                   itemBuilder: (context, index) {
                     final item = state.pausePlans[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: PlanListCard(
-                        PlanOverviewModel: item,
+                        plan: item,
                       ),
                     );
                   }),

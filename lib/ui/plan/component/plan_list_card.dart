@@ -11,11 +11,11 @@ import 'package:planit/ui/plan/component/custom_plan_chip.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class PlanListCard extends StatelessWidget {
-  final PlanOverviewModel;
+  final plan;
 
   const PlanListCard({
     super.key,
-    this.PlanOverviewModel,
+    this.plan,
   });
 
   @override
@@ -39,7 +39,7 @@ class PlanListCard extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: SvgPicture.asset(PlanOverviewModel.imagePath),
+                child: SvgPicture.asset(plan.imagePath),
               ),
               Expanded(
                 child: Column(
@@ -47,29 +47,28 @@ class PlanListCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    PlanitText(PlanOverviewModel.title,
-                        style: PlanitTypos.title3),
-                    PlanitText(PlanOverviewModel.subtitle,
+                    PlanitText(plan.title, style: PlanitTypos.title3),
+                    PlanitText(plan.subtitle,
                         style: PlanitTypos.caption
                             .copyWith(color: PlanitColors.black02)),
-                    PlanitText('${PlanOverviewModel.routinNum}개 루틴',
+                    PlanitText('${plan.routinNum}개 루틴',
                         style: PlanitTypos.caption
                             .copyWith(color: PlanitColors.black02))
                   ],
                 ),
               ),
-              CustomPlanChip(
-                bordercolor: PlanitColors.white01,
-                title: 'D-${PlanOverviewModel.dDay}',
-                backgroundcolor: PlanitColors.white01,
-                textcolor: PlanitColors.black03,
-              ),
-              SizedBox(
-                width: 20,
-              ),
+              if (plan.dDay != null)
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: CustomPlanChip(
+                    bordercolor: PlanitColors.white01,
+                    title: 'D-${plan.dDay}',
+                    backgroundcolor: PlanitColors.white01,
+                    textcolor: PlanitColors.black03,
+                  ),
+                ),
             ],
           )),
     );
   }
 }
-
