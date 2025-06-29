@@ -26,17 +26,16 @@ class PlanViewModel extends StateNotifier<PlanState> {
 
   Future<void> getPlanList() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
-    final RepositoryResult<List<PlanOverviewModel>> ActivePlanresult =
+    final RepositoryResult<List<PlanOverviewModel>> activePlanresult =
         await _planRepository.getActivePlanList();
-    final RepositoryResult<List<PlanOverviewModel>> PausePlanresult =
-        await _planRepository.getActivePlanList();
+    final RepositoryResult<List<PlanOverviewModel>> pausePlanresult =
+        await _planRepository.getPausePlanList();
 //ActivePlanList 불러오기 파트
-    switch (ActivePlanresult) {
+    switch (activePlanresult) {
       case SuccessRepositoryResult<List<PlanOverviewModel>>():
         state = state.copyWith(
           loadingStatus: LoadingStatus.success,
-          activePlans: ActivePlanresult.data,
-          pausePlans: ActivePlanresult.data,
+          activePlans: activePlanresult.data,
         );
       case FailureRepositoryResult<List<PlanOverviewModel>>():
         state = state.copyWith(
@@ -45,12 +44,11 @@ class PlanViewModel extends StateNotifier<PlanState> {
         );
     }
 //PausePlanList 불러오기 파트
-    switch (PausePlanresult) {
+    switch (pausePlanresult) {
       case SuccessRepositoryResult<List<PlanOverviewModel>>():
         state = state.copyWith(
           loadingStatus: LoadingStatus.success,
-          activePlans: PausePlanresult.data,
-          pausePlans: PausePlanresult.data,
+          pausePlans: pausePlanresult.data,
         );
       case FailureRepositoryResult<List<PlanOverviewModel>>():
         state = state.copyWith(

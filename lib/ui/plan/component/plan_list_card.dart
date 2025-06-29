@@ -54,7 +54,7 @@ class planListCard extends StatelessWidget {
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
                             color: PlanitColors.black02)),
-                    PlanitText('$PlanOverviewModel.routinNum개 루틴',
+                    PlanitText('${PlanOverviewModel.routinNum}개 루틴',
                         style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,

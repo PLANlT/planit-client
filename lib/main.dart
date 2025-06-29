@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
@@ -30,7 +31,11 @@ Future<void> main() async {
     javaScriptAppKey: dotenv.env['KAKAO_JAVASCRIPT_APP_KEY'],
   );
 
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -57,6 +62,14 @@ class Home extends StatelessWidget {
           child: Column(
             spacing: 20.0,
             children: [
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => RootTab(),
+                  ),
+                ),
+                child: Text('루트탭으로 꼬우'),
+              ),
               Text(
                 '로그인 연동 테스트',
                 style: PlanitTypos.title1,
@@ -109,7 +122,8 @@ class Home extends StatelessWidget {
                 buttonColor: PlanitButtonColor.black,
                 buttonSize: PlanitButtonSize.large,
                 label: 'Mini Btn',
-              ),              PlanitButton(
+              ),
+              PlanitButton(
                 onPressed: () {},
                 buttonColor: PlanitButtonColor.black,
                 buttonSize: PlanitButtonSize.large,
@@ -216,7 +230,8 @@ class Home extends StatelessWidget {
                 onPressed: () {
                   toast.showToast(
                     child: PlanitToast(
-                      label: '일시적인 오류로 서비스 연결이 지연되고 있어요.\n같은 문제가 반복될 경우 고객센터에 문의해주세요.',
+                      label:
+                          '일시적인 오류로 서비스 연결이 지연되고 있어요.\n같은 문제가 반복될 경우 고객센터에 문의해주세요.',
                     ),
                   );
                 },
@@ -237,21 +252,25 @@ class Home extends StatelessWidget {
               TaskWidget(
                 planTitle: '토익 890점 맞기토익 890점 맞기토익 890',
                 tasks: [
-                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
-                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
-                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
-                  TempTaskModel(isCompleted: true, task: '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(
+                      isCompleted: true,
+                      task:
+                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(
+                      isCompleted: true,
+                      task:
+                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(
+                      isCompleted: true,
+                      task:
+                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
+                  TempTaskModel(
+                      isCompleted: true,
+                      task:
+                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
                   TempTaskModel(isCompleted: true, task: '동기부여 영상 1개 찾아보기'),
                 ],
                 dDay: 3200,
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => RootTab(),
-                  ),
-                ),
-                child: Text('루트탭으로 꼬우'),
               ),
             ],
           ),
