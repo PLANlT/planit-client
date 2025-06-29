@@ -10,6 +10,10 @@ class Assets {
   static const String x = 'assets/icons/x.svg';
   static const String high = 'assets/icons/high.svg';
   static const String low = 'assets/icons/low.svg';
+  static const String guiltyFree = 'assets/icons/guilty_free.svg';
+  static const String profile = 'assets/icons/profile.svg';
+  static const String arrowLeft = 'assets/icons/arrow_left.svg';
+  static const String arrowRight = 'assets/icons/arrow_right.svg';
 
   // planet
   static const String planet1 = 'assets/planets/planet1.svg';
@@ -26,4 +30,12 @@ class Assets {
   static const String templateSelfDevelopment =
       'assets/templates/self_development.svg';
   static const String templateSocial = 'assets/templates/social.svg';
+
+  // mascot
+  static const String mascotDancingColor = 'assets/mascots/dancing_color.svg';
+  static const String mascotDancingMonochrome =
+      'assets/mascots/dancing_monochrome.svg';
+  static const String mascotSeatingColor = 'assets/mascots/seating_color.svg';
+  static const String mascotSeatingMonochrome =
+      'assets/mascots/seating_monochrome.svg';
 }
