@@ -59,7 +59,7 @@ class PlanListCard extends StatelessWidget {
               ),
               if (plan.dDay != null)
                 Padding(
-                  padding: const EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: CustomPlanChip(
                     bordercolor: PlanitColors.white01,
                     title: 'D-${plan.dDay}',

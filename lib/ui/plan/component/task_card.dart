@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view.dart';
@@ -15,7 +16,9 @@ class taskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+      ),
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -28,8 +31,7 @@ class taskCard extends StatelessWidget {
               width: 20,
             ),
             Expanded(
-              child: PlanitText(title,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+              child: PlanitText(title, style: PlanitTypos.body3),
             ),
             if (taskType == 'ALL') //나중에 서버님들한테 taskType 뭐 있는 지 물어보기
               Padding(
@@ -40,22 +42,19 @@ class taskCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 2.0),
               child: SvgPicture.asset(Assets.low),
             ),
-            SizedBox(
-              width: 5,
-            ),
-            GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: false,
-                    builder: (context) {
-                      return TaskMoreBottomSheetView();
-                    },
-                  );
-                },
-                child: SvgPicture.asset(Assets.more)),
-            SizedBox(
-              width: 15,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: false,
+                      builder: (context) {
+                        return TaskMoreBottomSheetView();
+                      },
+                    );
+                  },
+                  child: SvgPicture.asset(Assets.more)),
             ),
           ],
         ),

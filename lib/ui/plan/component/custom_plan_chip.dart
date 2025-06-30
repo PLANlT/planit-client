@@ -19,11 +19,11 @@ class CustomPlanChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 57,
+      width: 56,
       height: 28,
       decoration: BoxDecoration(
         color: backgroundcolor,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+        borderRadius: BorderRadius.all(Radius.circular(32)),
         border: Border.all(
           color: bordercolor,
           width: 1.5,

@@ -1,45 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 
 Widget conditionTipTableRow(String left, String right) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 6.0),
+    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
     child: Table(
       columnWidths: {
         0: FlexColumnWidth(4),
-        1: FixedColumnWidth(4),
-        2: FlexColumnWidth(6),
+        1: FixedColumnWidth(40),
+        2: FlexColumnWidth(4),
       },
       children: [
         TableRow(children: [
-          PlanitText(
-            left,
-            style: TextStyle(
+          PlanitText(left,
+              style: PlanitTypos.body3.copyWith(color: PlanitColors.black03)),
+          Padding(
+            padding: const EdgeInsets.only(right: double.infinity),
+            child: Icon(
+              Icons.keyboard_arrow_right_sharp,
+              size: 18,
               color: PlanitColors.black03,
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Center(
-              child: Icon(
-                Icons.keyboard_arrow_right_sharp,
-                size: 18,
-                color: PlanitColors.black03,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 50.0),
-            child: PlanitText(
-              right,
-              style: TextStyle(
-                color: PlanitColors.black03,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
+          PlanitText(
+            right,
+            style: PlanitTypos.body3.copyWith(
+              color: PlanitColors.black03,
             ),
           ),
         ]),

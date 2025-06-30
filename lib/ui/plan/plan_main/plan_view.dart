@@ -40,7 +40,7 @@ class PlanView extends HookConsumerWidget {
               title: PlanitText('내 플랜', style: PlanitTypos.title2),
               actions: [
                 Padding(
-                  padding: EdgeInsetsGeometry.only(right: 20),
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
                   child: PlanitButton(
                       onPressed: () {
                         Navigator.push(
@@ -60,7 +60,7 @@ class PlanView extends HookConsumerWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: PlanitText('진행 중인 플랜',
                         style: PlanitTypos.body2
                             .copyWith(color: PlanitColors.black01)),
@@ -88,7 +88,7 @@ class PlanView extends HookConsumerWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: PlanitText('잠시 중단한 플랜',
                         style: PlanitTypos.body2
                             .copyWith(color: PlanitColors.black01)),
@@ -116,7 +116,7 @@ class PlanView extends HookConsumerWidget {
               child: Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: PlanitText(
                       '템플릿',
                       style: PlanitTypos.body2
