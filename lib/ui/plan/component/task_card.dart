@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_detail/plan_more_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more_botrtom_sheet.dart';
 
 class taskCard extends StatelessWidget {
   final String title;
@@ -30,7 +31,7 @@ class taskCard extends StatelessWidget {
               child: PlanitText(title,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
             ),
-            if (taskType == 'ALL')
+            if (taskType == 'ALL') //나중에 서버님들한테 taskType 뭐 있는 지 물어보기
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
                 child: SvgPicture.asset(Assets.high),
@@ -46,12 +47,13 @@ class taskCard extends StatelessWidget {
                 onTap: () {
                   showModalBottomSheet(
                     context: context,
+                    isScrollControlled: false,
                     builder: (context) {
-                      return PlanMoreBottomSheet();
+                      return TaskMoreBotrtomSheet();
                     },
                   );
                 },
-                child: SvgPicture.asset('assets/icons/more.svg')),
+                child: SvgPicture.asset(Assets.more)),
             SizedBox(
               width: 15,
             ),

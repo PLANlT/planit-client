@@ -4,9 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more_bottom_sheet.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 
@@ -37,11 +39,43 @@ class PlanDetailView extends HookConsumerWidget {
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        AppBar(backgroundColor: PlanitColors.transparent),
-        SvgPicture.asset(
-          state.planDetail!.icon,
-          width: 120,
-          height: 120,
+        AppBar(
+          backgroundColor: PlanitColors.transparent,
+        ),
+        SizedBox(
+          width: double.infinity,
+          height: 136,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: SvgPicture.asset(
+                  state.planDetail!.icon,
+                  width: 120,
+                  height: 120,
+                ),
+              ),
+              Positioned(
+                top: 8,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return PlanMoreBottomSheet();
+                      },
+                    );
+                  },
+                  child: SvgPicture.asset(
+                    Assets.more,
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 12.0),
