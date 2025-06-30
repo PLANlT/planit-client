@@ -4,13 +4,16 @@ import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/repository/plan/model/task_model.dart';
 import 'package:planit/repository/plan/model/plan_overview_model.dart';
 
-part 'plan_detail_state.freezed.dart';
+part 'plan_edit_bottom_sheet_state.freezed.dart';
 
 @freezed
-abstract class PlanDetailState with _$PlanDetailState {
-  const factory PlanDetailState({
-    PlanDetailModel? planDetail,  //이렇게 해도 되는 지 물어보기
+abstract class PlanEditBottomSheetState with _$PlanEditBottomSheetState {
+  const factory PlanEditBottomSheetState({
+    @Default([]) List<String> routinDayList,
+    @Default([]) List<String> timeList,
+    @Default(false) bool timeSetting,
+    @Default([]) List<String> taskType,
     @Default(LoadingStatus.none) LoadingStatus loadingStatus,
     @Default('') String errorMessage,
-  }) = _PlanDetailState;
+  }) = _PlanEditBottomSheetState;
 }

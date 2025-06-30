@@ -3,8 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more_bottom_sheet.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more_botrtom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bottom_sheet_view.dart';
 
 class taskCard extends StatelessWidget {
   final String title;
@@ -49,7 +49,7 @@ class taskCard extends StatelessWidget {
                     context: context,
                     isScrollControlled: false,
                     builder: (context) {
-                      return TaskMoreBotrtomSheet();
+                      return TaskMoreBottomSheetView();
                     },
                   );
                 },

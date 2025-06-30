@@ -8,7 +8,7 @@ import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 

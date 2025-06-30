@@ -49,7 +49,8 @@ class PlanRepository {
     ]);
   }
 
-  Future<RepositoryResult<PlanDetailModel>> getPlanDetailByPlanId(int planId) async {
+  Future<RepositoryResult<PlanDetailModel>> getPlanDetailByPlanId(
+      int planId) async {
     return SuccessRepositoryResult(
       data: PlanDetailModel(
         planId: 0,
@@ -65,3 +66,4 @@ class PlanRepository {
     );
   }
 }
+

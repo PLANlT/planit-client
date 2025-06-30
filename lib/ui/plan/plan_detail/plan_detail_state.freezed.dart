@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$PlanDetailState {
-  PlanDetailModel? get planDetail;
+  PlanDetailModel? get planDetail; //이렇게 해도 되는 지 물어보기
   LoadingStatus get loadingStatus;
   String get errorMessage;
 
@@ -106,6 +106,7 @@ class _PlanDetailState implements PlanDetailState {
 
   @override
   final PlanDetailModel? planDetail;
+//이렇게 해도 되는 지 물어보기
   @override
   @JsonKey()
   final LoadingStatus loadingStatus;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
@@ -6,26 +7,22 @@ import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_toggle.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
-import 'package:planit/ui/plan/plan_detail/conditional_tip_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/conditional_tip_bottom_sheet.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_state.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_view_model.dart';
 
-
-
-class PlanEditBottomSheet extends StatefulWidget {
-  const PlanEditBottomSheet({super.key});
-
-  @override
-  State<PlanEditBottomSheet> createState() => _PlanEditBottomSheetState();
-}
-
-class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
-  final Set<int> selectedDayIndexes = {};
-  final Set<String> selectedConditions = {};
-  bool isSwitched = false;
+class PlanEditBottomSheetView extends HookConsumerWidget {
+  const PlanEditBottomSheetView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final PlanEditBottomSheetState state =
+        ref.watch(planEditViewModelProvider(0));
+    final PlanEditBottomSheetViewModel viewmodel =
+        ref.read(planEditViewModelProvider(0).notifier);
+
     return PlanitBottomSheet(
-      height: 605.0,
+      height: 604.0,
       content: Column(
         children: [
           SizedBox(
@@ -62,27 +59,21 @@ class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
             spacing: 5,
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(7, (index) {
-              final isSelected = selectedDayIndexes.contains(index);
               const days = ['월', '화', '수', '목', '금', '토', '일'];
               return GestureDetector(
                 onTap: () {
-                  setState(() {
-                    if (isSelected) {
-                      selectedDayIndexes.remove(index);
-                    } else {
-                      selectedDayIndexes.add(index);
-                    }
-                  });
+                  viewmodel.toggleDay(days[index]);
                 },
                 child: CircleAvatar(
                   radius: 25,
-                  backgroundColor:
-                      isSelected ? PlanitColors.black01 : PlanitColors.white02,
+                  backgroundColor: state.routinDayList.contains(days[index])
+                      ? PlanitColors.black01
+                      : PlanitColors.white02,
                   child: PlanitText(days[index],
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: isSelected
+                        color: state.routinDayList.contains(days[index])
                             ? PlanitColors.white01
                             : PlanitColors.black02,
                       )),
@@ -108,11 +99,9 @@ class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
               ),
               PlanitToggle(
                   onChanged: (value) {
-                    setState(() {
-                      isSwitched = value;
-                    });
+                    viewmodel.toggleTimeSetting();
                   },
-                  isOn: isSwitched)
+                  isOn: state.timeSetting)
             ],
           ),
           SizedBox(
@@ -164,16 +153,10 @@ class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    if (selectedConditions.contains('힘이 넘칠 때')) {
-                      selectedConditions.remove('힘이 넘칠 때');
-                    } else {
-                      selectedConditions.add('힘이 넘칠 때');
-                    }
-                  });
+                  viewmodel.toggleType('HIGH');
                 },
                 child: PlanitChip(
-                  chipColor: selectedConditions.contains('힘이 넘칠 때')
+                  chipColor: state.taskType.contains('HIGH')
                       ? PlanitChipColor.black
                       : PlanitChipColor.gray,
                   label: '🔥 힘이 넘칠 때',
@@ -184,16 +167,10 @@ class _PlanEditBottomSheetState extends State<PlanEditBottomSheet> {
               ),
               GestureDetector(
                 onTap: () {
-                  setState(() {
-                    if (selectedConditions.contains('지쳤을 때')) {
-                      selectedConditions.remove('지쳤을 때');
-                    } else {
-                      selectedConditions.add('지쳤을 때');
-                    }
-                  });
+                  viewmodel.toggleType('LOW');
                 },
                 child: PlanitChip(
-                  chipColor: selectedConditions.contains('지쳤을 때')
+                  chipColor: state.taskType.contains('LOW')
                       ? PlanitChipColor.black
                       : PlanitChipColor.gray,
                   label: '💧 지쳤을 때',
