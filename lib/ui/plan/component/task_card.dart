@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_detail/plan_more_bottom_sheet.dart';
 
-class todoCard extends StatelessWidget {
+class taskCard extends StatelessWidget {
   final String title;
-  final List<String> iconPaths;
+  final String taskType;
 
-  const todoCard({super.key, required this.title, required this.iconPaths});
+  const taskCard({super.key, required this.title, required this.taskType});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +30,15 @@ class todoCard extends StatelessWidget {
               child: PlanitText(title,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
             ),
-            for (var iconPath in iconPaths)
+            if (taskType == 'ALL')
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                child: SvgPicture.asset(iconPath, width: 20, height: 20),
+                child: SvgPicture.asset(Assets.high),
               ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: SvgPicture.asset(Assets.low),
+            ),
             SizedBox(
               width: 5,
             ),
@@ -56,4 +61,3 @@ class todoCard extends StatelessWidget {
     );
   }
 }
-

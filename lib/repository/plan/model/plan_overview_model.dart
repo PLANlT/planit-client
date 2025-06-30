@@ -1,3 +1,5 @@
+import 'package:planit/repository/plan/model/task_model.dart';
+
 class PlanOverviewModel {
   final String title;
   final String subtitle;

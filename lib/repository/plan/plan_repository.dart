@@ -1,6 +1,10 @@
+import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/repository_result.dart';
+import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/repository/plan/model/task_model.dart';
+import 'package:planit/ui/common/assets.dart';
 
 final AutoDisposeProvider<PlanRepository> planRepositoryProvider =
     Provider.autoDispose<PlanRepository>(
@@ -43,5 +47,21 @@ class PlanRepository {
           dDay: 20,
           imagePath: 'assets/planets/planet6.svg'),
     ]);
+  }
+
+  Future<RepositoryResult<PlanDetailModel>> getPlanDetailByPlanId(int planId) async {
+    return SuccessRepositoryResult(
+      data: PlanDetailModel(
+        planId: 0,
+        title: '다이어트',
+        icon: Assets.planet1,
+        motivation: '매일 조금씩 , 꾸준히 나아가자',
+        tasks: [
+          TaskModel(taskId: 0, taskType: 'ALL', title: '아침 식단 기록하기'),
+          TaskModel(taskId: 0, taskType: 'ALL', title: '30분 산책하기'),
+          TaskModel(taskId: 0, taskType: 'ALL', title: '저녁 과식 피하기'),
+        ],
+      ),
+    );
   }
 }
