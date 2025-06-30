@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:planit/ui/archiving/archiving_view.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/main/main_view.dart';
-import 'package:planit/ui/plan/plan_view.dart';
+import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 import '../../../theme/planit_colors.dart';
 
