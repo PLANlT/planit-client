@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class PlanitTypos {
   const PlanitTypos._();
 
+  // Design system
   static const TextStyle title1 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w700,
@@ -65,5 +66,51 @@ class PlanitTypos {
     letterSpacing: -0.24, // -0.02 * 12
     leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'Pretendard',
+  );
+
+  // Etc
+  static const TextStyle pretendardBlack120 = TextStyle(
+    fontSize: 120,
+    fontWeight: FontWeight.w900,
+    height: 1.5,
+    letterSpacing: -2.4, // -0.02 * 120
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'Pretendard',
+  );
+
+  static const TextStyle pretendardBlack90 = TextStyle(
+    fontSize: 90,
+    fontWeight: FontWeight.w900,
+    height: 1.0,
+    letterSpacing: -1.8, // -0.02 * 90
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'Pretendard',
+  );
+
+  static const TextStyle pretendardBlack60 = TextStyle(
+    fontSize: 60,
+    fontWeight: FontWeight.w900,
+    height: 1.5,
+    letterSpacing: -1.2, // -0.02 * 60
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'Pretendard',
+  );
+
+  static const TextStyle pretendardBlack40 = TextStyle(
+    fontSize: 40,
+    fontWeight: FontWeight.w900,
+    height: 1.0,
+    letterSpacing: -0.8, // -0.02 * 40
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'Pretendard',
+  );
+
+  static const TextStyle blackHansSansRegular48 = TextStyle(
+    fontSize: 48,
+    fontWeight: FontWeight.w400,
+    height: 1.0,
+    letterSpacing: -0.48, // -0.01 * 48
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'BlackHanSans',
   );
 }
