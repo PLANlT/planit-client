@@ -1,0 +1,17 @@
+default_platform(:android)
+
+platform :android do
+    desc "Planit"
+    lane :distribute do
+        # 번들 빌드 명령어 실행
+        sh("cd .. && fvm flutter build appbundle --release")
+
+        release = firebase_app_distribution(
+            app: "1:895754219044:android:b89609547619b1283332b1",
+            testers: "kimyohada226@gmail.com, eg4rang2003@gmail.com",
+            release_notes: "Fastlane으로 배포해볼게요!"
+            android_artifact_type: "AAB",
+            android_artifact_path: "../build/app/outputs/bundle/release/app-release.aab",
+        )
+    end
+end
