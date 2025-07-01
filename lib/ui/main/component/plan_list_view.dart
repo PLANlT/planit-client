@@ -5,15 +5,18 @@ import 'package:planit/ui/main/component/task_widget.dart';
 import '../../../repository/main/model/main_plan_model.dart';
 import '../../../theme/planit_colors.dart';
 import '../../../theme/planit_typos.dart';
+import '../main_view_model.dart';
 
 class PlanListView extends StatelessWidget {
   final List<MainPlanModel> plans;
   final bool showRecoveryRoutineBanner;
+  final OnCheckboxTap onCheckboxTap;
 
   const PlanListView({
     super.key,
     required this.plans,
     required this.showRecoveryRoutineBanner,
+    required this.onCheckboxTap,
   });
 
   @override
@@ -72,6 +75,8 @@ class PlanListView extends StatelessWidget {
                         planTitle: plan.planTitle,
                         tasks: plan.tasks,
                         dDay: plan.dDay,
+                        planIndex: index - 1,
+                        onCheckboxTap: onCheckboxTap,
                       ),
                     );
                   }
@@ -85,6 +90,8 @@ class PlanListView extends StatelessWidget {
                       planTitle: plan.planTitle,
                       tasks: plan.tasks,
                       dDay: plan.dDay,
+                      planIndex: index,
+                      onCheckboxTap: onCheckboxTap,
                     ),
                   );
                 }

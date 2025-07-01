@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/main/main_repository.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
+import 'package:planit/ui/main/component/task_widget.dart';
 import 'package:planit/ui/main/const/main_enums.dart';
 
 import 'main_state.dart';
@@ -71,4 +73,55 @@ class MainViewModel extends StateNotifier<MainState> {
           : RouteType.slow,
     );
   }
+
+  // Checkbox 클릭 시, planIndex & taskIndex 함께 사용해 할 일 식별하여 plans 변경
+  void onCheckboxTap ({
+    required int planIndex,
+    required int taskIndex,
+    required bool isCurrentCompleted,
+  }) {
+    // isCompleted 값이 업데이트 된 새로운 plan 리스트 구성
+    final updatedPlans = state.plans
+        .asMap()
+        .entries
+        .map((MapEntry<int, MainPlanModel> planEtries) {
+      // planIndex로 플랜 우선 식별하여 변경
+      if (planEtries.key == planIndex) {
+        // 해당 플랜의 tasks 수정
+        final List<TempTaskModel> updatedTasks = planEtries.value.tasks
+            .asMap()
+            .entries
+            .map((MapEntry<int, TempTaskModel> taskEntries) {
+          // 식별된 플랜 내에서 taskIndex로 태스크 식별
+          if (taskEntries.key == taskIndex) {
+            // isCompleted 변경된 태스크 반환
+            return TempTaskModel(
+              isCompleted: !isCurrentCompleted,
+              task: taskEntries.value.task,
+            );
+          } else {
+            // 그 외 태스크 유지
+            return taskEntries.value;
+          }
+        }).toList();
+        // 변경된 플랜 반환
+        return MainPlanModel(
+          planTitle: planEtries.value.planTitle,
+          tasks: updatedTasks,
+          dDay: planEtries.value.dDay,
+        );
+      } else {
+        // 그 외 플랜 유지
+        return planEtries.value;
+      }
+    }).toList();
+    // 변경된 플랜 리스트로 state 업데이트
+    state = state.copyWith(plans: updatedPlans);
+  }
 }
+
+typedef OnCheckboxTap = void Function({
+  required int planIndex,
+  required int taskIndex,
+  required bool isCurrentCompleted,
+});

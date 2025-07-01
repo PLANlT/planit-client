@@ -50,6 +50,7 @@ class MainView extends HookConsumerWidget {
                       plans: state.plans,
                       showRecoveryRoutineBanner:
                           state.showRecoveryRoutineBanner,
+                      onCheckboxTap: viewModel.onCheckboxTap,
                     ),
             ],
           ),
