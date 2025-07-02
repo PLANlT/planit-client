@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
@@ -121,8 +120,8 @@ class MainViewModel extends StateNotifier<MainState> {
     // 체크 안 함>체크 완료로 상태 변경 시 태스크 완료 토스트 노출되도록 message 변경
     if (!isCurrentCompleted) {
       state = state.copyWith(completeMessage: '짱이야, 해내버렸어요! 😍');
-      // 다른 태스크 완료 시에도 동작할 수 있도록 n초 유지 후 초기화
-      Future.delayed(Duration(seconds: 2), () {
+      // 다른 태스크 완료 시에도 동작할 수 있도록 잠시 유지 후 초기화
+      Future.delayed(Duration(milliseconds: 2500), () {
         state = state.copyWith(completeMessage: '');
       });
     }
