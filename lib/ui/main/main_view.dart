@@ -9,6 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/ui/main/main_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:planit/ui/main/main_view_model.dart';
+import 'package:planit/ui/main/view/first_complete_view.dart';
 
 import '../common/assets.dart';
 import 'component/main_top_widget.dart';
@@ -53,6 +54,17 @@ class MainView extends HookConsumerWidget {
               MainTopWidget(
                 status: state.taskStatus,
                 type: state.routeType,
+              ),
+              // 첫 달성 화면 확인용 임시 버튼
+              TextButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FirstCompleteView(
+                      consecutiveDays: 102,
+                    ),
+                  ),
+                ),
+                child: Text('첫 달성'),
               ),
               RouteSwitchBanner(
                 type: state.routeType,
