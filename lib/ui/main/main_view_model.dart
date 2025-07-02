@@ -117,6 +117,15 @@ class MainViewModel extends StateNotifier<MainState> {
     }).toList();
     // 변경된 플랜 리스트로 state 업데이트
     state = state.copyWith(plans: updatedPlans);
+
+    // 체크 안 함>체크 완료로 상태 변경 시 태스크 완료 토스트 노출되도록 message 변경
+    if (!isCurrentCompleted) {
+      state = state.copyWith(completeMessage: '짱이야, 해내버렸어요! 😍');
+      // 다른 태스크 완료 시에도 동작할 수 있도록 n초 유지 후 초기화
+      Future.delayed(Duration(seconds: 2), () {
+        state = state.copyWith(completeMessage: '');
+      });
+    }
   }
 }
 

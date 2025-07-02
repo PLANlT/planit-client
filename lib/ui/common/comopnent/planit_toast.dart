@@ -18,6 +18,7 @@ class PlanitToast extends StatelessWidget {
         vertical: 14.0,
         horizontal: 20.0,
       ),
+      margin: EdgeInsetsGeometry.only(bottom: 72.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(37.0),
         color: PlanitColors.black02.withValues(alpha: 0.7),
