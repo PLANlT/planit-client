@@ -30,13 +30,16 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
     state = state.copyWith(motivation: motivation);
   }
 
-  void updateIcon(int index) {}
+  void updateIcon(String icon) {
+    state = state.copyWith(icon: icon);
+  }
+
   void updateDday(String dDay) {
-    state.copyWith(dDay: dDay);
+    state = state.copyWith(dDay: dDay);
   }
 
   void updatePlanStatus(String planStatus) {
-    state.copyWith(planStatus: planStatus);
+    state = state.copyWith(planStatus: planStatus);
   }
 
   void makePlan() {}

@@ -10,7 +10,7 @@ import 'package:planit/ui/common/comopnent/planit_text_field.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/custom_chip.dart';
-import 'package:planit/ui/plan/component/plan_warp_grid.dart';
+import 'package:planit/ui/plan/component/plan_wrap_grid.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
 
@@ -61,6 +61,7 @@ class PlanCreateView extends HookConsumerWidget {
               child: PlanitTextField(
                 hintText: '당신의 목표는 무엇인가요?',
                 controller: titleController,
+                onChanged: viewmodel.updateTitle,
               ),
             ),
             Padding(
@@ -82,6 +83,7 @@ class PlanCreateView extends HookConsumerWidget {
               child: PlanitTextField(
                 hintText: '이 플랜을 지속할 수 있는 요소가 있나요?',
                 controller: motivationController,
+                onChanged: viewmodel.updateMotivation,
               ),
             ),
             Padding(
@@ -102,8 +104,13 @@ class PlanCreateView extends HookConsumerWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: PlanetWrapGrid(),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
+              child: PlanetWrapGrid(
+                  selectedIcon: state.icon,
+                  onSelect: (asset) {
+                    viewmodel.updateIcon(asset);
+                  }),
             ),
             Padding(
               padding:
@@ -155,8 +162,20 @@ class PlanCreateView extends HookConsumerWidget {
               child: Row(
                 spacing: 8,
                 children: [
-                  PlanitChip(chipColor: PlanitChipColor.black, label: '진행 중'),
-                  PlanitChip(chipColor: PlanitChipColor.gray, label: '중단'),
+                  GestureDetector(
+                      onTap: () => viewmodel.updatePlanStatus('IN_PROGRESS'),
+                      child: PlanitChip(
+                          chipColor: state.planStatus == 'IN_PROGRESS'
+                              ? PlanitChipColor.black
+                              : PlanitChipColor.gray,
+                          label: '진행 중')),
+                  GestureDetector(
+                      onTap: () => viewmodel.updatePlanStatus('PAUSED'),
+                      child: PlanitChip(
+                          chipColor: state.planStatus == 'PAUSED'
+                              ? PlanitChipColor.black
+                              : PlanitChipColor.gray,
+                          label: '중단')),
                 ],
               ),
             ),
