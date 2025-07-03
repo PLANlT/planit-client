@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PlanitColors {
+  // Design system
   static const Color primary = Color(0xFFFFCD05);
 
   static const Color pink = Color(0xFFFF6B9D);
@@ -20,4 +21,8 @@ class PlanitColors {
 
   static const Color alert = Color(0xFFEC4343);
   static const Color transparent = Colors.transparent;
+
+  // Etc
+  static const Color gradient1 = Color(0xFFF3FFCE);
+  static const Color gradient2 = Color(0XFF96E19D);
 }

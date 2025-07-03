@@ -37,26 +37,30 @@ class RouteSwitchBanner extends StatelessWidget {
             onPressed: onLeftArrowPressed,
             icon: SvgPicture.asset(Assets.arrowLeft),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                isSlow ? '천천히 루트' : '열정 루트',
-                style: isSlow
-                    ? PlanitTypos.title2.copyWith(
-                        color: PlanitColors.black01,
-                      )
-                    : PlanitTypos.title1.copyWith(
-                        color: PlanitColors.black01,
-                      ),
-              ),
-              Text(
-                '오늘도 한 걸음이면 돼요.',
-                style: PlanitTypos.caption.copyWith(
-                  color: PlanitColors.white01,
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 150),
+            child: Column(
+              key: ValueKey(type),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  isSlow ? '천천히 루트' : '열정 루트',
+                  style: isSlow
+                      ? PlanitTypos.title2.copyWith(
+                          color: PlanitColors.black01,
+                        )
+                      : PlanitTypos.title1.copyWith(
+                          color: PlanitColors.black01,
+                        ),
                 ),
-              )
-            ],
+                Text(
+                  '오늘도 한 걸음이면 돼요.',
+                  style: PlanitTypos.caption.copyWith(
+                    color: PlanitColors.white01,
+                  ),
+                )
+              ],
+            ),
           ),
           IconButton(
             padding: EdgeInsets.zero,

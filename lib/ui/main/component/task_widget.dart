@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
+
+import '../main_view_model.dart';
 
 class TaskWidget extends StatelessWidget {
   final String planTitle;
   final List<TempTaskModel> tasks;
   final int? dDay;
+  final int planIndex;
+  final OnCheckboxTap onCheckboxTap;
 
   const TaskWidget({
     super.key,
     required this.planTitle,
     required this.tasks,
     required this.dDay,
+    required this.planIndex,
+    required this.onCheckboxTap,
   });
 
   @override
@@ -32,9 +40,14 @@ class TaskWidget extends StatelessWidget {
           children: [
             _PlanTitle(planTitle: planTitle),
             SizedBox(height: 8.0),
-            ...tasks.map(
-              (task) => _Task(task: task),
-            ),
+            ...tasks.asMap().entries.map(
+                  (MapEntry<int, TempTaskModel> e) => _Task(
+                    task: e.value,
+                    planIndex: planIndex,
+                    taskIndex: e.key,
+                    onCheckboxTap: onCheckboxTap,
+                  ),
+                ),
             SizedBox(height: 8.0),
             Align(
               alignment: Alignment.centerRight,
@@ -49,9 +62,15 @@ class TaskWidget extends StatelessWidget {
 
 class _Task extends StatelessWidget {
   final TempTaskModel task;
+  final OnCheckboxTap onCheckboxTap;
+  final int planIndex;
+  final int taskIndex;
 
   const _Task({
     required this.task,
+    required this.onCheckboxTap,
+    required this.planIndex,
+    required this.taskIndex,
   });
 
   @override
@@ -63,13 +82,15 @@ class _Task extends StatelessWidget {
       child: Row(
         spacing: 10.0,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: PlanitColors.white01,
-              borderRadius: BorderRadius.circular(4.0),
+          GestureDetector(
+            onTap: () => onCheckboxTap(
+              planIndex: planIndex,
+              taskIndex: taskIndex,
+              isCurrentCompleted: task.isCompleted,
             ),
-            width: 20.0,
-            height: 20.0,
+            child: _Checkbox(
+              isChecked: task.isCompleted,
+            ),
           ),
           Expanded(
             child: PlanitText(
@@ -163,4 +184,32 @@ class TempTaskModel {
     required this.isCompleted,
     required this.task,
   });
+}
+
+class _Checkbox extends StatelessWidget {
+  final bool isChecked;
+
+  const _Checkbox({
+    required this.isChecked,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: PlanitColors.white01,
+        borderRadius: BorderRadius.circular(4.0),
+      ),
+      width: 20.0,
+      height: 20.0,
+      child: Padding(
+        padding: EdgeInsetsGeometry.all(4.0),
+        child: isChecked
+            ? SvgPicture.asset(
+                Assets.check,
+              )
+            : SizedBox.shrink(),
+      ),
+    );
+  }
 }

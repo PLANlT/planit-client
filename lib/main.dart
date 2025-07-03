@@ -16,7 +16,6 @@ import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
-import 'package:planit/ui/main/component/task_widget.dart';
 
 Future<void> main() async {
   // runApp 실행전 초기화
@@ -240,37 +239,6 @@ class Home extends StatelessWidget {
               Text(
                 'Task',
                 style: PlanitTypos.title1,
-              ),
-              TaskWidget(
-                planTitle: '토익 890점 맞기',
-                tasks: [
-                  TempTaskModel(isCompleted: true, task: '동기부여 영상 1개 찾아보기'),
-                  TempTaskModel(isCompleted: true, task: '동기부여 영상 1개 찾아보기'),
-                ],
-                dDay: 32,
-              ),
-              TaskWidget(
-                planTitle: '토익 890점 맞기토익 890점 맞기토익 890',
-                tasks: [
-                  TempTaskModel(
-                      isCompleted: true,
-                      task:
-                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
-                  TempTaskModel(
-                      isCompleted: true,
-                      task:
-                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
-                  TempTaskModel(
-                      isCompleted: true,
-                      task:
-                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
-                  TempTaskModel(
-                      isCompleted: true,
-                      task:
-                          '아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기 아침 식단 기록하기 아침 식단 기록하기아침 식단 기록하기'),
-                  TempTaskModel(isCompleted: true, task: '동기부여 영상 1개 찾아보기'),
-                ],
-                dDay: 3200,
               ),
             ],
           ),

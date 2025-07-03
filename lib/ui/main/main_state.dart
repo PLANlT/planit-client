@@ -14,5 +14,6 @@ abstract class MainState with _$MainState {
     @Default(LoadingStatus.none) LoadingStatus loadingStatus,
     @Default(true) bool showRecoveryRoutineBanner,
     @Default('') String errorMessage,
+    @Default('') String completeMessage,
   }) = _MainState;
 }
