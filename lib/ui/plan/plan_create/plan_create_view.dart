@@ -21,6 +21,7 @@ class PlanCreateView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     PlanCreateState state = ref.watch(planViewModelProvider);
     PlanCreateViewModel viewmodel = ref.read(planViewModelProvider.notifier);
+
     final titleController = useTextEditingController();
     final motivationController = useTextEditingController();
 
@@ -39,9 +40,19 @@ class PlanCreateView extends HookConsumerWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 12),
-              child: PlanitText(
-                '플랜 제목',
-                style: PlanitTypos.body2.copyWith(color: PlanitColors.black02),
+              child: Row(
+                children: [
+                  PlanitText(
+                    '플랜 제목',
+                    style:
+                        PlanitTypos.body2.copyWith(color: PlanitColors.black02),
+                  ),
+                  PlanitText(
+                    '*',
+                    style:
+                        PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+                  ),
+                ],
               ),
             ),
             Padding(
@@ -75,11 +86,20 @@ class PlanCreateView extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: PlanitText('행성 아이콘 선택',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: PlanitColors.black02)),
+              child: Row(
+                children: [
+                  PlanitText('행성 아이콘 선택',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          color: PlanitColors.black02)),
+                  PlanitText(
+                    '*',
+                    style:
+                        PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -117,9 +137,18 @@ class PlanCreateView extends HookConsumerWidget {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 8),
-              child: PlanitText('플랜 진행 여부',
-                  style:
-                      PlanitTypos.body2.copyWith(color: PlanitColors.black02)),
+              child: Row(
+                children: [
+                  PlanitText('플랜 진행 여부',
+                      style: PlanitTypos.body2
+                          .copyWith(color: PlanitColors.black02)),
+                  PlanitText(
+                    '*',
+                    style:
+                        PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
