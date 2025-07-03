@@ -7,7 +7,7 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/repository/plan/model/plan_overview_model.dart';
 import 'package:planit/ui/plan/component/custom_chip.dart';
-import 'package:planit/ui/plan/component/custom_plan_chip.dart';
+import 'package:planit/ui/plan/component/plan_main_chip.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class PlanListCard extends StatelessWidget {
@@ -59,8 +59,8 @@ class PlanListCard extends StatelessWidget {
               ),
               if (plan.dDay != null)
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: CustomPlanChip(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: PlanMainchip(
                     bordercolor: PlanitColors.white01,
                     title: 'D-${plan.dDay}',
                     backgroundcolor: PlanitColors.white01,

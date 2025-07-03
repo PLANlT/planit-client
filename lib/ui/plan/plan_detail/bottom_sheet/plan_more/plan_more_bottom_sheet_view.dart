@@ -11,38 +11,39 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PlanitBottomSheet(
-      height: 236.0,
-      content: Column(
-        spacing: 8.0,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 12),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => PlanEditBottomSheetView(),
-                );
-              },
-              child: PlanitText('플랜 수정', style: PlanitTypos.body2),
+    return Wrap(children: [
+      PlanitBottomSheet(
+        content: Column(
+          spacing: 8.0,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) => PlanEditBottomSheetView(),
+                  );
+                },
+                child: PlanitText('플랜 수정', style: PlanitTypos.body2),
+              ),
             ),
-          ),
-          Divider(
-            color: PlanitColors.white03,
-          ),
-          PlanitText(
-            '플랜 삭제',
-            style: PlanitTypos.body2.copyWith(color: PlanitColors.alert),
-          ),
-          Divider(
-            color: PlanitColors.white03,
-          ),
-          PlanitText('🎉 목표 달성하기 🎉', style: PlanitTypos.body2)
-        ],
+            Divider(
+              color: PlanitColors.white03,
+            ),
+            PlanitText(
+              '플랜 삭제',
+              style: PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+            ),
+            Divider(
+              color: PlanitColors.white03,
+            ),
+            PlanitText('🎉 목표 달성하기 🎉', style: PlanitTypos.body2)
+          ],
+        ),
       ),
-    );
+    ]);
   }
 }

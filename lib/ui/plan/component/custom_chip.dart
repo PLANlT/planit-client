@@ -3,12 +3,12 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 
-class CustomChip extends StatelessWidget {
+class PlanCreateChip extends StatelessWidget {
   final String title;
   final Color backgroundcolor;
   final Color textcolor;
   final Color bordercolor;
-  const CustomChip({
+  const PlanCreateChip({
     super.key,
     required this.title,
     required this.backgroundcolor,
@@ -19,8 +19,7 @@ class CustomChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 92,
-      height: 40,
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       decoration: BoxDecoration(
         color: backgroundcolor,
         borderRadius: BorderRadius.all(Radius.circular(32)),

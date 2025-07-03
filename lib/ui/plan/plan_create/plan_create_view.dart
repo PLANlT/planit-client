@@ -111,15 +111,12 @@ class PlanCreateView extends StatelessWidget {
                     onTap: () {
                       //DatePickerUI 구현
                     },
-                    child: CustomChip(
+                    child: PlanCreateChip(
                       bordercolor: PlanitColors.black03,
                       title: '25.05.01',
-                      textcolor: PlanitColors.white01,
-                      backgroundcolor: PlanitColors.black03,
+                      textcolor: PlanitColors.black03,
+                      backgroundcolor: PlanitColors.white01,
                     )),
-                SizedBox(
-                  width: 5,
-                ),
                 PlanitText('까지 | D-',
                     style: TextStyle(
                         fontSize: 14,
