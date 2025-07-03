@@ -5,7 +5,7 @@ import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
-import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/component/plan_main_chip.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
@@ -39,7 +39,7 @@ class PlanListCard extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: SvgPicture.asset(plan.imagePath),
+                child: SvgPicture.asset(plan.icon),
               ),
               Expanded(
                 child: Column(
@@ -48,10 +48,10 @@ class PlanListCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PlanitText(plan.title, style: PlanitTypos.title3),
-                    PlanitText(plan.subtitle,
+                    PlanitText(plan.motivation,
                         style: PlanitTypos.caption
                             .copyWith(color: PlanitColors.black02)),
-                    PlanitText('${plan.routinNum}개 루틴',
+                    PlanitText('${plan.totalTask}개 루틴',
                         style: PlanitTypos.caption
                             .copyWith(color: PlanitColors.black02))
                   ],

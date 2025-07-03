@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/plan/model/plan_detail_model.dart';
-import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/repository/plan/model/task_model.dart';
 import 'package:planit/ui/common/assets.dart';
 
@@ -15,37 +15,41 @@ class PlanRepository {
   const PlanRepository();
 
   //서버 연결되면 바꾸기!!!!!!
-  Future<RepositoryResult<List<PlanOverviewModel>>> getActivePlanList() async {
+  Future<RepositoryResult<List<PlanModel>>> getActivePlanList() async {
     return SuccessRepositoryResult(data: [
-      PlanOverviewModel(
+      PlanModel(
+          planId: 0,
           title: 'TOEIC 고득점',
-          subtitle: '매일 조금씩 나아지는..',
-          routinNum: 5,
+          motivation: '매일 조금씩 나아지는..',
+          totalTask: 5,
           dDay: 12,
-          imagePath: 'assets/planets/planet1.svg'),
-      PlanOverviewModel(
+          icon: 'assets/planets/planet1.svg'),
+      PlanModel(
+          planId: 1,
           title: '독서 습관',
-          subtitle: '독서 습관을 기르자',
-          routinNum: 2,
+          motivation: '독서 습관을 기르자',
+          totalTask: 2,
           dDay: 7,
-          imagePath: 'assets/planets/planet3.svg'),
-      PlanOverviewModel(
+          icon: 'assets/planets/planet3.svg'),
+      PlanModel(
+          planId: 2,
           title: '헬스장 꾸준히 가기',
-          subtitle: '작심삼일 10번이면 한달이다',
-          routinNum: 3,
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
           dDay: 20,
-          imagePath: 'assets/planets/planet6.svg'),
+          icon: 'assets/planets/planet6.svg'),
     ]);
   }
 
-  Future<RepositoryResult<List<PlanOverviewModel>>> getPausePlanList() async {
+  Future<RepositoryResult<List<PlanModel>>> getPausePlanList() async {
     return SuccessRepositoryResult(data: [
-      PlanOverviewModel(
+      PlanModel(
+          planId: 5,
           title: '헬스장 꾸준히 가기',
-          subtitle: '작심삼일 10번이면 한달이다',
-          routinNum: 3,
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
           dDay: 20,
-          imagePath: 'assets/planets/planet6.svg'),
+          icon: 'assets/planets/planet6.svg'),
     ]);
   }
 
@@ -66,4 +70,3 @@ class PlanRepository {
     );
   }
 }
-
