@@ -7,11 +7,11 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bottom_sheet_view.dart';
 
-class taskCard extends StatelessWidget {
+class TaskCard extends StatelessWidget {
   final String title;
   final String taskType;
 
-  const taskCard({super.key, required this.title, required this.taskType});
+  const TaskCard({super.key, required this.title, required this.taskType});
 
   @override
   Widget build(BuildContext context) {
