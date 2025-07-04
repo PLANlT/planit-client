@@ -16,6 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AppState {
   bool get isSignedIn;
+  GuiltyFreeStatus get guiltyFreeStatus;
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
@@ -30,15 +31,17 @@ mixin _$AppState {
         (other.runtimeType == runtimeType &&
             other is AppState &&
             (identical(other.isSignedIn, isSignedIn) ||
-                other.isSignedIn == isSignedIn));
+                other.isSignedIn == isSignedIn) &&
+            (identical(other.guiltyFreeStatus, guiltyFreeStatus) ||
+                other.guiltyFreeStatus == guiltyFreeStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isSignedIn);
+  int get hashCode => Object.hash(runtimeType, isSignedIn, guiltyFreeStatus);
 
   @override
   String toString() {
-    return 'AppState(isSignedIn: $isSignedIn)';
+    return 'AppState(isSignedIn: $isSignedIn, guiltyFreeStatus: $guiltyFreeStatus)';
   }
 }
 
@@ -47,7 +50,7 @@ abstract mixin class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) _then) =
       _$AppStateCopyWithImpl;
   @useResult
-  $Res call({bool isSignedIn});
+  $Res call({bool isSignedIn, GuiltyFreeStatus guiltyFreeStatus});
 }
 
 /// @nodoc
@@ -63,12 +66,17 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
   @override
   $Res call({
     Object? isSignedIn = null,
+    Object? guiltyFreeStatus = null,
   }) {
     return _then(_self.copyWith(
       isSignedIn: null == isSignedIn
           ? _self.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
               as bool,
+      guiltyFreeStatus: null == guiltyFreeStatus
+          ? _self.guiltyFreeStatus
+          : guiltyFreeStatus // ignore: cast_nullable_to_non_nullable
+              as GuiltyFreeStatus,
     ));
   }
 }
@@ -76,11 +84,15 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
 /// @nodoc
 
 class _AppState implements AppState {
-  const _AppState({this.isSignedIn = false});
+  const _AppState(
+      {this.isSignedIn = false, this.guiltyFreeStatus = GuiltyFreeStatus.none});
 
   @override
   @JsonKey()
   final bool isSignedIn;
+  @override
+  @JsonKey()
+  final GuiltyFreeStatus guiltyFreeStatus;
 
   /// Create a copy of AppState
   /// with the given fields replaced by the non-null parameter values.
@@ -96,15 +108,17 @@ class _AppState implements AppState {
         (other.runtimeType == runtimeType &&
             other is _AppState &&
             (identical(other.isSignedIn, isSignedIn) ||
-                other.isSignedIn == isSignedIn));
+                other.isSignedIn == isSignedIn) &&
+            (identical(other.guiltyFreeStatus, guiltyFreeStatus) ||
+                other.guiltyFreeStatus == guiltyFreeStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isSignedIn);
+  int get hashCode => Object.hash(runtimeType, isSignedIn, guiltyFreeStatus);
 
   @override
   String toString() {
-    return 'AppState(isSignedIn: $isSignedIn)';
+    return 'AppState(isSignedIn: $isSignedIn, guiltyFreeStatus: $guiltyFreeStatus)';
   }
 }
 
@@ -115,7 +129,7 @@ abstract mixin class _$AppStateCopyWith<$Res>
       __$AppStateCopyWithImpl;
   @override
   @useResult
-  $Res call({bool isSignedIn});
+  $Res call({bool isSignedIn, GuiltyFreeStatus guiltyFreeStatus});
 }
 
 /// @nodoc
@@ -131,12 +145,17 @@ class __$AppStateCopyWithImpl<$Res> implements _$AppStateCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? isSignedIn = null,
+    Object? guiltyFreeStatus = null,
   }) {
     return _then(_AppState(
       isSignedIn: null == isSignedIn
           ? _self.isSignedIn
           : isSignedIn // ignore: cast_nullable_to_non_nullable
               as bool,
+      guiltyFreeStatus: null == guiltyFreeStatus
+          ? _self.guiltyFreeStatus
+          : guiltyFreeStatus // ignore: cast_nullable_to_non_nullable
+              as GuiltyFreeStatus,
     ));
   }
 }
