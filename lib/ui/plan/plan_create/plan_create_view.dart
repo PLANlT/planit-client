@@ -35,11 +35,11 @@ class PlanCreateView extends HookConsumerWidget {
                     PlanitTypos.body2.copyWith(color: PlanitColors.black01))),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 9.0,
+          spacing: 20.0,
           children: [
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 12),
+                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 28),
               child: Row(
                 children: [
                   PlanitText(
@@ -56,8 +56,7 @@ class PlanCreateView extends HookConsumerWidget {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: PlanitTextField(
                 hintText: '당신의 목표는 무엇인가요?',
                 controller: titleController,
@@ -105,7 +104,7 @@ class PlanCreateView extends HookConsumerWidget {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 10),
+                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 12),
               child: PlanetWrapGrid(
                   selectedIcon: state.icon,
                   onSelect: (asset) {
@@ -114,7 +113,7 @@ class PlanCreateView extends HookConsumerWidget {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 4),
+                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 12),
               child: PlanitText('목표일 설정',
                   style:
                       PlanitTypos.body2.copyWith(color: PlanitColors.black02)),
@@ -143,7 +142,7 @@ class PlanCreateView extends HookConsumerWidget {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 8),
+                  const EdgeInsets.symmetric(horizontal: 16).copyWith(top: 12),
               child: Row(
                 children: [
                   PlanitText('플랜 진행 여부',
@@ -183,7 +182,7 @@ class PlanCreateView extends HookConsumerWidget {
               onTap: () {},
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16)
-                    .copyWith(top: 160),
+                    .copyWith(top: 20),
                 child: Container(
                   height: 48,
                   decoration: BoxDecoration(
