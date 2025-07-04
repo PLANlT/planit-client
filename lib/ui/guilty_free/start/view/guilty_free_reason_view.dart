@@ -13,7 +13,7 @@ import '../../../common/comopnent/planit_text.dart';
 import '../../../common/const/planit_button_style.dart';
 import '../../../common/view/default_layout.dart';
 import '../../const/guilty_free_reasons.dart';
-import '../../ing/guilty_free_view.dart';
+import '../../ing/guilty_free_ing_view.dart';
 
 class GuiltyFreeReasonView extends HookConsumerWidget {
   const GuiltyFreeReasonView({super.key});
@@ -80,7 +80,7 @@ class GuiltyFreeReasonView extends HookConsumerWidget {
                   if (state.loadingStatus == LoadingStatus.success) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => GuiltyFreeView(),
+                        builder: (context) => GuiltyFreeIngView(),
                       ),
                     );
                   }

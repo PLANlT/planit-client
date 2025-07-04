@@ -17,8 +17,8 @@ import '../../common/assets.dart';
 import '../../common/comopnent/planit_toast.dart';
 import 'guilty_free_history_view.dart';
 
-class GuiltyFreeView extends HookConsumerWidget {
-  const GuiltyFreeView({super.key});
+class GuiltyFreeIngView extends HookConsumerWidget {
+  const GuiltyFreeIngView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

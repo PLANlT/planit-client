@@ -9,7 +9,7 @@ import 'package:planit/ui/main/main_view.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 import '../../../theme/planit_colors.dart';
-import '../../guilty_free/ing/guilty_free_view.dart';
+import '../../guilty_free/ing/guilty_free_ing_view.dart';
 
 class RootTab extends ConsumerStatefulWidget {
   const RootTab({super.key});
@@ -86,7 +86,7 @@ class _RootTabState extends ConsumerState<RootTab>
         children: [
           PlanView(),
           state.guiltyFreeStatus == GuiltyFreeStatus.ing
-              ? GuiltyFreeView()
+              ? GuiltyFreeIngView()
               : MainView(),
           ArchivingView(),
         ],
