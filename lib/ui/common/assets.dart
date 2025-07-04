@@ -53,4 +53,5 @@ class Assets {
   static const String imgGuiltyFreeReason4 = 'assets/images/guilty_free_reason4.svg';
   static const String imgRecoveryRoutinePhone = 'assets/images/recovery_routine_phone.svg';
   static const String imgCongratulation= 'assets/images/congratulation.svg';
+  static const String imgSpeachBalloon = 'assets/images/speach_balloon.svg';
 }
