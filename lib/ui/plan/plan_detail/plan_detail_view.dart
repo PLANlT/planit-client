@@ -93,19 +93,17 @@ class PlanDetailView extends HookConsumerWidget {
                   fontWeight: FontWeight.w500,
                   color: PlanitColors.black03)),
         ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ListView.builder(
-              itemCount: state.planDetail!.tasks.length,
-              itemBuilder: (context, index) {
-                final item = state.planDetail!.tasks[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: TaskCard(title: item.title, taskType: item.taskType),
-                );
-              },
-            ),
+        SizedBox(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: state.planDetail!.tasks.length,
+            itemBuilder: (context, index) {
+              final item = state.planDetail!.tasks[index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: TaskCard(title: item.title, taskType: item.taskType),
+              );
+            },
           ),
         ),
       ],
