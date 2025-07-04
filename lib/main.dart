@@ -15,7 +15,7 @@ import 'package:planit/ui/common/comopnent/planit_text_field.dart';
 import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
-import 'package:planit/ui/common/view/root_tab.dart';
+import 'package:planit/ui/splash_view.dart';
 
 Future<void> main() async {
   // runApp 실행전 초기화
@@ -64,7 +64,7 @@ class Home extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => RootTab(),
+                    builder: (context) => SplashView(),
                   ),
                 ),
                 child: Text('루트탭으로 꼬우'),
