@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
+import 'package:planit/repository/guilty_free/guilty_free_repository.dart';
 import 'package:planit/repository/main/main_repository.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/ui/main/component/task_widget.dart';
@@ -12,15 +13,19 @@ final StateNotifierProvider<MainViewModel, MainState> mainViewModelProvider =
     StateNotifierProvider(
   (ref) => MainViewModel(
     mainRepository: ref.read(mainRepositoryProvider),
+    guiltyFreeRepository: ref.read(guiltyFreeRepositoryProvider),
   ),
 );
 
 class MainViewModel extends StateNotifier<MainState> {
   final MainRepository _mainRepository;
+  final GuiltyFreeRepository _guiltyFreeRepository;
 
   MainViewModel({
     required MainRepository mainRepository,
+    required GuiltyFreeRepository guiltyFreeRepository,
   })  : _mainRepository = mainRepository,
+        _guiltyFreeRepository = guiltyFreeRepository,
         super(MainState());
 
   // 화면 진입 시 필요한 작업
@@ -74,7 +79,7 @@ class MainViewModel extends StateNotifier<MainState> {
   }
 
   // Checkbox 클릭 시, planIndex & taskIndex 함께 사용해 할 일 식별하여 plans 변경
-  void onCheckboxTap ({
+  void onCheckboxTap({
     required int planIndex,
     required int taskIndex,
     required bool isCurrentCompleted,
@@ -124,6 +129,22 @@ class MainViewModel extends StateNotifier<MainState> {
       Future.delayed(Duration(milliseconds: 2500), () {
         state = state.copyWith(completeMessage: '');
       });
+    }
+  }
+
+  // 길티프리 모드 사용 가능한지 판단
+  Future<void> checkCanUseGuiltyFree() async {
+    final RepositoryResult<bool> result =
+        await _guiltyFreeRepository.getCanUseGuiltyFree();
+    switch (result) {
+      case SuccessRepositoryResult():
+        state = state.copyWith(
+          canUseGuiltyFree: result.data,
+        );
+      case FailureRepositoryResult():
+        state = state.copyWith(
+          errorMessage: result.messages!.first,
+        );
     }
   }
 }

@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
 
 import '../../common/assets.dart';
+import '../../guilty_free/start/view/guilty_free_intro_view.dart';
 import '../const/main_enums.dart';
 
 class MainTopWidget extends StatelessWidget {
   final RouteType type;
   final TaskStatus status;
+  final Future<void> onGuiltyFreePressed;
+  final bool? canUseGuiltyFree;
 
   const MainTopWidget({
     super.key,
     required this.type,
     required this.status,
+    required this.onGuiltyFreePressed,
+    required this.canUseGuiltyFree,
   });
 
   @override
@@ -44,7 +50,19 @@ class MainTopWidget extends StatelessWidget {
               right: 0.0,
               child: IconButton(
                 icon: SvgPicture.asset(Assets.guiltyFree),
-                onPressed: () {},
+                onPressed: () async {
+                  // 길티프리 가능한 상태인지 확인 후 랜딩
+                  await onGuiltyFreePressed;
+                  if (canUseGuiltyFree != null && context.mounted) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => canUseGuiltyFree!
+                            ? GuiltyFreeIntroView()
+                            : GuiltyFreeBlockedView(),
+                      ),
+                    );
+                  }
+                },
                 padding: EdgeInsets.zero,
               ),
             ),
