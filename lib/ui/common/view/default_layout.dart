@@ -9,6 +9,8 @@ class DefaultLayout extends StatelessWidget {
   final String? title;
   final Widget? bottomNavigationBar;
   final Widget? floatingActionButton;
+  final bool extendBodyBehindAppBar;
+  final Color? appBarColor;
 
   const DefaultLayout({
     super.key,
@@ -17,11 +19,15 @@ class DefaultLayout extends StatelessWidget {
     this.title,
     this.bottomNavigationBar,
     this.floatingActionButton,
+    this.extendBodyBehindAppBar = false,
+    this.appBarColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Body와 AppBar가 겹치도록
+      extendBodyBehindAppBar: true,
       backgroundColor: backgroundColor ?? PlanitColors.white01,
       appBar: renderAppBar(),
       body: child,
@@ -36,7 +42,7 @@ class DefaultLayout extends StatelessWidget {
     } else {
       // TODO: AppBar 커스텀
       return AppBar(
-        backgroundColor: PlanitColors.white01,
+        backgroundColor: appBarColor ?? PlanitColors.white01,
         foregroundColor: PlanitColors.black01,
         elevation: 0,
         title: Text(
