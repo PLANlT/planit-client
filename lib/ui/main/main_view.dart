@@ -68,10 +68,10 @@ class MainView extends HookConsumerWidget {
               ),
               RouteSwitchBanner(
                 type: state.routeType,
-                onLeftArrowPressed: () => viewModel.switchToLeft(
+                onLeftArrowPressed: () => viewModel.switchRoute(
                   currentType: state.routeType,
                 ),
-                onRightArrowPressed: () => viewModel.switchToRight(
+                onRightArrowPressed: () => viewModel.switchRoute(
                   currentType: state.routeType,
                 ),
               ),

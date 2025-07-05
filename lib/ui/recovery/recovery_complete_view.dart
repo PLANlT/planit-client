@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:planit/service/storage/planit_storage_service.dart';
+import 'package:planit/service/storage/storage_key.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
@@ -10,11 +13,13 @@ import 'package:planit/ui/common/view/root_tab.dart';
 
 import '../common/assets.dart';
 
-class RecoveryCompleteView extends StatelessWidget {
+class RecoveryCompleteView extends ConsumerWidget {
   const RecoveryCompleteView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final PlanitStorageService service = ref.read(planitStorageServiceProvider);
+
     final Size deviceSize = MediaQuery.of(context).size;
     return DefaultLayout(
       child: Stack(
@@ -54,11 +59,18 @@ class RecoveryCompleteView extends StatelessWidget {
                 ),
                 width: double.infinity,
                 child: PlanitButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => RootTab(),
-                    ),
-                  ),
+                  onPressed: () {
+                    // 회복루틴 종료 시 오늘 날짜 저장
+                    service.setString(
+                      key: StorageKey.lastRecoveryRoutineDate,
+                      value: DateTime.now().toString(),
+                    );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => RootTab(),
+                      ),
+                    );
+                  },
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
                   label: '오늘도 한 발짝 나아가기',

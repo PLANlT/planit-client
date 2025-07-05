@@ -71,9 +71,17 @@ class _RecoverySmallActionViewState extends State<RecoverySmallActionView>
     // 디바이스 height이 작다면 크기 더 작아지도록
     final Size deviceSize = MediaQuery.of(context).size;
     final double radius =
-    deviceSize.height < 700 ? 120 : (deviceSize.width - 80.0) / 2;
+        deviceSize.height < 700 ? 120 : (deviceSize.width - 80.0) / 2;
 
     return DefaultLayout(
+      // 테스트용 건너뛰기 버튼
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RecoveryCompleteView(),
+          ),
+        ),
+      ),
       title: '회복 루틴',
       appBarColor: PlanitColors.transparent,
       extendBodyBehindAppBar: true,
