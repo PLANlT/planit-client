@@ -15,8 +15,8 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$PlanState {
-  List<PlanOverviewModel> get activePlans;
-  List<PlanOverviewModel> get pausePlans;
+  List<PlanModel> get activePlans;
+  List<PlanModel> get pausePlans;
   LoadingStatus get loadingStatus;
   String get errorMessage;
 
@@ -62,8 +62,8 @@ abstract mixin class $PlanStateCopyWith<$Res> {
       _$PlanStateCopyWithImpl;
   @useResult
   $Res call(
-      {List<PlanOverviewModel> activePlans,
-      List<PlanOverviewModel> pausePlans,
+      {List<PlanModel> activePlans,
+      List<PlanModel> pausePlans,
       LoadingStatus loadingStatus,
       String errorMessage});
 }
@@ -89,11 +89,11 @@ class _$PlanStateCopyWithImpl<$Res> implements $PlanStateCopyWith<$Res> {
       activePlans: null == activePlans
           ? _self.activePlans
           : activePlans // ignore: cast_nullable_to_non_nullable
-              as List<PlanOverviewModel>,
+              as List<PlanModel>,
       pausePlans: null == pausePlans
           ? _self.pausePlans
           : pausePlans // ignore: cast_nullable_to_non_nullable
-              as List<PlanOverviewModel>,
+              as List<PlanModel>,
       loadingStatus: null == loadingStatus
           ? _self.loadingStatus
           : loadingStatus // ignore: cast_nullable_to_non_nullable
@@ -110,26 +110,26 @@ class _$PlanStateCopyWithImpl<$Res> implements $PlanStateCopyWith<$Res> {
 
 class _PlanState implements PlanState {
   const _PlanState(
-      {final List<PlanOverviewModel> activePlans = const [],
-      final List<PlanOverviewModel> pausePlans = const [],
+      {final List<PlanModel> activePlans = const [],
+      final List<PlanModel> pausePlans = const [],
       this.loadingStatus = LoadingStatus.none,
       this.errorMessage = ''})
       : _activePlans = activePlans,
         _pausePlans = pausePlans;
 
-  final List<PlanOverviewModel> _activePlans;
+  final List<PlanModel> _activePlans;
   @override
   @JsonKey()
-  List<PlanOverviewModel> get activePlans {
+  List<PlanModel> get activePlans {
     if (_activePlans is EqualUnmodifiableListView) return _activePlans;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_activePlans);
   }
 
-  final List<PlanOverviewModel> _pausePlans;
+  final List<PlanModel> _pausePlans;
   @override
   @JsonKey()
-  List<PlanOverviewModel> get pausePlans {
+  List<PlanModel> get pausePlans {
     if (_pausePlans is EqualUnmodifiableListView) return _pausePlans;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_pausePlans);
@@ -188,8 +188,8 @@ abstract mixin class _$PlanStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<PlanOverviewModel> activePlans,
-      List<PlanOverviewModel> pausePlans,
+      {List<PlanModel> activePlans,
+      List<PlanModel> pausePlans,
       LoadingStatus loadingStatus,
       String errorMessage});
 }
@@ -215,11 +215,11 @@ class __$PlanStateCopyWithImpl<$Res> implements _$PlanStateCopyWith<$Res> {
       activePlans: null == activePlans
           ? _self._activePlans
           : activePlans // ignore: cast_nullable_to_non_nullable
-              as List<PlanOverviewModel>,
+              as List<PlanModel>,
       pausePlans: null == pausePlans
           ? _self._pausePlans
           : pausePlans // ignore: cast_nullable_to_non_nullable
-              as List<PlanOverviewModel>,
+              as List<PlanModel>,
       loadingStatus: null == loadingStatus
           ? _self.loadingStatus
           : loadingStatus // ignore: cast_nullable_to_non_nullable

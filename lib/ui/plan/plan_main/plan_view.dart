@@ -10,7 +10,7 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/plan_list_card.dart';
 import 'package:planit/ui/plan/component/template_list.dart';
-import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_main/plan_state.dart';
 import 'package:planit/ui/plan/plan_main/plan_view_model.dart';
