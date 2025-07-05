@@ -1,8 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/main/main_repository.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
+import 'package:planit/service/storage/planit_storage_service.dart';
+import 'package:planit/service/storage/storage_key.dart';
 import 'package:planit/ui/main/component/task_widget.dart';
 import 'package:planit/ui/main/const/main_enums.dart';
 
@@ -12,20 +15,27 @@ final StateNotifierProvider<MainViewModel, MainState> mainViewModelProvider =
     StateNotifierProvider(
   (ref) => MainViewModel(
     mainRepository: ref.read(mainRepositoryProvider),
+    storageService: ref.read(planitStorageServiceProvider),
   ),
 );
 
 class MainViewModel extends StateNotifier<MainState> {
   final MainRepository _mainRepository;
+  final PlanitStorageService _storageService;
 
   MainViewModel({
     required MainRepository mainRepository,
+    required PlanitStorageService storageService,
   })  : _mainRepository = mainRepository,
+        _storageService = storageService,
         super(MainState());
 
   // 화면 진입 시 필요한 작업
-  void init() {
+  Future<void> init() async {
     getMainPlanList();
+    // 배너 보여줄지 확인해 상태 업데이트
+    final bool showBanner = await checkShowRecoveryRoutineBanner();
+    state = state.copyWith(showRecoveryRoutineBanner: showBanner);
   }
 
   // 플랜 리스트 불러오기
@@ -51,30 +61,52 @@ class MainViewModel extends StateNotifier<MainState> {
     }
   }
 
-  // TODO: 방향에 따라 전환 애니메이션 추가
-  void switchToLeft({
+  Future<void> switchRoute({
     required RouteType currentType,
-  }) {
+  }) async {
+    final bool isSlow = currentType == RouteType.slow;
+    bool showBanner = state.showRecoveryRoutineBanner;
+    // 열정>천천히 전환 시, 회복루틴 배너 노출할지 확인
+    if (!isSlow) {
+      showBanner = await checkShowRecoveryRoutineBanner();
+    }
+    // 천천히>열정 전환 시, 무조건 노출 안 함
+    else {
+      showBanner = false;
+    }
     state = state.copyWith(
-      routeType: (currentType == RouteType.slow)
-          ? RouteType.passionate
-          : RouteType.slow,
+      routeType: isSlow ? RouteType.passionate : RouteType.slow,
+      showRecoveryRoutineBanner: showBanner,
     );
   }
 
-  // TODO: 방향에 따라 전환 애니메이션 추가
-  void switchToRight({
-    required RouteType currentType,
-  }) {
-    state = state.copyWith(
-      routeType: (currentType == RouteType.slow)
-          ? RouteType.passionate
-          : RouteType.slow,
+  // 오늘 회복루틴을 한 번도 사용하지 않았을 때에만 배너 노출
+  // TODO: 매번 lastDate 로드, today와 비교해 계산 > 비효율적인 것 같아 개선 필요
+  Future<bool> checkShowRecoveryRoutineBanner() async {
+    final String lastDateString = await _storageService.getString(
+      key: StorageKey.lastRecoveryRoutineDate,
+      defaultValue: '',
     );
+
+    // 저장된 날짜가 없다면, 사용하지 않은 것이므로 계산없이 true 반환
+    if (lastDateString.isEmpty) {
+      return true;
+    }
+
+    // TODO: stringToDate 적용
+    final DateTime lastDate = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').parse(
+      lastDateString,
+    );
+    final DateTime today = DateTime.now();
+
+    if (lastDate.isBefore(today)) {
+      return true;
+    }
+    return false;
   }
 
   // Checkbox 클릭 시, planIndex & taskIndex 함께 사용해 할 일 식별하여 plans 변경
-  void onCheckboxTap ({
+  void onCheckboxTap({
     required int planIndex,
     required int taskIndex,
     required bool isCurrentCompleted,
