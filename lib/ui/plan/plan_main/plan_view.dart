@@ -123,7 +123,7 @@ class PlanView extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: templateList(),
+              child: TemplateList(),
             )
           ],
         ),
