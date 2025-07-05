@@ -27,7 +27,7 @@ class DefaultLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // Body와 AppBar가 겹치도록
-      extendBodyBehindAppBar: true,
+      extendBodyBehindAppBar: extendBodyBehindAppBar,
       backgroundColor: backgroundColor ?? PlanitColors.white01,
       appBar: renderAppBar(),
       body: child,
