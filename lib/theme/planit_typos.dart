@@ -105,6 +105,15 @@ class PlanitTypos {
     fontFamily: 'Pretendard',
   );
 
+  static const TextStyle pretendardBold64 = TextStyle(
+    fontSize: 64,
+    fontWeight: FontWeight.w700,
+    height: 1.5,
+    letterSpacing: -1.28, // -0.02 * 64
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'Pretendard',
+  );
+
   static const TextStyle blackHansSansRegular48 = TextStyle(
     fontSize: 48,
     fontWeight: FontWeight.w400,
