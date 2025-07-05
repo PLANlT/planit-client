@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:planit/repository/plan/model/task_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
 import 'package:planit/ui/plan/component/template_detail_card.dart';
@@ -51,44 +53,19 @@ class PlanTemplateDetailView extends StatelessWidget {
             ),
           ),
           Spacer(),
-          PlanitTemplateBottomButton(text: '이 템플릿으로 플랜 만들기', onTap: () {})
-        ],
-      ),
-    );
-  }
-}
-
-class PlanitTemplateBottomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onTap;
-
-  const PlanitTemplateBottomButton({
-    super.key,
-    required this.text,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Padding(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 40),
-        child: Container(
-          width: double.infinity,
-          height: 48,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            color: PlanitColors.black01,
-          ),
-          child: Center(
-            child: PlanitText(
-              text,
-              style: PlanitTypos.body3.copyWith(color: PlanitColors.white01),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12).copyWith(bottom: 32),
+            child: SizedBox(
+              width: double.infinity,
+              child: PlanitButton(
+                  onPressed: () {},
+                  buttonColor: PlanitButtonColor.black,
+                  buttonSize: PlanitButtonSize.large,
+                  label: '이 템플릿으로 플랜 만들기'),
             ),
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
