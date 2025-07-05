@@ -54,6 +54,8 @@ class MainView extends HookConsumerWidget {
               MainTopWidget(
                 status: state.taskStatus,
                 type: state.routeType,
+                onGuiltyFreePressed: viewModel.checkCanUseGuiltyFree(),
+                canUseGuiltyFree: state.canUseGuiltyFree,
               ),
               // 첫 달성 화면 확인용 임시 버튼
               TextButton(

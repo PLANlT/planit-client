@@ -22,6 +22,7 @@ mixin _$MainState {
   bool get showRecoveryRoutineBanner;
   String get errorMessage;
   String get completeMessage;
+  bool? get canUseGuiltyFree;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -48,7 +49,9 @@ mixin _$MainState {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.completeMessage, completeMessage) ||
-                other.completeMessage == completeMessage));
+                other.completeMessage == completeMessage) &&
+            (identical(other.canUseGuiltyFree, canUseGuiltyFree) ||
+                other.canUseGuiltyFree == canUseGuiltyFree));
   }
 
   @override
@@ -60,11 +63,12 @@ mixin _$MainState {
       loadingStatus,
       showRecoveryRoutineBanner,
       errorMessage,
-      completeMessage);
+      completeMessage,
+      canUseGuiltyFree);
 
   @override
   String toString() {
-    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage)';
+    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage, canUseGuiltyFree: $canUseGuiltyFree)';
   }
 }
 
@@ -80,7 +84,8 @@ abstract mixin class $MainStateCopyWith<$Res> {
       LoadingStatus loadingStatus,
       bool showRecoveryRoutineBanner,
       String errorMessage,
-      String completeMessage});
+      String completeMessage,
+      bool? canUseGuiltyFree});
 }
 
 /// @nodoc
@@ -102,6 +107,7 @@ class _$MainStateCopyWithImpl<$Res> implements $MainStateCopyWith<$Res> {
     Object? showRecoveryRoutineBanner = null,
     Object? errorMessage = null,
     Object? completeMessage = null,
+    Object? canUseGuiltyFree = freezed,
   }) {
     return _then(_self.copyWith(
       routeType: null == routeType
@@ -132,6 +138,10 @@ class _$MainStateCopyWithImpl<$Res> implements $MainStateCopyWith<$Res> {
           ? _self.completeMessage
           : completeMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      canUseGuiltyFree: freezed == canUseGuiltyFree
+          ? _self.canUseGuiltyFree
+          : canUseGuiltyFree // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -146,7 +156,8 @@ class _MainState implements MainState {
       this.loadingStatus = LoadingStatus.none,
       this.showRecoveryRoutineBanner = true,
       this.errorMessage = '',
-      this.completeMessage = ''})
+      this.completeMessage = '',
+      this.canUseGuiltyFree = null})
       : _plans = plans;
 
   @override
@@ -176,6 +187,9 @@ class _MainState implements MainState {
   @override
   @JsonKey()
   final String completeMessage;
+  @override
+  @JsonKey()
+  final bool? canUseGuiltyFree;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -203,7 +217,9 @@ class _MainState implements MainState {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.completeMessage, completeMessage) ||
-                other.completeMessage == completeMessage));
+                other.completeMessage == completeMessage) &&
+            (identical(other.canUseGuiltyFree, canUseGuiltyFree) ||
+                other.canUseGuiltyFree == canUseGuiltyFree));
   }
 
   @override
@@ -215,11 +231,12 @@ class _MainState implements MainState {
       loadingStatus,
       showRecoveryRoutineBanner,
       errorMessage,
-      completeMessage);
+      completeMessage,
+      canUseGuiltyFree);
 
   @override
   String toString() {
-    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage)';
+    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage, canUseGuiltyFree: $canUseGuiltyFree)';
   }
 }
 
@@ -238,7 +255,8 @@ abstract mixin class _$MainStateCopyWith<$Res>
       LoadingStatus loadingStatus,
       bool showRecoveryRoutineBanner,
       String errorMessage,
-      String completeMessage});
+      String completeMessage,
+      bool? canUseGuiltyFree});
 }
 
 /// @nodoc
@@ -260,6 +278,7 @@ class __$MainStateCopyWithImpl<$Res> implements _$MainStateCopyWith<$Res> {
     Object? showRecoveryRoutineBanner = null,
     Object? errorMessage = null,
     Object? completeMessage = null,
+    Object? canUseGuiltyFree = freezed,
   }) {
     return _then(_MainState(
       routeType: null == routeType
@@ -290,6 +309,10 @@ class __$MainStateCopyWithImpl<$Res> implements _$MainStateCopyWith<$Res> {
           ? _self.completeMessage
           : completeMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      canUseGuiltyFree: freezed == canUseGuiltyFree
+          ? _self.canUseGuiltyFree
+          : canUseGuiltyFree // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
