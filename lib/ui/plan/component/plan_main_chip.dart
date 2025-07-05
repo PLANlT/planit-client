@@ -3,13 +3,13 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 
-class CustomPlanChip extends StatelessWidget {
+class PlanMainchip extends StatelessWidget {
   final String title;
   final Color backgroundcolor;
   final Color textcolor;
   final Color bordercolor;
 
-  const CustomPlanChip(
+  const PlanMainchip(
       {super.key,
       required this.title,
       required this.backgroundcolor,
@@ -19,20 +19,20 @@ class CustomPlanChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 57,
-      height: 28,
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.0,
+        vertical: 10,
+      ),
       decoration: BoxDecoration(
         color: backgroundcolor,
-        borderRadius: BorderRadius.all(Radius.circular(30)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
         border: Border.all(
           color: bordercolor,
           width: 1.5,
         ),
       ),
-      child: Center(
-        child: PlanitText(title,
-            style: PlanitTypos.body3.copyWith(color: PlanitColors.black03)),
-      ),
+      child: PlanitText(title,
+          style: PlanitTypos.body3.copyWith(color: PlanitColors.black03)),
     );
   }
 }
