@@ -67,21 +67,18 @@ class PlanView extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: SizedBox(
-                width: 360,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.activePlans.length,
-                    itemBuilder: (context, index) {
-                      final item = state.activePlans[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: PlanListCard(
-                          plan: item,
-                        ),
-                      );
-                    }),
-              ),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.activePlans.length,
+                  itemBuilder: (context, index) {
+                    final item = state.activePlans[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: PlanListCard(
+                        plan: item,
+                      ),
+                    );
+                  }),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -94,21 +91,18 @@ class PlanView extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: SizedBox(
-                width: 360,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.pausePlans.length,
-                    itemBuilder: (context, index) {
-                      final item = state.pausePlans[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: PlanListCard(
-                          plan: item,
-                        ),
-                      );
-                    }),
-              ),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.pausePlans.length,
+                  itemBuilder: (context, index) {
+                    final item = state.pausePlans[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: PlanListCard(
+                        plan: item,
+                      ),
+                    );
+                  }),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),

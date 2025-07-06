@@ -16,9 +16,9 @@ class templateList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: SizedBox(
-        width: 500,
-        height: 100,
+        height: 100, //가로 스크롤이라 heigh 만 지정
         child: ListView.builder(
+            shrinkWrap: true, //width는 shrinkWrap으로 조정
             scrollDirection: Axis.horizontal,
             itemCount: templateImage.length,
             itemBuilder: (context, index) {
