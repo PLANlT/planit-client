@@ -19,17 +19,15 @@ class PlanTeamplateView extends StatelessWidget {
       ),
       Padding(
         padding: const EdgeInsets.only(top: 32),
-        child: SizedBox(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: 3,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12),
-                child: TemplateDetailCard(title: 'title', taskType: 'ALL'),
-              );
-            },
-          ),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: TemplateDetailCard(title: 'title', taskType: 'ALL'),
+            );
+          },
         ),
       ),
     ]));
