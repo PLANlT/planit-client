@@ -10,7 +10,7 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/plan_list_card.dart';
 import 'package:planit/ui/plan/component/template_list.dart';
-import 'package:planit/repository/plan/model/plan_overview_model.dart';
+import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_main/plan_state.dart';
 import 'package:planit/ui/plan/plan_main/plan_view_model.dart';
@@ -32,6 +32,7 @@ class PlanView extends HookConsumerWidget {
     return DefaultLayout(
       child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppBar(
               toolbarHeight: 92,
@@ -40,7 +41,7 @@ class PlanView extends HookConsumerWidget {
               title: PlanitText('내 플랜', style: PlanitTypos.title2),
               actions: [
                 Padding(
-                  padding: EdgeInsetsGeometry.only(right: 20),
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
                   child: PlanitButton(
                       onPressed: () {
                         Navigator.push(
@@ -57,73 +58,67 @@ class PlanView extends HookConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24),
-                    child: PlanitText('진행 중인 플랜',
-                        style: PlanitTypos.body2
-                            .copyWith(color: PlanitColors.black01)),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: PlanitText('진행 중인 플랜',
+                    style: PlanitTypos.body2
+                        .copyWith(color: PlanitColors.black01)),
               ),
             ),
-            SizedBox(
-              width: 360,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.activePlans.length,
-                  itemBuilder: (context, index) {
-                    final item = state.activePlans[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: PlanListCard(
-                        plan: item,
-                      ),
-                    );
-                  }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: SizedBox(
+                width: 360,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.activePlans.length,
+                    itemBuilder: (context, index) {
+                      final item = state.activePlans[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: PlanListCard(
+                          plan: item,
+                        ),
+                      );
+                    }),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24),
-                    child: PlanitText('잠시 중단한 플랜',
-                        style: PlanitTypos.body2
-                            .copyWith(color: PlanitColors.black01)),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: PlanitText('잠시 중단한 플랜',
+                    style: PlanitTypos.body2
+                        .copyWith(color: PlanitColors.black01)),
               ),
             ),
-            SizedBox(
-              width: 360,
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.pausePlans.length,
-                  itemBuilder: (context, index) {
-                    final item = state.pausePlans[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: PlanListCard(
-                        plan: item,
-                      ),
-                    );
-                  }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: SizedBox(
+                width: 360,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.pausePlans.length,
+                    itemBuilder: (context, index) {
+                      final item = state.pausePlans[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: PlanListCard(
+                          plan: item,
+                        ),
+                      );
+                    }),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24),
-                    child: PlanitText(
-                      '템플릿',
-                      style: PlanitTypos.body2
-                          .copyWith(color: PlanitColors.black01),
-                    ),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: PlanitText(
+                  '템플릿',
+                  style:
+                      PlanitTypos.body2.copyWith(color: PlanitColors.black01),
+                ),
               ),
             ),
             Padding(

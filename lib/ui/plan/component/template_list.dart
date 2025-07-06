@@ -23,7 +23,7 @@ class templateList extends StatelessWidget {
             itemCount: templateImage.length,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.only(right: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: SvgPicture.asset(templateImage[index]),
               );
             }),
