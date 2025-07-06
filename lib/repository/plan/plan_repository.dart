@@ -38,11 +38,81 @@ class PlanRepository {
           totalTask: 3,
           dDay: 20,
           icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 2,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 2,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 2,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
     ]);
   }
 
   Future<RepositoryResult<List<PlanModel>>> getPausePlanList() async {
     return SuccessRepositoryResult(data: [
+      PlanModel(
+          planId: 5,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 5,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 5,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 5,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 5,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 5,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
+      PlanModel(
+          planId: 5,
+          title: '헬스장 꾸준히 가기',
+          motivation: '작심삼일 10번이면 한달이다',
+          totalTask: 3,
+          dDay: 20,
+          icon: 'assets/planets/planet6.svg'),
       PlanModel(
           planId: 5,
           title: '헬스장 꾸준히 가기',
