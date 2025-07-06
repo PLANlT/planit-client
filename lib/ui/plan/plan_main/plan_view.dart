@@ -41,7 +41,7 @@ class PlanView extends HookConsumerWidget {
               title: PlanitText('내 플랜', style: PlanitTypos.title2),
               actions: [
                 Padding(
-                  padding: EdgeInsetsGeometry.symmetric(horizontal: 24),
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
                   child: PlanitButton(
                       onPressed: () {
                         Navigator.push(
@@ -59,7 +59,7 @@ class PlanView extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitText('진행 중인 플랜',
                     style: PlanitTypos.body2
                         .copyWith(color: PlanitColors.black01)),
@@ -67,7 +67,7 @@ class PlanView extends HookConsumerWidget {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 12),
+                  const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 12),
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.activePlans.length > 5
@@ -85,7 +85,7 @@ class PlanView extends HookConsumerWidget {
             ),
             state.activePlans.length > 5
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24)
+                    padding: const EdgeInsets.symmetric(horizontal: 20)
                         .copyWith(top: 12),
                     child: SizedBox(
                       width: double.infinity,
@@ -108,7 +108,7 @@ class PlanView extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitText('잠시 중단한 플랜',
                     style: PlanitTypos.body2
                         .copyWith(color: PlanitColors.black01)),
@@ -116,7 +116,7 @@ class PlanView extends HookConsumerWidget {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 12),
+                  const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 12),
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount:
@@ -133,7 +133,7 @@ class PlanView extends HookConsumerWidget {
             ),
             state.pausePlans.length > 5
                 ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24)
+                    padding: const EdgeInsets.symmetric(horizontal: 20)
                         .copyWith(top: 12),
                     child: SizedBox(
                       width: double.infinity,
@@ -156,7 +156,7 @@ class PlanView extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitText(
                   '템플릿',
                   style:
@@ -226,7 +226,7 @@ class _PlanViewAllState extends State<PlanViewAll> {
             title: PlanitText('내 플랜', style: PlanitTypos.title2),
             actions: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitButton(
                     onPressed: () {
                       Navigator.push(
@@ -246,7 +246,7 @@ class _PlanViewAllState extends State<PlanViewAll> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitText('진행 중인 플랜',
                     style: PlanitTypos.body2
                         .copyWith(color: PlanitColors.black01)),
@@ -256,7 +256,7 @@ class _PlanViewAllState extends State<PlanViewAll> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitText('잠시 중단한 플랜',
                     style: PlanitTypos.body2
                         .copyWith(color: PlanitColors.black01)),
@@ -274,7 +274,7 @@ class _PlanViewAllState extends State<PlanViewAll> {
               itemBuilder: (context, pageIndex) {
                 final plans = _pagedPlans[pageIndex];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24)
+                  padding: const EdgeInsets.symmetric(horizontal: 20)
                       .copyWith(top: 16),
                   child: ListView.builder(
                     itemCount: plans.length,
