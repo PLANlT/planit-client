@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:planit/core/guilty_free_status.dart';
+import 'package:planit/service/app/app_service.dart';
+import 'package:planit/service/app/app_state.dart';
 import 'package:planit/ui/archiving/archiving_view.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/main/main_view.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 import '../../../theme/planit_colors.dart';
+import '../../guilty_free/ing/guilty_free_ing_view.dart';
 
-class RootTab extends StatefulWidget {
+class RootTab extends ConsumerStatefulWidget {
   const RootTab({super.key});
 
   @override
-  State<RootTab> createState() => _RootTabState();
+  ConsumerState<RootTab> createState() => _RootTabState();
 }
 
-class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
+class _RootTabState extends ConsumerState<RootTab>
+    with SingleTickerProviderStateMixin {
   int index = 0;
   late TabController controller;
 
@@ -42,6 +48,8 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final AppState state = ref.watch(appServiceProvider);
+
     return DefaultLayout(
       // TODO: NavBar 커스텀
       bottomNavigationBar: BottomNavigationBar(
@@ -77,7 +85,9 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
         controller: controller,
         children: [
           PlanView(),
-          MainView(),
+          state.guiltyFreeStatus == GuiltyFreeStatus.ing
+              ? GuiltyFreeIngView()
+              : MainView(),
           ArchivingView(),
         ],
       ),

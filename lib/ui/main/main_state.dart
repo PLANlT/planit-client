@@ -15,5 +15,6 @@ abstract class MainState with _$MainState {
     @Default(true) bool showRecoveryRoutineBanner,
     @Default('') String errorMessage,
     @Default('') String completeMessage,
+    @Default(null) bool? canUseGuiltyFree,
   }) = _MainState;
 }

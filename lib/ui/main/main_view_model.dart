@@ -2,12 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
+import 'package:planit/repository/guilty_free/guilty_free_repository.dart';
 import 'package:planit/repository/main/main_repository.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/service/storage/planit_storage_service.dart';
 import 'package:planit/service/storage/storage_key.dart';
 import 'package:planit/ui/main/component/task_widget.dart';
 import 'package:planit/ui/main/const/main_enums.dart';
+import 'package:planit/utils/date_time.dart';
 
 import 'main_state.dart';
 
@@ -15,18 +17,22 @@ final StateNotifierProvider<MainViewModel, MainState> mainViewModelProvider =
     StateNotifierProvider(
   (ref) => MainViewModel(
     mainRepository: ref.read(mainRepositoryProvider),
+    guiltyFreeRepository: ref.read(guiltyFreeRepositoryProvider),
     storageService: ref.read(planitStorageServiceProvider),
   ),
 );
 
 class MainViewModel extends StateNotifier<MainState> {
   final MainRepository _mainRepository;
+  final GuiltyFreeRepository _guiltyFreeRepository;
   final PlanitStorageService _storageService;
 
   MainViewModel({
     required MainRepository mainRepository,
+    required GuiltyFreeRepository guiltyFreeRepository,
     required PlanitStorageService storageService,
   })  : _mainRepository = mainRepository,
+        _guiltyFreeRepository = guiltyFreeRepository,
         _storageService = storageService,
         super(MainState());
 
@@ -93,13 +99,10 @@ class MainViewModel extends StateNotifier<MainState> {
       return true;
     }
 
-    // TODO: stringToDate 적용
-    final DateTime lastDate = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').parse(
-      lastDateString,
-    );
+    final DateTime? lastDate = stringToDateTime(lastDateString);
     final DateTime today = DateTime.now();
 
-    if (lastDate.isBefore(today)) {
+    if (lastDate!.isBefore(today)) {
       return true;
     }
     return false;
@@ -156,6 +159,22 @@ class MainViewModel extends StateNotifier<MainState> {
       Future.delayed(Duration(milliseconds: 2500), () {
         state = state.copyWith(completeMessage: '');
       });
+    }
+  }
+
+  // 길티프리 모드 사용 가능한지 판단
+  Future<void> checkCanUseGuiltyFree() async {
+    final RepositoryResult<bool> result =
+        await _guiltyFreeRepository.getCanUseGuiltyFree();
+    switch (result) {
+      case SuccessRepositoryResult():
+        state = state.copyWith(
+          canUseGuiltyFree: result.data,
+        );
+      case FailureRepositoryResult():
+        state = state.copyWith(
+          errorMessage: result.messages!.first,
+        );
     }
   }
 }
