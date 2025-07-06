@@ -15,6 +15,7 @@ import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/component/plan_wrap_grid.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
+import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class PlanCreateView extends HookConsumerWidget {
   const PlanCreateView({super.key});
@@ -186,8 +187,18 @@ class PlanCreateView extends HookConsumerWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                      onPressed: () {},
-                      buttonColor: PlanitButtonColor.black,
+                      onPressed: state.isNextEnabled
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PlanView()), //임시
+                              );
+                            }
+                          : () {},
+                      buttonColor: state.isNextEnabled
+                          ? PlanitButtonColor.black
+                          : PlanitButtonColor.white, //임시
                       buttonSize: PlanitButtonSize.large,
                       label: '플랜 만들기'),
                 ),

@@ -6,8 +6,10 @@ import 'package:planit/repository/plan/plan_repository.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
 import 'package:planit/ui/plan/plan_main/plan_state.dart';
 
+//StateNotifierProvider 생성자에 타입 명시하는 걸 추가하여 타입 안정성 향상
 final StateNotifierProvider<PlanCreateViewModel, PlanCreateState>
-    planViewModelProvider = StateNotifierProvider(
+    planViewModelProvider =
+    StateNotifierProvider<PlanCreateViewModel, PlanCreateState>(
   (ref) => PlanCreateViewModel(
     planRepository: ref.read(planRepositoryProvider),
   ),
@@ -23,7 +25,10 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
 
   void init() {}
   void updateTitle(String title) {
-    state = state.copyWith(title: title);
+    state = state.copyWith(
+        title: title,
+        isNextEnabled: updateIsNextEnabled(
+            title: title, icon: state.icon, planStatus: state.planStatus));
   }
 
   void updateMotivation(String motivation) {
@@ -31,7 +36,10 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
   }
 
   void updateIcon(String icon) {
-    state = state.copyWith(icon: icon);
+    state = state.copyWith(
+        icon: icon,
+        isNextEnabled: updateIsNextEnabled(
+            title: state.title, icon: icon, planStatus: state.planStatus));
   }
 
   void updateDday(String dDay) {
@@ -39,7 +47,18 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
   }
 
   void updatePlanStatus(String planStatus) {
-    state = state.copyWith(planStatus: planStatus);
+    state = state.copyWith(
+        planStatus: planStatus,
+        isNextEnabled: updateIsNextEnabled(
+            title: state.title, icon: state.icon, planStatus: planStatus));
+  }
+
+  bool updateIsNextEnabled({
+    required String title,
+    required String icon,
+    required String planStatus,
+  }) {
+    return title.isNotEmpty && icon.isNotEmpty && planStatus.isNotEmpty;
   }
 
   void makePlan() {}
