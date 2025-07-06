@@ -56,12 +56,18 @@ class PlanCreateView extends HookConsumerWidget {
                       style:
                           PlanitTypos.body2.copyWith(color: PlanitColors.alert),
                     ),
+                    PlanitText(
+                      '(20자 내)',
+                      style: PlanitTypos.body3
+                          .copyWith(color: PlanitColors.black03),
+                    ),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitTextField(
+                  maxLength: 20,
                   hintText: '당신의 목표는 무엇인가요?',
                   controller: titleController,
                   onChanged: viewmodel.updateTitle,
@@ -75,7 +81,7 @@ class PlanCreateView extends HookConsumerWidget {
                     PlanitText('다짐 문장',
                         style: PlanitTypos.body2
                             .copyWith(color: PlanitColors.black02)),
-                    PlanitText(' (20자 내)',
+                    PlanitText(' (40 내)',
                         style: PlanitTypos.body3
                             .copyWith(color: PlanitColors.black03)),
                   ],
@@ -87,6 +93,7 @@ class PlanCreateView extends HookConsumerWidget {
                   hintText: '이 플랜을 지속할 수 있는 요소가 있나요?',
                   controller: motivationController,
                   onChanged: viewmodel.updateMotivation,
+                  maxLength: 40,
                 ),
               ),
               Padding(
