@@ -63,10 +63,10 @@ class GuiltyFreeRepository {
         key: StorageKey.lastGuiltyFreeDate,
         defaultValue: '',
       );
-      // 길티프리를 사용한 적 없다면 > 사용 가능
+      // 길티프리를 사용한 적 없다면 > 에러 처리
       if (lastGuiltyFreeDateString.isEmpty) {
-        return SuccessRepositoryResult(
-          data: true,
+        return FailureRepositoryResult(
+          messages: ['일시적인 오류가 발생했어요.\n오류가 반복된다면 고객센터로 문의해주세요.'],
         );
       }
 
