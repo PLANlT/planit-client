@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/ui/mypage/view/mypage_alarm_view.dart';
 
 import '../../common/comopnent/planit_toast.dart';
 import '../../common/view/default_layout.dart';
@@ -67,7 +68,11 @@ class MypageView extends HookConsumerWidget {
                     ),
                     MypageMenuButtonWidget(
                       label: '알림 설정',
-                      onTap: () {},
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MypageAlarmView(),
+                        ),
+                      ),
                     ),
                     MypageMenuButtonWidget(
                       label: '고객 문의',

@@ -17,8 +17,22 @@ class MypageViewModel extends StateNotifier<MypageState> {
         currentConsecutiveDays: 10,
         maxConsecutiveDays: 20,
         perfectConsecutiveDays: 2,
-        appVersion: 'v1.0.0'
+        appVersion: 'v1.0.0',
+        isSystemPushAccept: false,
       );
     }
   }
+
+  void toggleTaskAlarm(bool newStatus) {
+    if (mounted) {
+      state = state.copyWith(isTaskPushAccept: newStatus);
+    }
+  }
+
+  void toggleGuiltyFreeAlarm(bool newStatus) {
+    if (mounted) {
+      state = state.copyWith(isGuiltyFreePushAccept: newStatus);
+    }
+  }
+
 }
