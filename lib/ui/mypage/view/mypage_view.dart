@@ -27,7 +27,7 @@ class MypageView extends HookConsumerWidget {
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        viewModel.init();
+        viewModel.initMypage();
       });
       return null;
     }, []);

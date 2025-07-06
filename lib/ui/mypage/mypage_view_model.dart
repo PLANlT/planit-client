@@ -9,7 +9,7 @@ final AutoDisposeStateNotifierProvider<MypageViewModel, MypageState>
 class MypageViewModel extends StateNotifier<MypageState> {
   MypageViewModel() : super(MypageState());
 
-  void init() {
+  void initMypage() {
     if (mounted) {
       state = state.copyWith(
         userName: '플래닛',
@@ -19,6 +19,15 @@ class MypageViewModel extends StateNotifier<MypageState> {
         perfectConsecutiveDays: 2,
         appVersion: 'v1.0.0',
         isSystemPushAccept: false,
+      );
+    }
+  }
+
+  void initAccountPage() {
+    if (mounted) {
+      state = state.copyWith(
+        registrationDate: '2025.07.06',
+        oAuthType: 'Google',
       );
     }
   }
@@ -34,5 +43,4 @@ class MypageViewModel extends StateNotifier<MypageState> {
       state = state.copyWith(isGuiltyFreePushAccept: newStatus);
     }
   }
-
 }
