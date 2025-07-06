@@ -24,15 +24,14 @@ class TaskCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(4)),
             color: PlanitColors.white02),
         width: double.infinity,
-        height: 56,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
           child: Row(
             children: [
               Expanded(
                 child: PlanitText(title, style: PlanitTypos.body3),
               ),
-              if (taskType == 'ALL') //나중에 서버님들한테 taskType 뭐 있는 지 물어보기
+              if (taskType == 'ALL')
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2.0),
                   child: SvgPicture.asset(Assets.high),
