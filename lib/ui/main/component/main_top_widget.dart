@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
+import 'package:planit/ui/mypage/view/mypage_view.dart';
 
 import '../../common/assets.dart';
 import '../../guilty_free/start/view/guilty_free_intro_view.dart';
@@ -42,7 +43,11 @@ class MainTopWidget extends StatelessWidget {
               left: 0.0,
               child: IconButton(
                 icon: SvgPicture.asset(Assets.profile),
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => MypageView(),
+                  ),
+                ),
                 padding: EdgeInsets.zero,
               ),
             ),

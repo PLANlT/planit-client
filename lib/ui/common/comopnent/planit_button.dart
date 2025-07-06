@@ -36,9 +36,12 @@ class PlanitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color backgroundColor = (buttonColor == PlanitButtonColor.black)
         ? PlanitColors.black01
-        : PlanitColors.white01;
+        : ((buttonColor == PlanitButtonColor.white)
+            ? PlanitColors.white01
+            : PlanitColors.red);
 
-    final Color labelColor = (buttonColor == PlanitButtonColor.black)
+    final Color labelColor = (buttonColor == PlanitButtonColor.black ||
+            buttonColor == PlanitButtonColor.red)
         ? PlanitColors.white01
         : PlanitColors.black01;
 
