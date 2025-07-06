@@ -19,7 +19,6 @@ class TemplateList extends StatelessWidget {
       child: SizedBox(
         height: 100,
         child: ListView.builder(
-            shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemCount: templateImage.length,
             itemBuilder: (context, index) {
