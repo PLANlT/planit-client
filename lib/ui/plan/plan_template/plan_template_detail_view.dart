@@ -37,8 +37,8 @@ class PlanTemplateDetailView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 32),
+            padding: const EdgeInsets.symmetric(horizontal: 24)
+                .copyWith(top: 32, bottom: 12),
             child: PlanitText('미리보기', style: PlanitTypos.title3),
           ),
           SizedBox(
