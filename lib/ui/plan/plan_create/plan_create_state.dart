@@ -12,6 +12,7 @@ abstract class PlanCreateState with _$PlanCreateState {
     @Default('') String icon,
     @Default('') String dDay,
     @Default('') String planStatus,
+    @Default(false) bool isNextEnabled,
     @Default(LoadingStatus.none) LoadingStatus loadingStatus,
     @Default('') String errorMessage,
   }) = _PlanCreateState;

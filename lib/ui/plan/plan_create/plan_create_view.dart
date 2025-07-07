@@ -15,6 +15,7 @@ import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/component/plan_wrap_grid.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
+import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class PlanCreateView extends HookConsumerWidget {
   const PlanCreateView({super.key});
@@ -55,12 +56,18 @@ class PlanCreateView extends HookConsumerWidget {
                       style:
                           PlanitTypos.body2.copyWith(color: PlanitColors.alert),
                     ),
+                    PlanitText(
+                      '(20자 내)',
+                      style: PlanitTypos.body3
+                          .copyWith(color: PlanitColors.black03),
+                    ),
                   ],
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PlanitTextField(
+                  maxLength: 20,
                   hintText: '당신의 목표는 무엇인가요?',
                   controller: titleController,
                   onChanged: viewmodel.updateTitle,
@@ -74,7 +81,7 @@ class PlanCreateView extends HookConsumerWidget {
                     PlanitText('다짐 문장',
                         style: PlanitTypos.body2
                             .copyWith(color: PlanitColors.black02)),
-                    PlanitText(' (20자 내)',
+                    PlanitText(' (40 내)',
                         style: PlanitTypos.body3
                             .copyWith(color: PlanitColors.black03)),
                   ],
@@ -86,6 +93,7 @@ class PlanCreateView extends HookConsumerWidget {
                   hintText: '이 플랜을 지속할 수 있는 요소가 있나요?',
                   controller: motivationController,
                   onChanged: viewmodel.updateMotivation,
+                  maxLength: 40,
                 ),
               ),
               Padding(
@@ -186,8 +194,18 @@ class PlanCreateView extends HookConsumerWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                      onPressed: () {},
-                      buttonColor: PlanitButtonColor.black,
+                      onPressed: state.isNextEnabled
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PlanView()), //임시
+                              );
+                            }
+                          : () {},
+                      buttonColor: state.isNextEnabled
+                          ? PlanitButtonColor.black
+                          : PlanitButtonColor.white, //임시
                       buttonSize: PlanitButtonSize.large,
                       label: '플랜 만들기'),
                 ),

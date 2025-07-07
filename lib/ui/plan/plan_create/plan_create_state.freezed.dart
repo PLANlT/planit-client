@@ -20,6 +20,7 @@ mixin _$PlanCreateState {
   String get icon;
   String get dDay;
   String get planStatus;
+  bool get isNextEnabled;
   LoadingStatus get loadingStatus;
   String get errorMessage;
 
@@ -43,6 +44,8 @@ mixin _$PlanCreateState {
             (identical(other.dDay, dDay) || other.dDay == dDay) &&
             (identical(other.planStatus, planStatus) ||
                 other.planStatus == planStatus) &&
+            (identical(other.isNextEnabled, isNextEnabled) ||
+                other.isNextEnabled == isNextEnabled) &&
             (identical(other.loadingStatus, loadingStatus) ||
                 other.loadingStatus == loadingStatus) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -51,11 +54,11 @@ mixin _$PlanCreateState {
 
   @override
   int get hashCode => Object.hash(runtimeType, title, motivation, icon, dDay,
-      planStatus, loadingStatus, errorMessage);
+      planStatus, isNextEnabled, loadingStatus, errorMessage);
 
   @override
   String toString() {
-    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, isNextEnabled: $isNextEnabled, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
@@ -71,6 +74,7 @@ abstract mixin class $PlanCreateStateCopyWith<$Res> {
       String icon,
       String dDay,
       String planStatus,
+      bool isNextEnabled,
       LoadingStatus loadingStatus,
       String errorMessage});
 }
@@ -93,6 +97,7 @@ class _$PlanCreateStateCopyWithImpl<$Res>
     Object? icon = null,
     Object? dDay = null,
     Object? planStatus = null,
+    Object? isNextEnabled = null,
     Object? loadingStatus = null,
     Object? errorMessage = null,
   }) {
@@ -117,6 +122,10 @@ class _$PlanCreateStateCopyWithImpl<$Res>
           ? _self.planStatus
           : planStatus // ignore: cast_nullable_to_non_nullable
               as String,
+      isNextEnabled: null == isNextEnabled
+          ? _self.isNextEnabled
+          : isNextEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       loadingStatus: null == loadingStatus
           ? _self.loadingStatus
           : loadingStatus // ignore: cast_nullable_to_non_nullable
@@ -138,6 +147,7 @@ class _PlanCreateState implements PlanCreateState {
       this.icon = '',
       this.dDay = '',
       this.planStatus = '',
+      this.isNextEnabled = false,
       this.loadingStatus = LoadingStatus.none,
       this.errorMessage = ''});
 
@@ -156,6 +166,9 @@ class _PlanCreateState implements PlanCreateState {
   @override
   @JsonKey()
   final String planStatus;
+  @override
+  @JsonKey()
+  final bool isNextEnabled;
   @override
   @JsonKey()
   final LoadingStatus loadingStatus;
@@ -183,6 +196,8 @@ class _PlanCreateState implements PlanCreateState {
             (identical(other.dDay, dDay) || other.dDay == dDay) &&
             (identical(other.planStatus, planStatus) ||
                 other.planStatus == planStatus) &&
+            (identical(other.isNextEnabled, isNextEnabled) ||
+                other.isNextEnabled == isNextEnabled) &&
             (identical(other.loadingStatus, loadingStatus) ||
                 other.loadingStatus == loadingStatus) &&
             (identical(other.errorMessage, errorMessage) ||
@@ -191,11 +206,11 @@ class _PlanCreateState implements PlanCreateState {
 
   @override
   int get hashCode => Object.hash(runtimeType, title, motivation, icon, dDay,
-      planStatus, loadingStatus, errorMessage);
+      planStatus, isNextEnabled, loadingStatus, errorMessage);
 
   @override
   String toString() {
-    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, isNextEnabled: $isNextEnabled, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
@@ -213,6 +228,7 @@ abstract mixin class _$PlanCreateStateCopyWith<$Res>
       String icon,
       String dDay,
       String planStatus,
+      bool isNextEnabled,
       LoadingStatus loadingStatus,
       String errorMessage});
 }
@@ -235,6 +251,7 @@ class __$PlanCreateStateCopyWithImpl<$Res>
     Object? icon = null,
     Object? dDay = null,
     Object? planStatus = null,
+    Object? isNextEnabled = null,
     Object? loadingStatus = null,
     Object? errorMessage = null,
   }) {
@@ -259,6 +276,10 @@ class __$PlanCreateStateCopyWithImpl<$Res>
           ? _self.planStatus
           : planStatus // ignore: cast_nullable_to_non_nullable
               as String,
+      isNextEnabled: null == isNextEnabled
+          ? _self.isNextEnabled
+          : isNextEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       loadingStatus: null == loadingStatus
           ? _self.loadingStatus
           : loadingStatus // ignore: cast_nullable_to_non_nullable
