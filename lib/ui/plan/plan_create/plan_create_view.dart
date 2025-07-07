@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -9,6 +10,7 @@ import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_text_field.dart';
+import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
@@ -25,7 +27,7 @@ class PlanCreateView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     PlanCreateState state = ref.watch(planViewModelProvider);
     PlanCreateViewModel viewmodel = ref.read(planViewModelProvider.notifier);
-
+    final toast = FToast().init(context);
     final titleController = useTextEditingController();
     final motivationController = useTextEditingController();
 
@@ -261,12 +263,19 @@ class PlanCreateView extends HookConsumerWidget {
                   child: PlanitButton(
                       onPressed: () {
                         viewmodel.updateClickedNext();
-                        if (state.isNextEnabled)
+
+                        if (state.isNextEnabled) {
+                          toast.showToast(
+                            child: PlanitToast(
+                              label: '플랜이 제작됐어요!',
+                            ),
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => PlanView()), //임시
                           );
+                        }
                       },
                       buttonColor: PlanitButtonColor.black,
                       buttonSize: PlanitButtonSize.large,
