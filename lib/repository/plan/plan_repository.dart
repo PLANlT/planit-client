@@ -23,21 +23,21 @@ class PlanRepository {
           motivation: '매일 조금씩 나아지는..',
           totalTask: 5,
           dDay: 12,
-          icon: 'assets/planets/planet1.svg'),
+          icon: Assets.planet1),
       PlanModel(
           planId: 1,
           title: '독서 습관',
           motivation: '독서 습관을 기르자',
           totalTask: 2,
           dDay: 7,
-          icon: 'assets/planets/planet3.svg'),
+          icon: Assets.planet3),
       PlanModel(
           planId: 2,
           title: '헬스장 꾸준히 가기',
           motivation: '작심삼일 10번이면 한달이다',
           totalTask: 3,
           dDay: 20,
-          icon: 'assets/planets/planet6.svg'),
+          icon: Assets.planet6),
     ]);
   }
 
@@ -49,7 +49,7 @@ class PlanRepository {
           motivation: '작심삼일 10번이면 한달이다',
           totalTask: 3,
           dDay: 20,
-          icon: 'assets/planets/planet6.svg'),
+          icon: Assets.planet1),
     ]);
   }
 
