@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
@@ -42,15 +43,19 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
             title: state.title, icon: icon, planStatus: state.planStatus));
   }
 
-  void updateDday(String dDay) {
-    state = state.copyWith(dDay: dDay);
-  }
-
   void updatePlanStatus(String planStatus) {
     state = state.copyWith(
         planStatus: planStatus,
         isNextEnabled: updateIsNextEnabled(
             title: state.title, icon: state.icon, planStatus: planStatus));
+  }
+
+  void updateSelectedDate(String selecetedDate) {
+    state = state.copyWith(selectedDate: selecetedDate);
+  }
+
+  void updateClickedNext() {
+    state = state.copyWith(isClickedNext: true);
   }
 
   bool updateIsNextEnabled({
@@ -61,5 +66,16 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
     return title.isNotEmpty && icon.isNotEmpty && planStatus.isNotEmpty;
   }
 
-  void makePlan() {}
+  void calculateDday(DateTime selectedDate) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final dateOnly =
+        DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+
+    final diff = dateOnly.difference(today).inDays;
+
+    state = state.copyWith(
+      dDay: diff.toString(),
+    );
+  }
 }
