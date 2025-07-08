@@ -45,6 +45,7 @@ class Assets {
   static const String mascotRestarting = 'assets/mascots/restarting.svg';
   static const String mascotSleeping = 'assets/mascots/sleeping.svg';
   static const String mascotThinking = 'assets/mascots/thinking.svg';
+  static const String mascotSplash = 'assets/mascots/splash.svg';
 
   // images
   static const String imgGuiltyFreeReason1 = 'assets/images/guilty_free_reason1.svg';
