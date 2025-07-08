@@ -15,6 +15,9 @@ class Assets {
   static const String arrowLeft = 'assets/icons/arrow_left.svg';
   static const String arrowRight = 'assets/icons/arrow_right.svg';
   static const String check = 'assets/icons/check.svg';
+  static const String google = 'assets/icons/check.svg';
+  static const String naver = 'assets/icons/naver.svg';
+  static const String kakao = 'assets/icons/kakao.svg';
 
   // planet
   static const String planet1 = 'assets/planets/planet1.svg';
