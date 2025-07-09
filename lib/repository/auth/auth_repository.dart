@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:flutter_naver_login/interface/types/naver_login_status.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+
+final AutoDisposeProvider<AuthRepository> authRepositoryProvider =
+    Provider.autoDispose<AuthRepository>(
+  (ref) => AuthRepository(),
+);
 
 class AuthRepository {
   // 카카오 로그인 연동 로직

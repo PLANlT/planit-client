@@ -15,6 +15,9 @@ class Assets {
   static const String arrowLeft = 'assets/icons/arrow_left.svg';
   static const String arrowRight = 'assets/icons/arrow_right.svg';
   static const String check = 'assets/icons/check.svg';
+  static const String google = 'assets/icons/google.svg';
+  static const String naver = 'assets/icons/naver.svg';
+  static const String kakao = 'assets/icons/kakao.svg';
 
   // planet
   static const String planet1 = 'assets/planets/planet1.svg';
@@ -39,19 +42,27 @@ class Assets {
   static const String mascotSeatingColor = 'assets/mascots/seating_color.svg';
   static const String mascotSeatingMonochrome =
       'assets/mascots/seating_monochrome.svg';
-  static const String mascotFirstComplete1 = 'assets/mascots/first_complete1.svg';
-  static const String mascotFirstComplete2 = 'assets/mascots/first_complete2.svg';
+  static const String mascotFirstComplete1 =
+      'assets/mascots/first_complete1.svg';
+  static const String mascotFirstComplete2 =
+      'assets/mascots/first_complete2.svg';
   static const String mascotRelaxing = 'assets/mascots/relaxing.svg';
   static const String mascotRestarting = 'assets/mascots/restarting.svg';
   static const String mascotSleeping = 'assets/mascots/sleeping.svg';
   static const String mascotThinking = 'assets/mascots/thinking.svg';
+  static const String mascotLogin = 'assets/mascots/login.svg';
 
   // images
-  static const String imgGuiltyFreeReason1 = 'assets/images/guilty_free_reason1.svg';
-  static const String imgGuiltyFreeReason2 = 'assets/images/guilty_free_reason2.svg';
-  static const String imgGuiltyFreeReason3 = 'assets/images/guilty_free_reason3.svg';
-  static const String imgGuiltyFreeReason4 = 'assets/images/guilty_free_reason4.svg';
-  static const String imgRecoveryRoutinePhone = 'assets/images/recovery_routine_phone.svg';
-  static const String imgCongratulation= 'assets/images/congratulation.svg';
+  static const String imgGuiltyFreeReason1 =
+      'assets/images/guilty_free_reason1.svg';
+  static const String imgGuiltyFreeReason2 =
+      'assets/images/guilty_free_reason2.svg';
+  static const String imgGuiltyFreeReason3 =
+      'assets/images/guilty_free_reason3.svg';
+  static const String imgGuiltyFreeReason4 =
+      'assets/images/guilty_free_reason4.svg';
+  static const String imgRecoveryRoutinePhone =
+      'assets/images/recovery_routine_phone.svg';
+  static const String imgCongratulation = 'assets/images/congratulation.svg';
   static const String imgSpeachBalloon = 'assets/images/speach_balloon.svg';
 }
