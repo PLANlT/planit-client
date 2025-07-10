@@ -1,0 +1,139 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/assets.dart';
+import 'package:planit/ui/common/comopnent/planit_button.dart';
+import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/const/planit_button_style.dart';
+import 'package:planit/ui/common/view/default_layout.dart';
+
+import '../common/comopnent/planit_checkbox.dart';
+
+class TosView extends StatelessWidget {
+  const TosView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultLayout(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
+          bottom: 100.0,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Spacer(),
+            PlanitText(
+              '서비스 약관에\n동의해주세요',
+              style: PlanitTypos.title1.copyWith(
+                color: PlanitColors.black01,
+              ),
+            ),
+            SizedBox(height: 40.0),
+            Container(
+              decoration: BoxDecoration(
+                color: PlanitColors.white02,
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                spacing: 12.0,
+                children: [
+                  _CheckRow(
+                    text: '서비스 이용약관',
+                    isChecked: true,
+                    onChevronTap: () {},
+                  ),
+                  _CheckRow(
+                    text: '개인정보처리방침',
+                    isChecked: true,
+                    onChevronTap: () {},
+                  ),
+                  _CheckRow(
+                    text: '개인정보 수집 및 이용',
+                    isChecked: true,
+                    onChevronTap: () {},
+                  ),
+                  _CheckRow(
+                    text: '개인정보 제3자 동의 이용',
+                    isChecked: true,
+                    onChevronTap: () {},
+                  ),
+                  _CheckRow(
+                    text: '만 14세 이상입니다',
+                    isChecked: true,
+                    onChevronTap: () {},
+                    showChevron: false,
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: PlanitButton(
+                onPressed: () {},
+                buttonColor: PlanitButtonColor.black,
+                buttonSize: PlanitButtonSize.large,
+                label: '가입 완료',
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CheckRow extends StatelessWidget {
+  final String text;
+  final bool isChecked;
+  final VoidCallback onChevronTap;
+  final bool showChevron;
+
+  const _CheckRow({
+    required this.text,
+    required this.isChecked,
+    required this.onChevronTap,
+    this.showChevron = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            PlanitCheckbox(
+              isChecked: true,
+            ),
+            SizedBox(width: 12.0),
+            PlanitText(
+              text,
+              style: PlanitTypos.body3.copyWith(
+                color: PlanitColors.black01,
+              ),
+            ),
+            PlanitText(
+              '*',
+              style: PlanitTypos.body3.copyWith(
+                color: PlanitColors.alert,
+              ),
+            ),
+          ],
+        ),
+        if (showChevron)
+          GestureDetector(
+            onTap: onChevronTap,
+            child: SvgPicture.asset(
+              Assets.chevronRight,
+              width: 24.0,
+              height: 24.0,
+            ),
+          ),
+      ],
+    );
+  }
+}

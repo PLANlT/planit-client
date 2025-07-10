@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
+import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/plan/component/condition_tip_table_row.dart';
 
@@ -112,30 +114,17 @@ class ConditionTipBottomSheet extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 64),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Container(
-                    width: double.infinity,
-                    height: 48,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadiusGeometry.circular(36.0),
-                        color: PlanitColors.black01),
-                    child: Center(
-                      child: PlanitText(
-                        '닫기',
-                        style: PlanitTypos.body3.copyWith(
-                          color: PlanitColors.white01,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12).copyWith(top: 12),
+              child: SizedBox(
+                  width: double.infinity,
+                  child: PlanitButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      buttonColor: PlanitButtonColor.black,
+                      buttonSize: PlanitButtonSize.large,
+                      label: '닫기')),
             ),
           ],
         ),
