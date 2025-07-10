@@ -11,12 +11,12 @@ class PlanetWrapGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> planetAssets = [
-      Assets.planet1,
-      Assets.planet2,
-      Assets.planet3,
-      Assets.planet4,
-      Assets.planet5,
-      Assets.planet6,
+      'assets/planets/planet1',
+      'assets/planets/planet2',
+      'assets/planets/planet3',
+      'assets/planets/planet4',
+      'assets/planets/planet5',
+      'assets/planets/planet6',
     ];
     return Wrap(
       spacing: 16,
@@ -31,13 +31,10 @@ class PlanetWrapGrid extends StatelessWidget {
             decoration: BoxDecoration(
               color: PlanitColors.transparent,
               borderRadius: BorderRadius.circular(8),
-              border: isSelected
-                  ? Border.all(color: PlanitColors.alert)
-                  : null, //임시
             ),
-            child: SvgPicture.asset(
-              asset,
-            ),
+            child: isSelected
+                ? SvgPicture.asset('${asset}_selected.svg')
+                : SvgPicture.asset('${asset}_unselected.svg'),
           ),
         );
       }).toList(),
