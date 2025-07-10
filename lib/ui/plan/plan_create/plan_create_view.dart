@@ -1,13 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_text_field.dart';
+import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
@@ -24,7 +27,7 @@ class PlanCreateView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     PlanCreateState state = ref.watch(planViewModelProvider);
     PlanCreateViewModel viewmodel = ref.read(planViewModelProvider.notifier);
-
+    final toast = FToast().init(context);
     final titleController = useTextEditingController();
     final motivationController = useTextEditingController();
 
@@ -64,13 +67,21 @@ class PlanCreateView extends HookConsumerWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitTextField(
-                  maxLength: 20,
-                  hintText: '당신의 목표는 무엇인가요?',
-                  controller: titleController,
-                  onChanged: viewmodel.updateTitle,
+              ShakeWidget(
+                shake: state.isClickedNext == true && state.title == '',
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: PlanitTextField(
+                    maxLength: 20,
+                    hintText: state.isClickedNext == true && state.title == ''
+                        ? null
+                        : '당신의 목표는 무엇인가요?',
+                    errorText: state.isClickedNext == true && state.title == ''
+                        ? '당신의 목표는 무엇인가요?'
+                        : null,
+                    controller: titleController,
+                    onChanged: viewmodel.updateTitle,
+                  ),
                 ),
               ),
               Padding(
@@ -113,14 +124,25 @@ class PlanCreateView extends HookConsumerWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20)
-                    .copyWith(top: 12),
-                child: PlanetWrapGrid(
-                    selectedIcon: state.icon,
-                    onSelect: (asset) {
-                      viewmodel.updateIcon(asset);
-                    }),
+              ShakeWidget(
+                shake: state.isClickedNext && state.icon.isEmpty,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20)
+                      .copyWith(top: 12),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: (state.isClickedNext && state.icon.isEmpty)
+                              ? PlanitColors.alert
+                              : PlanitColors.transparent),
+                    ),
+                    child: PlanetWrapGrid(
+                        selectedIcon: state.icon,
+                        onSelect: (asset) {
+                          viewmodel.updateIcon(asset);
+                        }),
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20)
@@ -134,17 +156,27 @@ class PlanCreateView extends HookConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: GestureDetector(
-                        onTap: () {
-                          //DatePickerUI 구현
+                        onTap: () async {
+                          final DateTime? selectedDate = await showDatePicker(
+                              context: context,
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime(2100));
+
+                          if (selectedDate != null) {
+                            final formatDate =
+                                DateFormat('yy-MM-dd').format(selectedDate);
+                            viewmodel.updateSelectedDate(formatDate);
+                            viewmodel.calculateDday(selectedDate);
+                          }
                         },
                         child: PlanCreateChip(
                           bordercolor: PlanitColors.white03,
-                          title: '25.05.01',
+                          title: state.selectedDate!,
                           textcolor: PlanitColors.black03,
                           backgroundcolor: PlanitColors.white01,
                         )),
                   ),
-                  PlanitText('까지 | D-',
+                  PlanitText('까지 | D-${state.dDay}',
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -167,45 +199,79 @@ class PlanCreateView extends HookConsumerWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  spacing: 8,
-                  children: [
-                    GestureDetector(
-                        onTap: () => viewmodel.updatePlanStatus('IN_PROGRESS'),
-                        child: PlanitChip(
-                            chipColor: state.planStatus == 'IN_PROGRESS'
-                                ? PlanitChipColor.black
-                                : PlanitChipColor.gray,
-                            label: '진행 중')),
-                    GestureDetector(
-                        onTap: () => viewmodel.updatePlanStatus('PAUSED'),
-                        child: PlanitChip(
-                            chipColor: state.planStatus == 'PAUSED'
-                                ? PlanitChipColor.black
-                                : PlanitChipColor.gray,
-                            label: '중단')),
-                  ],
+              ShakeWidget(
+                shake: state.isClickedNext && state.planStatus.isEmpty,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    spacing: 8,
+                    children: [
+                      GestureDetector(
+                          onTap: () =>
+                              viewmodel.updatePlanStatus('IN_PROGRESS'),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(37)),
+                              border: Border.all(
+                                color: (state.isClickedNext &&
+                                        state.planStatus.isEmpty)
+                                    ? PlanitColors.alert
+                                    : PlanitColors.transparent,
+                              ),
+                            ),
+                            child: PlanitChip(
+                                chipColor: state.planStatus == 'IN_PROGRESS'
+                                    ? PlanitChipColor.black
+                                    : PlanitChipColor.gray,
+                                label: '진행 중'),
+                          )),
+                      GestureDetector(
+                          onTap: () => viewmodel.updatePlanStatus('PAUSED'),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(37)),
+                              border: Border.all(
+                                color: (state.isClickedNext &&
+                                        state.planStatus.isEmpty)
+                                    ? PlanitColors.alert
+                                    : PlanitColors.transparent,
+                              ),
+                            ),
+                            child: PlanitChip(
+                                chipColor: state.planStatus == 'PAUSED'
+                                    ? PlanitChipColor.black
+                                    : PlanitChipColor.gray,
+                                label: '중단'),
+                          )),
+                    ],
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 40),
                 child: SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                      onPressed: state.isNextEnabled
-                          ? () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PlanView()), //임시
-                              );
-                            }
-                          : () {},
-                      buttonColor: state.isNextEnabled
-                          ? PlanitButtonColor.black
-                          : PlanitButtonColor.white, //임시
+                      onPressed: () {
+                        viewmodel.updateClickedNext();
+
+                        if (state.isNextEnabled) {
+                          toast.showToast(
+                            child: PlanitToast(
+                              label: '플랜이 제작됐어요!',
+                            ),
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PlanView()), //임시
+                          );
+                        }
+                      },
+                      buttonColor: PlanitButtonColor.black,
                       buttonSize: PlanitButtonSize.large,
                       label: '플랜 만들기'),
                 ),
@@ -215,5 +281,68 @@ class PlanCreateView extends HookConsumerWidget {
         ],
       ),
     ));
+  }
+}
+
+class ShakeWidget extends StatefulWidget {
+  final Widget child;
+  final bool shake;
+
+  const ShakeWidget({
+    super.key,
+    required this.child,
+    required this.shake,
+  });
+
+  @override
+  State<ShakeWidget> createState() => _ShakeWidgetState();
+}
+
+class _ShakeWidgetState extends State<ShakeWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _offsetAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 400), vsync: this);
+
+    _offsetAnimation = TweenSequence([
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: -10.0), weight: 1),
+      TweenSequenceItem(tween: Tween(begin: -10.0, end: 10.0), weight: 2),
+      TweenSequenceItem(tween: Tween(begin: 10.0, end: -10.0), weight: 2),
+      TweenSequenceItem(tween: Tween(begin: -10.0, end: 10.0), weight: 2),
+      TweenSequenceItem(tween: Tween(begin: 10.0, end: 0.0), weight: 1),
+    ]).animate(_controller);
+  }
+
+  @override
+  void didUpdateWidget(covariant ShakeWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.shake && !oldWidget.shake) {
+      _controller.forward(from: 0.0);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _offsetAnimation,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(_offsetAnimation.value, 0),
+          child: child,
+        );
+      },
+      child: widget.child,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
