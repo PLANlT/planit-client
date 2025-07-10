@@ -176,18 +176,11 @@ class PlanCreateView extends HookConsumerWidget {
                           backgroundcolor: PlanitColors.white01,
                         )),
                   ),
-                  PlanitText('까지 | D-',
+                  PlanitText('까지 | D-${state.dDay}',
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
                           color: PlanitColors.black03)),
-                  PlanitText(
-                    state.dDay,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: PlanitColors.black03),
-                  )
                 ],
               ),
               Padding(
@@ -257,7 +250,8 @@ class PlanCreateView extends HookConsumerWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 40),
                 child: SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
