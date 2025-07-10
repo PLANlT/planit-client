@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 
+import '../../common/comopnent/planit_checkbox.dart';
 import '../main_view_model.dart';
 
 class TaskWidget extends StatelessWidget {
@@ -88,7 +87,7 @@ class _Task extends StatelessWidget {
               taskIndex: taskIndex,
               isCurrentCompleted: task.isCompleted,
             ),
-            child: _Checkbox(
+            child: PlanitCheckbox(
               isChecked: task.isCompleted,
             ),
           ),
@@ -184,32 +183,4 @@ class TempTaskModel {
     required this.isCompleted,
     required this.task,
   });
-}
-
-class _Checkbox extends StatelessWidget {
-  final bool isChecked;
-
-  const _Checkbox({
-    required this.isChecked,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: PlanitColors.white01,
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      width: 20.0,
-      height: 20.0,
-      child: Padding(
-        padding: EdgeInsetsGeometry.all(4.0),
-        child: isChecked
-            ? SvgPicture.asset(
-                Assets.check,
-              )
-            : SizedBox.shrink(),
-      ),
-    );
-  }
 }
