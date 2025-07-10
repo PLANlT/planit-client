@@ -174,7 +174,7 @@ class _PlanCreateState implements PlanCreateState {
       this.motivation = '',
       this.icon = '',
       this.dDay = '',
-      this.planStatus = '',
+      this.planStatus = 'IN_PROGRESS',
       this.isClickedNext = false,
       this.selectedDate = '           ',
       this.isNextEnabled = false,

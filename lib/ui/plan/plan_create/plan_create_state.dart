@@ -11,7 +11,7 @@ abstract class PlanCreateState with _$PlanCreateState {
     @Default('') String motivation,
     @Default('') String icon,
     @Default('') String dDay,
-    @Default('') String planStatus,
+    @Default('IN_PROGRESS') String planStatus,
     @Default(false) bool isClickedNext,
     @Default('           ') String? selectedDate,
     @Default(false) bool isNextEnabled,
