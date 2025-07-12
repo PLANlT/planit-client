@@ -25,6 +25,7 @@ class GuiltyFreeStartViewModel extends StateNotifier<GuiltyFreeStartState> {
     if (mounted) {
       state = state.copyWith(
         reason: reason,
+        canStartGuiltyFree: true,
       );
     }
   }

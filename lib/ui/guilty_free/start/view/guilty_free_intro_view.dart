@@ -16,7 +16,7 @@ class GuiltyFreeIntroView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      title: '길티-프리 모드',
+      title: '길티프리 모드',
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20.0,
@@ -25,7 +25,7 @@ class GuiltyFreeIntroView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             PlanitText(
-              '길티-프리 모드를 시작할까요?',
+              '길티프리 모드를 시작할까요?',
               style: PlanitTypos.title1.copyWith(
                 color: PlanitColors.black01,
               ),
@@ -36,13 +36,8 @@ class GuiltyFreeIntroView extends StatelessWidget {
             ),
             Spacer(),
             PlanitText(
-              '길티-프리 모드는 죄책감 없이',
-              style: PlanitTypos.body2.copyWith(
-                color: PlanitColors.black03,
-              ),
-            ),
-            PlanitText(
-              '스스로를 쉴 수 있게 도와주는 기능이에요.',
+              '길티프리 모드는 죄책감 없이\n스스로를 쉴 수 있게 도와주는 기능이에요.',
+              textAlign: TextAlign.center,
               style: PlanitTypos.body2.copyWith(
                 color: PlanitColors.black03,
               ),
