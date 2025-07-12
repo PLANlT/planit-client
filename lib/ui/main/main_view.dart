@@ -78,9 +78,7 @@ class MainView extends HookConsumerWidget {
                   currentType: state.routeType,
                 ),
               ),
-              (state.loadingStatus == LoadingStatus.loading)
-                  ? SizedBox.shrink()
-                  : PlanListView(
+              PlanListView(
                       plans: state.routeType == RouteType.slow
                           ? state.plans.slowPlans
                           : state.plans.passionatePlans,

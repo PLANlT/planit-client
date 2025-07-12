@@ -43,19 +43,16 @@ class TodayPlanModel {
 class TaskStatusModel {
   final int taskId;
   final String title;
-  final String routineTime;
   final bool isCompleted;
 
   const TaskStatusModel({
     required this.taskId,
     required this.title,
-    required this.routineTime,
     required this.isCompleted,
   });
 
   TaskStatusModel.fromResponse(TaskStatusResponseBody response)
       : taskId = response.taskId,
         title = response.title,
-        routineTime = response.routineTime,
         isCompleted = response.isCompleted;
 }

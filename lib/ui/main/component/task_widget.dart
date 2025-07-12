@@ -43,8 +43,6 @@ class TaskWidget extends StatelessWidget {
             ...tasks.asMap().entries.map(
                   (MapEntry<int, TaskStatusModel> e) => _Task(
                     task: e.value,
-                    planIndex: planIndex,
-                    taskIndex: e.key,
                     onCheckboxTap: onCheckboxTap,
                   ),
                 ),
@@ -63,14 +61,10 @@ class TaskWidget extends StatelessWidget {
 class _Task extends StatelessWidget {
   final TaskStatusModel task;
   final OnCheckboxTap onCheckboxTap;
-  final int planIndex;
-  final int taskIndex;
 
   const _Task({
     required this.task,
     required this.onCheckboxTap,
-    required this.planIndex,
-    required this.taskIndex,
   });
 
   @override
@@ -83,11 +77,15 @@ class _Task extends StatelessWidget {
         spacing: 10.0,
         children: [
           GestureDetector(
-            onTap: () => onCheckboxTap(
-              planIndex: planIndex,
-              taskIndex: taskIndex,
-              isCurrentCompleted: task.isCompleted,
-            ),
+            onTap: () {
+              // 미완료일 때만 체크 허용
+              if (!task.isCompleted) {
+                onCheckboxTap(
+                  taskId: task.taskId,
+                  isCurrentCompleted: task.isCompleted,
+                );
+              }
+            },
             child: PlanitCheckbox(
               isChecked: task.isCompleted,
             ),
