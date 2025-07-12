@@ -37,6 +37,25 @@ class MainViewModel extends StateNotifier<MainState> {
   // 화면 진입 시 필요한 작업
   Future<void> init() async {
     getTodayPlans();
+    checkDidFirstComplete();
+  }
+
+  Future<void> checkDidFirstComplete() async {
+    final String lastCompleteTaskDateString = await _storageService.getString(
+      key: StorageKey.lastCompleteTaskDate,
+      defaultValue: '',
+    );
+    // 저장된 날짜가 없다면 오늘 첫달성 하지 못한 것
+    if (lastCompleteTaskDateString.isEmpty) return;
+
+    final DateTime? lastCompleteTaskDate = stringToDateTime(
+      lastCompleteTaskDateString,
+    );
+    final DateTime today = DateTime.now();
+    // 오늘 이전이 아니라면 == 오늘이거나, 오늘 이후라면>첫 달성을 한 것
+    if (!lastCompleteTaskDate!.isBefore(today)) {
+      state = state.copyWith(didFirstComplete: true);
+    }
   }
 
   // 플랜 리스트 불러오기
@@ -84,6 +103,14 @@ class MainViewModel extends StateNotifier<MainState> {
       case SuccessRepositoryResult():
         // 리스트 갱신
         await getTodayPlans();
+        // 첫달성이라면 상태 변경
+        if (!state.didFirstComplete) {
+          state = state.copyWith(didFirstComplete: true);
+          _storageService.setString(
+            key: StorageKey.lastCompleteTaskDate,
+            value: DateTime.now().toString(),
+          );
+        }
         // 체크 안 함>체크 완료로 상태 변경 시 태스크 완료 토스트 노출되도록 message 변경
         if (!isCurrentCompleted) {
           state = state.copyWith(completeMessage: '짱이야, 해내버렸어요! 😍');
