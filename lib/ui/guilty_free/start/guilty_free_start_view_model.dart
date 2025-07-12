@@ -29,14 +29,15 @@ class GuiltyFreeStartViewModel extends StateNotifier<GuiltyFreeStartState> {
     }
   }
 
-  void startGuiltyFree() {
+  Future<void> startGuiltyFree() async {
     if (state.reason.isEmpty) return;
 
     if (mounted) {
       state = state.copyWith(loadingStatus: LoadingStatus.loading);
     }
 
-    final RepositoryResult<void> result = _guiltyFreeRepository.startGuiltyFree(
+    final RepositoryResult<void> result =
+        await _guiltyFreeRepository.startGuiltyFree(
       reason: state.reason,
     );
 
