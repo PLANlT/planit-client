@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/guilty_free/guilty_free_repository.dart';
@@ -7,7 +6,6 @@ import 'package:planit/repository/main/main_repository.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/service/storage/planit_storage_service.dart';
 import 'package:planit/service/storage/storage_key.dart';
-import 'package:planit/ui/main/component/task_widget.dart';
 import 'package:planit/ui/main/const/main_enums.dart';
 import 'package:planit/utils/date_time.dart';
 
@@ -38,28 +36,28 @@ class MainViewModel extends StateNotifier<MainState> {
 
   // 화면 진입 시 필요한 작업
   Future<void> init() async {
-    getMainPlanList();
+    getTodayPlans();
     // 배너 보여줄지 확인해 상태 업데이트
     final bool showBanner = await checkShowRecoveryRoutineBanner();
     state = state.copyWith(showRecoveryRoutineBanner: showBanner);
   }
 
   // 플랜 리스트 불러오기
-  Future<void> getMainPlanList() async {
+  Future<void> getTodayPlans() async {
     // API 호출 전 loadingStatus 변경하여 UI에 로딩바 처리
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
-    final RepositoryResult<List<MainPlanModel>> result =
+    final RepositoryResult<TodayPlanListModel> result =
         await _mainRepository.getMainPlanList();
 
     switch (result) {
-      case SuccessRepositoryResult<List<MainPlanModel>>():
+      case SuccessRepositoryResult<TodayPlanListModel>():
         state = state.copyWith(
           loadingStatus: LoadingStatus.success,
           plans: result.data,
         );
 
-      case FailureRepositoryResult<List<MainPlanModel>>():
+      case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '플랜 목록 불러오기에 실패했어요.',
@@ -114,52 +112,52 @@ class MainViewModel extends StateNotifier<MainState> {
     required int taskIndex,
     required bool isCurrentCompleted,
   }) {
-    // isCompleted 값이 업데이트 된 새로운 plan 리스트 구성
-    final updatedPlans = state.plans
-        .asMap()
-        .entries
-        .map((MapEntry<int, MainPlanModel> planEtries) {
-      // planIndex로 플랜 우선 식별하여 변경
-      if (planEtries.key == planIndex) {
-        // 해당 플랜의 tasks 수정
-        final List<TempTaskModel> updatedTasks = planEtries.value.tasks
-            .asMap()
-            .entries
-            .map((MapEntry<int, TempTaskModel> taskEntries) {
-          // 식별된 플랜 내에서 taskIndex로 태스크 식별
-          if (taskEntries.key == taskIndex) {
-            // isCompleted 변경된 태스크 반환
-            return TempTaskModel(
-              isCompleted: !isCurrentCompleted,
-              task: taskEntries.value.task,
-            );
-          } else {
-            // 그 외 태스크 유지
-            return taskEntries.value;
-          }
-        }).toList();
-        // 변경된 플랜 반환
-        return MainPlanModel(
-          planTitle: planEtries.value.planTitle,
-          tasks: updatedTasks,
-          dDay: planEtries.value.dDay,
-        );
-      } else {
-        // 그 외 플랜 유지
-        return planEtries.value;
-      }
-    }).toList();
-    // 변경된 플랜 리스트로 state 업데이트
-    state = state.copyWith(plans: updatedPlans);
-
-    // 체크 안 함>체크 완료로 상태 변경 시 태스크 완료 토스트 노출되도록 message 변경
-    if (!isCurrentCompleted) {
-      state = state.copyWith(completeMessage: '짱이야, 해내버렸어요! 😍');
-      // 다른 태스크 완료 시에도 동작할 수 있도록 잠시 유지 후 초기화
-      Future.delayed(Duration(milliseconds: 2500), () {
-        state = state.copyWith(completeMessage: '');
-      });
-    }
+    // // isCompleted 값이 업데이트 된 새로운 plan 리스트 구성
+    // final updatedPlans = state.plans
+    //     .asMap()
+    //     .entries
+    //     .map((MapEntry<int, MainPlanModel> planEtries) {
+    //   // planIndex로 플랜 우선 식별하여 변경
+    //   if (planEtries.key == planIndex) {
+    //     // 해당 플랜의 tasks 수정
+    //     final List<TempTaskModel> updatedTasks = planEtries.value.tasks
+    //         .asMap()
+    //         .entries
+    //         .map((MapEntry<int, TempTaskModel> taskEntries) {
+    //       // 식별된 플랜 내에서 taskIndex로 태스크 식별
+    //       if (taskEntries.key == taskIndex) {
+    //         // isCompleted 변경된 태스크 반환
+    //         return TempTaskModel(
+    //           isCompleted: !isCurrentCompleted,
+    //           task: taskEntries.value.task,
+    //         );
+    //       } else {
+    //         // 그 외 태스크 유지
+    //         return taskEntries.value;
+    //       }
+    //     }).toList();
+    //     // 변경된 플랜 반환
+    //     return MainPlanModel(
+    //       planTitle: planEtries.value.planTitle,
+    //       tasks: updatedTasks,
+    //       dDay: planEtries.value.dDay,
+    //     );
+    //   } else {
+    //     // 그 외 플랜 유지
+    //     return planEtries.value;
+    //   }
+    // }).toList();
+    // // 변경된 플랜 리스트로 state 업데이트
+    // state = state.copyWith(plans: updatedPlans);
+    //
+    // // 체크 안 함>체크 완료로 상태 변경 시 태스크 완료 토스트 노출되도록 message 변경
+    // if (!isCurrentCompleted) {
+    //   state = state.copyWith(completeMessage: '짱이야, 해내버렸어요! 😍');
+    //   // 다른 태스크 완료 시에도 동작할 수 있도록 잠시 유지 후 초기화
+    //   Future.delayed(Duration(milliseconds: 2500), () {
+    //     state = state.copyWith(completeMessage: '');
+    //   });
+    // }
   }
 
   // 길티프리 모드 사용 가능한지 판단

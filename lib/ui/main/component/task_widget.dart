@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
@@ -8,8 +9,8 @@ import '../main_view_model.dart';
 
 class TaskWidget extends StatelessWidget {
   final String planTitle;
-  final List<TempTaskModel> tasks;
-  final int? dDay;
+  final List<TaskStatusModel> tasks;
+  final String dDay;
   final int planIndex;
   final OnCheckboxTap onCheckboxTap;
 
@@ -40,7 +41,7 @@ class TaskWidget extends StatelessWidget {
             _PlanTitle(planTitle: planTitle),
             SizedBox(height: 8.0),
             ...tasks.asMap().entries.map(
-                  (MapEntry<int, TempTaskModel> e) => _Task(
+                  (MapEntry<int, TaskStatusModel> e) => _Task(
                     task: e.value,
                     planIndex: planIndex,
                     taskIndex: e.key,
@@ -60,7 +61,7 @@ class TaskWidget extends StatelessWidget {
 }
 
 class _Task extends StatelessWidget {
-  final TempTaskModel task;
+  final TaskStatusModel task;
   final OnCheckboxTap onCheckboxTap;
   final int planIndex;
   final int taskIndex;
@@ -93,7 +94,7 @@ class _Task extends StatelessWidget {
           ),
           Expanded(
             child: PlanitText(
-              task.task,
+              task.title,
               style: task.isCompleted
                   ? PlanitTypos.body2.copyWith(
                       color: PlanitColors.black03,
@@ -110,7 +111,7 @@ class _Task extends StatelessWidget {
 }
 
 class _DDay extends StatelessWidget {
-  final int? dDay;
+  final String dDay;
 
   const _DDay({
     required this.dDay,
@@ -118,7 +119,7 @@ class _DDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (dDay == null)
+    return (dDay.isEmpty)
         ? SizedBox.shrink()
         : Container(
             decoration: BoxDecoration(
@@ -133,7 +134,7 @@ class _DDay extends StatelessWidget {
               vertical: 4.0,
             ),
             child: PlanitText(
-              'D-$dDay',
+              dDay,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,

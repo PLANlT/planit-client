@@ -6,6 +6,7 @@ import 'package:planit/ui/common/comopnent/planit_loading.dart';
 import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/ui/main/const/main_enums.dart';
 import 'package:planit/ui/main/main_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:planit/ui/main/main_view_model.dart';
@@ -80,7 +81,9 @@ class MainView extends HookConsumerWidget {
               (state.loadingStatus == LoadingStatus.loading)
                   ? SizedBox.shrink()
                   : PlanListView(
-                      plans: state.plans,
+                      plans: state.routeType == RouteType.slow
+                          ? state.plans.slowPlans
+                          : state.plans.passionatePlans,
                       showRecoveryRoutineBanner:
                           state.showRecoveryRoutineBanner,
                       onCheckboxTap: viewModel.onCheckboxTap,

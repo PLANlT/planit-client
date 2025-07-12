@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MainState {
   RouteType get routeType;
-  List<MainPlanModel> get plans;
+  TodayPlanListModel get plans;
   TaskStatus get taskStatus;
   LoadingStatus get loadingStatus;
   bool get showRecoveryRoutineBanner;
@@ -38,7 +38,7 @@ mixin _$MainState {
             other is MainState &&
             (identical(other.routeType, routeType) ||
                 other.routeType == routeType) &&
-            const DeepCollectionEquality().equals(other.plans, plans) &&
+            (identical(other.plans, plans) || other.plans == plans) &&
             (identical(other.taskStatus, taskStatus) ||
                 other.taskStatus == taskStatus) &&
             (identical(other.loadingStatus, loadingStatus) ||
@@ -58,7 +58,7 @@ mixin _$MainState {
   int get hashCode => Object.hash(
       runtimeType,
       routeType,
-      const DeepCollectionEquality().hash(plans),
+      plans,
       taskStatus,
       loadingStatus,
       showRecoveryRoutineBanner,
@@ -79,7 +79,7 @@ abstract mixin class $MainStateCopyWith<$Res> {
   @useResult
   $Res call(
       {RouteType routeType,
-      List<MainPlanModel> plans,
+      TodayPlanListModel plans,
       TaskStatus taskStatus,
       LoadingStatus loadingStatus,
       bool showRecoveryRoutineBanner,
@@ -117,7 +117,7 @@ class _$MainStateCopyWithImpl<$Res> implements $MainStateCopyWith<$Res> {
       plans: null == plans
           ? _self.plans
           : plans // ignore: cast_nullable_to_non_nullable
-              as List<MainPlanModel>,
+              as TodayPlanListModel,
       taskStatus: null == taskStatus
           ? _self.taskStatus
           : taskStatus // ignore: cast_nullable_to_non_nullable
@@ -149,29 +149,22 @@ class _$MainStateCopyWithImpl<$Res> implements $MainStateCopyWith<$Res> {
 /// @nodoc
 
 class _MainState implements MainState {
-  const _MainState(
+  _MainState(
       {this.routeType = RouteType.slow,
-      final List<MainPlanModel> plans = const [],
+      this.plans = const TodayPlanListModel(slowPlans: [], passionatePlans: []),
       this.taskStatus = TaskStatus.none,
       this.loadingStatus = LoadingStatus.none,
       this.showRecoveryRoutineBanner = true,
       this.errorMessage = '',
       this.completeMessage = '',
-      this.canUseGuiltyFree = null})
-      : _plans = plans;
+      this.canUseGuiltyFree = null});
 
   @override
   @JsonKey()
   final RouteType routeType;
-  final List<MainPlanModel> _plans;
   @override
   @JsonKey()
-  List<MainPlanModel> get plans {
-    if (_plans is EqualUnmodifiableListView) return _plans;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_plans);
-  }
-
+  final TodayPlanListModel plans;
   @override
   @JsonKey()
   final TaskStatus taskStatus;
@@ -206,7 +199,7 @@ class _MainState implements MainState {
             other is _MainState &&
             (identical(other.routeType, routeType) ||
                 other.routeType == routeType) &&
-            const DeepCollectionEquality().equals(other._plans, _plans) &&
+            (identical(other.plans, plans) || other.plans == plans) &&
             (identical(other.taskStatus, taskStatus) ||
                 other.taskStatus == taskStatus) &&
             (identical(other.loadingStatus, loadingStatus) ||
@@ -226,7 +219,7 @@ class _MainState implements MainState {
   int get hashCode => Object.hash(
       runtimeType,
       routeType,
-      const DeepCollectionEquality().hash(_plans),
+      plans,
       taskStatus,
       loadingStatus,
       showRecoveryRoutineBanner,
@@ -250,7 +243,7 @@ abstract mixin class _$MainStateCopyWith<$Res>
   @useResult
   $Res call(
       {RouteType routeType,
-      List<MainPlanModel> plans,
+      TodayPlanListModel plans,
       TaskStatus taskStatus,
       LoadingStatus loadingStatus,
       bool showRecoveryRoutineBanner,
@@ -286,9 +279,9 @@ class __$MainStateCopyWithImpl<$Res> implements _$MainStateCopyWith<$Res> {
           : routeType // ignore: cast_nullable_to_non_nullable
               as RouteType,
       plans: null == plans
-          ? _self._plans
+          ? _self.plans
           : plans // ignore: cast_nullable_to_non_nullable
-              as List<MainPlanModel>,
+              as TodayPlanListModel,
       taskStatus: null == taskStatus
           ? _self.taskStatus
           : taskStatus // ignore: cast_nullable_to_non_nullable

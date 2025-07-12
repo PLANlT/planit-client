@@ -1,13 +1,61 @@
-import 'package:planit/ui/main/component/task_widget.dart';
+import '../../../data_source/main/reponse_body/today_tasks_response_body.dart';
 
-class MainPlanModel {
-  final String planTitle;
-  final List<TempTaskModel> tasks;
-  final int? dDay;
+class TodayPlanListModel {
+  final List<TodayPlanModel> slowPlans;
+  final List<TodayPlanModel> passionatePlans;
 
-  MainPlanModel({
-    required this.planTitle,
-    required this.tasks,
-    this.dDay,
+  const TodayPlanListModel({
+    required this.slowPlans,
+    required this.passionatePlans,
   });
+
+  TodayPlanListModel.fromResponse(TodayPlanListResponseBody response)
+      : slowPlans = response.slowPlans
+            .map((plan) => TodayPlanModel.fromResponse(plan))
+            .toList(),
+        passionatePlans = response.passionatePlans
+            .map((plan) => TodayPlanModel.fromResponse(plan))
+            .toList();
+}
+
+class TodayPlanModel {
+  final int planId;
+  final String title;
+  final List<TaskStatusModel> tasks;
+  final String dDay;
+
+  const TodayPlanModel({
+    required this.planId,
+    required this.title,
+    required this.tasks,
+    required this.dDay,
+  });
+
+  TodayPlanModel.fromResponse(TodayPlanResponseBody response)
+      : planId = response.planId,
+        title = response.title,
+        tasks = response.tasks
+            .map((task) => TaskStatusModel.fromResponse(task))
+            .toList(),
+        dDay = response.dDay;
+}
+
+class TaskStatusModel {
+  final int taskId;
+  final String title;
+  final String routineTime;
+  final bool isCompleted;
+
+  const TaskStatusModel({
+    required this.taskId,
+    required this.title,
+    required this.routineTime,
+    required this.isCompleted,
+  });
+
+  TaskStatusModel.fromResponse(TaskStatusResponseBody response)
+      : taskId = response.taskId,
+        title = response.title,
+        routineTime = response.routineTime,
+        isCompleted = response.isCompleted;
 }
