@@ -22,6 +22,5 @@ abstract class MainState with _$MainState {
     @Default('') String errorMessage,
     @Default('') String completeMessage,
     @Default(null) bool? canUseGuiltyFree,
-    @Default(false) bool didFirstComplete,
   }) = _MainState;
 }

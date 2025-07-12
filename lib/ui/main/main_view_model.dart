@@ -54,7 +54,7 @@ class MainViewModel extends StateNotifier<MainState> {
     final DateTime today = DateTime.now();
     // 오늘 이전이 아니라면 == 오늘이거나, 오늘 이후라면>첫 달성을 한 것
     if (!lastCompleteTaskDate!.isBefore(today)) {
-      state = state.copyWith(didFirstComplete: true);
+      state = state.copyWith(taskStatus: TaskStatus.partial);
     }
   }
 
@@ -103,9 +103,9 @@ class MainViewModel extends StateNotifier<MainState> {
       case SuccessRepositoryResult():
         // 리스트 갱신
         await getTodayPlans();
-        // 첫달성이라면 상태 변경
-        if (!state.didFirstComplete) {
-          state = state.copyWith(didFirstComplete: true);
+        // 첫달성이라면==아무것도 안 했다면 상태 변경
+        if (state.taskStatus==TaskStatus.none) {
+          state = state.copyWith(taskStatus: TaskStatus.partial);
           _storageService.setString(
             key: StorageKey.lastCompleteTaskDate,
             value: DateTime.now().toString(),

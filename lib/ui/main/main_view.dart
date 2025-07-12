@@ -79,13 +79,12 @@ class MainView extends HookConsumerWidget {
                 ),
               ),
               PlanListView(
-                      plans: state.routeType == RouteType.slow
-                          ? state.plans.slowPlans
-                          : state.plans.passionatePlans,
-                      showRecoveryRoutineBanner:
-                          state.showRecoveryRoutineBanner,
-                      onCheckboxTap: viewModel.onCheckboxTap,
-                    ),
+                plans: state.routeType == RouteType.slow
+                    ? state.plans.slowPlans
+                    : state.plans.passionatePlans,
+                showRecoveryRoutineBanner: state.showRecoveryRoutineBanner,
+                onCheckboxTap: viewModel.onCheckboxTap,
+              ),
             ],
           ),
           if (state.loadingStatus == LoadingStatus.loading)
