@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:planit/ui/recovery/recovery_intro_view.dart';
 
 import '../../../theme/planit_colors.dart';
 import '../../../theme/planit_typos.dart';
-import '../../common/assets.dart';
 import '../../common/comopnent/planit_text.dart';
 
 class RecoveryRoutineBanner extends StatelessWidget {
