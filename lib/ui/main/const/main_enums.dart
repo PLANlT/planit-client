@@ -5,7 +5,8 @@ enum RouteType {
 }
 
 enum TaskStatus {
-  none, // 아무것도 안한 상태
+  none, // 초기 상태
+  nothing, // 아무것도 안 한 상태
   partial, // 하나 이상 태스트 달성
   allPassionate; // 열정 태스크 모두 달성
 }

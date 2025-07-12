@@ -34,6 +34,15 @@ class MainViewModel extends StateNotifier<MainState> {
         _storageService = storageService,
         super(MainState());
 
+  void d(){
+    state = state.copyWith(taskStatus: TaskStatus.partial);
+    _storageService.setString(
+      key: StorageKey.lastCompleteTaskDate,
+      value: DateTime.now().toString(),
+    );
+
+  }
+
   // 화면 진입 시 필요한 작업
   Future<void> init() async {
     getTodayPlans();
@@ -46,7 +55,10 @@ class MainViewModel extends StateNotifier<MainState> {
       defaultValue: '',
     );
     // 저장된 날짜가 없다면 오늘 첫달성 하지 못한 것
-    if (lastCompleteTaskDateString.isEmpty) return;
+    if (lastCompleteTaskDateString.isEmpty) {
+      state=state.copyWith(taskStatus: TaskStatus.nothing);
+      return;
+    }
 
     final DateTime? lastCompleteTaskDate = stringToDateTime(
       lastCompleteTaskDateString,
@@ -55,6 +67,8 @@ class MainViewModel extends StateNotifier<MainState> {
     // 오늘 이전이 아니라면 == 오늘이거나, 오늘 이후라면>첫 달성을 한 것
     if (!lastCompleteTaskDate!.isBefore(today)) {
       state = state.copyWith(taskStatus: TaskStatus.partial);
+    } else {
+      state=state.copyWith(taskStatus: TaskStatus.nothing);
     }
   }
 

@@ -47,6 +47,21 @@ class MainView extends HookConsumerWidget {
       return null;
     }, [state.completeMessage]);
 
+    // taskStatus를 감지하여, nothing에서 partial로 변경될 때에만 첫달성 화면 노출
+    useValueChanged<TaskStatus, void>(state.taskStatus, (oldValue, _) {
+      if (oldValue == TaskStatus.nothing && state.taskStatus == TaskStatus.partial) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => FirstCompleteView(
+                consecutiveDays: 102,
+              ),
+            ),
+          );
+        });
+      }
+    });
+
     return DefaultLayout(
       child: Stack(
         children: [
@@ -57,17 +72,6 @@ class MainView extends HookConsumerWidget {
                 type: state.routeType,
                 onGuiltyFreePressed: viewModel.checkCanUseGuiltyFree(),
                 canUseGuiltyFree: state.canUseGuiltyFree,
-              ),
-              // 첫 달성 화면 확인용 임시 버튼
-              TextButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FirstCompleteView(
-                      consecutiveDays: 102,
-                    ),
-                  ),
-                ),
-                child: Text('첫 달성'),
               ),
               RouteSwitchBanner(
                 type: state.routeType,
