@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:numberpicker/numberpicker.dart';
+import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
 import 'package:planit/ui/mypage/view/mypage_view.dart';
 
+import '../../../theme/planit_typos.dart';
 import '../../common/assets.dart';
 import '../../guilty_free/start/view/guilty_free_intro_view.dart';
 import '../const/main_enums.dart';
@@ -39,6 +42,31 @@ class MainTopWidget extends StatelessWidget {
         height: 200.0,
         child: Stack(
           children: [
+            // 연속일
+            Positioned(
+              left: 0.0,
+              right: 0.0,
+              bottom: -40,
+              child: NumberPicker(
+                itemHeight: 90,
+                itemWidth: 200,
+                onChanged: (value) {},
+                maxValue: 103,
+                minValue: 1,
+                value: 102,
+                selectedTextStyle: PlanitTypos.pretendardBlack90.copyWith(
+                  color: status == TaskStatus.nothing
+                      ? PlanitColors.white02
+                      : (status == TaskStatus.allPassionate
+                          ? PlanitColors.primary
+                          : PlanitColors.black01),
+                ),
+                textStyle: PlanitTypos.pretendardBlack40.copyWith(
+                  color: PlanitColors.white02,
+                ),
+              ),
+            ),
+            // 마이페이지 버튼
             Positioned(
               left: 0.0,
               child: IconButton(
@@ -51,6 +79,7 @@ class MainTopWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
               ),
             ),
+            // 길티프리 버튼
             Positioned(
               right: 0.0,
               child: IconButton(
@@ -71,6 +100,7 @@ class MainTopWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
               ),
             ),
+            // 마스코트 에셋
             Positioned(
               left: 0.0,
               bottom: 0.0,
@@ -88,13 +118,13 @@ String getAsset({
   required TaskStatus status,
 }) {
   if (type == RouteType.slow) {
-    if (status == TaskStatus.none) {
+    if (status == TaskStatus.nothing) {
       return Assets.mascotSeatingMonochrome;
     } else {
       return Assets.mascotSeatingColor;
     }
   } else {
-    if (status == TaskStatus.none) {
+    if (status == TaskStatus.nothing) {
       return Assets.mascotDancingMonochrome;
     } else {
       return Assets.mascotDancingColor;

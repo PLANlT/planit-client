@@ -5,11 +5,17 @@ import 'package:planit/ui/main/const/main_enums.dart';
 
 part 'main_state.freezed.dart';
 
+// emptyPlans = TodayPlanListModel(slowPlans: [], passionatePlans: []);
+
 @freezed
 abstract class MainState with _$MainState {
-  const factory MainState({
+  factory MainState({
     @Default(RouteType.slow) RouteType routeType,
-    @Default([]) List<MainPlanModel> plans,
+    @Default(TodayPlanListModel(
+      slowPlans: [],
+      passionatePlans: [],
+    ))
+    TodayPlanListModel plans,
     @Default(TaskStatus.none) TaskStatus taskStatus,
     @Default(LoadingStatus.none) LoadingStatus loadingStatus,
     @Default(true) bool showRecoveryRoutineBanner,

@@ -60,11 +60,6 @@ class RecoveryCompleteView extends ConsumerWidget {
                 width: double.infinity,
                 child: PlanitButton(
                   onPressed: () {
-                    // 회복루틴 종료 시 오늘 날짜 저장
-                    service.setString(
-                      key: StorageKey.lastRecoveryRoutineDate,
-                      value: DateTime.now().toString(),
-                    );
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => RootTab(),

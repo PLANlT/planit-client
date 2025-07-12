@@ -13,6 +13,6 @@ class StorageKey {
   // GuiltyFreeStatus 저장
   static const guiltyFreeStatus = 'guiltyFreeStatus';
 
-  // 마지막으로 회복루틴을 사용한 날짜
-  static const lastRecoveryRoutineDate = 'lastRecoveryRoutineDate';
+  // 마지막으로 태스크를 달성한 날짜 (첫 달성 확인 용도)
+  static const lastCompleteTaskDate = 'lastCompleteTaskDate';
 }

@@ -8,7 +8,7 @@ import '../../../theme/planit_typos.dart';
 import '../main_view_model.dart';
 
 class PlanListView extends StatelessWidget {
-  final List<MainPlanModel> plans;
+  final List<TodayPlanModel> plans;
   final bool showRecoveryRoutineBanner;
   final OnCheckboxTap onCheckboxTap;
 
@@ -68,11 +68,11 @@ class PlanListView extends StatelessWidget {
                   if (index == 0) {
                     return RecoveryRoutineBanner();
                   } else {
-                    final MainPlanModel plan = plans[index - 1];
+                    final TodayPlanModel plan = plans[index - 1];
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: TaskWidget(
-                        planTitle: plan.planTitle,
+                        planTitle: plan.title,
                         tasks: plan.tasks,
                         dDay: plan.dDay,
                         planIndex: index - 1,
@@ -83,11 +83,11 @@ class PlanListView extends StatelessWidget {
                 }
                 // 회복 루틴 배너가 노출되지 않을 때
                 else {
-                  final MainPlanModel plan = plans[index];
+                  final TodayPlanModel plan = plans[index];
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: TaskWidget(
-                      planTitle: plan.planTitle,
+                      planTitle: plan.title,
                       tasks: plan.tasks,
                       dDay: plan.dDay,
                       planIndex: index,

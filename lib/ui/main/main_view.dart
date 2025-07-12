@@ -6,6 +6,7 @@ import 'package:planit/ui/common/comopnent/planit_loading.dart';
 import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/ui/main/const/main_enums.dart';
 import 'package:planit/ui/main/main_state.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:planit/ui/main/main_view_model.dart';
@@ -46,6 +47,21 @@ class MainView extends HookConsumerWidget {
       return null;
     }, [state.completeMessage]);
 
+    // taskStatus를 감지하여, nothing에서 partial로 변경될 때에만 첫달성 화면 노출
+    useValueChanged<TaskStatus, void>(state.taskStatus, (oldValue, _) {
+      if (oldValue == TaskStatus.nothing && state.taskStatus == TaskStatus.partial) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => FirstCompleteView(
+                consecutiveDays: 102,
+              ),
+            ),
+          );
+        });
+      }
+    });
+
     return DefaultLayout(
       child: Stack(
         children: [
@@ -57,17 +73,6 @@ class MainView extends HookConsumerWidget {
                 onGuiltyFreePressed: viewModel.checkCanUseGuiltyFree(),
                 canUseGuiltyFree: state.canUseGuiltyFree,
               ),
-              // 첫 달성 화면 확인용 임시 버튼
-              TextButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FirstCompleteView(
-                      consecutiveDays: 102,
-                    ),
-                  ),
-                ),
-                child: Text('첫 달성'),
-              ),
               RouteSwitchBanner(
                 type: state.routeType,
                 onLeftArrowPressed: () => viewModel.switchRoute(
@@ -77,14 +82,13 @@ class MainView extends HookConsumerWidget {
                   currentType: state.routeType,
                 ),
               ),
-              (state.loadingStatus == LoadingStatus.loading)
-                  ? SizedBox.shrink()
-                  : PlanListView(
-                      plans: state.plans,
-                      showRecoveryRoutineBanner:
-                          state.showRecoveryRoutineBanner,
-                      onCheckboxTap: viewModel.onCheckboxTap,
-                    ),
+              PlanListView(
+                plans: state.routeType == RouteType.slow
+                    ? state.plans.slowPlans
+                    : state.plans.passionatePlans,
+                showRecoveryRoutineBanner: state.showRecoveryRoutineBanner,
+                onCheckboxTap: viewModel.onCheckboxTap,
+              ),
             ],
           ),
           if (state.loadingStatus == LoadingStatus.loading)
