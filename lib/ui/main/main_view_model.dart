@@ -35,17 +35,9 @@ class MainViewModel extends StateNotifier<MainState> {
         _storageService = storageService,
         super(MainState());
 
-  void d() {
-    state = state.copyWith(taskStatus: TaskStatus.partial);
-    _storageService.setString(
-      key: StorageKey.lastCompleteTaskDate,
-      value: DateTime.now().toString(),
-    );
-  }
-
   // 화면 진입 시 필요한 작업
   Future<void> init() async {
-    getTodayPlans();
+    await getTodayPlans();
     await checkDidFirstComplete();
     checkDidAllPassinatePlans();
     debugPrint('taskStatus 판단 완료: ${state.taskStatus}');
@@ -120,7 +112,7 @@ class MainViewModel extends StateNotifier<MainState> {
         // 리스트 갱신
         await getTodayPlans();
         // 첫달성이라면==아무것도 안 했다면 상태 변경
-        if (state.taskStatus == TaskStatus.none) {
+        if (state.taskStatus == TaskStatus.nothing) {
           state = state.copyWith(taskStatus: TaskStatus.partial);
           _storageService.setString(
             key: StorageKey.lastCompleteTaskDate,
@@ -145,16 +137,8 @@ class MainViewModel extends StateNotifier<MainState> {
   }
 
   void checkDidAllPassinatePlans() {
-    bool didAll = true;
-    state.plans.passionatePlans.map(
-      (plan) => plan.tasks.map(
-        (task) {
-          // 하나라도 완료되지 않은 태스크 존재>false
-          if (!task.isCompleted) {
-            didAll = false;
-          }
-        },
-      ),
+    final bool didAll = state.plans.passionatePlans.every(
+      (plan) => plan.tasks.every((task) => task.isCompleted),
     );
     if (didAll) {
       state = state.copyWith(taskStatus: TaskStatus.allPassionate);
