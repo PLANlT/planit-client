@@ -15,7 +15,7 @@ final Provider<MainDataSource> mainDataSourceProvider =
 
 @RestApi()
 abstract class MainDataSource {
-  factory MainDataSource(Dio dio) = _PlanDataSource;
+  factory MainDataSource(Dio dio) = _MainDataSource;
 
   @GET('/planit/plans/today')
   Future<ApiResponse<TodayPlanListResponseBody>> getTodayTasks();

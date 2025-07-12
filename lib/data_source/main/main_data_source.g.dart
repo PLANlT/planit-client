@@ -8,8 +8,8 @@ part of 'main_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _PlanDataSource implements MainDataSource {
-  _PlanDataSource(this._dio, {this.baseUrl, this.errorLogger});
+class _MainDataSource implements MainDataSource {
+  _MainDataSource(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
