@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 
 import '../../common/comopnent/planit_checkbox.dart';
@@ -80,9 +81,53 @@ class _Task extends StatelessWidget {
             onTap: () {
               // 미완료일 때만 체크 허용
               if (!task.isCompleted) {
-                onCheckboxTap(
-                  taskId: task.taskId,
-                  isCurrentCompleted: task.isCompleted,
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => PlanitBottomSheet(
+                    content: Column(
+                      children: [
+                        SizedBox(height: 20.0),
+                        PlanitText(
+                          '할 일을 마치셨나요?',
+                          style: PlanitTypos.title3.copyWith(
+                            color: PlanitColors.black01,
+                          ),
+                        ),
+                        SizedBox(height: 16.0),
+                        GestureDetector(
+                          onTap: () => onCheckboxTap(
+                            taskId: task.taskId,
+                            isCurrentCompleted: task.isCompleted,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: PlanitText(
+                              '네',
+                              style: PlanitTypos.body2.copyWith(
+                                color: PlanitColors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          height: 0.5,
+                          color: PlanitColors.white03,
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: PlanitText(
+                              '아니오',
+                              style: PlanitTypos.body2.copyWith(
+                                color: PlanitColors.black01,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               }
             },
