@@ -26,29 +26,15 @@ class RecoveryRoutineBanner extends StatelessWidget {
           borderRadius: BorderRadiusGeometry.circular(12.0),
         ),
         padding: EdgeInsetsGeometry.symmetric(
-          horizontal: 20.0,
           vertical: 16.0,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            PlanitText(
-              '할 일 시작이 어려우신가요?',
-              style: PlanitTypos.body2.copyWith(
-                color: PlanitColors.white01,
-              ),
+        child: Center(
+          child: PlanitText(
+            '할 일 시작이 어려우신가요?',
+            style: PlanitTypos.body2.copyWith(
+              color: PlanitColors.white01,
             ),
-            IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                Assets.x,
-                colorFilter: ColorFilter.mode(
-                  PlanitColors.white01,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

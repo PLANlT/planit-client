@@ -37,9 +37,6 @@ class MainViewModel extends StateNotifier<MainState> {
   // 화면 진입 시 필요한 작업
   Future<void> init() async {
     getTodayPlans();
-    // 배너 보여줄지 확인해 상태 업데이트
-    final bool showBanner = await checkShowRecoveryRoutineBanner();
-    state = state.copyWith(showRecoveryRoutineBanner: showBanner);
   }
 
   // 플랜 리스트 불러오기
@@ -69,41 +66,10 @@ class MainViewModel extends StateNotifier<MainState> {
     required RouteType currentType,
   }) async {
     final bool isSlow = currentType == RouteType.slow;
-    bool showBanner = state.showRecoveryRoutineBanner;
-    // 열정>천천히 전환 시, 회복루틴 배너 노출할지 확인
-    if (!isSlow) {
-      showBanner = await checkShowRecoveryRoutineBanner();
-    }
-    // 천천히>열정 전환 시, 무조건 노출 안 함
-    else {
-      showBanner = false;
-    }
     state = state.copyWith(
       routeType: isSlow ? RouteType.passionate : RouteType.slow,
-      showRecoveryRoutineBanner: showBanner,
+      showRecoveryRoutineBanner: isSlow ? false : true,
     );
-  }
-
-  // 오늘 회복루틴을 한 번도 사용하지 않았을 때에만 배너 노출
-  // TODO: 매번 lastDate 로드, today와 비교해 계산 > 비효율적인 것 같아 개선 필요
-  Future<bool> checkShowRecoveryRoutineBanner() async {
-    final String lastDateString = await _storageService.getString(
-      key: StorageKey.lastRecoveryRoutineDate,
-      defaultValue: '',
-    );
-
-    // 저장된 날짜가 없다면, 사용하지 않은 것이므로 계산없이 true 반환
-    if (lastDateString.isEmpty) {
-      return true;
-    }
-
-    final DateTime? lastDate = stringToDateTime(lastDateString);
-    final DateTime today = DateTime.now();
-
-    if (lastDate!.isBefore(today)) {
-      return true;
-    }
-    return false;
   }
 
   // Checkbox 클릭 시, id 식별하여 plans 변경
