@@ -118,13 +118,13 @@ String getAsset({
   required TaskStatus status,
 }) {
   if (type == RouteType.slow) {
-    if (status == TaskStatus.none) {
+    if (status == TaskStatus.nothing) {
       return Assets.mascotSeatingMonochrome;
     } else {
       return Assets.mascotSeatingColor;
     }
   } else {
-    if (status == TaskStatus.none) {
+    if (status == TaskStatus.nothing) {
       return Assets.mascotDancingMonochrome;
     } else {
       return Assets.mascotDancingColor;

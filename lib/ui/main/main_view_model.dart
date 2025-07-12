@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
@@ -34,19 +35,20 @@ class MainViewModel extends StateNotifier<MainState> {
         _storageService = storageService,
         super(MainState());
 
-  void d(){
+  void d() {
     state = state.copyWith(taskStatus: TaskStatus.partial);
     _storageService.setString(
       key: StorageKey.lastCompleteTaskDate,
       value: DateTime.now().toString(),
     );
-
   }
 
   // 화면 진입 시 필요한 작업
   Future<void> init() async {
     getTodayPlans();
-    checkDidFirstComplete();
+    await checkDidFirstComplete();
+    checkDidAllPassinatePlans();
+    debugPrint('taskStatus 판단 완료: ${state.taskStatus}');
   }
 
   Future<void> checkDidFirstComplete() async {
@@ -56,7 +58,7 @@ class MainViewModel extends StateNotifier<MainState> {
     );
     // 저장된 날짜가 없다면 오늘 첫달성 하지 못한 것
     if (lastCompleteTaskDateString.isEmpty) {
-      state=state.copyWith(taskStatus: TaskStatus.nothing);
+      state = state.copyWith(taskStatus: TaskStatus.nothing);
       return;
     }
 
@@ -68,7 +70,7 @@ class MainViewModel extends StateNotifier<MainState> {
     if (!lastCompleteTaskDate!.isBefore(today)) {
       state = state.copyWith(taskStatus: TaskStatus.partial);
     } else {
-      state=state.copyWith(taskStatus: TaskStatus.nothing);
+      state = state.copyWith(taskStatus: TaskStatus.nothing);
     }
   }
 
@@ -118,7 +120,7 @@ class MainViewModel extends StateNotifier<MainState> {
         // 리스트 갱신
         await getTodayPlans();
         // 첫달성이라면==아무것도 안 했다면 상태 변경
-        if (state.taskStatus==TaskStatus.none) {
+        if (state.taskStatus == TaskStatus.none) {
           state = state.copyWith(taskStatus: TaskStatus.partial);
           _storageService.setString(
             key: StorageKey.lastCompleteTaskDate,
@@ -133,10 +135,29 @@ class MainViewModel extends StateNotifier<MainState> {
             state = state.copyWith(completeMessage: '');
           });
         }
+        // 열정 태스크 모두 완료했는지 확인
+        checkDidAllPassinatePlans();
       case FailureRepositoryResult():
         state = state.copyWith(
           errorMessage: result.messages!.first,
         );
+    }
+  }
+
+  void checkDidAllPassinatePlans() {
+    bool didAll = true;
+    state.plans.passionatePlans.map(
+      (plan) => plan.tasks.map(
+        (task) {
+          // 하나라도 완료되지 않은 태스크 존재>false
+          if (!task.isCompleted) {
+            didAll = false;
+          }
+        },
+      ),
+    );
+    if (didAll) {
+      state = state.copyWith(taskStatus: TaskStatus.allPassionate);
     }
   }
 
