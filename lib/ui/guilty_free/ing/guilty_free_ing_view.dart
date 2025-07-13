@@ -79,7 +79,7 @@ class GuiltyFreeIngView extends HookConsumerWidget {
               overlayColor: PlanitColors.black01,
             ),
             child: PlanitText(
-              '이전 길티-프리 내역',
+              '이전 길티프리 내역',
               style: PlanitTypos.body2.copyWith(
                 color: PlanitColors.black04,
               ),

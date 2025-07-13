@@ -19,7 +19,7 @@ class GuiltyFreeHistoryView extends StatelessWidget {
             children: [
               SizedBox(height: 32.0),
               PlanitText(
-                '이전 길티-프리 내역',
+                '이전 길티프리 내역',
                 style: PlanitTypos.title2.copyWith(
                   color: PlanitColors.black01,
                 ),

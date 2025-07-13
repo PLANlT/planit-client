@@ -53,7 +53,7 @@ class GuiltyFreeStartViewModel extends StateNotifier<GuiltyFreeStartState> {
         if (mounted) {
           state = state.copyWith(
             loadingStatus: LoadingStatus.error,
-            errorMessage: '길티-프리 모드 시작에 실패했어요.\n네트워크 연결을 확인한 후 다시 시도해주세요.',
+            errorMessage: '길티프리 모드 시작에 실패했어요.\n네트워크 연결을 확인한 후 다시 시도해주세요.',
           );
         }
     }
