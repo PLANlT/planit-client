@@ -15,6 +15,7 @@ import 'package:planit/ui/common/comopnent/planit_text_field.dart';
 import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
+import 'package:planit/ui/onboarding/onboarding_view.dart';
 import 'package:planit/ui/login/login_view.dart';
 import 'package:planit/ui/login/tos_view.dart';
 import 'package:planit/ui/splash_view.dart';
@@ -74,6 +75,10 @@ class Home extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
+                    builder: (context) => OnboardingView(),
+                  ),
+                ),
+                child: Text('온보딩'),
                     builder: (context) => LoginView(),
                   ),
                 ),

@@ -50,6 +50,7 @@ class Assets {
   static const String mascotRestarting = 'assets/mascots/restarting.svg';
   static const String mascotSleeping = 'assets/mascots/sleeping.svg';
   static const String mascotThinking = 'assets/mascots/thinking.svg';
+  static const String mascotSplash = 'assets/mascots/splash.svg';
   static const String mascotLogin = 'assets/mascots/login.svg';
 
   // images
@@ -65,4 +66,12 @@ class Assets {
       'assets/images/recovery_routine_phone.svg';
   static const String imgCongratulation = 'assets/images/congratulation.svg';
   static const String imgSpeachBalloon = 'assets/images/speach_balloon.svg';
+
+  // onboarding
+  static const String onboarding1 = 'assets/onboarding/onboarding1.svg';
+  static const String onboarding2_1 = 'assets/onboarding/onboarding2-1.svg';
+  static const String onboarding2_2 = 'assets/onboarding/onboarding2-2.svg';
+  static const String onboarding2_3 = 'assets/onboarding/onboarding2-3.svg';
+  static const String onboarding3 = 'assets/onboarding/onboarding3.svg';
+  static const String onboarding4 = 'assets/onboarding/onboarding4.svg';
 }
