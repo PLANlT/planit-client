@@ -21,12 +21,12 @@ class GuiltyFreeIngViewModel extends StateNotifier<GuiltyFreeIngState> {
   })  : _guiltyFreeRepository = guiltyFreeRepository,
         super(GuiltyFreeIngState());
 
-  void endGuiltyFree() {
+  Future<void> endGuiltyFree() async {
     if (mounted) {
       state = state.copyWith(loadingStatus: LoadingStatus.loading);
     }
 
-    final RepositoryResult<void> result = _guiltyFreeRepository.endGuiltyFree();
+    final RepositoryResult<void> result = await _guiltyFreeRepository.endGuiltyFree();
 
     switch (result) {
       case SuccessRepositoryResult<void>():
@@ -39,7 +39,7 @@ class GuiltyFreeIngViewModel extends StateNotifier<GuiltyFreeIngState> {
         if (mounted) {
           state = state.copyWith(
             loadingStatus: LoadingStatus.error,
-            errorMessage: '길티-프리 모드 해제에 실패했어요.\n네트워크 연결을 확인한 후 다시 시도해주세요.',
+            errorMessage: '길티프리 모드 해제에 실패했어요.\n네트워크 연결을 확인한 후 다시 시도해주세요.',
           );
         }
     }

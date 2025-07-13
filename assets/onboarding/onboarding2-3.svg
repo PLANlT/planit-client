@@ -1,0 +1,48 @@
+<svg width="316" height="412" viewBox="0 0 316 412" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path opacity="0.3"
+        d="M7 250C11.3333 257.833 19.3 275 16.5 281C13 288.5 6.5 313 16.5 322.5C26.5 332 16.5 362.5 16.5 366C16.5 369.5 1 384 16.5 407"
+        stroke="#37CD9C" stroke-width="16" />
+    <path opacity="0.3"
+        d="M26 90C30.3333 97.8333 38.3 115 35.5 121C32 128.5 25.5 153 35.5 162.5C45.5 172 35.5 202.5 35.5 206C35.5 209.5 20 224 35.5 247"
+        stroke="#FF9C6C" stroke-width="18" />
+    <path opacity="0.3"
+        d="M60 33C64.3333 40.8333 72.3 58 69.5 64C66 71.5 59.5 96 69.5 105.5C79.5 115 69.5 145.5 69.5 149C69.5 152.5 54 167 69.5 190"
+        stroke="url(#paint0_linear_2408_3660)" stroke-width="18" />
+    <path opacity="0.3"
+        d="M252 6C256.333 13.8333 264.3 31 261.5 37C258 44.5 251.5 69 261.5 78.5C271.5 88 261.5 118.5 261.5 122C261.5 125.5 246 140 261.5 163"
+        stroke="url(#paint1_linear_2408_3660)" stroke-width="22" />
+    <path opacity="0.3"
+        d="M282 173C272.056 180.833 253.774 198 260.199 204C268.231 211.5 283.147 236 260.199 245.5C237.251 255 260.199 285.5 260.199 289C260.199 292.5 295.769 307 260.199 330"
+        stroke="#FF6B9D" stroke-width="22" />
+    <path opacity="0.3"
+        d="M145 195C135.056 202.833 116.774 220 123.199 226C131.231 233.5 146.147 258 123.199 267.5C100.251 277 123.199 307.5 123.199 311C123.199 314.5 158.769 329 123.199 352"
+        stroke="#FF6B9D" stroke-width="22" />
+    <circle cx="79" cy="106" r="13" fill="#FF6B9D" />
+    <circle cx="185" cy="195" r="13" fill="#FF6B9D" />
+    <circle cx="46" cy="145" r="13" fill="#FF6B9D" />
+    <circle cx="152" cy="234" r="13" fill="#FF6B9D" />
+    <rect x="99" y="93" width="111" height="26" fill="#F3F3F3" />
+    <rect x="205" y="182" width="111" height="26" fill="#F3F3F3" />
+    <rect x="66" y="132" width="111" height="26" fill="#F3F3F3" />
+    <rect x="172" y="221" width="111" height="26" fill="#F3F3F3" />
+    <path d="M73 105.125L78.5152 110L87 101" stroke="white" stroke-width="3"
+        stroke-linecap="round" />
+    <path d="M179 194.125L184.515 199L193 190" stroke="white" stroke-width="3"
+        stroke-linecap="round" />
+    <path d="M39 145.583L44.5152 151L53 141" stroke="white" stroke-width="3"
+        stroke-linecap="round" />
+    <path d="M145 234.583L150.515 240L159 230" stroke="white" stroke-width="3"
+        stroke-linecap="round" />
+    <defs>
+        <linearGradient id="paint0_linear_2408_3660" x1="66.9722" y1="33" x2="66.9722" y2="190"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#995E41" stop-opacity="0" />
+            <stop offset="1" stop-color="#FF9C6C" />
+        </linearGradient>
+        <linearGradient id="paint1_linear_2408_3660" x1="258.972" y1="6" x2="258.972" y2="163"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#695B99" stop-opacity="0" />
+            <stop offset="1" stop-color="#AF97FF" />
+        </linearGradient>
+    </defs>
+</svg>

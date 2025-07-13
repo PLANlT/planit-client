@@ -10,5 +10,6 @@ abstract class GuiltyFreeStartState with _$GuiltyFreeStartState {
     @Default('') String reason,
     @Default('') String errorMessage,
     @Default(LoadingStatus.none) LoadingStatus loadingStatus,
+    @Default(false) bool canStartGuiltyFree,
   }) = _GuiltyFreeStartState;
 }
