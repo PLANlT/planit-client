@@ -5,6 +5,7 @@ import 'package:planit/core/api_response.dart';
 import 'package:planit/core/error_message.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/data_source/plan/plan_data_source.dart';
+import 'package:planit/data_source/plan/reponse_body/plan_detail_response_body.dart';
 import 'package:planit/data_source/plan/reponse_body/plan_response_body.dart';
 import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
@@ -41,25 +42,27 @@ class PlanRepository {
       return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
     }
   }
-//
+
   Future<RepositoryResult<List<PlanModel>>> getPausePlanList() async {
     return SuccessRepositoryResult(data: []);
   }
 
   Future<RepositoryResult<PlanDetailModel>> getPlanDetailByPlanId(
       int planId) async {
-    return SuccessRepositoryResult(
-      data: PlanDetailModel(
-        planId: 0,
-        title: '다이어트',
-        icon: Assets.planet1,
-        motivation: '매일 조금씩 , 꾸준히 나아가자',
-        tasks: [
-          TaskModel(taskId: 0, taskType: 'ALL', title: '아침 식단 기록하기'),
-          TaskModel(taskId: 0, taskType: 'ALL', title: '30분 산책하기'),
-          TaskModel(taskId: 0, taskType: 'ALL', title: '저녁 과식 피하기'),
-        ],
-      ),
-    );
+    try {
+      final ApiResponse<PlanDetailResponseBody> result =
+          await _planDataSource.getPlanDetails(planId);
+      final data = result.data;
+      final model = PlanDetailModel.fromResponse(data);
+
+      return SuccessRepositoryResult(
+        data: model,
+      );
+    } on DioException catch (e) {
+      return FailureRepositoryResult(
+        error: e,
+        messages: [networkErrorMsg],
+      );
+    }
   }
 }

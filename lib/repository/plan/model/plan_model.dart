@@ -1,3 +1,4 @@
+import 'package:planit/data_source/plan/reponse_body/plan_response_body.dart';
 import 'package:planit/repository/plan/model/task_model.dart';
 
 class PlanModel {
@@ -5,7 +6,7 @@ class PlanModel {
   final String title;
   final String motivation;
   final int totalTask;
-  final int? dDay;
+  final String? dDay;
   final String icon;
   final String? planStatus;
 
@@ -17,4 +18,15 @@ class PlanModel {
       this.dDay,
       required this.icon,
       this.planStatus});
+
+  factory PlanModel.fromResponse(PlanResponseBody response) {
+    return PlanModel(
+      planId: response.planId,
+      title: response.title,
+      icon: response.icon,
+      motivation: response.motivation,
+      totalTask: response.totalTasks,
+      dDay: response.dday,
+    );
+  }
 }
