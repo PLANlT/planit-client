@@ -1,0 +1,71 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../theme/planit_colors.dart';
+import '../../theme/planit_typos.dart';
+import '../common/comopnent/planit_button.dart';
+import '../common/comopnent/planit_text.dart';
+import '../common/const/planit_button_style.dart';
+import '../common/view/default_layout.dart';
+
+class OnboardingLayout extends StatelessWidget {
+  final String title;
+  final String description;
+  final String asset;
+  final bool showButton;
+
+  const OnboardingLayout({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.asset,
+    required this.showButton,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultLayout(
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 60.0,
+              width: double.infinity,
+            ),
+            PlanitText(
+              title,
+              textAlign: TextAlign.center,
+              style: PlanitTypos.title1.copyWith(
+                color: PlanitColors.black01,
+              ),
+            ),
+            Spacer(),
+            SvgPicture.asset(asset),
+            Spacer(),
+            PlanitText(
+              description,
+              textAlign: TextAlign.center,
+              style: PlanitTypos.body2.copyWith(
+                color: PlanitColors.black02,
+              ),
+            ),
+            if (showButton)
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20.0).copyWith(
+                  top: 36.0,
+                ),
+                width: double.infinity,
+                child: PlanitButton(
+                  onPressed: () {},
+                  buttonColor: PlanitButtonColor.black,
+                  buttonSize: PlanitButtonSize.large,
+                  label: '시작하기',
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
