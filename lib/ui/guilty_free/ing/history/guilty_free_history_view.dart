@@ -18,7 +18,7 @@ class GuiltyFreeHistoryView extends HookConsumerWidget {
     final GuiltyFreeHistoryViewModel viewModel = ref.read(
       guiltyFreeHistoryViewModelProvider.notifier,
     );
-    final GuiltyFreeHistoryState state = ref.read(
+    final GuiltyFreeHistoryState state = ref.watch(
       guiltyFreeHistoryViewModelProvider,
     );
 
@@ -32,7 +32,7 @@ class GuiltyFreeHistoryView extends HookConsumerWidget {
     return DefaultLayout(
       title: '',
       child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class GuiltyFreeHistoryView extends HookConsumerWidget {
               if (state.loadingStatus == LoadingStatus.success)
                 ListView.separated(
                   shrinkWrap: true,
-                  itemCount: 4,
+                  itemCount: state.reasonList.reasons.length,
                   separatorBuilder: (context, index) => SizedBox(
                     height: 16.0,
                   ),
@@ -101,7 +101,7 @@ class _Reason extends StatelessWidget {
         color: PlanitColors.white02,
         borderRadius: BorderRadius.circular(4.0),
       ),
-      padding: EdgeInsetsGeometry.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: 12.0,
         vertical: 16.0,
       ),
@@ -148,11 +148,11 @@ class _Advice extends StatelessWidget {
         ),
         Container(
           width: double.infinity,
-          padding: EdgeInsetsGeometry.symmetric(
+          padding: EdgeInsets.symmetric(
             horizontal: 10.0,
             vertical: 20.0,
           ),
-          margin: EdgeInsetsGeometry.only(bottom: 40.0),
+          margin: EdgeInsets.only(bottom: 40.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
             color: PlanitColors.black01,

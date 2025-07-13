@@ -26,7 +26,7 @@ class GuiltyFreeIngView extends HookConsumerWidget {
     final GuiltyFreeIngViewModel viewModel = ref.read(
       guiltyFreeIngViewModelProvider.notifier,
     );
-    final GuiltyFreeIngState state = ref.read(guiltyFreeIngViewModelProvider);
+    final GuiltyFreeIngState state = ref.watch(guiltyFreeIngViewModelProvider);
 
     final Size deviceSize = MediaQuery.of(context).size;
 
@@ -99,9 +99,11 @@ class GuiltyFreeIngView extends HookConsumerWidget {
                   context: context,
                   builder: (context) => PlanitBottomSheet(
                     content: _Content(
-                      onTap: () {
-                        viewModel.endGuiltyFree();
-                        if (state.loadingStatus == LoadingStatus.success) {
+                      onTap: () async {
+                        Navigator.of(context).pop();
+                        await viewModel.endGuiltyFree();
+                        if (state.loadingStatus == LoadingStatus.success &&
+                            context.mounted) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => RootTab(),

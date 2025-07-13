@@ -23,11 +23,11 @@ class GuiltyFreeHistoryViewModel extends StateNotifier<GuiltyFreeHistoryState> {
         super(GuiltyFreeHistoryState());
 
   Future<void> init() async {
-    await getReaonList();
+    await getReasonList();
     getAdvice();
   }
 
-  Future<void> getReaonList() async {
+  Future<void> getReasonList() async {
     if (mounted) {
       state = state.copyWith(loadingStatus: LoadingStatus.loading);
     }

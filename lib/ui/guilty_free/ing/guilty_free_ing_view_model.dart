@@ -21,12 +21,12 @@ class GuiltyFreeIngViewModel extends StateNotifier<GuiltyFreeIngState> {
   })  : _guiltyFreeRepository = guiltyFreeRepository,
         super(GuiltyFreeIngState());
 
-  void endGuiltyFree() {
+  Future<void> endGuiltyFree() async {
     if (mounted) {
       state = state.copyWith(loadingStatus: LoadingStatus.loading);
     }
 
-    final RepositoryResult<void> result = _guiltyFreeRepository.endGuiltyFree();
+    final RepositoryResult<void> result = await _guiltyFreeRepository.endGuiltyFree();
 
     switch (result) {
       case SuccessRepositoryResult<void>():
