@@ -55,6 +55,7 @@ flutter:
     - assets/mascots/
     - assets/planets/
     - assets/templates/
+    - assets/onboarding/
     - assets/.env
 
   fonts:
