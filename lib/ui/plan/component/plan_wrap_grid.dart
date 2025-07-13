@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/ui/common/assets.dart';
 
 class PlanetWrapGrid extends StatelessWidget {
   final String? selectedIcon;
@@ -10,12 +11,12 @@ class PlanetWrapGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> planetAssets = [
-      'assets/planets/planet1.svg',
-      'assets/planets/planet2.svg',
-      'assets/planets/planet3.svg',
-      'assets/planets/planet4.svg',
-      'assets/planets/planet5.svg',
-      'assets/planets/planet6.svg',
+      'assets/planets/planet1',
+      'assets/planets/planet2',
+      'assets/planets/planet3',
+      'assets/planets/planet4',
+      'assets/planets/planet5',
+      'assets/planets/planet6',
     ];
     return Wrap(
       spacing: 16,
@@ -28,11 +29,12 @@ class PlanetWrapGrid extends StatelessWidget {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: PlanitColors.white02,
+              color: PlanitColors.transparent,
               borderRadius: BorderRadius.circular(8),
-              border: isSelected ? Border.all(color: PlanitColors.alert) : null, //임시
             ),
-            child: SvgPicture.asset(asset),
+            child: isSelected
+                ? SvgPicture.asset('${asset}_selected.svg')
+                : SvgPicture.asset('${asset}_unselected.svg'),
           ),
         );
       }).toList(),

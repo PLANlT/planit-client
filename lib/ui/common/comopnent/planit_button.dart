@@ -23,6 +23,7 @@ class PlanitButton extends StatelessWidget {
   final PlanitButtonColor buttonColor;
   final PlanitButtonSize buttonSize;
   final String label;
+  final bool enabled;
 
   const PlanitButton({
     super.key,
@@ -30,12 +31,15 @@ class PlanitButton extends StatelessWidget {
     required this.buttonColor,
     required this.buttonSize,
     required this.label,
+    this.enabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final Color backgroundColor = (buttonColor == PlanitButtonColor.black)
-        ? PlanitColors.black01
+        ? (enabled
+            ? PlanitColors.black01
+            : PlanitColors.black01.withValues(alpha: 0.5))
         : ((buttonColor == PlanitButtonColor.white)
             ? PlanitColors.white01
             : PlanitColors.red);
@@ -46,7 +50,9 @@ class PlanitButton extends StatelessWidget {
         : PlanitColors.black01;
 
     final Color borderColor = (buttonColor == PlanitButtonColor.black)
-        ? PlanitColors.black01
+        ? (enabled
+            ? PlanitColors.black01
+            : PlanitColors.black01.withValues(alpha: 0.5))
         : PlanitColors.white03;
 
     final Color overlayColor = (buttonColor == PlanitButtonColor.black)
@@ -63,7 +69,7 @@ class PlanitButton extends StatelessWidget {
         : PlanitTypos.body3;
 
     return TextButton(
-      onPressed: onPressed,
+      onPressed: enabled ? onPressed : null,
       style: TextButton.styleFrom(
         overlayColor: overlayColor,
         backgroundColor: backgroundColor,

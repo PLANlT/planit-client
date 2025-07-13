@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/common/assets.dart';
+import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 
+import '../../common/comopnent/planit_checkbox.dart';
 import '../main_view_model.dart';
 
 class TaskWidget extends StatelessWidget {
   final String planTitle;
-  final List<TempTaskModel> tasks;
-  final int? dDay;
+  final List<TaskStatusModel> tasks;
+  final String dDay;
   final int planIndex;
   final OnCheckboxTap onCheckboxTap;
 
@@ -41,10 +42,8 @@ class TaskWidget extends StatelessWidget {
             _PlanTitle(planTitle: planTitle),
             SizedBox(height: 8.0),
             ...tasks.asMap().entries.map(
-                  (MapEntry<int, TempTaskModel> e) => _Task(
+                  (MapEntry<int, TaskStatusModel> e) => _Task(
                     task: e.value,
-                    planIndex: planIndex,
-                    taskIndex: e.key,
                     onCheckboxTap: onCheckboxTap,
                   ),
                 ),
@@ -61,16 +60,12 @@ class TaskWidget extends StatelessWidget {
 }
 
 class _Task extends StatelessWidget {
-  final TempTaskModel task;
+  final TaskStatusModel task;
   final OnCheckboxTap onCheckboxTap;
-  final int planIndex;
-  final int taskIndex;
 
   const _Task({
     required this.task,
     required this.onCheckboxTap,
-    required this.planIndex,
-    required this.taskIndex,
   });
 
   @override
@@ -83,18 +78,66 @@ class _Task extends StatelessWidget {
         spacing: 10.0,
         children: [
           GestureDetector(
-            onTap: () => onCheckboxTap(
-              planIndex: planIndex,
-              taskIndex: taskIndex,
-              isCurrentCompleted: task.isCompleted,
-            ),
-            child: _Checkbox(
+            onTap: () {
+              // 미완료일 때만 체크 허용
+              if (!task.isCompleted) {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => PlanitBottomSheet(
+                    content: Column(
+                      children: [
+                        SizedBox(height: 20.0),
+                        PlanitText(
+                          '할 일을 마치셨나요?',
+                          style: PlanitTypos.title3.copyWith(
+                            color: PlanitColors.black01,
+                          ),
+                        ),
+                        SizedBox(height: 16.0),
+                        GestureDetector(
+                          onTap: () => onCheckboxTap(
+                            taskId: task.taskId,
+                            isCurrentCompleted: task.isCompleted,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: PlanitText(
+                              '네',
+                              style: PlanitTypos.body2.copyWith(
+                                color: PlanitColors.red,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Divider(
+                          height: 0.5,
+                          color: PlanitColors.white03,
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: PlanitText(
+                              '아니오',
+                              style: PlanitTypos.body2.copyWith(
+                                color: PlanitColors.black01,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            },
+            child: PlanitCheckbox(
               isChecked: task.isCompleted,
             ),
           ),
           Expanded(
             child: PlanitText(
-              task.task,
+              task.title,
               style: task.isCompleted
                   ? PlanitTypos.body2.copyWith(
                       color: PlanitColors.black03,
@@ -111,7 +154,7 @@ class _Task extends StatelessWidget {
 }
 
 class _DDay extends StatelessWidget {
-  final int? dDay;
+  final String dDay;
 
   const _DDay({
     required this.dDay,
@@ -119,7 +162,7 @@ class _DDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (dDay == null)
+    return (dDay.isEmpty)
         ? SizedBox.shrink()
         : Container(
             decoration: BoxDecoration(
@@ -134,7 +177,7 @@ class _DDay extends StatelessWidget {
               vertical: 4.0,
             ),
             child: PlanitText(
-              'D-$dDay',
+              dDay,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
@@ -184,32 +227,4 @@ class TempTaskModel {
     required this.isCompleted,
     required this.task,
   });
-}
-
-class _Checkbox extends StatelessWidget {
-  final bool isChecked;
-
-  const _Checkbox({
-    required this.isChecked,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: PlanitColors.white01,
-        borderRadius: BorderRadius.circular(4.0),
-      ),
-      width: 20.0,
-      height: 20.0,
-      child: Padding(
-        padding: EdgeInsetsGeometry.all(4.0),
-        child: isChecked
-            ? SvgPicture.asset(
-                Assets.check,
-              )
-            : SizedBox.shrink(),
-      ),
-    );
-  }
 }

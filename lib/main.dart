@@ -16,6 +16,8 @@ import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/onboarding/onboarding_view.dart';
+import 'package:planit/ui/login/login_view.dart';
+import 'package:planit/ui/login/tos_view.dart';
 import 'package:planit/ui/splash_view.dart';
 
 Future<void> main() async {
@@ -77,6 +79,18 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 child: Text('온보딩'),
+                    builder: (context) => LoginView(),
+                  ),
+                ),
+                child: Text('로그인'),
+              ),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => TosView(),
+                  ),
+                ),
+                child: Text('약관'),
               ),
               Text(
                 '로그인 연동 테스트',

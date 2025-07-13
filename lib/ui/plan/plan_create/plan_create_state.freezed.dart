@@ -20,6 +20,8 @@ mixin _$PlanCreateState {
   String get icon;
   String get dDay;
   String get planStatus;
+  bool get isClickedNext;
+  String? get selectedDate;
   bool get isNextEnabled;
   LoadingStatus get loadingStatus;
   String get errorMessage;
@@ -44,6 +46,10 @@ mixin _$PlanCreateState {
             (identical(other.dDay, dDay) || other.dDay == dDay) &&
             (identical(other.planStatus, planStatus) ||
                 other.planStatus == planStatus) &&
+            (identical(other.isClickedNext, isClickedNext) ||
+                other.isClickedNext == isClickedNext) &&
+            (identical(other.selectedDate, selectedDate) ||
+                other.selectedDate == selectedDate) &&
             (identical(other.isNextEnabled, isNextEnabled) ||
                 other.isNextEnabled == isNextEnabled) &&
             (identical(other.loadingStatus, loadingStatus) ||
@@ -53,12 +59,22 @@ mixin _$PlanCreateState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, motivation, icon, dDay,
-      planStatus, isNextEnabled, loadingStatus, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      motivation,
+      icon,
+      dDay,
+      planStatus,
+      isClickedNext,
+      selectedDate,
+      isNextEnabled,
+      loadingStatus,
+      errorMessage);
 
   @override
   String toString() {
-    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, isNextEnabled: $isNextEnabled, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, isClickedNext: $isClickedNext, selectedDate: $selectedDate, isNextEnabled: $isNextEnabled, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
@@ -74,6 +90,8 @@ abstract mixin class $PlanCreateStateCopyWith<$Res> {
       String icon,
       String dDay,
       String planStatus,
+      bool isClickedNext,
+      String? selectedDate,
       bool isNextEnabled,
       LoadingStatus loadingStatus,
       String errorMessage});
@@ -97,6 +115,8 @@ class _$PlanCreateStateCopyWithImpl<$Res>
     Object? icon = null,
     Object? dDay = null,
     Object? planStatus = null,
+    Object? isClickedNext = null,
+    Object? selectedDate = freezed,
     Object? isNextEnabled = null,
     Object? loadingStatus = null,
     Object? errorMessage = null,
@@ -122,6 +142,14 @@ class _$PlanCreateStateCopyWithImpl<$Res>
           ? _self.planStatus
           : planStatus // ignore: cast_nullable_to_non_nullable
               as String,
+      isClickedNext: null == isClickedNext
+          ? _self.isClickedNext
+          : isClickedNext // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedDate: freezed == selectedDate
+          ? _self.selectedDate
+          : selectedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       isNextEnabled: null == isNextEnabled
           ? _self.isNextEnabled
           : isNextEnabled // ignore: cast_nullable_to_non_nullable
@@ -146,7 +174,9 @@ class _PlanCreateState implements PlanCreateState {
       this.motivation = '',
       this.icon = '',
       this.dDay = '',
-      this.planStatus = '',
+      this.planStatus = 'IN_PROGRESS',
+      this.isClickedNext = false,
+      this.selectedDate = '           ',
       this.isNextEnabled = false,
       this.loadingStatus = LoadingStatus.none,
       this.errorMessage = ''});
@@ -166,6 +196,12 @@ class _PlanCreateState implements PlanCreateState {
   @override
   @JsonKey()
   final String planStatus;
+  @override
+  @JsonKey()
+  final bool isClickedNext;
+  @override
+  @JsonKey()
+  final String? selectedDate;
   @override
   @JsonKey()
   final bool isNextEnabled;
@@ -196,6 +232,10 @@ class _PlanCreateState implements PlanCreateState {
             (identical(other.dDay, dDay) || other.dDay == dDay) &&
             (identical(other.planStatus, planStatus) ||
                 other.planStatus == planStatus) &&
+            (identical(other.isClickedNext, isClickedNext) ||
+                other.isClickedNext == isClickedNext) &&
+            (identical(other.selectedDate, selectedDate) ||
+                other.selectedDate == selectedDate) &&
             (identical(other.isNextEnabled, isNextEnabled) ||
                 other.isNextEnabled == isNextEnabled) &&
             (identical(other.loadingStatus, loadingStatus) ||
@@ -205,12 +245,22 @@ class _PlanCreateState implements PlanCreateState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, motivation, icon, dDay,
-      planStatus, isNextEnabled, loadingStatus, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      motivation,
+      icon,
+      dDay,
+      planStatus,
+      isClickedNext,
+      selectedDate,
+      isNextEnabled,
+      loadingStatus,
+      errorMessage);
 
   @override
   String toString() {
-    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, isNextEnabled: $isNextEnabled, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'PlanCreateState(title: $title, motivation: $motivation, icon: $icon, dDay: $dDay, planStatus: $planStatus, isClickedNext: $isClickedNext, selectedDate: $selectedDate, isNextEnabled: $isNextEnabled, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
@@ -228,6 +278,8 @@ abstract mixin class _$PlanCreateStateCopyWith<$Res>
       String icon,
       String dDay,
       String planStatus,
+      bool isClickedNext,
+      String? selectedDate,
       bool isNextEnabled,
       LoadingStatus loadingStatus,
       String errorMessage});
@@ -251,6 +303,8 @@ class __$PlanCreateStateCopyWithImpl<$Res>
     Object? icon = null,
     Object? dDay = null,
     Object? planStatus = null,
+    Object? isClickedNext = null,
+    Object? selectedDate = freezed,
     Object? isNextEnabled = null,
     Object? loadingStatus = null,
     Object? errorMessage = null,
@@ -276,6 +330,14 @@ class __$PlanCreateStateCopyWithImpl<$Res>
           ? _self.planStatus
           : planStatus // ignore: cast_nullable_to_non_nullable
               as String,
+      isClickedNext: null == isClickedNext
+          ? _self.isClickedNext
+          : isClickedNext // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selectedDate: freezed == selectedDate
+          ? _self.selectedDate
+          : selectedDate // ignore: cast_nullable_to_non_nullable
+              as String?,
       isNextEnabled: null == isNextEnabled
           ? _self.isNextEnabled
           : isNextEnabled // ignore: cast_nullable_to_non_nullable

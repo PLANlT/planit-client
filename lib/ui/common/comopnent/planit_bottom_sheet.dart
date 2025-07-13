@@ -46,6 +46,7 @@ class PlanitBottomSheet extends StatelessWidget {
           bottom: 40.0,
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             _PlanitBottomSheetHandle(),
             content,
