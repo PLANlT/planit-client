@@ -28,7 +28,7 @@ class GuiltyFreeReasonView extends HookConsumerWidget {
     );
 
     return DefaultLayout(
-      title: '길티-프리 모드',
+      title: '길티프리 모드',
       child: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 20.0,
@@ -61,13 +61,13 @@ class GuiltyFreeReasonView extends HookConsumerWidget {
               ),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () => viewModel.selectReason(
-                  reason: reasons[index].reason,
+                  reason: reasons[index].apiReason,
                 ),
                 child: GuiltyFreeReasonWidget(
                   reason: reasons[index].reason,
                   description: reasons[index].description,
                   asset: reasons[index].asset,
-                  isSelected: reasons[index].reason == state.reason,
+                  isSelected: reasons[index].apiReason == state.reason,
                 ),
               ),
             ),
@@ -75,9 +75,10 @@ class GuiltyFreeReasonView extends HookConsumerWidget {
             SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                onPressed: () {
-                  viewModel.startGuiltyFree();
-                  if (state.loadingStatus == LoadingStatus.success) {
+                onPressed: () async {
+                  await viewModel.startGuiltyFree();
+                  if (state.loadingStatus == LoadingStatus.success &&
+                      context.mounted) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => GuiltyFreeIngView(),
@@ -87,7 +88,8 @@ class GuiltyFreeReasonView extends HookConsumerWidget {
                 },
                 buttonColor: PlanitButtonColor.black,
                 buttonSize: PlanitButtonSize.large,
-                label: '다음',
+                label: '길티프리 모드를 킬게요',
+                enabled: state.canStartGuiltyFree,
               ),
             )
           ],

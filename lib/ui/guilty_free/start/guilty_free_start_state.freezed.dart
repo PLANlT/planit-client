@@ -18,6 +18,7 @@ mixin _$GuiltyFreeStartState {
   String get reason;
   String get errorMessage;
   LoadingStatus get loadingStatus;
+  bool get canStartGuiltyFree;
 
   /// Create a copy of GuiltyFreeStartState
   /// with the given fields replaced by the non-null parameter values.
@@ -36,16 +37,18 @@ mixin _$GuiltyFreeStartState {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.loadingStatus, loadingStatus) ||
-                other.loadingStatus == loadingStatus));
+                other.loadingStatus == loadingStatus) &&
+            (identical(other.canStartGuiltyFree, canStartGuiltyFree) ||
+                other.canStartGuiltyFree == canStartGuiltyFree));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, reason, errorMessage, loadingStatus);
+  int get hashCode => Object.hash(
+      runtimeType, reason, errorMessage, loadingStatus, canStartGuiltyFree);
 
   @override
   String toString() {
-    return 'GuiltyFreeStartState(reason: $reason, errorMessage: $errorMessage, loadingStatus: $loadingStatus)';
+    return 'GuiltyFreeStartState(reason: $reason, errorMessage: $errorMessage, loadingStatus: $loadingStatus, canStartGuiltyFree: $canStartGuiltyFree)';
   }
 }
 
@@ -55,7 +58,11 @@ abstract mixin class $GuiltyFreeStartStateCopyWith<$Res> {
           $Res Function(GuiltyFreeStartState) _then) =
       _$GuiltyFreeStartStateCopyWithImpl;
   @useResult
-  $Res call({String reason, String errorMessage, LoadingStatus loadingStatus});
+  $Res call(
+      {String reason,
+      String errorMessage,
+      LoadingStatus loadingStatus,
+      bool canStartGuiltyFree});
 }
 
 /// @nodoc
@@ -74,6 +81,7 @@ class _$GuiltyFreeStartStateCopyWithImpl<$Res>
     Object? reason = null,
     Object? errorMessage = null,
     Object? loadingStatus = null,
+    Object? canStartGuiltyFree = null,
   }) {
     return _then(_self.copyWith(
       reason: null == reason
@@ -88,6 +96,10 @@ class _$GuiltyFreeStartStateCopyWithImpl<$Res>
           ? _self.loadingStatus
           : loadingStatus // ignore: cast_nullable_to_non_nullable
               as LoadingStatus,
+      canStartGuiltyFree: null == canStartGuiltyFree
+          ? _self.canStartGuiltyFree
+          : canStartGuiltyFree // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -98,7 +110,8 @@ class _GuiltyFreeStartState implements GuiltyFreeStartState {
   const _GuiltyFreeStartState(
       {this.reason = '',
       this.errorMessage = '',
-      this.loadingStatus = LoadingStatus.none});
+      this.loadingStatus = LoadingStatus.none,
+      this.canStartGuiltyFree = false});
 
   @override
   @JsonKey()
@@ -109,6 +122,9 @@ class _GuiltyFreeStartState implements GuiltyFreeStartState {
   @override
   @JsonKey()
   final LoadingStatus loadingStatus;
+  @override
+  @JsonKey()
+  final bool canStartGuiltyFree;
 
   /// Create a copy of GuiltyFreeStartState
   /// with the given fields replaced by the non-null parameter values.
@@ -128,16 +144,18 @@ class _GuiltyFreeStartState implements GuiltyFreeStartState {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.loadingStatus, loadingStatus) ||
-                other.loadingStatus == loadingStatus));
+                other.loadingStatus == loadingStatus) &&
+            (identical(other.canStartGuiltyFree, canStartGuiltyFree) ||
+                other.canStartGuiltyFree == canStartGuiltyFree));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, reason, errorMessage, loadingStatus);
+  int get hashCode => Object.hash(
+      runtimeType, reason, errorMessage, loadingStatus, canStartGuiltyFree);
 
   @override
   String toString() {
-    return 'GuiltyFreeStartState(reason: $reason, errorMessage: $errorMessage, loadingStatus: $loadingStatus)';
+    return 'GuiltyFreeStartState(reason: $reason, errorMessage: $errorMessage, loadingStatus: $loadingStatus, canStartGuiltyFree: $canStartGuiltyFree)';
   }
 }
 
@@ -149,7 +167,11 @@ abstract mixin class _$GuiltyFreeStartStateCopyWith<$Res>
       __$GuiltyFreeStartStateCopyWithImpl;
   @override
   @useResult
-  $Res call({String reason, String errorMessage, LoadingStatus loadingStatus});
+  $Res call(
+      {String reason,
+      String errorMessage,
+      LoadingStatus loadingStatus,
+      bool canStartGuiltyFree});
 }
 
 /// @nodoc
@@ -168,6 +190,7 @@ class __$GuiltyFreeStartStateCopyWithImpl<$Res>
     Object? reason = null,
     Object? errorMessage = null,
     Object? loadingStatus = null,
+    Object? canStartGuiltyFree = null,
   }) {
     return _then(_GuiltyFreeStartState(
       reason: null == reason
@@ -182,6 +205,10 @@ class __$GuiltyFreeStartStateCopyWithImpl<$Res>
           ? _self.loadingStatus
           : loadingStatus // ignore: cast_nullable_to_non_nullable
               as LoadingStatus,
+      canStartGuiltyFree: null == canStartGuiltyFree
+          ? _self.canStartGuiltyFree
+          : canStartGuiltyFree // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
