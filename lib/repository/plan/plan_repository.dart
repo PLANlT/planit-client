@@ -40,6 +40,8 @@ class PlanRepository {
       }
     } on DioException catch (e) {
       return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    } catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
     }
   }
 
@@ -63,6 +65,8 @@ class PlanRepository {
         error: e,
         messages: [networkErrorMsg],
       );
+    } catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
     }
   }
 }

@@ -21,12 +21,12 @@ class PlanModel {
 
   factory PlanModel.fromResponse(PlanResponseBody response) {
     return PlanModel(
-      planId: response.planId,
-      title: response.title,
-      icon: response.icon,
-      motivation: response.motivation,
-      totalTask: response.totalTasks,
-      dDay: response.dday,
-    );
+        planId: response.planId,
+        title: response.title,
+        icon: response.icon,
+        motivation: response.motivation,
+        totalTask: response.totalTasks,
+        dDay: response.dday,
+        planStatus: 'IN_PROGRESS');
   }
 }

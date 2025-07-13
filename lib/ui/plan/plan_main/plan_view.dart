@@ -33,28 +33,7 @@ class PlanView extends HookConsumerWidget {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppBar(
-            toolbarHeight: 92,
-            backgroundColor: PlanitColors.white02,
-            automaticallyImplyLeading: false,
-            title: PlanitText('내 플랜', style: PlanitTypos.title2),
-            actions: [
-              Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
-                child: PlanitButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PlanCreateView(),
-                          ));
-                    },
-                    buttonColor: PlanitButtonColor.black,
-                    buttonSize: PlanitButtonSize.small,
-                    label: '+ 새 플랜'),
-              ),
-            ],
-          ),
+          BuildAppBar(),
           Padding(
             padding: const EdgeInsets.only(top: 8),
             child: Padding(
@@ -110,28 +89,7 @@ class PlanView extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppBar(
-                toolbarHeight: 92,
-                backgroundColor: PlanitColors.white02,
-                automaticallyImplyLeading: false,
-                title: PlanitText('내 플랜', style: PlanitTypos.title2),
-                actions: [
-                  Padding(
-                    padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
-                    child: PlanitButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PlanCreateView(),
-                              ));
-                        },
-                        buttonColor: PlanitButtonColor.black,
-                        buttonSize: PlanitButtonSize.small,
-                        label: '+ 새 플랜'),
-                  ),
-                ],
-              ),
+              BuildAppBar(),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Padding(
@@ -388,6 +346,38 @@ class _PlanViewAllState extends State<PlanViewAll> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class BuildAppBar extends StatelessWidget {
+  const BuildAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      toolbarHeight: 92,
+      backgroundColor: PlanitColors.white02,
+      automaticallyImplyLeading: false,
+      title: PlanitText('내 플랜', style: PlanitTypos.title2),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: PlanitButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PlanCreateView(),
+                ),
+              );
+            },
+            buttonColor: PlanitButtonColor.black,
+            buttonSize: PlanitButtonSize.small,
+            label: '+ 새 플랜',
+          ),
+        ),
+      ],
     );
   }
 }
