@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/service/app/app_service.dart';
+import 'package:planit/service/storage/planit_storage_service.dart';
+import 'package:planit/service/storage/storage_key.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
+import 'package:planit/ui/onboarding/onboarding_view.dart';
 
 class SplashView extends ConsumerStatefulWidget {
+  static String get routeName => 'splash';
+
   const SplashView({super.key});
 
   @override
@@ -23,13 +29,17 @@ class _SplashViewState extends ConsumerState<SplashView> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(appServiceProvider.notifier).getGuiltyFreeStatus();
+      final bool shouldGoMain =
+          await ref.read(planitStorageServiceProvider).getBool(
+                key: StorageKey.isNotFirstLaunch,
+              );
       await Future.delayed(Duration(seconds: 1));
       if (mounted) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => RootTab(),
-          ),
-        );
+        if (shouldGoMain) {
+          context.goNamed(RootTab.routeName);
+        } else {
+          context.goNamed(OnboardingView.routeName);
+        }
       }
     });
   }

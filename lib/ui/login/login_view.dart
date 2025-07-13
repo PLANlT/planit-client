@@ -14,6 +14,8 @@ import '../common/assets.dart';
 import 'component/login_buttons.dart';
 
 class LoginView extends HookConsumerWidget {
+  static String get routeName => 'login';
+
   const LoginView({super.key});
 
   @override

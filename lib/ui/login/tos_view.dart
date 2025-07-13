@@ -11,6 +11,8 @@ import 'package:planit/ui/common/view/default_layout.dart';
 import '../common/comopnent/planit_checkbox.dart';
 
 class TosView extends StatelessWidget {
+  static String get routeName => 'tos';
+
   const TosView({super.key});
 
   @override
