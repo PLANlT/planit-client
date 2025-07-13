@@ -16,7 +16,7 @@ import 'package:planit/ui/guilty_free/ing/guilty_free_ing_view_model.dart';
 import '../../common/assets.dart';
 import '../../common/comopnent/planit_bottom_sheet.dart';
 import '../../common/comopnent/planit_toast.dart';
-import 'guilty_free_history_view.dart';
+import 'history/guilty_free_history_view.dart';
 
 class GuiltyFreeIngView extends HookConsumerWidget {
   const GuiltyFreeIngView({super.key});
