@@ -14,6 +14,7 @@ import 'package:planit/ui/guilty_free/ing/guilty_free_ing_state.dart';
 import 'package:planit/ui/guilty_free/ing/guilty_free_ing_view_model.dart';
 
 import '../../common/assets.dart';
+import '../../common/comopnent/planit_bottom_sheet.dart';
 import '../../common/comopnent/planit_toast.dart';
 import 'guilty_free_history_view.dart';
 
@@ -94,14 +95,23 @@ class GuiltyFreeIngView extends HookConsumerWidget {
             ),
             child: PlanitButton(
               onPressed: () {
-                viewModel.endGuiltyFree();
-                if (state.loadingStatus == LoadingStatus.success) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => RootTab(),
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => PlanitBottomSheet(
+                    content: _Content(
+                      onTap: () {
+                        viewModel.endGuiltyFree();
+                        if (state.loadingStatus == LoadingStatus.success) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => RootTab(),
+                            ),
+                          );
+                        }
+                      },
                     ),
-                  );
-                }
+                  ),
+                );
               },
               buttonColor: PlanitButtonColor.black,
               buttonSize: PlanitButtonSize.large,
@@ -110,6 +120,63 @@ class GuiltyFreeIngView extends HookConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _Content extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _Content({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 20.0),
+        PlanitText(
+          '길티프리모드를 정말 종료할까요?',
+          style: PlanitTypos.title3.copyWith(
+            color: PlanitColors.black01,
+          ),
+        ),
+        SizedBox(height: 8.0),
+        PlanitText(
+          '길티프리 모드는 1회 이용한 것으로 간주하며,\n오늘의 할 일이 노출됩니다.',
+          textAlign: TextAlign.center,
+          style: PlanitTypos.body3.copyWith(
+            color: PlanitColors.black03,
+          ),
+        ),
+        GestureDetector(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: PlanitText(
+              '네',
+              style: PlanitTypos.body2.copyWith(
+                color: PlanitColors.red,
+              ),
+            ),
+          ),
+        ),
+        Divider(
+          height: 0.5,
+          color: PlanitColors.white03,
+        ),
+        GestureDetector(
+          onTap: () => Navigator.of(context).pop(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: PlanitText(
+              '아니오',
+              style: PlanitTypos.body2.copyWith(
+                color: PlanitColors.black01,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
