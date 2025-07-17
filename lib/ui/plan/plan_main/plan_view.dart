@@ -28,150 +28,186 @@ class PlanView extends HookConsumerWidget {
       });
       return null;
     }, []);
-
-    return DefaultLayout(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBar(
-              toolbarHeight: 92,
-              backgroundColor: PlanitColors.white02,
-              automaticallyImplyLeading: false,
-              title: PlanitText('내 플랜', style: PlanitTypos.title2),
-              actions: [
-                Padding(
-                  padding: EdgeInsetsGeometry.symmetric(horizontal: 20),
-                  child: PlanitButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PlanCreateView(),
-                            ));
-                      },
-                      buttonColor: PlanitButtonColor.black,
-                      buttonSize: PlanitButtonSize.small,
-                      label: '+ 새 플랜'),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitText('진행 중인 플랜',
-                    style: PlanitTypos.body2
-                        .copyWith(color: PlanitColors.black01)),
+    if (state.activePlans.isEmpty) {
+      return DefaultLayout(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BuildAppBar(),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: PlanitText(
+                '템플릿',
+                style: PlanitTypos.body2.copyWith(color: PlanitColors.black01),
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 12),
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: state.activePlans.length > 5
-                      ? 5
-                      : state.activePlans.length,
-                  itemBuilder: (context, index) {
-                    final item = state.activePlans[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: PlanListCard(
-                        plan: item,
-                      ),
-                    );
-                  }),
-            ),
-            state.activePlans.length > 5
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20)
-                        .copyWith(top: 12),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: PlanitButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PlanViewAll(
-                                          planList: state.activePlans,
-                                          isActive: true,
-                                        )));
-                          },
-                          buttonColor: PlanitButtonColor.white,
-                          buttonSize: PlanitButtonSize.large,
-                          label: '플랜 전체보기'),
-                    ),
-                  )
-                : SizedBox(),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitText('잠시 중단한 플랜',
-                    style: PlanitTypos.body2
-                        .copyWith(color: PlanitColors.black01)),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 12),
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount:
-                      state.pausePlans.length > 5 ? 5 : state.pausePlans.length,
-                  itemBuilder: (context, index) {
-                    final item = state.pausePlans[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: PlanListCard(
-                        plan: item,
-                      ),
-                    );
-                  }),
-            ),
-            state.pausePlans.length > 5
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20)
-                        .copyWith(top: 12),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: PlanitButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PlanViewAll(
-                                          planList: state.pausePlans,
-                                          isActive: false,
-                                        )));
-                          },
-                          buttonColor: PlanitButtonColor.white,
-                          buttonSize: PlanitButtonSize.large,
-                          label: '플랜 전체보기'),
-                    ),
-                  )
-                : SizedBox(),
-            Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitText(
-                  '템플릿',
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: TemplateList(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: PlanitText('진행 중인 플랜',
                   style:
-                      PlanitTypos.body2.copyWith(color: PlanitColors.black01),
-                ),
+                      PlanitTypos.body2.copyWith(color: PlanitColors.black01)),
+            ),
+          ),
+          Expanded(
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 20,
+                children: [
+                  Text(
+                    '아직 플랜이\n존재하지 않아요!',
+                    style: PlanitTypos.body3.copyWith(
+                      color: PlanitColors.black03,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    '새로 플랜을 만들어 볼까요?',
+                    style: PlanitTypos.caption.copyWith(
+                      color: PlanitColors.black03,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: TemplateList(),
-            )
-          ],
+          ),
+        ],
+      ));
+    } else {
+      return DefaultLayout(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BuildAppBar(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: PlanitText('진행 중인 플랜',
+                      style: PlanitTypos.body2
+                          .copyWith(color: PlanitColors.black01)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20)
+                    .copyWith(top: 12),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.activePlans.length > 5
+                        ? 5
+                        : state.activePlans.length,
+                    itemBuilder: (context, index) {
+                      final item = state.activePlans[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: PlanListCard(
+                          plan: item,
+                        ),
+                      );
+                    }),
+              ),
+              state.activePlans.length > 5
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20)
+                          .copyWith(top: 12),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: PlanitButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PlanViewAll(
+                                            planList: state.activePlans,
+                                            isActive: true,
+                                          )));
+                            },
+                            buttonColor: PlanitButtonColor.white,
+                            buttonSize: PlanitButtonSize.large,
+                            label: '플랜 전체보기'),
+                      ),
+                    )
+                  : SizedBox(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: PlanitText('잠시 중단한 플랜',
+                      style: PlanitTypos.body2
+                          .copyWith(color: PlanitColors.black01)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20)
+                    .copyWith(top: 12),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.pausePlans.length > 5
+                        ? 5
+                        : state.pausePlans.length,
+                    itemBuilder: (context, index) {
+                      final item = state.pausePlans[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: PlanListCard(
+                          plan: item,
+                        ),
+                      );
+                    }),
+              ),
+              state.pausePlans.length > 5
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20)
+                          .copyWith(top: 12),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: PlanitButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PlanViewAll(
+                                            planList: state.pausePlans,
+                                            isActive: false,
+                                          )));
+                            },
+                            buttonColor: PlanitButtonColor.white,
+                            buttonSize: PlanitButtonSize.large,
+                            label: '플랜 전체보기'),
+                      ),
+                    )
+                  : SizedBox(),
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: PlanitText(
+                    '템플릿',
+                    style:
+                        PlanitTypos.body2.copyWith(color: PlanitColors.black01),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: TemplateList(),
+              )
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }
 
@@ -310,6 +346,38 @@ class _PlanViewAllState extends State<PlanViewAll> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class BuildAppBar extends StatelessWidget {
+  const BuildAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      toolbarHeight: 92,
+      backgroundColor: PlanitColors.white02,
+      automaticallyImplyLeading: false,
+      title: PlanitText('내 플랜', style: PlanitTypos.title2),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: PlanitButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PlanCreateView(),
+                ),
+              );
+            },
+            buttonColor: PlanitButtonColor.black,
+            buttonSize: PlanitButtonSize.small,
+            label: '+ 새 플랜',
+          ),
+        ),
+      ],
     );
   }
 }
