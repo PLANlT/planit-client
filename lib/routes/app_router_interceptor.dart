@@ -23,8 +23,10 @@ class AppRouterInterceptor {
     final bool isSignedIn = appState.isSignedIn;
 
     if (!isSignedIn) {
-      // 로그인 상태가 아니고, 로그인 페이지가 아님 > 로그인 페이지로 리다이렉트
-      if (state.fullPath?.startsWith('/login') == false) {
+      // 현 위치가 로그인, 스플래시, 온보딩 페이지라면 리다이렉트하지 않음
+      if (state.fullPath?.startsWith('/login') == false &&
+          state.fullPath?.startsWith('/splash') == false &&
+          state.fullPath?.startsWith('/onboarding') == false) {
         return '/login';
       }
     } else {

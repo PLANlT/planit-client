@@ -29,11 +29,12 @@ class _SplashViewState extends ConsumerState<SplashView> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(appServiceProvider.notifier).getGuiltyFreeStatus();
+      await ref.read(appServiceProvider.notifier).checkLoginStatus();
       final bool shouldGoMain =
           await ref.read(planitStorageServiceProvider).getBool(
                 key: StorageKey.isNotFirstLaunch,
               );
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(Duration(seconds: 2));
       if (mounted) {
         if (shouldGoMain) {
           context.goNamed(RootTab.routeName);
