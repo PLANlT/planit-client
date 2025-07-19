@@ -111,18 +111,18 @@ class AuthRepository {
     }
   }
 
-  // 네이버 로그인 연동 로직
+// 네이버 로그인 연동 로직
   Future<RepositoryResult<SignInModel>> naverLogin() async {
     try {
       final data = await FlutterNaverLogin.logIn();
+      final res = await FlutterNaverLogin.getCurrentAccessToken();
 
       if (data.status == NaverLoginStatus.loggedIn) {
         debugPrint('네이버로 로그인 성공 ${data.toString()}');
         // 앱 로그인
         return await signUp(
           type: 'NAVER',
-          oAuthToken: data.accessToken!.accessToken
-          ,
+          oAuthToken: res.accessToken,
         );
       } else {
         debugPrint('네이버로 로그인 실패 ${data.errorMessage}');
