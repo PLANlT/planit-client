@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:planit/ui/mypage/view/mypage_account_view.dart';
-import 'package:planit/ui/mypage/view/mypage_alarm_view.dart';
 import 'package:planit/ui/mypage/view/mypage_customer_view.dart';
+import 'package:planit/ui/onboarding/onboarding_view.dart';
 
 import '../../common/comopnent/planit_toast.dart';
 import '../../common/view/default_layout.dart';
@@ -16,6 +16,8 @@ import '../mypage_state.dart';
 import '../mypage_view_model.dart';
 
 class MypageView extends HookConsumerWidget {
+  static String get routeName => 'mypage';
+
   const MypageView({super.key});
 
   @override
@@ -64,24 +66,23 @@ class MypageView extends HookConsumerWidget {
                 Column(
                   spacing: 12.0,
                   children: [
+                    // 온보딩 연결
                     MypageMenuButtonWidget(
                       label: '앱 사용 가이드 보기',
-                      onTap: () {},
+                      onTap: () => context.pushNamed(OnboardingView.routeName),
                     ),
-                    MypageMenuButtonWidget(
-                      label: '알림 설정',
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MypageAlarmView(),
-                        ),
-                      ),
-                    ),
+                    // MypageMenuButtonWidget(
+                    //   label: '알림 설정',
+                    //   onTap: () => Navigator.of(context).push(
+                    //     MaterialPageRoute(
+                    //       builder: (context) => MypageAlarmView(),
+                    //     ),
+                    //   ),
+                    // ),
                     MypageMenuButtonWidget(
                       label: '고객 문의',
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MypageCustomerView(),
-                        ),
+                      onTap: () => context.goNamed(
+                        MypageCustomerView.routeName,
                       ),
                     ),
                   ],

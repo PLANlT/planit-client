@@ -54,3 +54,6 @@ firebase.json
 lib/firebase_options.dart
 
 android/app/debug.keystore
+
+android/app/src/main/res/xml/network_security_config.xml
+lib/ui/common/const/planit_urls.dart

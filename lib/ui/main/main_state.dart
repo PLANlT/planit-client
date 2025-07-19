@@ -22,5 +22,6 @@ abstract class MainState with _$MainState {
     @Default('') String errorMessage,
     @Default('') String completeMessage,
     @Default(null) bool? canUseGuiltyFree,
+    @Default(0) int consecutiveDay,
   }) = _MainState;
 }

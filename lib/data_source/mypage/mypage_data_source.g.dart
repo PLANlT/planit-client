@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_data_source.dart';
+part of 'mypage_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'auth_data_source.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
-class _AuthDataSource implements AuthDataSource {
-  _AuthDataSource(this._dio, {this.baseUrl, this.errorLogger});
+class _MypageDataSource implements MypageDataSource {
+  _MypageDataSource(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -18,50 +18,28 @@ class _AuthDataSource implements AuthDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<void> signOut() async {
+  Future<ApiResponse<MyInfoResponseBody>> getMyInfo() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'accessToken': 'true'};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<void>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+    final _options = _setStreamType<ApiResponse<MyInfoResponseBody>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/planit/auth/sign-out',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    await _dio.fetch<void>(_options);
-  }
-
-  @override
-  Future<ApiResponse<SignInResponseBody>> signIn({
-    required SignInRequestBody body,
-  }) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
-    final _options = _setStreamType<ApiResponse<SignInResponseBody>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/planit/auth/sign-in',
+            '/planit/members',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<SignInResponseBody> _value;
+    late ApiResponse<MyInfoResponseBody> _value;
     try {
-      _value = ApiResponse<SignInResponseBody>.fromJson(
+      _value = ApiResponse<MyInfoResponseBody>.fromJson(
         _result.data!,
-        (json) => SignInResponseBody.fromJson(json as Map<String, dynamic>),
+        (json) => MyInfoResponseBody.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -71,23 +49,35 @@ class _AuthDataSource implements AuthDataSource {
   }
 
   @override
-  Future<void> agreeAllTos({required String tempAccessToken}) async {
+  Future<ApiResponse<ConsecutiveDaysResponseBody>> getConsecutiveDays() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': tempAccessToken};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<void>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+    final _options = _setStreamType<ApiResponse<ConsecutiveDaysResponseBody>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/planit/members/terms',
+            '/planit/members/consecutive-days',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<ConsecutiveDaysResponseBody> _value;
+    try {
+      _value = ApiResponse<ConsecutiveDaysResponseBody>.fromJson(
+        _result.data!,
+        (json) =>
+            ConsecutiveDaysResponseBody.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

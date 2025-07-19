@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,10 +14,8 @@ class AppRouterInterceptor {
 
   // 라우트의 이동마다 호출되어, 로그인 상태가 아니라면 로그인 페이지로 이동하게 합니다
   // 로그인이 완료되면 홈으로 이동하게 합니다
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
-    final AppState appState = _ref.read(
-      appServiceProvider as ProviderListenable<AppState>,
-    );
+  String? redirect(BuildContext context, GoRouterState state) {
+    final AppState appState = _ref.read(appServiceProvider);
     final bool isSignedIn = appState.isSignedIn;
 
     if (!isSignedIn) {

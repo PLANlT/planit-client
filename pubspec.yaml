@@ -37,6 +37,7 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   flutter_hooks: ^0.21.2
   numberpicker: ^2.1.2
+  webview_flutter: ^4.13.0
 
 dev_dependencies:
   flutter_test:

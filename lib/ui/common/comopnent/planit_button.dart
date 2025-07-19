@@ -53,7 +53,9 @@ class PlanitButton extends StatelessWidget {
         ? (enabled
             ? PlanitColors.black01
             : PlanitColors.black01.withValues(alpha: 0.5))
-        : PlanitColors.white03;
+        : ((buttonColor == PlanitButtonColor.white)
+            ? PlanitColors.white01
+            : PlanitColors.red);
 
     final Color overlayColor = (buttonColor == PlanitButtonColor.black)
         ? PlanitColors.white02

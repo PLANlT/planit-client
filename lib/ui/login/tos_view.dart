@@ -9,7 +9,10 @@ import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
+import 'package:planit/ui/common/const/planit_urls.dart';
+import 'package:planit/ui/common/const/web_view_params.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/common/view/planit_web_view.dart';
 
 import '../common/comopnent/planit_checkbox.dart';
 import '../common/view/root_tab.dart';
@@ -66,25 +69,49 @@ class TosView extends HookConsumerWidget {
                     text: '서비스 이용약관',
                     isChecked: state.isTermOfInfoAgreed,
                     onCheckTap: () => viewModel.agreeTermOfInfo(),
-                    onChevronTap: () => {},
+                    onChevronTap: () => context.pushNamed(
+                      PlanitWebView.routeName,
+                      extra: WebViewParams(
+                        title: '서비스 이용약관',
+                        url: PlanitUrls.termOfInfo,
+                      ),
+                    ),
                   ),
                   _CheckRow(
                     text: '개인정보처리방침',
                     isChecked: state.isTermOfUseAgreed,
                     onCheckTap: () => viewModel.agreeTermOfUse(),
-                    onChevronTap: () => {},
+                    onChevronTap: () => context.pushNamed(
+                      PlanitWebView.routeName,
+                      extra: WebViewParams(
+                        title: '개인정보처리방침',
+                        url: PlanitUrls.termOfUse,
+                      ),
+                    ),
                   ),
                   _CheckRow(
                     text: '개인정보 수집 및 이용',
                     isChecked: state.isTermOfPrivacyAgreed,
                     onCheckTap: () => viewModel.agreeTermOfPrivacy(),
-                    onChevronTap: () => {},
+                    onChevronTap: () => context.pushNamed(
+                      PlanitWebView.routeName,
+                      extra: WebViewParams(
+                        title: '개인정보 수집 및 이용',
+                        url: PlanitUrls.termOfPrivacy,
+                      ),
+                    ),
                   ),
                   _CheckRow(
                     text: '개인정보 제3자 동의 이용',
                     isChecked: state.isThirdPartyAdConsent,
                     onCheckTap: () => viewModel.agreeThirdPartyAdConsent(),
-                    onChevronTap: () => {},
+                    onChevronTap: () => context.pushNamed(
+                      PlanitWebView.routeName,
+                      extra: WebViewParams(
+                        title: '개인정보 제3자 동의 이용',
+                        url: PlanitUrls.thirdPartyConsent,
+                      ),
+                    ),
                   ),
                   _CheckRow(
                     text: '만 14세 이상입니다',

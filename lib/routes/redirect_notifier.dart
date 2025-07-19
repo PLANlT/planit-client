@@ -15,10 +15,15 @@ class RedirectNotifier extends ChangeNotifier {
   RedirectNotifier({
     required Ref<Object?> ref,
   }) : _ref = ref {
+    // AppState의 isSignedIn 변경 감지
     _ref.listen(
-        appServiceProvider.select((AppState value) => value.isSignedIn),
-        (bool? previous, bool next) {
-      notifyListeners();
-    });
+      appServiceProvider.select((AppState value) => value.isSignedIn),
+      (bool? previous, bool next) {
+        // 값이 변경되면 GoRouter 초기화되도록 알림
+        if (previous != next) {
+          notifyListeners();
+        }
+      },
+    );
   }
 }

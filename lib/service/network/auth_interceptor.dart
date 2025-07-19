@@ -59,8 +59,7 @@ class AuthInterceptor extends QueuedInterceptor {
   ) async {
     // 토큰 갱신이 필요한/가능한 상태인지 확인
     final isStatus401 = err.response?.statusCode == 401;
-    // TODO: API에 따라 변경 필요
-    final isPathRefresh = err.requestOptions.path == '/auth/token';
+    final isPathRefresh = err.requestOptions.path == '/planit/auth/refresh';
 
     if (isStatus401 && !isPathRefresh) {
       // 별도의 dio 생성
@@ -94,18 +93,30 @@ class AuthInterceptor extends QueuedInterceptor {
       }
 
       try {
-        // TODO: API 호출해 새로운 accessToken 얻기
+        final Response result = await dio.post(
+          '/planit/auth/refresh',
+          data: {
+            'refreshToken': refreshToken,
+          },
+        );
 
-        // TODO: 새로운 accessToken 헤더에 삽입
+        final newAccessToken = result.data['data']['accessToken'];
+        final newRefreshToken = result.data['data']['refreshToken'];
+
         final options = err.requestOptions;
         options.headers.addAll({
-          'Authorization': 'Bearer ',
+          'Authorization': 'Bearer $newAccessToken',
         });
 
-        // TODO: 새로운 accessToken 저장
+        // 새로운 JWT 토큰 저장
         await _secureStorageService.setString(
           key: StorageKey.accessTokenKey,
-          value: 'accessToken',
+          value: newAccessToken,
+        );
+
+        await _secureStorageService.setString(
+          key: StorageKey.refreshTokenKey,
+          value: newRefreshToken,
         );
 
         // 갱신된 토큰으로 재요청
@@ -119,5 +130,5 @@ class AuthInterceptor extends QueuedInterceptor {
     }
 
     return handler.next(err);
-  }
+}
 }
