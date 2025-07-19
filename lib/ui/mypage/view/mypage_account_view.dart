@@ -23,13 +23,10 @@ class MypageAccountView extends HookConsumerWidget {
         child: Column(
           spacing: 40.0,
           children: [
-            // 닉네임
-            AccountNameWidget(
-              userName: state.userName,
-            ),
             // 계정
             AccountInfoWidget(
-              userEmail: state.registrationDate,
+              userName: state.userName,
+              userEmail: state.userEmail,
               oAuthType: state.oAuthType,
               registrationDate: state.registrationDate,
             ),
