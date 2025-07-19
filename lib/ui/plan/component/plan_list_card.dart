@@ -39,7 +39,7 @@ class PlanListCard extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: SvgPicture.asset(plan.icon),
+                child: SvgPicture.asset('${plan.icon}.svg'),
               ),
               Expanded(
                 child: Column(
@@ -62,7 +62,7 @@ class PlanListCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: PlanMainchip(
                     bordercolor: PlanitColors.white01,
-                    title: 'D-${plan.dDay}',
+                    title: '${plan.dDay}',
                     backgroundcolor: PlanitColors.white01,
                     textcolor: PlanitColors.black03,
                   ),
