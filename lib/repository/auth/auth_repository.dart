@@ -80,7 +80,6 @@ class AuthRepository {
           oAuthToken: data.accessToken,
         );
       } catch (error) {
-
         debugPrint('카카오계정으로 로그인 실패 $error');
         return FailureRepositoryResult(
           error: error,
@@ -111,18 +110,25 @@ class AuthRepository {
     }
   }
 
-  // 네이버 로그인 연동 로직
+// 네이버 로그인 연동 로직
   Future<RepositoryResult<SignInModel>> naverLogin() async {
     try {
       final data = await FlutterNaverLogin.logIn();
+      final res = await FlutterNaverLogin.getCurrentAccessToken();
+      if (res.accessToken.isEmpty) {
+        debugPrint('네이버 액세스 토큰이 없어요.');
+        return FailureRepositoryResult(
+          error: 'Failed to get access token from Naver',
+          messages: ['네이버 로그인 토큰이 유효하지 않아요.'],
+        );
+      }
 
       if (data.status == NaverLoginStatus.loggedIn) {
         debugPrint('네이버로 로그인 성공 ${data.toString()}');
         // 앱 로그인
         return await signUp(
           type: 'NAVER',
-          oAuthToken: data.accessToken!.accessToken
-          ,
+          oAuthToken: res.accessToken,
         );
       } else {
         debugPrint('네이버로 로그인 실패 ${data.errorMessage}');
