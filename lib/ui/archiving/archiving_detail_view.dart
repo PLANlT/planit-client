@@ -114,6 +114,7 @@ class ArchivingDetailView extends HookConsumerWidget {
         ),
         SizedBox(
           child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: state.planDetail!.tasks.length,
             itemBuilder: (context, index) {
