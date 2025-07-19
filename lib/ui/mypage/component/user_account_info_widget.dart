@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/ui/mypage/view/mypage_account_view.dart';
 
 import '../../../theme/planit_colors.dart';
@@ -20,11 +21,7 @@ class UserAccountInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => MypageAccountView(),
-        ),
-      ),
+      onTap: () => context.goNamed(MypageAccountView.routeName),
       // 터치영역 확장을 위해 배경있는 컨테이너 사용
       child: Container(
         color: PlanitColors.white01,

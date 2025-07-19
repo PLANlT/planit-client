@@ -9,6 +9,8 @@ import '../mypage_state.dart';
 import '../mypage_view_model.dart';
 
 class MypageAccountView extends HookConsumerWidget {
+  static String get routeName => 'account';
+
   const MypageAccountView({super.key});
 
   @override

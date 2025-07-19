@@ -21,9 +21,7 @@ class RedirectNotifier extends ChangeNotifier {
       (bool? previous, bool next) {
         // 값이 변경되면 GoRouter 초기화되도록 알림
         if (previous != next) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            notifyListeners();
-          });
+          notifyListeners();
         }
       },
     );

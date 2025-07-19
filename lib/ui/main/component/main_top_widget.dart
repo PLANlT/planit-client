@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
@@ -73,11 +74,7 @@ class MainTopWidget extends StatelessWidget {
               left: 0.0,
               child: IconButton(
                 icon: SvgPicture.asset(Assets.profile),
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => MypageView(),
-                  ),
-                ),
+                onPressed: () => context.goNamed(MypageView.routeName),
                 padding: EdgeInsets.zero,
               ),
             ),

@@ -16,6 +16,8 @@ import '../mypage_state.dart';
 import '../mypage_view_model.dart';
 
 class MypageView extends HookConsumerWidget {
+  static String get routeName => 'mypage';
+
   const MypageView({super.key});
 
   @override
@@ -79,10 +81,8 @@ class MypageView extends HookConsumerWidget {
                     // ),
                     MypageMenuButtonWidget(
                       label: '고객 문의',
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MypageCustomerView(),
-                        ),
+                      onTap: () => context.goNamed(
+                        MypageCustomerView.routeName,
                       ),
                     ),
                   ],
