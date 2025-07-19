@@ -137,6 +137,8 @@ class MainViewModel extends StateNotifier<MainState> {
   }
 
   void checkDidAllPassinatePlans() {
+    // 열정 플랜 자체가 없다면 열정 할일 완료한 것으로 처리되지 않도록
+    if (state.plans.passionatePlans.isEmpty) return;
     final bool didAll = state.plans.passionatePlans.every(
       (plan) => plan.tasks.every((task) => task.isCompleted),
     );

@@ -18,6 +18,8 @@ import 'component/plan_list_view.dart';
 import 'component/route_switch_banner.dart';
 
 class MainView extends HookConsumerWidget {
+  static String get routeName => 'main';
+
   const MainView({super.key});
 
   @override

@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:planit/data_source/main/reponse_body/today_tasks_response_body.dart';
 import 'package:planit/service/network/dio_service.dart';
@@ -18,9 +18,11 @@ abstract class MainDataSource {
   factory MainDataSource(Dio dio) = _MainDataSource;
 
   @GET('/planit/plans/today')
+  @Headers({'accessToken': 'true'})
   Future<ApiResponse<TodayPlanListResponseBody>> getTodayTasks();
 
   @POST('/planit/tasks/{taskId}/complete')
+  @Headers({'accessToken': 'true'})
   Future<void> completeTask({
     @Path('taskId') required int taskId,
   });

@@ -8,6 +8,8 @@ import 'package:planit/ui/onboarding/onboarding_third_tap.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingView extends StatefulWidget {
+  static String get routeName => 'onboarding';
+
   const OnboardingView({super.key});
 
   @override

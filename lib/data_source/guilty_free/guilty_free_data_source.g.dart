@@ -21,7 +21,8 @@ class _GuiltyFreeDataSource implements GuiltyFreeDataSource {
   Future<ApiResponse<GuiltyFreeDateResponseBody>> getGuiltyFreeDate() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ApiResponse<GuiltyFreeDateResponseBody>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
@@ -52,7 +53,8 @@ class _GuiltyFreeDataSource implements GuiltyFreeDataSource {
   Future<void> activateGuiltyFree({required String reason}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'reason': reason};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<void>(
       Options(method: 'PATCH', headers: _headers, extra: _extra)
@@ -72,7 +74,8 @@ class _GuiltyFreeDataSource implements GuiltyFreeDataSource {
       getGuiltyFreeReasonList() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options =
         _setStreamType<ApiResponse<GuiltyFreeReasonListResponseBody>>(
