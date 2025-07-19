@@ -12,6 +12,8 @@ import '../../../theme/planit_colors.dart';
 import '../../guilty_free/ing/guilty_free_ing_view.dart';
 
 class RootTab extends ConsumerStatefulWidget {
+  static String get routeName => 'rootTab';
+
   const RootTab({super.key});
 
   @override

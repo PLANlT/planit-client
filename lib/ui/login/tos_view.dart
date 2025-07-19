@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
@@ -9,12 +12,31 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 
 import '../common/comopnent/planit_checkbox.dart';
+import '../common/view/root_tab.dart';
+import 'login_state.dart';
+import 'login_view_model.dart';
 
-class TosView extends StatelessWidget {
+class TosView extends HookConsumerWidget {
+  static String get routeName => 'tos';
+
   const TosView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final LoginViewModel viewModel = ref.read(loginViewModelProvider.notifier);
+    final LoginState state = ref.watch(loginViewModelProvider);
+
+    useEffect(() {
+      if (state.isLoginCompleted != null) {
+        // 로그인이 완료되었다면 루트탭으로 이동
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.goNamed(RootTab.routeName);
+          viewModel.routingRefresh();
+        });
+      }
+      return null;
+    }, [state.isLoginCompleted]);
+
     return DefaultLayout(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
@@ -42,28 +64,33 @@ class TosView extends StatelessWidget {
                 children: [
                   _CheckRow(
                     text: '서비스 이용약관',
-                    isChecked: true,
-                    onChevronTap: () {},
+                    isChecked: state.isTermOfInfoAgreed,
+                    onCheckTap: () => viewModel.agreeTermOfInfo(),
+                    onChevronTap: () => {},
                   ),
                   _CheckRow(
                     text: '개인정보처리방침',
-                    isChecked: true,
-                    onChevronTap: () {},
+                    isChecked: state.isTermOfUseAgreed,
+                    onCheckTap: () => viewModel.agreeTermOfUse(),
+                    onChevronTap: () => {},
                   ),
                   _CheckRow(
                     text: '개인정보 수집 및 이용',
-                    isChecked: true,
-                    onChevronTap: () {},
+                    isChecked: state.isTermOfPrivacyAgreed,
+                    onCheckTap: () => viewModel.agreeTermOfPrivacy(),
+                    onChevronTap: () => {},
                   ),
                   _CheckRow(
                     text: '개인정보 제3자 동의 이용',
-                    isChecked: true,
-                    onChevronTap: () {},
+                    isChecked: state.isThirdPartyAdConsent,
+                    onCheckTap: () => viewModel.agreeThirdPartyAdConsent(),
+                    onChevronTap: () => {},
                   ),
                   _CheckRow(
                     text: '만 14세 이상입니다',
-                    isChecked: true,
-                    onChevronTap: () {},
+                    isChecked: state.isAgeRestrictionAgreed,
+                    onCheckTap: () => viewModel.agreeAgeRestriction(),
+                    onChevronTap: () => {},
                     showChevron: false,
                   ),
                 ],
@@ -73,10 +100,15 @@ class TosView extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                onPressed: () {},
+                onPressed: () => viewModel.appSignUp(),
                 buttonColor: PlanitButtonColor.black,
                 buttonSize: PlanitButtonSize.large,
                 label: '가입 완료',
+                enabled: state.isAgeRestrictionAgreed &&
+                    state.isTermOfPrivacyAgreed &&
+                    state.isThirdPartyAdConsent &&
+                    state.isTermOfUseAgreed &&
+                    state.isTermOfInfoAgreed,
               ),
             ),
           ],
@@ -89,12 +121,14 @@ class TosView extends StatelessWidget {
 class _CheckRow extends StatelessWidget {
   final String text;
   final bool isChecked;
+  final VoidCallback onCheckTap;
   final VoidCallback onChevronTap;
   final bool showChevron;
 
   const _CheckRow({
     required this.text,
     required this.isChecked,
+    required this.onCheckTap,
     required this.onChevronTap,
     this.showChevron = true,
   });
@@ -106,8 +140,11 @@ class _CheckRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            PlanitCheckbox(
-              isChecked: true,
+            GestureDetector(
+              onTap: onCheckTap,
+              child: PlanitCheckbox(
+                isChecked: isChecked,
+              ),
             ),
             SizedBox(width: 12.0),
             PlanitText(

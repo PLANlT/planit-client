@@ -17,6 +17,17 @@ T _$identity<T>(T value) => value;
 mixin _$LoginState {
   LoadingStatus get loadingStatus;
   String get errorMessage;
+  String get tempAccessToken;
+  String get accessToken;
+  String get refreshToken;
+  String get signUpType;
+  String get oAuthToken;
+  bool? get isLoginCompleted;
+  bool get isTermOfInfoAgreed;
+  bool get isTermOfUseAgreed;
+  bool get isThirdPartyAdConsent;
+  bool get isTermOfPrivacyAgreed;
+  bool get isAgeRestrictionAgreed;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -33,15 +44,51 @@ mixin _$LoginState {
             (identical(other.loadingStatus, loadingStatus) ||
                 other.loadingStatus == loadingStatus) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.tempAccessToken, tempAccessToken) ||
+                other.tempAccessToken == tempAccessToken) &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.signUpType, signUpType) ||
+                other.signUpType == signUpType) &&
+            (identical(other.oAuthToken, oAuthToken) ||
+                other.oAuthToken == oAuthToken) &&
+            (identical(other.isLoginCompleted, isLoginCompleted) ||
+                other.isLoginCompleted == isLoginCompleted) &&
+            (identical(other.isTermOfInfoAgreed, isTermOfInfoAgreed) ||
+                other.isTermOfInfoAgreed == isTermOfInfoAgreed) &&
+            (identical(other.isTermOfUseAgreed, isTermOfUseAgreed) ||
+                other.isTermOfUseAgreed == isTermOfUseAgreed) &&
+            (identical(other.isThirdPartyAdConsent, isThirdPartyAdConsent) ||
+                other.isThirdPartyAdConsent == isThirdPartyAdConsent) &&
+            (identical(other.isTermOfPrivacyAgreed, isTermOfPrivacyAgreed) ||
+                other.isTermOfPrivacyAgreed == isTermOfPrivacyAgreed) &&
+            (identical(other.isAgeRestrictionAgreed, isAgeRestrictionAgreed) ||
+                other.isAgeRestrictionAgreed == isAgeRestrictionAgreed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loadingStatus, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      loadingStatus,
+      errorMessage,
+      tempAccessToken,
+      accessToken,
+      refreshToken,
+      signUpType,
+      oAuthToken,
+      isLoginCompleted,
+      isTermOfInfoAgreed,
+      isTermOfUseAgreed,
+      isThirdPartyAdConsent,
+      isTermOfPrivacyAgreed,
+      isAgeRestrictionAgreed);
 
   @override
   String toString() {
-    return 'LoginState(loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'LoginState(loadingStatus: $loadingStatus, errorMessage: $errorMessage, tempAccessToken: $tempAccessToken, accessToken: $accessToken, refreshToken: $refreshToken, signUpType: $signUpType, oAuthToken: $oAuthToken, isLoginCompleted: $isLoginCompleted, isTermOfInfoAgreed: $isTermOfInfoAgreed, isTermOfUseAgreed: $isTermOfUseAgreed, isThirdPartyAdConsent: $isThirdPartyAdConsent, isTermOfPrivacyAgreed: $isTermOfPrivacyAgreed, isAgeRestrictionAgreed: $isAgeRestrictionAgreed)';
   }
 }
 
@@ -51,7 +98,20 @@ abstract mixin class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) _then) =
       _$LoginStateCopyWithImpl;
   @useResult
-  $Res call({LoadingStatus loadingStatus, String errorMessage});
+  $Res call(
+      {LoadingStatus loadingStatus,
+      String errorMessage,
+      String tempAccessToken,
+      String accessToken,
+      String refreshToken,
+      String signUpType,
+      String oAuthToken,
+      bool? isLoginCompleted,
+      bool isTermOfInfoAgreed,
+      bool isTermOfUseAgreed,
+      bool isThirdPartyAdConsent,
+      bool isTermOfPrivacyAgreed,
+      bool isAgeRestrictionAgreed});
 }
 
 /// @nodoc
@@ -68,6 +128,17 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   $Res call({
     Object? loadingStatus = null,
     Object? errorMessage = null,
+    Object? tempAccessToken = null,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? signUpType = null,
+    Object? oAuthToken = null,
+    Object? isLoginCompleted = freezed,
+    Object? isTermOfInfoAgreed = null,
+    Object? isTermOfUseAgreed = null,
+    Object? isThirdPartyAdConsent = null,
+    Object? isTermOfPrivacyAgreed = null,
+    Object? isAgeRestrictionAgreed = null,
   }) {
     return _then(_self.copyWith(
       loadingStatus: null == loadingStatus
@@ -78,6 +149,50 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _self.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      tempAccessToken: null == tempAccessToken
+          ? _self.tempAccessToken
+          : tempAccessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      accessToken: null == accessToken
+          ? _self.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      refreshToken: null == refreshToken
+          ? _self.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      signUpType: null == signUpType
+          ? _self.signUpType
+          : signUpType // ignore: cast_nullable_to_non_nullable
+              as String,
+      oAuthToken: null == oAuthToken
+          ? _self.oAuthToken
+          : oAuthToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      isLoginCompleted: freezed == isLoginCompleted
+          ? _self.isLoginCompleted
+          : isLoginCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isTermOfInfoAgreed: null == isTermOfInfoAgreed
+          ? _self.isTermOfInfoAgreed
+          : isTermOfInfoAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTermOfUseAgreed: null == isTermOfUseAgreed
+          ? _self.isTermOfUseAgreed
+          : isTermOfUseAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isThirdPartyAdConsent: null == isThirdPartyAdConsent
+          ? _self.isThirdPartyAdConsent
+          : isThirdPartyAdConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTermOfPrivacyAgreed: null == isTermOfPrivacyAgreed
+          ? _self.isTermOfPrivacyAgreed
+          : isTermOfPrivacyAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAgeRestrictionAgreed: null == isAgeRestrictionAgreed
+          ? _self.isAgeRestrictionAgreed
+          : isAgeRestrictionAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -86,7 +201,19 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
 
 class _LoginState implements LoginState {
   const _LoginState(
-      {this.loadingStatus = LoadingStatus.none, this.errorMessage = ''});
+      {this.loadingStatus = LoadingStatus.none,
+      this.errorMessage = '',
+      this.tempAccessToken = '',
+      this.accessToken = '',
+      this.refreshToken = '',
+      this.signUpType = '',
+      this.oAuthToken = '',
+      this.isLoginCompleted = null,
+      this.isTermOfInfoAgreed = false,
+      this.isTermOfUseAgreed = false,
+      this.isThirdPartyAdConsent = false,
+      this.isTermOfPrivacyAgreed = false,
+      this.isAgeRestrictionAgreed = false});
 
   @override
   @JsonKey()
@@ -94,6 +221,39 @@ class _LoginState implements LoginState {
   @override
   @JsonKey()
   final String errorMessage;
+  @override
+  @JsonKey()
+  final String tempAccessToken;
+  @override
+  @JsonKey()
+  final String accessToken;
+  @override
+  @JsonKey()
+  final String refreshToken;
+  @override
+  @JsonKey()
+  final String signUpType;
+  @override
+  @JsonKey()
+  final String oAuthToken;
+  @override
+  @JsonKey()
+  final bool? isLoginCompleted;
+  @override
+  @JsonKey()
+  final bool isTermOfInfoAgreed;
+  @override
+  @JsonKey()
+  final bool isTermOfUseAgreed;
+  @override
+  @JsonKey()
+  final bool isThirdPartyAdConsent;
+  @override
+  @JsonKey()
+  final bool isTermOfPrivacyAgreed;
+  @override
+  @JsonKey()
+  final bool isAgeRestrictionAgreed;
 
   /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
@@ -111,15 +271,51 @@ class _LoginState implements LoginState {
             (identical(other.loadingStatus, loadingStatus) ||
                 other.loadingStatus == loadingStatus) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.tempAccessToken, tempAccessToken) ||
+                other.tempAccessToken == tempAccessToken) &&
+            (identical(other.accessToken, accessToken) ||
+                other.accessToken == accessToken) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.signUpType, signUpType) ||
+                other.signUpType == signUpType) &&
+            (identical(other.oAuthToken, oAuthToken) ||
+                other.oAuthToken == oAuthToken) &&
+            (identical(other.isLoginCompleted, isLoginCompleted) ||
+                other.isLoginCompleted == isLoginCompleted) &&
+            (identical(other.isTermOfInfoAgreed, isTermOfInfoAgreed) ||
+                other.isTermOfInfoAgreed == isTermOfInfoAgreed) &&
+            (identical(other.isTermOfUseAgreed, isTermOfUseAgreed) ||
+                other.isTermOfUseAgreed == isTermOfUseAgreed) &&
+            (identical(other.isThirdPartyAdConsent, isThirdPartyAdConsent) ||
+                other.isThirdPartyAdConsent == isThirdPartyAdConsent) &&
+            (identical(other.isTermOfPrivacyAgreed, isTermOfPrivacyAgreed) ||
+                other.isTermOfPrivacyAgreed == isTermOfPrivacyAgreed) &&
+            (identical(other.isAgeRestrictionAgreed, isAgeRestrictionAgreed) ||
+                other.isAgeRestrictionAgreed == isAgeRestrictionAgreed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, loadingStatus, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      loadingStatus,
+      errorMessage,
+      tempAccessToken,
+      accessToken,
+      refreshToken,
+      signUpType,
+      oAuthToken,
+      isLoginCompleted,
+      isTermOfInfoAgreed,
+      isTermOfUseAgreed,
+      isThirdPartyAdConsent,
+      isTermOfPrivacyAgreed,
+      isAgeRestrictionAgreed);
 
   @override
   String toString() {
-    return 'LoginState(loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'LoginState(loadingStatus: $loadingStatus, errorMessage: $errorMessage, tempAccessToken: $tempAccessToken, accessToken: $accessToken, refreshToken: $refreshToken, signUpType: $signUpType, oAuthToken: $oAuthToken, isLoginCompleted: $isLoginCompleted, isTermOfInfoAgreed: $isTermOfInfoAgreed, isTermOfUseAgreed: $isTermOfUseAgreed, isThirdPartyAdConsent: $isThirdPartyAdConsent, isTermOfPrivacyAgreed: $isTermOfPrivacyAgreed, isAgeRestrictionAgreed: $isAgeRestrictionAgreed)';
   }
 }
 
@@ -131,7 +327,20 @@ abstract mixin class _$LoginStateCopyWith<$Res>
       __$LoginStateCopyWithImpl;
   @override
   @useResult
-  $Res call({LoadingStatus loadingStatus, String errorMessage});
+  $Res call(
+      {LoadingStatus loadingStatus,
+      String errorMessage,
+      String tempAccessToken,
+      String accessToken,
+      String refreshToken,
+      String signUpType,
+      String oAuthToken,
+      bool? isLoginCompleted,
+      bool isTermOfInfoAgreed,
+      bool isTermOfUseAgreed,
+      bool isThirdPartyAdConsent,
+      bool isTermOfPrivacyAgreed,
+      bool isAgeRestrictionAgreed});
 }
 
 /// @nodoc
@@ -148,6 +357,17 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
   $Res call({
     Object? loadingStatus = null,
     Object? errorMessage = null,
+    Object? tempAccessToken = null,
+    Object? accessToken = null,
+    Object? refreshToken = null,
+    Object? signUpType = null,
+    Object? oAuthToken = null,
+    Object? isLoginCompleted = freezed,
+    Object? isTermOfInfoAgreed = null,
+    Object? isTermOfUseAgreed = null,
+    Object? isThirdPartyAdConsent = null,
+    Object? isTermOfPrivacyAgreed = null,
+    Object? isAgeRestrictionAgreed = null,
   }) {
     return _then(_LoginState(
       loadingStatus: null == loadingStatus
@@ -158,6 +378,50 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
           ? _self.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String,
+      tempAccessToken: null == tempAccessToken
+          ? _self.tempAccessToken
+          : tempAccessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      accessToken: null == accessToken
+          ? _self.accessToken
+          : accessToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      refreshToken: null == refreshToken
+          ? _self.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      signUpType: null == signUpType
+          ? _self.signUpType
+          : signUpType // ignore: cast_nullable_to_non_nullable
+              as String,
+      oAuthToken: null == oAuthToken
+          ? _self.oAuthToken
+          : oAuthToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      isLoginCompleted: freezed == isLoginCompleted
+          ? _self.isLoginCompleted
+          : isLoginCompleted // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isTermOfInfoAgreed: null == isTermOfInfoAgreed
+          ? _self.isTermOfInfoAgreed
+          : isTermOfInfoAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTermOfUseAgreed: null == isTermOfUseAgreed
+          ? _self.isTermOfUseAgreed
+          : isTermOfUseAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isThirdPartyAdConsent: null == isThirdPartyAdConsent
+          ? _self.isThirdPartyAdConsent
+          : isThirdPartyAdConsent // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTermOfPrivacyAgreed: null == isTermOfPrivacyAgreed
+          ? _self.isTermOfPrivacyAgreed
+          : isTermOfPrivacyAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isAgeRestrictionAgreed: null == isAgeRestrictionAgreed
+          ? _self.isAgeRestrictionAgreed
+          : isAgeRestrictionAgreed // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }

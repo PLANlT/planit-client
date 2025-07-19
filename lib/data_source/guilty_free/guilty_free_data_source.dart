@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:planit/core/api_response.dart';
 import 'package:planit/data_source/guilty_free/response_body/guilty_free_date_response_body.dart';
@@ -17,14 +17,17 @@ abstract class GuiltyFreeDataSource {
   factory GuiltyFreeDataSource(Dio dio) = _GuiltyFreeDataSource;
 
   @GET('/planit/guilty-free')
+  @Headers({'accessToken': 'true'})
   Future<ApiResponse<GuiltyFreeDateResponseBody>> getGuiltyFreeDate();
 
   @PATCH('/planit/guilty-free')
+  @Headers({'accessToken': 'true'})
   Future<void> activateGuiltyFree({
     @Query('reason') required String reason,
   });
 
   @GET('/planit/guilty-free/list')
+  @Headers({'accessToken': 'true'})
   Future<ApiResponse<GuiltyFreeReasonListResponseBody>>
       getGuiltyFreeReasonList();
 }

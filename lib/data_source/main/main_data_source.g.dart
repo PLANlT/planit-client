@@ -21,7 +21,8 @@ class _MainDataSource implements MainDataSource {
   Future<ApiResponse<TodayPlanListResponseBody>> getTodayTasks() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ApiResponse<TodayPlanListResponseBody>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
@@ -52,7 +53,8 @@ class _MainDataSource implements MainDataSource {
   Future<void> completeTask({required int taskId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<void>(
       Options(method: 'POST', headers: _headers, extra: _extra)

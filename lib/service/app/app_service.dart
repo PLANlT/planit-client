@@ -34,6 +34,20 @@ class AppService extends StateNotifier<AppState> {
     return state.isSignedIn;
   }
 
+  // 앱이 켜질 때, 로그인 상태를 확인해 AppState에 저장
+  Future<void> checkLoginStatus() async {
+    // accessToken과 refreshToken이 모두 저장되어 있다면 로그인 상태로 판단
+    final String? accessToken = await _secureStorageService.getString(
+      key: StorageKey.accessTokenKey,
+    );
+    final String? refreshToken = await _secureStorageService.getString(
+      key: StorageKey.refreshTokenKey,
+    );
+    if (accessToken != null && refreshToken != null) {
+      state = state.copyWith(isSignedIn: true);
+    }
+  }
+
   Future<void> signIn({
     required String accessToken,
     required String refreshToken,

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/service/storage/planit_storage_service.dart';
+import 'package:planit/service/storage/storage_key.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 
 import '../../theme/planit_colors.dart';
 import '../../theme/planit_typos.dart';
@@ -8,7 +13,7 @@ import '../common/comopnent/planit_text.dart';
 import '../common/const/planit_button_style.dart';
 import '../common/view/default_layout.dart';
 
-class OnboardingLayout extends StatelessWidget {
+class OnboardingLayout extends HookConsumerWidget {
   final String title;
   final String description;
   final String asset;
@@ -23,7 +28,11 @@ class OnboardingLayout extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final PlanitStorageService service = ref.read(
+      planitStorageServiceProvider,
+    );
+
     return DefaultLayout(
       child: SafeArea(
         child: Column(
@@ -57,7 +66,14 @@ class OnboardingLayout extends StatelessWidget {
                 ),
                 width: double.infinity,
                 child: PlanitButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.goNamed(RootTab.routeName);
+                    // 온보딩 종료 이후 기존 유저로 처리>앞으로 온보딩 비노출
+                    service.setBool(
+                      key: StorageKey.isNotFirstLaunch,
+                      value: true,
+                    );
+                  },
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
                   label: '시작하기',
