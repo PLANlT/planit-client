@@ -11,11 +11,11 @@ import 'package:planit/ui/plan/component/plan_main_chip.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class PlanListCard extends StatelessWidget {
-  final plan;
+  final PlanModel plan;
 
   const PlanListCard({
     super.key,
-    this.plan,
+    required this.plan,
   });
 
   @override
@@ -25,7 +25,9 @@ class PlanListCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PlanDetailView(),
+            builder: (context) => PlanDetailView(
+              planId: plan.planId,
+            ),
           ),
         );
       },

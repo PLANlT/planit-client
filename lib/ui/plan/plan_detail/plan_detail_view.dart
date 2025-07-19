@@ -13,13 +13,15 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 
 class PlanDetailView extends HookConsumerWidget {
-  const PlanDetailView({super.key});
+  final int planId;
+  const PlanDetailView({required this.planId, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PlanDetailState state = ref.watch(planDetailViewModelProvider(0));
+    final PlanDetailState state =
+        ref.watch(planDetailViewModelProvider(planId));
     final PlanDetailViewModel viewModel =
-        ref.read(planDetailViewModelProvider(0).notifier);
+        ref.read(planDetailViewModelProvider(planId).notifier);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
