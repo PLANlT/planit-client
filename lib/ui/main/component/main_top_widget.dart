@@ -15,6 +15,7 @@ class MainTopWidget extends StatelessWidget {
   final TaskStatus status;
   final Future<void> onGuiltyFreePressed;
   final bool? canUseGuiltyFree;
+  final int consecutiveDay;
 
   const MainTopWidget({
     super.key,
@@ -22,6 +23,7 @@ class MainTopWidget extends StatelessWidget {
     required this.status,
     required this.onGuiltyFreePressed,
     required this.canUseGuiltyFree,
+    required this.consecutiveDay,
   });
 
   @override
@@ -51,9 +53,9 @@ class MainTopWidget extends StatelessWidget {
                 itemHeight: 90,
                 itemWidth: 200,
                 onChanged: (value) {},
-                maxValue: 103,
-                minValue: 1,
-                value: 102,
+                maxValue: consecutiveDay + 1,
+                minValue: 0,
+                value: consecutiveDay,
                 selectedTextStyle: PlanitTypos.pretendardBlack90.copyWith(
                   color: status == TaskStatus.nothing
                       ? PlanitColors.white02
@@ -117,17 +119,18 @@ String getAsset({
   required RouteType type,
   required TaskStatus status,
 }) {
+  // 디폴트로 흑백사진이 먼저 뜨게 수정
   if (type == RouteType.slow) {
-    if (status == TaskStatus.nothing) {
-      return Assets.mascotSeatingMonochrome;
-    } else {
+    if (status != TaskStatus.nothing) {
       return Assets.mascotSeatingColor;
+    } else {
+      return Assets.mascotSeatingMonochrome;
     }
   } else {
-    if (status == TaskStatus.nothing) {
-      return Assets.mascotDancingMonochrome;
-    } else {
+    if (status != TaskStatus.nothing) {
       return Assets.mascotDancingColor;
+    } else {
+      return Assets.mascotDancingMonochrome;
     }
   }
 }

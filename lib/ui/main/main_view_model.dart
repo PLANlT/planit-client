@@ -5,11 +5,13 @@ import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/guilty_free/guilty_free_repository.dart';
 import 'package:planit/repository/main/main_repository.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
+import 'package:planit/repository/mypage/mypage_repository.dart';
 import 'package:planit/service/storage/planit_storage_service.dart';
 import 'package:planit/service/storage/storage_key.dart';
 import 'package:planit/ui/main/const/main_enums.dart';
 import 'package:planit/utils/date_time.dart';
 
+import '../../repository/mypage/model/consecutive_days_model.dart';
 import 'main_state.dart';
 
 final StateNotifierProvider<MainViewModel, MainState> mainViewModelProvider =
@@ -18,6 +20,7 @@ final StateNotifierProvider<MainViewModel, MainState> mainViewModelProvider =
     mainRepository: ref.read(mainRepositoryProvider),
     guiltyFreeRepository: ref.read(guiltyFreeRepositoryProvider),
     storageService: ref.read(planitStorageServiceProvider),
+    mypageRepository: ref.read(mypageRepositoryProvider),
   ),
 );
 
@@ -25,14 +28,17 @@ class MainViewModel extends StateNotifier<MainState> {
   final MainRepository _mainRepository;
   final GuiltyFreeRepository _guiltyFreeRepository;
   final PlanitStorageService _storageService;
+  final MypageRepository _mypageRepository;
 
   MainViewModel({
     required MainRepository mainRepository,
     required GuiltyFreeRepository guiltyFreeRepository,
     required PlanitStorageService storageService,
+    required MypageRepository mypageRepository,
   })  : _mainRepository = mainRepository,
         _guiltyFreeRepository = guiltyFreeRepository,
         _storageService = storageService,
+        _mypageRepository = mypageRepository,
         super(MainState());
 
   // 화면 진입 시 필요한 작업
@@ -160,6 +166,32 @@ class MainViewModel extends StateNotifier<MainState> {
         state = state.copyWith(
           errorMessage: result.messages!.first,
         );
+    }
+  }
+
+  Future<void> getConsecutiveDays() async {
+    if (mounted) {
+      state = state.copyWith(loadingStatus: LoadingStatus.loading);
+    }
+
+    final RepositoryResult<ConsecutiveDaysModel> result =
+        await _mypageRepository.getConsecutiveDays();
+
+    switch (result) {
+      case SuccessRepositoryResult<ConsecutiveDaysModel>():
+        if (mounted) {
+          state = state.copyWith(
+            loadingStatus: LoadingStatus.success,
+            consecutiveDay: result.data.currentConsecutiveDays,
+          );
+        }
+      case FailureRepositoryResult<ConsecutiveDaysModel>():
+        if (mounted) {
+          state = state.copyWith(
+            loadingStatus: LoadingStatus.error,
+            errorMessage: '연속일 정보를 불러오는데 실패했어요.',
+          );
+        }
     }
   }
 }

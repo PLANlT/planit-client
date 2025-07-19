@@ -74,6 +74,7 @@ class MainView extends HookConsumerWidget {
                 type: state.routeType,
                 onGuiltyFreePressed: viewModel.checkCanUseGuiltyFree(),
                 canUseGuiltyFree: state.canUseGuiltyFree,
+                consecutiveDay: state.consecutiveDay,
               ),
               RouteSwitchBanner(
                 type: state.routeType,
