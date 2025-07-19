@@ -264,6 +264,7 @@ class PlanCreateView extends HookConsumerWidget {
                               label: '플랜이 제작됐어요!',
                             ),
                           );
+                          viewmodel.uploadPlan();
                           Navigator.push(
                             context,
                             MaterialPageRoute(

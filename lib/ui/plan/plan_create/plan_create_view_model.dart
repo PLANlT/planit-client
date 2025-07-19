@@ -43,6 +43,31 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
             title: state.title, icon: icon, planStatus: state.planStatus));
   }
 
+  Future<void> uploadPlan() async {
+    // 필요한 값들을 state에서 가져옵니다.
+    final title = state.title;
+    final motivation = state.motivation;
+    final icon = state.icon;
+    final planStatus = state.planStatus;
+    final startedAt = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now()); // 예시: 시작일을 selectedDate로 사용
+    final finishedAt =
+        state.selectedDate; // PlanCreateState에 finishedDate가 있다고 가정
+
+    // 로딩 상태로 변경
+    state = state.copyWith(loadingStatus: LoadingStatus.loading);
+
+    final result = await _planRepository.createPlan(
+      title: title,
+      motivation: motivation,
+      icon: icon,
+      planStatus: planStatus,
+      startedAt: startedAt,
+      finishedAt: finishedAt!,
+    );
+    state = state.copyWith(loadingStatus: LoadingStatus.success);
+  }
+
   void updatePlanStatus(String planStatus) {
     state = state.copyWith(
         planStatus: planStatus,
