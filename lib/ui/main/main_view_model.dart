@@ -47,6 +47,7 @@ class MainViewModel extends StateNotifier<MainState> {
     await checkDidFirstComplete();
     checkDidAllPassinatePlans();
     debugPrint('taskStatus 판단 완료: ${state.taskStatus}');
+    await getConsecutiveDays();
   }
 
   Future<void> checkDidFirstComplete() async {
