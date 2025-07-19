@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
@@ -15,17 +14,7 @@ class MypageAccountView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final MypageViewModel viewModel = ref.read(
-      mypageViewModelProvider.notifier,
-    );
     final MypageState state = ref.watch(mypageViewModelProvider);
-
-    useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        viewModel.initAccountPage();
-      });
-      return null;
-    }, []);
 
     return DefaultLayout(
       title: '계정 관리',
