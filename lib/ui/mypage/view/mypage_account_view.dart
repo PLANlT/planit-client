@@ -4,7 +4,6 @@ import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/mypage/component/account_info_widget.dart';
-import 'package:planit/ui/mypage/component/account_name_widget.dart';
 
 import '../mypage_state.dart';
 import '../mypage_view_model.dart';
@@ -14,6 +13,7 @@ class MypageAccountView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final MypageViewModel viewModel = ref.read(mypageViewModelProvider.notifier,);
     final MypageState state = ref.watch(mypageViewModelProvider);
 
     return DefaultLayout(
@@ -37,7 +37,7 @@ class MypageAccountView extends HookConsumerWidget {
                 SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                    onPressed: () {},
+                    onPressed: () => viewModel.signOut(),
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
                     label: '로그아웃',

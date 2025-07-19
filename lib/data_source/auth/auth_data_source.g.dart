@@ -21,7 +21,8 @@ class _AuthDataSource implements AuthDataSource {
   Future<void> signOut() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<void>(
       Options(method: 'POST', headers: _headers, extra: _extra)
@@ -61,36 +62,6 @@ class _AuthDataSource implements AuthDataSource {
       _value = ApiResponse<SignInResponseBody>.fromJson(
         _result.data!,
         (json) => SignInResponseBody.fromJson(json as Map<String, dynamic>),
-      );
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<ApiResponse<NewTokensResponseBody>> refreshTokens() async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiResponse<NewTokensResponseBody>>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/planit/auth/refresh',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiResponse<NewTokensResponseBody> _value;
-    try {
-      _value = ApiResponse<NewTokensResponseBody>.fromJson(
-        _result.data!,
-        (json) => NewTokensResponseBody.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

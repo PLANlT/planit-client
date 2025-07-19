@@ -15,7 +15,7 @@ import 'app_router_interceptor.dart';
 final Provider<AppRouter> appRouterProvider =
     Provider<AppRouter>((ref) => AppRouter(
           appRouterInterceptor: AppRouterInterceptor(ref: ref),
-          refreshListenable: ref.read(redirectNotifierProvider),
+          refreshListenable: ref.watch(redirectNotifierProvider),
         ));
 
 class AppRouter {
