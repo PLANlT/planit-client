@@ -52,7 +52,7 @@ class PlanDetailView extends HookConsumerWidget {
               Align(
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
-                  state.planDetail!.icon,
+                  '${state.planDetail!.icon}.svg',
                   width: 120,
                   height: 120,
                 ),
