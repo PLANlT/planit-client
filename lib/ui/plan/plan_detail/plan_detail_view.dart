@@ -42,7 +42,6 @@ class PlanDetailView extends HookConsumerWidget {
         floatingActionButton: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
           child: GestureDetector(
-            onTap: () {},
             child: Container(
               width: 48,
               height: 48,
@@ -57,8 +56,8 @@ class PlanDetailView extends HookConsumerWidget {
                       context: context,
                       builder: (conetext) {
                         return TaskAddBottomSheetView(
-                          onConfirm: () {
-                            Navigator.pop(context); // bottom sheet 닫기
+                          onConfirm: (title) {
+                            viewModel.clickAddButton(title);
                           },
                         );
                       });

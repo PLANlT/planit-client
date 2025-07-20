@@ -6,10 +6,29 @@ import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_text_field.dart';
 
-class TaskAddBottomSheetView extends StatelessWidget {
-  final VoidCallback onConfirm;
+class TaskAddBottomSheetView extends StatefulWidget {
+  final void Function(String title) onConfirm;
 
   const TaskAddBottomSheetView({super.key, required this.onConfirm});
+
+  @override
+  State<TaskAddBottomSheetView> createState() => _TaskAddBottomSheetViewState();
+}
+
+class _TaskAddBottomSheetViewState extends State<TaskAddBottomSheetView> {
+  late final TextEditingController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose(); 
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Wrap(children: [
@@ -22,13 +41,16 @@ class TaskAddBottomSheetView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               child: PlanitTextField(
                 hintText: '내용을 입력해주세요',
+                controller: controller,
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 12),
               child: GestureDetector(
                 onTap: () {
-                  onConfirm();
+                  final title = controller.text.trim();
+                  widget.onConfirm(title);
+                  Navigator.of(context).pop();
                 },
                 child: PlanitText('생성', style: PlanitTypos.body2),
               ),
