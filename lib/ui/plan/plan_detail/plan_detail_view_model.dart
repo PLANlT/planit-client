@@ -52,6 +52,21 @@ class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
     }
   }
 
+  Future<void> clickDeletePlan(int planId) async {
+    state = state.copyWith(loadingStatus: LoadingStatus.loading);
+    final result = await _planRepository.removePlan(planId: planId);
+    switch (result) {
+      case SuccessRepositoryResult():
+        state = state.copyWith(loadingStatus: LoadingStatus.success);
+
+      case FailureRepositoryResult():
+        state = state.copyWith(
+          loadingStatus: LoadingStatus.error,
+          errorMessage: '플랜 삭제에 실패했어요.',
+        );
+    }
+  }
+
   Future<void> clickAddButton(String title) async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 

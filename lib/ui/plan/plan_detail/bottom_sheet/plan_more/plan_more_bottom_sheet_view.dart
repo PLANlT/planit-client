@@ -7,7 +7,10 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_view.dart';
 
 class PlanMoreBottomSheet extends HookConsumerWidget {
-  const PlanMoreBottomSheet({super.key});
+  final void Function(int planId) onClick;
+  final int planId;
+  const PlanMoreBottomSheet(
+      {super.key, required this.onClick, required this.planId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,9 +36,15 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             Divider(
               color: PlanitColors.white03,
             ),
-            PlanitText(
-              '플랜 삭제',
-              style: PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+            GestureDetector(
+              onTap: () {
+                onClick(planId);
+                Navigator.pop(context);
+              },
+              child: PlanitText(
+                '플랜 삭제',
+                style: PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+              ),
             ),
             Divider(
               color: PlanitColors.white03,

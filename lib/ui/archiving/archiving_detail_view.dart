@@ -64,12 +64,12 @@ class ArchivingDetailView extends HookConsumerWidget {
                 right: 20,
                 child: GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return PlanMoreBottomSheet();
-                      },
-                    );
+                    // showModalBottomSheet(
+                    //   context: context,
+                    //   builder: (context) {
+                    //     return PlanMoreBottomSheet();
+                    //   },
+                    // );
                   },
                   child: SvgPicture.asset(
                     Assets.more,

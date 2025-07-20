@@ -27,6 +27,18 @@ class PlanRepository {
     required PlanDataSource planDataSource,
   }) : _planDataSource = planDataSource;
 
+  Future<RepositoryResult<void>> removePlan({required int planId}) async {
+    try {
+      _planDataSource.deletePlan(planId: planId);
+      return const SuccessRepositoryResult(data: null);
+    } on DioException catch (e) {
+      return FailureRepositoryResult(
+        error: e,
+        messages: [networkErrorMsg],
+      );
+    }
+  }
+
   Future<RepositoryResult<PlanCreateModel>> createPlan({
     required String title,
     required String motivation,
