@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planit/repository/plan/model/task_model.dart';
+import 'package:planit/repository/task/model/task_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';

@@ -12,7 +12,7 @@ import 'package:planit/data_source/plan/request_%20body/plan_request_body.dart';
 import 'package:planit/repository/plan/model/plan_create_model.dart';
 import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
-import 'package:planit/repository/plan/model/task_model.dart';
+import 'package:planit/repository/task/model/task_model.dart';
 import 'package:planit/ui/common/assets.dart';
 
 final AutoDisposeProvider<PlanRepository> planRepositoryProvider =
@@ -43,7 +43,7 @@ class PlanRepository {
           motivation: motivation,
           icon: icon,
           planStatus: planStatus,
-          startedAt: '20$startedAt',
+          startedAt: startedAt,
           finishedAt: '20$finishedAt',
         ),
       );

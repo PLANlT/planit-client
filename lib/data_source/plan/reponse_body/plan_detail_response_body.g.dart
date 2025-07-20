@@ -14,7 +14,8 @@ PlanDetailResponseBody _$PlanDetailResponseBodyFromJson(
       icon: json['icon'] as String,
       motivation: json['motivation'] as String,
       tasks: (json['tasks'] as List<dynamic>)
-          .map((e) => TaskResponseBody.fromJson(e as Map<String, dynamic>))
+          .map(
+              (e) => TaskCreateResponseBody.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -26,18 +27,4 @@ Map<String, dynamic> _$PlanDetailResponseBodyToJson(
       'icon': instance.icon,
       'motivation': instance.motivation,
       'tasks': instance.tasks,
-    };
-
-TaskResponseBody _$TaskResponseBodyFromJson(Map<String, dynamic> json) =>
-    TaskResponseBody(
-      taskId: (json['taskId'] as num).toInt(),
-      taskType: json['taskType'] as String,
-      title: json['title'] as String,
-    );
-
-Map<String, dynamic> _$TaskResponseBodyToJson(TaskResponseBody instance) =>
-    <String, dynamic>{
-      'taskId': instance.taskId,
-      'taskType': instance.taskType,
-      'title': instance.title,
     };

@@ -1,5 +1,5 @@
 import 'package:planit/data_source/plan/reponse_body/plan_response_body.dart';
-import 'package:planit/repository/plan/model/task_model.dart';
+import 'package:planit/repository/task/model/task_model.dart';
 
 class PlanModel {
   final int planId;
