@@ -65,7 +65,8 @@ class PlanRepository {
 
       if (data.planStatus == 'IN_PROGRESS') {
         final plans = data.plans;
-        final models = plans.map((e) => PlanModel.fromResponse(e)).toList();
+        final models =
+            plans.map((e) => PlanModel.fromResponse(e, 'IN_PROGRESS')).toList();
         return SuccessRepositoryResult(data: models);
       } else {
         return SuccessRepositoryResult(data: []);
@@ -78,7 +79,25 @@ class PlanRepository {
   }
 
   Future<RepositoryResult<List<PlanModel>>> getPausePlanList() async {
-    return SuccessRepositoryResult(data: []);
+    try {
+      final ApiResponse<PlanListResponseBody> result =
+          await _planDataSource.getPlanLists('PAUSED');
+
+      final data = result.data;
+
+      if (data.planStatus == 'PAUSED') {
+        final plans = data.plans;
+        final models =
+            plans.map((e) => PlanModel.fromResponse(e, 'PAUSED')).toList();
+        return SuccessRepositoryResult(data: models);
+      } else {
+        return SuccessRepositoryResult(data: []);
+      }
+    } on DioException catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    } catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    }
   }
 
   Future<RepositoryResult<PlanDetailModel>> getPlanDetailByPlanId(
