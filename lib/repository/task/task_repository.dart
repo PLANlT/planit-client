@@ -21,6 +21,17 @@ class TaskRepository {
   const TaskRepository({
     required TaskDataSource taskDataSource,
   }) : _taskDataSource = taskDataSource;
+  Future<RepositoryResult<void>> removeTask({required int taskId}) async {
+    try {
+      _taskDataSource.deleteTask(taskId: taskId);
+      return const SuccessRepositoryResult(data: null);
+    } on DioException catch (e) {
+      return FailureRepositoryResult(
+        error: e,
+        messages: [networkErrorMsg],
+      );
+    }
+  }
 
   Future<RepositoryResult<RoutineModel>> setRoutine(
       {required int taskId, required RoutineModel routineModel}) async {

@@ -33,4 +33,10 @@ abstract class TaskDataSource {
     @Path('taskId') int taskId,
     @Body() required RoutineRequestBody body,
   });
+
+  @PATCH('/planit/tasks/{taskId}/delete')
+  @Headers({'accessToken': 'true'})
+  Future<void> deleteTask({
+    @Path('taskId') int taskId,
+  });
 }
