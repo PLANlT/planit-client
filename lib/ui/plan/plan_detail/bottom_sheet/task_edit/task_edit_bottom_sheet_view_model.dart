@@ -1,0 +1,105 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/core/loading_status.dart';
+import 'package:planit/core/repository_result.dart';
+import 'package:planit/repository/plan/plan_repository.dart';
+import 'package:planit/repository/task/model/routine_model.dart';
+import 'package:planit/repository/task/task_repository.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_state.dart';
+
+final taskEditViewModelProvider = StateNotifierProvider.family<
+    TaskEditBottomSheetViewModel, TaskEditBottomSheetState, int>(
+  (ref, taskId) => TaskEditBottomSheetViewModel(
+    taskId: taskId,
+    taskRepository: ref.read(taskRepositoryProvider),
+  ),
+);
+
+class TaskEditBottomSheetViewModel
+    extends StateNotifier<TaskEditBottomSheetState> {
+  final TaskRepository _taskRepository;
+  final int _taskId;
+
+  TaskEditBottomSheetViewModel(
+      {required TaskRepository taskRepository, required int taskId})
+      : _taskRepository = taskRepository,
+        _taskId = taskId,
+        super(TaskEditBottomSheetState());
+
+//월화수목금토일 버튼 하나 누를때 추가/삭제
+  void toggleDay(String day) {
+    final updated = [...state.routinDayList];
+    if (updated.contains(day)) {
+      updated.remove(day);
+    } else {
+      updated.add(day);
+    }
+    state = state.copyWith(routinDayList: updated);
+  }
+
+//서버에서 Type을 리스트가 아닌 "ALL", "LOW", "HIGH" 형태의 문자열로 전달해서 Repository에서 변환 로직을 구현해야댐
+  void toggleType(String type) {
+    final updated = [...state.taskType];
+    if (updated.contains(type)) {
+      updated.remove(type);
+    } else {
+      updated.add(type);
+    }
+    state = state.copyWith(taskType: updated);
+  }
+
+  void saveEditedRoutine() async {
+    state = state.copyWith(loadingStatus: LoadingStatus.loading);
+
+    // taskType 설정
+    final taskTypeSet = state.taskType.toSet();
+    late final String taskType;
+    if (taskTypeSet.containsAll(['HIGH', 'LOW']) && taskTypeSet.length == 2) {
+      taskType = 'ALL';
+    } else if (taskTypeSet.contains('HIGH')) {
+      taskType = 'PASSIONATE';
+    } else {
+      taskType = 'SLOW';
+    }
+
+    // 요일 매핑
+    const dayMap = {
+      '월': 'MONDAY',
+      '화': 'TUESDAY',
+      '수': 'WEDNESDAY',
+      '목': 'THURSDAY',
+      '금': 'FRIDAY',
+      '토': 'SATURDAY',
+      '일': 'SUNDAY',
+    };
+
+    final routineDay = state.routinDayList
+        .where(dayMap.containsKey)
+        .map((d) => dayMap[d]!)
+        .toList();
+
+    // 서버 요청
+    final editRoutineResult = await _taskRepository.setRoutine(
+      taskId: _taskId,
+      routineModel: RoutineModel(
+        taskType: taskType,
+        routineTime: '12:12', // TODO: state에서 실제 시간 받아오기
+        routineDay: routineDay,
+      ),
+    );
+
+    // 결과 처리
+    switch (editRoutineResult) {
+      case SuccessRepositoryResult():
+        state = state.copyWith(loadingStatus: LoadingStatus.success);
+      case FailureRepositoryResult():
+        state = state.copyWith(
+          loadingStatus: LoadingStatus.error,
+          errorMessage: '루틴 설정에 실패했어요',
+        );
+    }
+  }
+
+  void toggleTimeSetting() {
+    state = state.copyWith(timeSetting: !state.timeSetting);
+  }
+}

@@ -48,7 +48,11 @@ class PlanTemplateDetailView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: TaskCard(title: 'title', taskType: 'ALL'));
+                    child: TaskCard(
+                      title: 'title',
+                      taskType: 'ALL',
+                      taskId: 2,
+                    ));
               },
             ),
           ),

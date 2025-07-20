@@ -4,7 +4,7 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_view.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_view.dart';
 
 class PlanMoreBottomSheet extends HookConsumerWidget {
   final void Function(int planId) onClick;
@@ -22,14 +22,6 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 12),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) => PlanEditBottomSheetView(),
-                  );
-                },
                 child: PlanitText('플랜 수정', style: PlanitTypos.body2),
               ),
             ),

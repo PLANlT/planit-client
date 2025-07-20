@@ -4,7 +4,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'plan_edit_bottom_sheet_state.dart';
+part of 'task_edit_bottom_sheet_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,7 +14,7 @@ part of 'plan_edit_bottom_sheet_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$PlanEditBottomSheetState {
+mixin _$TaskEditBottomSheetState {
   List<String> get routinDayList;
   List<String> get timeList;
   bool get timeSetting;
@@ -22,19 +22,19 @@ mixin _$PlanEditBottomSheetState {
   LoadingStatus get loadingStatus;
   String get errorMessage;
 
-  /// Create a copy of PlanEditBottomSheetState
+  /// Create a copy of TaskEditBottomSheetState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $PlanEditBottomSheetStateCopyWith<PlanEditBottomSheetState> get copyWith =>
-      _$PlanEditBottomSheetStateCopyWithImpl<PlanEditBottomSheetState>(
-          this as PlanEditBottomSheetState, _$identity);
+  $TaskEditBottomSheetStateCopyWith<TaskEditBottomSheetState> get copyWith =>
+      _$TaskEditBottomSheetStateCopyWithImpl<TaskEditBottomSheetState>(
+          this as TaskEditBottomSheetState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is PlanEditBottomSheetState &&
+            other is TaskEditBottomSheetState &&
             const DeepCollectionEquality()
                 .equals(other.routinDayList, routinDayList) &&
             const DeepCollectionEquality().equals(other.timeList, timeList) &&
@@ -59,15 +59,15 @@ mixin _$PlanEditBottomSheetState {
 
   @override
   String toString() {
-    return 'PlanEditBottomSheetState(routinDayList: $routinDayList, timeList: $timeList, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'TaskEditBottomSheetState(routinDayList: $routinDayList, timeList: $timeList, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
 /// @nodoc
-abstract mixin class $PlanEditBottomSheetStateCopyWith<$Res> {
-  factory $PlanEditBottomSheetStateCopyWith(PlanEditBottomSheetState value,
-          $Res Function(PlanEditBottomSheetState) _then) =
-      _$PlanEditBottomSheetStateCopyWithImpl;
+abstract mixin class $TaskEditBottomSheetStateCopyWith<$Res> {
+  factory $TaskEditBottomSheetStateCopyWith(TaskEditBottomSheetState value,
+          $Res Function(TaskEditBottomSheetState) _then) =
+      _$TaskEditBottomSheetStateCopyWithImpl;
   @useResult
   $Res call(
       {List<String> routinDayList,
@@ -79,14 +79,14 @@ abstract mixin class $PlanEditBottomSheetStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PlanEditBottomSheetStateCopyWithImpl<$Res>
-    implements $PlanEditBottomSheetStateCopyWith<$Res> {
-  _$PlanEditBottomSheetStateCopyWithImpl(this._self, this._then);
+class _$TaskEditBottomSheetStateCopyWithImpl<$Res>
+    implements $TaskEditBottomSheetStateCopyWith<$Res> {
+  _$TaskEditBottomSheetStateCopyWithImpl(this._self, this._then);
 
-  final PlanEditBottomSheetState _self;
-  final $Res Function(PlanEditBottomSheetState) _then;
+  final TaskEditBottomSheetState _self;
+  final $Res Function(TaskEditBottomSheetState) _then;
 
-  /// Create a copy of PlanEditBottomSheetState
+  /// Create a copy of TaskEditBottomSheetState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -129,8 +129,8 @@ class _$PlanEditBottomSheetStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _PlanEditBottomSheetState implements PlanEditBottomSheetState {
-  const _PlanEditBottomSheetState(
+class _TaskEditBottomSheetState implements TaskEditBottomSheetState {
+  const _TaskEditBottomSheetState(
       {final List<String> routinDayList = const [],
       final List<String> timeList = const [],
       this.timeSetting = false,
@@ -178,20 +178,20 @@ class _PlanEditBottomSheetState implements PlanEditBottomSheetState {
   @JsonKey()
   final String errorMessage;
 
-  /// Create a copy of PlanEditBottomSheetState
+  /// Create a copy of TaskEditBottomSheetState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$PlanEditBottomSheetStateCopyWith<_PlanEditBottomSheetState> get copyWith =>
-      __$PlanEditBottomSheetStateCopyWithImpl<_PlanEditBottomSheetState>(
+  _$TaskEditBottomSheetStateCopyWith<_TaskEditBottomSheetState> get copyWith =>
+      __$TaskEditBottomSheetStateCopyWithImpl<_TaskEditBottomSheetState>(
           this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PlanEditBottomSheetState &&
+            other is _TaskEditBottomSheetState &&
             const DeepCollectionEquality()
                 .equals(other._routinDayList, _routinDayList) &&
             const DeepCollectionEquality().equals(other._timeList, _timeList) &&
@@ -216,16 +216,16 @@ class _PlanEditBottomSheetState implements PlanEditBottomSheetState {
 
   @override
   String toString() {
-    return 'PlanEditBottomSheetState(routinDayList: $routinDayList, timeList: $timeList, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'TaskEditBottomSheetState(routinDayList: $routinDayList, timeList: $timeList, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$PlanEditBottomSheetStateCopyWith<$Res>
-    implements $PlanEditBottomSheetStateCopyWith<$Res> {
-  factory _$PlanEditBottomSheetStateCopyWith(_PlanEditBottomSheetState value,
-          $Res Function(_PlanEditBottomSheetState) _then) =
-      __$PlanEditBottomSheetStateCopyWithImpl;
+abstract mixin class _$TaskEditBottomSheetStateCopyWith<$Res>
+    implements $TaskEditBottomSheetStateCopyWith<$Res> {
+  factory _$TaskEditBottomSheetStateCopyWith(_TaskEditBottomSheetState value,
+          $Res Function(_TaskEditBottomSheetState) _then) =
+      __$TaskEditBottomSheetStateCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -238,14 +238,14 @@ abstract mixin class _$PlanEditBottomSheetStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$PlanEditBottomSheetStateCopyWithImpl<$Res>
-    implements _$PlanEditBottomSheetStateCopyWith<$Res> {
-  __$PlanEditBottomSheetStateCopyWithImpl(this._self, this._then);
+class __$TaskEditBottomSheetStateCopyWithImpl<$Res>
+    implements _$TaskEditBottomSheetStateCopyWith<$Res> {
+  __$TaskEditBottomSheetStateCopyWithImpl(this._self, this._then);
 
-  final _PlanEditBottomSheetState _self;
-  final $Res Function(_PlanEditBottomSheetState) _then;
+  final _TaskEditBottomSheetState _self;
+  final $Res Function(_TaskEditBottomSheetState) _then;
 
-  /// Create a copy of PlanEditBottomSheetState
+  /// Create a copy of TaskEditBottomSheetState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -257,7 +257,7 @@ class __$PlanEditBottomSheetStateCopyWithImpl<$Res>
     Object? loadingStatus = null,
     Object? errorMessage = null,
   }) {
-    return _then(_PlanEditBottomSheetState(
+    return _then(_TaskEditBottomSheetState(
       routinDayList: null == routinDayList
           ? _self._routinDayList
           : routinDayList // ignore: cast_nullable_to_non_nullable

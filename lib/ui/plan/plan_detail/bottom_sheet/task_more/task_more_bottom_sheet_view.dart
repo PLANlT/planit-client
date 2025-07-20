@@ -4,10 +4,14 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_view.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_view.dart';
 
 class TaskMoreBottomSheetView extends HookConsumerWidget {
-  const TaskMoreBottomSheetView({super.key});
+  final int taskId;
+  const TaskMoreBottomSheetView({
+    super.key,
+    required this.taskId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,7 +28,9 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
                   showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
-                    builder: (context) => PlanEditBottomSheetView(),
+                    builder: (context) => TaskEditBottomSheetView(
+                      taskId: taskId,
+                    ),
                   );
                 },
                 child: PlanitText('수정', style: PlanitTypos.body2),
