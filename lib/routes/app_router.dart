@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:planit/routes/redirect_notifier.dart';
+import 'package:planit/ui/common/const/web_view_params.dart';
+import 'package:planit/ui/common/view/planit_web_view.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/login/login_view.dart';
 import 'package:planit/ui/login/tos_view.dart';
+import 'package:planit/ui/mypage/view/mypage_account_view.dart';
+import 'package:planit/ui/mypage/view/mypage_customer_view.dart';
+import 'package:planit/ui/mypage/view/mypage_view.dart';
 import 'package:planit/ui/onboarding/onboarding_view.dart';
 import 'package:planit/ui/splash_view.dart';
 
@@ -40,6 +45,7 @@ class AppRouter {
       context,
       state,
     ),
+    navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
     initialLocation: '/splash',
     routes: [
@@ -50,7 +56,31 @@ class AppRouter {
         pageBuilder: (context, state) => NoTransitionPage(
           child: RootTab(),
         ),
-        routes: [],
+        routes: [
+          GoRoute(
+            path: 'main/mypage',
+            name: MypageView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: MypageView(),
+            ),
+            routes: [
+              GoRoute(
+                path: 'customer',
+                name: MypageCustomerView.routeName,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: MypageCustomerView(),
+                ),
+              ),
+              GoRoute(
+                path: 'account',
+                name: MypageAccountView.routeName,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: MypageAccountView(),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       // 스플래시
       GoRoute(
@@ -68,6 +98,14 @@ class AppRouter {
           child: OnboardingView(),
         ),
       ),
+      // 웹뷰
+      GoRoute(
+        path: '/webView',
+        name: PlanitWebView.routeName,
+        builder: (context, state) => PlanitWebView(
+          params: state.extra as WebViewParams,
+        ),
+      ),
       // 로그인 > 약관
       GoRoute(
         path: '/login',
@@ -77,7 +115,7 @@ class AppRouter {
         ),
         routes: [
           GoRoute(
-            path: '/tos',
+            path: 'tos',
             name: TosView.routeName,
             pageBuilder: (context, state) => NoTransitionPage(
               child: TosView(),

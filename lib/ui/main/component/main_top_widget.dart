@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
@@ -15,6 +16,7 @@ class MainTopWidget extends StatelessWidget {
   final TaskStatus status;
   final Future<void> onGuiltyFreePressed;
   final bool? canUseGuiltyFree;
+  final int consecutiveDay;
 
   const MainTopWidget({
     super.key,
@@ -22,6 +24,7 @@ class MainTopWidget extends StatelessWidget {
     required this.status,
     required this.onGuiltyFreePressed,
     required this.canUseGuiltyFree,
+    required this.consecutiveDay,
   });
 
   @override
@@ -51,9 +54,9 @@ class MainTopWidget extends StatelessWidget {
                 itemHeight: 90,
                 itemWidth: 200,
                 onChanged: (value) {},
-                maxValue: 103,
-                minValue: 1,
-                value: 102,
+                maxValue: consecutiveDay + 1,
+                minValue: 0,
+                value: consecutiveDay,
                 selectedTextStyle: PlanitTypos.pretendardBlack90.copyWith(
                   color: status == TaskStatus.nothing
                       ? PlanitColors.white02
@@ -71,11 +74,7 @@ class MainTopWidget extends StatelessWidget {
               left: 0.0,
               child: IconButton(
                 icon: SvgPicture.asset(Assets.profile),
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => MypageView(),
-                  ),
-                ),
+                onPressed: () => context.goNamed(MypageView.routeName),
                 padding: EdgeInsets.zero,
               ),
             ),
@@ -117,17 +116,18 @@ String getAsset({
   required RouteType type,
   required TaskStatus status,
 }) {
+  // 디폴트로 흑백사진이 먼저 뜨게 수정
   if (type == RouteType.slow) {
-    if (status == TaskStatus.nothing) {
-      return Assets.mascotSeatingMonochrome;
-    } else {
+    if (status != TaskStatus.nothing) {
       return Assets.mascotSeatingColor;
+    } else {
+      return Assets.mascotSeatingMonochrome;
     }
   } else {
-    if (status == TaskStatus.nothing) {
-      return Assets.mascotDancingMonochrome;
-    } else {
+    if (status != TaskStatus.nothing) {
       return Assets.mascotDancingColor;
+    } else {
+      return Assets.mascotDancingMonochrome;
     }
   }
 }

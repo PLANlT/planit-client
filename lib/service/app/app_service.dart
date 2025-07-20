@@ -73,6 +73,8 @@ class AppService extends StateNotifier<AppState> {
 
     // 토큰 삭제
     await _secureStorageService.clearAll();
+
+    debugPrint('AppService:로그아웃 완료');
   }
 
   // Splash에서 호출하여, GuiltyFree 상태 확인
