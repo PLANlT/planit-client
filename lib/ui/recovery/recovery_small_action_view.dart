@@ -73,10 +73,6 @@ class _RecoverySmallActionViewState extends State<RecoverySmallActionView>
         deviceSize.height < 700 ? 120 : (deviceSize.width - 80.0) / 2;
 
     return DefaultLayout(
-      // 테스트용 건너뛰기 버튼
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed(RecoveryCompleteView.routeName),
-      ),
       title: '회복 루틴',
       appBarColor: PlanitColors.transparent,
       extendBodyBehindAppBar: true,

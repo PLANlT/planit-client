@@ -36,6 +36,7 @@ class _RecoveryDeepBreathViewState extends State<RecoveryDeepBreathView>
   );
 
   int _remainSeconds = 60;
+  bool activateBtn = false;
 
   @override
   void initState() {
@@ -51,7 +52,9 @@ class _RecoveryDeepBreathViewState extends State<RecoveryDeepBreathView>
     // 애니메이션 완료 리스너
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        // TODO: 버튼 활성화
+        setState(() {
+          activateBtn = true;
+        });
       }
     });
 
@@ -119,6 +122,7 @@ class _RecoveryDeepBreathViewState extends State<RecoveryDeepBreathView>
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
                   label: '다음',
+                  enabled: activateBtn,
                 ),
               ),
             ],
