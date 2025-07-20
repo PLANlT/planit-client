@@ -23,6 +23,7 @@ mixin _$MainState {
   String get errorMessage;
   String get completeMessage;
   bool? get canUseGuiltyFree;
+  int get consecutiveDay;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -51,7 +52,9 @@ mixin _$MainState {
             (identical(other.completeMessage, completeMessage) ||
                 other.completeMessage == completeMessage) &&
             (identical(other.canUseGuiltyFree, canUseGuiltyFree) ||
-                other.canUseGuiltyFree == canUseGuiltyFree));
+                other.canUseGuiltyFree == canUseGuiltyFree) &&
+            (identical(other.consecutiveDay, consecutiveDay) ||
+                other.consecutiveDay == consecutiveDay));
   }
 
   @override
@@ -64,11 +67,12 @@ mixin _$MainState {
       showRecoveryRoutineBanner,
       errorMessage,
       completeMessage,
-      canUseGuiltyFree);
+      canUseGuiltyFree,
+      consecutiveDay);
 
   @override
   String toString() {
-    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage, canUseGuiltyFree: $canUseGuiltyFree)';
+    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage, canUseGuiltyFree: $canUseGuiltyFree, consecutiveDay: $consecutiveDay)';
   }
 }
 
@@ -85,7 +89,8 @@ abstract mixin class $MainStateCopyWith<$Res> {
       bool showRecoveryRoutineBanner,
       String errorMessage,
       String completeMessage,
-      bool? canUseGuiltyFree});
+      bool? canUseGuiltyFree,
+      int consecutiveDay});
 }
 
 /// @nodoc
@@ -108,6 +113,7 @@ class _$MainStateCopyWithImpl<$Res> implements $MainStateCopyWith<$Res> {
     Object? errorMessage = null,
     Object? completeMessage = null,
     Object? canUseGuiltyFree = freezed,
+    Object? consecutiveDay = null,
   }) {
     return _then(_self.copyWith(
       routeType: null == routeType
@@ -142,6 +148,10 @@ class _$MainStateCopyWithImpl<$Res> implements $MainStateCopyWith<$Res> {
           ? _self.canUseGuiltyFree
           : canUseGuiltyFree // ignore: cast_nullable_to_non_nullable
               as bool?,
+      consecutiveDay: null == consecutiveDay
+          ? _self.consecutiveDay
+          : consecutiveDay // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -157,7 +167,8 @@ class _MainState implements MainState {
       this.showRecoveryRoutineBanner = true,
       this.errorMessage = '',
       this.completeMessage = '',
-      this.canUseGuiltyFree = null});
+      this.canUseGuiltyFree = null,
+      this.consecutiveDay = 0});
 
   @override
   @JsonKey()
@@ -183,6 +194,9 @@ class _MainState implements MainState {
   @override
   @JsonKey()
   final bool? canUseGuiltyFree;
+  @override
+  @JsonKey()
+  final int consecutiveDay;
 
   /// Create a copy of MainState
   /// with the given fields replaced by the non-null parameter values.
@@ -212,7 +226,9 @@ class _MainState implements MainState {
             (identical(other.completeMessage, completeMessage) ||
                 other.completeMessage == completeMessage) &&
             (identical(other.canUseGuiltyFree, canUseGuiltyFree) ||
-                other.canUseGuiltyFree == canUseGuiltyFree));
+                other.canUseGuiltyFree == canUseGuiltyFree) &&
+            (identical(other.consecutiveDay, consecutiveDay) ||
+                other.consecutiveDay == consecutiveDay));
   }
 
   @override
@@ -225,11 +241,12 @@ class _MainState implements MainState {
       showRecoveryRoutineBanner,
       errorMessage,
       completeMessage,
-      canUseGuiltyFree);
+      canUseGuiltyFree,
+      consecutiveDay);
 
   @override
   String toString() {
-    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage, canUseGuiltyFree: $canUseGuiltyFree)';
+    return 'MainState(routeType: $routeType, plans: $plans, taskStatus: $taskStatus, loadingStatus: $loadingStatus, showRecoveryRoutineBanner: $showRecoveryRoutineBanner, errorMessage: $errorMessage, completeMessage: $completeMessage, canUseGuiltyFree: $canUseGuiltyFree, consecutiveDay: $consecutiveDay)';
   }
 }
 
@@ -249,7 +266,8 @@ abstract mixin class _$MainStateCopyWith<$Res>
       bool showRecoveryRoutineBanner,
       String errorMessage,
       String completeMessage,
-      bool? canUseGuiltyFree});
+      bool? canUseGuiltyFree,
+      int consecutiveDay});
 }
 
 /// @nodoc
@@ -272,6 +290,7 @@ class __$MainStateCopyWithImpl<$Res> implements _$MainStateCopyWith<$Res> {
     Object? errorMessage = null,
     Object? completeMessage = null,
     Object? canUseGuiltyFree = freezed,
+    Object? consecutiveDay = null,
   }) {
     return _then(_MainState(
       routeType: null == routeType
@@ -306,6 +325,10 @@ class __$MainStateCopyWithImpl<$Res> implements _$MainStateCopyWith<$Res> {
           ? _self.canUseGuiltyFree
           : canUseGuiltyFree // ignore: cast_nullable_to_non_nullable
               as bool?,
+      consecutiveDay: null == consecutiveDay
+          ? _self.consecutiveDay
+          : consecutiveDay // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
