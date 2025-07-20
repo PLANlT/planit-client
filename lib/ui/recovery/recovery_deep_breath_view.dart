@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/recovery/recovery_small_action_view.dart';
@@ -11,6 +12,8 @@ import 'component/recovery_bg.dart';
 import 'component/recovery_timer.dart';
 
 class RecoveryDeepBreathView extends StatefulWidget {
+  static String get routeName => 'breath';
+
   const RecoveryDeepBreathView({super.key});
 
   @override
@@ -110,10 +113,8 @@ class _RecoveryDeepBreathViewState extends State<RecoveryDeepBreathView>
               SizedBox(
                 width: double.infinity,
                 child: PlanitButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => RecoverySmallActionView(),
-                    ),
+                  onPressed: () => context.goNamed(
+                    RecoverySmallActionView.routeName,
                   ),
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,

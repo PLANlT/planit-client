@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/ui/recovery/recovery_intro_view.dart';
 
 import '../../../theme/planit_colors.dart';
@@ -13,11 +14,7 @@ class RecoveryRoutineBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => RecoveryIntroView(),
-        ),
-      ),
+      onTap: () => context.goNamed(RecoveryIntroView.routeName),
       child: Container(
         decoration: BoxDecoration(
           color: PlanitColors.green,
