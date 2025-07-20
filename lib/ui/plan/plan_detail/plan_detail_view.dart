@@ -138,7 +138,11 @@ class PlanDetailView extends HookConsumerWidget {
                   final item = state.planDetail!.tasks[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: TaskCard(title: item.title, taskType: item.taskType),
+                    child: TaskCard(
+                      title: item.title,
+                      taskType: item.taskType,
+                      taskId: item.taskId,
+                    ),
                   );
                 },
               ),

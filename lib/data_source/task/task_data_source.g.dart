@@ -54,6 +54,41 @@ class _TaskDataSource implements TaskDataSource {
     return _value;
   }
 
+  @override
+  Future<ApiResponse<RoutineResponseBody>> patchRoutine({
+    int? taskId,
+    required RoutineRequestBody body,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(body.toJson());
+    final _options = _setStreamType<ApiResponse<RoutineResponseBody>>(
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/planit/tasks/${taskId}/routine',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<RoutineResponseBody> _value;
+    try {
+      _value = ApiResponse<RoutineResponseBody>.fromJson(
+        _result.data!,
+        (json) => RoutineResponseBody.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

@@ -10,8 +10,13 @@ import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bott
 class TaskCard extends StatelessWidget {
   final String title;
   final String taskType;
+  final int taskId;
 
-  const TaskCard({super.key, required this.title, required this.taskType});
+  const TaskCard(
+      {super.key,
+      required this.title,
+      required this.taskId,
+      required this.taskType});
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +36,26 @@ class TaskCard extends StatelessWidget {
               Expanded(
                 child: PlanitText(title, style: PlanitTypos.body3),
               ),
-              if (taskType == 'ALL')
+              if (taskType == 'ALL') ...[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2.0),
                   child: SvgPicture.asset(Assets.high),
                 ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                child: SvgPicture.asset(Assets.low),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: SvgPicture.asset(Assets.low),
+                ),
+              ] else if (taskType == 'SLOW') ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: SvgPicture.asset(Assets.low),
+                ),
+              ] else if (taskType == 'PASSIONATE') ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: SvgPicture.asset(Assets.high),
+                ),
+              ],
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: GestureDetector(
@@ -48,7 +64,9 @@ class TaskCard extends StatelessWidget {
                         context: context,
                         isScrollControlled: false,
                         builder: (context) {
-                          return TaskMoreBottomSheetView();
+                          return TaskMoreBottomSheetView(
+                            taskId: taskId,
+                          );
                         },
                       );
                     },
