@@ -11,6 +11,8 @@ import 'guilty_free_history_state.dart';
 import 'guilty_free_history_view_model.dart';
 
 class GuiltyFreeHistoryView extends HookConsumerWidget {
+  static String get routeName => 'guilty-history';
+
   const GuiltyFreeHistoryView({super.key});
 
   @override

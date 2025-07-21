@@ -8,6 +8,8 @@ import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/main/main_view.dart';
 
 class GuiltyFreeBlockedView extends StatelessWidget {
+  static String get routeName => 'guilty-blocked';
+
   const GuiltyFreeBlockedView({super.key});
 
   @override

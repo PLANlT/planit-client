@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/ui/common/assets.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/guilty_free/start/guilty_free_start_state.dart';
 import 'package:planit/ui/guilty_free/start/guilty_free_start_view_model.dart';
 
@@ -16,6 +18,8 @@ import '../../const/guilty_free_reasons.dart';
 import '../../ing/guilty_free_ing_view.dart';
 
 class GuiltyFreeReasonView extends HookConsumerWidget {
+  static String get routeName => 'guilty-reason';
+
   const GuiltyFreeReasonView({super.key});
 
   @override
@@ -77,13 +81,8 @@ class GuiltyFreeReasonView extends HookConsumerWidget {
               child: PlanitButton(
                 onPressed: () async {
                   await viewModel.startGuiltyFree();
-                  if (state.loadingStatus == LoadingStatus.success &&
-                      context.mounted) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => GuiltyFreeIngView(),
-                      ),
-                    );
+                  if (context.mounted) {
+                    context.goNamed(RootTab.routeName);
                   }
                 },
                 buttonColor: PlanitButtonColor.black,

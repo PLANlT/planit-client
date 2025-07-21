@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
@@ -88,12 +89,10 @@ class MainTopWidget extends StatelessWidget {
                   // 길티프리 가능한 상태인지 확인 후 랜딩
                   await onGuiltyFreePressed;
                   if (canUseGuiltyFree != null && context.mounted) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => canUseGuiltyFree!
-                            ? GuiltyFreeIntroView()
-                            : GuiltyFreeBlockedView(),
-                      ),
+                    context.goNamed(
+                      canUseGuiltyFree!
+                          ? GuiltyFreeIntroView.routeName
+                          : GuiltyFreeBlockedView.routeName,
                     );
                   }
                 },
