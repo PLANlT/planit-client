@@ -4,10 +4,13 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_view.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_view.dart';
 
 class PlanMoreBottomSheet extends HookConsumerWidget {
-  const PlanMoreBottomSheet({super.key});
+  final void Function(int planId) onClick;
+  final int planId;
+  const PlanMoreBottomSheet(
+      {super.key, required this.onClick, required this.planId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,23 +22,21 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 12),
               child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) => PlanEditBottomSheetView(),
-                  );
-                },
                 child: PlanitText('플랜 수정', style: PlanitTypos.body2),
               ),
             ),
             Divider(
               color: PlanitColors.white03,
             ),
-            PlanitText(
-              '플랜 삭제',
-              style: PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+            GestureDetector(
+              onTap: () {
+                onClick(planId);
+                Navigator.pop(context);
+              },
+              child: PlanitText(
+                '플랜 삭제',
+                style: PlanitTypos.body2.copyWith(color: PlanitColors.alert),
+              ),
             ),
             Divider(
               color: PlanitColors.white03,

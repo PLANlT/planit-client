@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:planit/data_source/plan/reponse_body/plan_detail_response_body.dart';
-import 'package:planit/repository/plan/model/task_model.dart';
+import 'package:planit/data_source/task/response_body/task_create_response_body.dart';
+import 'package:planit/repository/task/model/task_model.dart';
 import 'package:planit/ui/main/component/task_widget.dart';
 
 class PlanDetailModel {
@@ -23,7 +24,9 @@ class PlanDetailModel {
       title: response.title,
       icon: response.icon,
       motivation: response.motivation,
-      tasks: response.tasks.map((e) => TaskModel.fromResponse(e)).toList(),
+      tasks: response.tasks
+          .map((e) => TaskModel.fromResponse(e as TaskCreateResponseBody))
+          .toList(),
     );
   }
 }

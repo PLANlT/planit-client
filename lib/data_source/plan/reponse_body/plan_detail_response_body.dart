@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:planit/data_source/task/response_body/task_create_response_body.dart';
 
 part 'plan_detail_response_body.g.dart';
 
@@ -8,7 +9,7 @@ class PlanDetailResponseBody {
   final String title;
   final String icon;
   final String motivation;
-  final List<TaskResponseBody> tasks;
+  final List<TaskCreateResponseBody> tasks;
 
   PlanDetailResponseBody({
     required this.planId,
@@ -24,20 +25,3 @@ class PlanDetailResponseBody {
   Map<String, dynamic> toJson() => _$PlanDetailResponseBodyToJson(this);
 }
 
-@JsonSerializable()
-class TaskResponseBody {
-  final int taskId;
-  final String taskType;
-  final String title;
-
-  TaskResponseBody({
-    required this.taskId,
-    required this.taskType,
-    required this.title,
-  });
-
-  factory TaskResponseBody.fromJson(Map<String, dynamic> json) =>
-      _$TaskResponseBodyFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TaskResponseBodyToJson(this);
-}

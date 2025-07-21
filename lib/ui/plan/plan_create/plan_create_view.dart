@@ -255,20 +255,29 @@ class PlanCreateView extends HookConsumerWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                      onPressed: () {
+                      onPressed: () async {
                         viewmodel.updateClickedNext();
 
                         if (state.isNextEnabled) {
-                          toast.showToast(
-                            child: PlanitToast(
-                              label: '플랜이 제작됐어요!',
-                            ),
-                          );
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PlanView()), //임시
-                          );
+                          try {
+                            await viewmodel.uploadPlan();
+                            toast.showToast(
+                              child: PlanitToast(
+                                label: '플랜이 제작됐어요!',
+                              ),
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PlanView()), //임시
+                            );
+                          } catch (e) {
+                            toast.showToast(
+                              child: PlanitToast(
+                                label: '플랜 생성에 실패했습니다.',
+                              ),
+                            );
+                          }
                         }
                       },
                       buttonColor: PlanitButtonColor.black,

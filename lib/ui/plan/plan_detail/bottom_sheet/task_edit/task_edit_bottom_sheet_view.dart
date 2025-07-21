@@ -10,18 +10,21 @@ import 'package:planit/ui/common/comopnent/planit_toggle.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/conditional_tip_bottom_sheet.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_state.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_edit/plan_edit_bottom_sheet_view_model.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_state.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_view_model.dart';
 
-class PlanEditBottomSheetView extends HookConsumerWidget {
-  const PlanEditBottomSheetView({super.key});
+class TaskEditBottomSheetView extends HookConsumerWidget {
+  final int taskId;
+  const TaskEditBottomSheetView({super.key, required this.taskId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PlanEditBottomSheetState state =
-        ref.watch(planEditViewModelProvider(0));
-    final PlanEditBottomSheetViewModel viewmodel =
-        ref.read(planEditViewModelProvider(0).notifier);
+    print(taskId);
+
+    final TaskEditBottomSheetState state =
+        ref.watch(taskEditViewModelProvider(taskId));
+    final TaskEditBottomSheetViewModel viewmodel =
+        ref.read(taskEditViewModelProvider(taskId).notifier);
 
     return Wrap(children: [
       PlanitBottomSheet(
@@ -209,6 +212,7 @@ class PlanEditBottomSheetView extends HookConsumerWidget {
                     width: double.infinity,
                     child: PlanitButton(
                         onPressed: () {
+                          viewmodel.saveEditedRoutine();
                           Navigator.pop(context);
                         },
                         buttonColor: PlanitButtonColor.black,

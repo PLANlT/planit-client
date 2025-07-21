@@ -41,6 +41,7 @@ class PlanitTextField extends StatelessWidget {
     );
 
     return TextField(
+      controller: controller,
       onTapOutside: (PointerDownEvent event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
