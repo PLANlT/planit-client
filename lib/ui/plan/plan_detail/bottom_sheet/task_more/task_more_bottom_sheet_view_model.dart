@@ -28,7 +28,8 @@ class TaskMoreBottomSheetViewModel
   void clickDeleteTask() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
-    final result = _taskRepository.removeTask(taskId: _taskId);
+    final result = await _taskRepository.removeTask(taskId: _taskId);
+
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);

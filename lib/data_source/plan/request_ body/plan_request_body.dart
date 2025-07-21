@@ -18,4 +18,6 @@ class PlanCreateRequestBody {
       required this.startedAt,
       required this.finishedAt});
   Map<String, dynamic> toJson() => _$PlanCreateRequestBodyToJson(this);
+  factory PlanCreateRequestBody.fromJson(Map<String, dynamic> json) =>
+      _$PlanCreateRequestBodyFromJson(json);
 }

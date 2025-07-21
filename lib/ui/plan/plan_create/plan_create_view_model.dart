@@ -44,6 +44,11 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
   }
 
   Future<void> uploadPlan() async {
+    if (state.selectedDate == null) {
+      state = state.copyWith(loadingStatus: LoadingStatus.error);
+      return;
+    }
+
     // 필요한 값들을 state에서 가져옵니다.
     final title = state.title;
     final motivation = state.motivation;
@@ -58,14 +63,22 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
     final result = await _planRepository.createPlan(
-      title: title,
-      motivation: motivation,
-      icon: icon,
-      planStatus: planStatus,
-      startedAt: startedAt,
-      finishedAt: finishedAt!,
-    );
-    state = state.copyWith(loadingStatus: LoadingStatus.success);
+        title: title,
+        motivation: motivation,
+        icon: icon,
+        planStatus: planStatus,
+        startedAt: startedAt,
+        finishedAt: finishedAt!);
+
+    switch (result) {
+      case SuccessRepositoryResult():
+        state = state.copyWith(loadingStatus: LoadingStatus.success);
+      case FailureRepositoryResult():
+        state = state.copyWith(
+          loadingStatus: LoadingStatus.error,
+          errorMessage: '플랜 업로드에 실패했어요.',
+        );
+    }
   }
 
   void updatePlanStatus(String planStatus) {

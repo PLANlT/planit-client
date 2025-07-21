@@ -29,7 +29,7 @@ class PlanRepository {
 
   Future<RepositoryResult<void>> removePlan({required int planId}) async {
     try {
-      _planDataSource.deletePlan(planId: planId);
+      await _planDataSource.deletePlan(planId: planId);
       return const SuccessRepositoryResult(data: null);
     } on DioException catch (e) {
       return FailureRepositoryResult(
@@ -56,7 +56,7 @@ class PlanRepository {
           icon: icon,
           planStatus: planStatus,
           startedAt: startedAt,
-          finishedAt: '20$finishedAt',
+          finishedAt: finishedAt.length == 8 ? '20$finishedAt' : finishedAt,
         ),
       );
       final model = PlanCreateModel.fromResponse(result.data);

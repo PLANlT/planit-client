@@ -54,7 +54,7 @@ class PlanDetailView extends HookConsumerWidget {
                 onPressed: () {
                   showModalBottomSheet(
                       context: context,
-                      builder: (conetext) {
+                      builder: (context) {
                         return TaskAddBottomSheetView(
                           onConfirm: (title) {
                             viewModel.clickAddButton(title);
