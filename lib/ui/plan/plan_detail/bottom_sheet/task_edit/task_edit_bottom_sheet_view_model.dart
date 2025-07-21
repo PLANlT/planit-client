@@ -113,7 +113,28 @@ class TaskEditBottomSheetViewModel
         await _taskRepository.getRoutinebyTaskId(taskId: _taskId);
     switch (routineResult) {
       case SuccessRepositoryResult():
-        state = state.copyWith(loadingStatus: LoadingStatus.success);
+        late List<String> tasktype;
+        if (routineResult.data.taskType == 'PASSIONATE') tasktype = ['HIGH'];
+        if (routineResult.data.taskType == 'SLOW') tasktype = ['LOW'];
+        if (routineResult.data.taskType == 'ALL') tasktype = ['LOW', 'HIGH'];
+
+        const dayMap = {
+          'MONDAY': '월',
+          'TUESDAY': '화',
+          'WEDNESDAY': '수',
+          'THURSDAY': '목',
+          'FRIDAY': '금',
+          'SATURDAY': '토',
+          'SUNDAY': '일',
+        };
+
+        final List<String> routineDayList =
+            routineResult.data.routineDay.map((e) => dayMap[e] ?? e).toList();
+        state = state.copyWith(
+            loadingStatus: LoadingStatus.success,
+            routinDayList: routineDayList,
+            taskType: tasktype,
+            timeList: ['12']);
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
