@@ -73,15 +73,12 @@ class PlanRepository {
       final ApiResponse<PlanListResponseBody> result =
           await _planDataSource.getPlanLists('IN_PROGRESS');
 
-
       final data = result.data;
 
       if (data.planStatus == 'IN_PROGRESS') {
         final plans = data.plans;
-        print('getACtivePLan$plans');
         final models =
             plans.map((e) => PlanModel.fromResponse(e, 'IN_PROGRESS')).toList();
-        print('getActivePLanModel$models');
         return SuccessRepositoryResult(data: models);
       } else {
         return SuccessRepositoryResult(data: []);
