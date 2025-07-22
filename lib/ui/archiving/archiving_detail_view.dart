@@ -64,12 +64,12 @@ class ArchivingDetailView extends HookConsumerWidget {
                 right: 20,
                 child: GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return PlanMoreBottomSheet();
-                      },
-                    );
+                    // showModalBottomSheet(
+                    //   context: context,
+                    //   builder: (context) {
+                    //     return PlanMoreBottomSheet();
+                    //   },
+                    // );
                   },
                   child: SvgPicture.asset(
                     Assets.more,
@@ -121,7 +121,11 @@ class ArchivingDetailView extends HookConsumerWidget {
               final item = state.planDetail!.tasks[index];
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
-                child: TaskCard(title: item.title, taskType: item.taskType),
+                child: TaskCard(
+                  title: item.title,
+                  taskType: item.taskType,
+                  taskId: item.taskId,
+                ),
               );
             },
           ),

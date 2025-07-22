@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:planit/routes/redirect_notifier.dart';
+import 'package:planit/ui/common/const/web_view_params.dart';
+import 'package:planit/ui/common/view/planit_web_view.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/guilty_free/ing/history/guilty_free_history_view.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
@@ -9,6 +11,9 @@ import 'package:planit/ui/guilty_free/start/view/guilty_free_intro_view.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_reason_view.dart';
 import 'package:planit/ui/login/login_view.dart';
 import 'package:planit/ui/login/tos_view.dart';
+import 'package:planit/ui/mypage/view/mypage_account_view.dart';
+import 'package:planit/ui/mypage/view/mypage_customer_view.dart';
+import 'package:planit/ui/mypage/view/mypage_view.dart';
 import 'package:planit/ui/onboarding/onboarding_view.dart';
 import 'package:planit/ui/recovery/recovery_complete_view.dart';
 import 'package:planit/ui/recovery/recovery_deep_breath_view.dart';
@@ -61,6 +66,30 @@ class AppRouter {
           child: RootTab(),
         ),
         routes: [
+          // 마이페이지
+          GoRoute(
+            path: 'main/mypage',
+            name: MypageView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: MypageView(),
+            ),
+            routes: [
+              GoRoute(
+                path: 'customer',
+                name: MypageCustomerView.routeName,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: MypageCustomerView(),
+                ),
+              ),
+              GoRoute(
+                path: 'account',
+                name: MypageAccountView.routeName,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: MypageAccountView(),
+                ),
+              ),
+            ],
+          ),
           // 길티프리
           GoRoute(
             path: 'guilty-intro',
@@ -151,6 +180,14 @@ class AppRouter {
         name: OnboardingView.routeName,
         pageBuilder: (context, state) => NoTransitionPage(
           child: OnboardingView(),
+        ),
+      ),
+      // 웹뷰
+      GoRoute(
+        path: '/webView',
+        name: PlanitWebView.routeName,
+        builder: (context, state) => PlanitWebView(
+          params: state.extra as WebViewParams,
         ),
       ),
       // 로그인 > 약관

@@ -5,12 +5,14 @@ import '../../../theme/planit_typos.dart';
 import '../../common/comopnent/planit_text.dart';
 
 class AccountInfoWidget extends StatelessWidget {
+  final String userName;
   final String userEmail;
   final String oAuthType;
   final String registrationDate;
 
   const AccountInfoWidget({
     super.key,
+    required this.userName,
     required this.userEmail,
     required this.oAuthType,
     required this.registrationDate,
@@ -27,11 +29,18 @@ class AccountInfoWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 40.0,
+        spacing: 20.0,
         children: [
           Column(
+            spacing: 8.0,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              PlanitText(
+                userName,
+                style: PlanitTypos.body1.copyWith(
+                  color: PlanitColors.black01,
+                ),
+              ),
               PlanitText(
                 userEmail,
                 style: PlanitTypos.body2.copyWith(

@@ -7,6 +7,8 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 
 class MypageCustomerView extends StatelessWidget {
+  static String get routeName => 'customer';
+
   const MypageCustomerView({super.key});
 
   @override

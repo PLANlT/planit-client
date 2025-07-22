@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:planit/repository/plan/model/task_model.dart';
+import 'package:planit/repository/task/model/task_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
@@ -48,7 +48,11 @@ class PlanTemplateDetailView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: TaskCard(title: 'title', taskType: 'ALL'));
+                    child: TaskCard(
+                      title: 'title',
+                      taskType: 'ALL',
+                      taskId: 2,
+                    ));
               },
             ),
           ),
