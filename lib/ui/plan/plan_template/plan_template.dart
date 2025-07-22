@@ -9,12 +9,14 @@ class PlanTemplate {
 
 class PlanTemplateDetail {
   final String title;
+  final String category;
   final String DescriptionShort;
   final String DescriptionLong;
   final List<TaskModel> tasks;
 
   PlanTemplateDetail(
       {required this.title,
+      required this.category,
       required this.DescriptionShort,
       required this.DescriptionLong,
       required this.tasks});
@@ -26,6 +28,7 @@ class PlanTemplates {
     title: '마음 정리',
     templateDetails: [
       PlanTemplateDetail(
+        category: '마음 정리',
         title: '감정 리셋 루틴',
         DescriptionShort: '감정 정리 루틴',
         DescriptionLong: '감정이 복잡하거나 지칠 때, 잠깐 멈추고 나를 돌볼 수 있도록 도와주는 루틴이에요.',
@@ -36,6 +39,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '마음 정리',
         title: '스트레스 해소 플랜',
         DescriptionShort: '휴식 중심 루틴',
         DescriptionLong: '몸과 마음에 쌓인 긴장을 가볍게 풀 수 있는 휴식 중심의 플랜이에요.',
@@ -46,6 +50,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '마음 정리',
         title: '혼자만의 시간 루틴',
         DescriptionShort: '혼자만의 휴식 루틴',
         DescriptionLong: '혼자 있고 싶은 날, 나만의 공간을 회복할 수 있도록 도와주는 루틴이에요.',
@@ -64,6 +69,7 @@ class PlanTemplates {
     title: '재정',
     templateDetails: [
       PlanTemplateDetail(
+        category: '재정',
         title: '충동구매 제어 플랜',
         DescriptionShort: '소비 습관 점검 루틴',
         DescriptionLong: '계획에 없던 지출을 줄이고, 소비 습관을 돌아보는 연습용 플랜이에요.',
@@ -75,6 +81,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '재정',
         title: '가계부 기록 루틴',
         DescriptionShort: '소비 기록 플랜',
         DescriptionLong: '하루의 소비를 돌아보고 기록하며 돈의 흐름을 파악해볼 수 있어요.',
@@ -85,6 +92,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '재정',
         title: '월 예산 미리 짜기 플랜',
         DescriptionShort: '예산 설정 플랜',
         DescriptionLong: '이번 달에는 돈 걱정 줄이고 싶다면, 이 플랜으로 예산부터 차근차근 준비해보세요.',
@@ -102,6 +110,7 @@ class PlanTemplates {
     title: '관계',
     templateDetails: [
       PlanTemplateDetail(
+        category: '관계',
         title: '안부 루틴 플랜',
         DescriptionShort: '가벼운 소통 루틴',
         DescriptionLong: '바쁘더라도 소중한 사람들과 가볍게 마음을 나눌 수 있는 루틴이에요.',
@@ -113,6 +122,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '관계',
         title: '깊은 대화 시도 플랜',
         DescriptionShort: '의미 있는 관계 강화 루틴',
         DescriptionLong: '의미 있는 대화를 통해 관계를 조금 더 가까이 이어가고 싶은 분들께 추천해요.',
@@ -124,6 +134,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '관계',
         title: '디지털 디톡스 소셜 플랜',
         DescriptionShort: 'SNS 줄이고 진짜 연결 루틴',
         DescriptionLong: 'SNS 사용을 줄이고, 진짜 사람들과의 연결에 집중할 수 있는 플랜이에요.',
@@ -140,9 +151,10 @@ class PlanTemplates {
 
   // 운동
   static final PlanTemplate exercisePlanTemplate = PlanTemplate(
-    title: '운동 템플릿',
+    title: '운동',
     templateDetails: [
       PlanTemplateDetail(
+        category: '운동',
         title: '다이어트',
         DescriptionShort: '식단 + 운동 병행 플랜',
         DescriptionLong: '식단 관리와 가벼운 유산소 운동으로 구성된 건강한 다이어트 플랜입니다.',
@@ -153,6 +165,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '운동',
         title: '일상운동',
         DescriptionShort: '걷기/스트레칭 중심 플랜',
         DescriptionLong: '큰 결심 없이도 일상 속에서 가볍게 몸을 움직일 수 있는 루틴이에요.',
@@ -164,6 +177,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '운동',
         title: '근력운동',
         DescriptionShort: '헬스장 기반 루틴',
         DescriptionLong: '헬스장에 가는 날, 무엇을 할지 고민하지 않도록 구성한 기본 운동 루틴이에요.',
@@ -181,6 +195,7 @@ class PlanTemplates {
     title: '자기계발',
     templateDetails: [
       PlanTemplateDetail(
+        category: '자기계발',
         title: '아침 루틴',
         DescriptionShort: '가벼운 아침 습관 플랜',
         DescriptionLong: '하루를 더 잘 보내고 싶은 분들을 위한, 가벼운 아침 습관 모음이에요.',
@@ -191,6 +206,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '자기계발',
         title: '저녁 회고',
         DescriptionShort: '하루 마무리 루틴',
         DescriptionLong: '바쁜 하루를 마무리하며 나를 돌아보고 정리할 수 있는 저녁 루틴이에요.',
@@ -202,6 +218,7 @@ class PlanTemplates {
         ],
       ),
       PlanTemplateDetail(
+        category: '자기계발',
         title: '일일 성장 미션',
         DescriptionShort: '꾸준한 자기계발 미션',
         DescriptionLong: '작지만 꾸준한 자기계발을 위한 하루 한 가지 성장 미션 플랜이에요.',

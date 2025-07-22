@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/repository/plan/plan_repository.dart';
 import 'package:planit/repository/task/model/task_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -8,14 +10,18 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
 import 'package:planit/ui/plan/component/template_detail_card.dart';
+import 'package:planit/ui/plan/plan_main/plan_view.dart';
 import 'package:planit/ui/plan/plan_template/plan_template.dart';
+import 'package:planit/ui/plan/plan_template/plan_template_detail_view_model.dart';
 
-class PlanTemplateDetailView extends StatelessWidget {
+class PlanTemplateDetailView extends HookConsumerWidget {
   final PlanTemplateDetail templateDetai;
   const PlanTemplateDetailView({required this.templateDetai, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewmodel = ref.read(planTemplateViewModelProvider.notifier);
+
     return DefaultLayout(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +71,13 @@ class PlanTemplateDetailView extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    viewmodel.createPlanAndAddTask(templateDetai);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PlanView()), //임시
+                    );
+                  },
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
                   label: '이 템플릿으로 플랜 만들기'),
