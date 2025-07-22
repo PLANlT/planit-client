@@ -6,7 +6,7 @@ class PlanModel {
   final String title;
   final String motivation;
   final int totalTask;
-  final String? dDay;
+  final String? dday;
   final String icon;
   final String? planStatus;
 
@@ -15,7 +15,7 @@ class PlanModel {
       required this.title,
       required this.motivation,
       required this.totalTask,
-      this.dDay,
+      this.dday,
       required this.icon,
       this.planStatus});
 
@@ -26,7 +26,7 @@ class PlanModel {
         icon: response.icon,
         motivation: response.motivation,
         totalTask: response.totalTasks,
-        dDay: response.dday,
+        dday: response.dday,
         planStatus: planStatus);
   }
 }

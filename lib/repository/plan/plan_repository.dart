@@ -73,12 +73,15 @@ class PlanRepository {
       final ApiResponse<PlanListResponseBody> result =
           await _planDataSource.getPlanLists('IN_PROGRESS');
 
+
       final data = result.data;
 
       if (data.planStatus == 'IN_PROGRESS') {
         final plans = data.plans;
+        print('getACtivePLan$plans');
         final models =
             plans.map((e) => PlanModel.fromResponse(e, 'IN_PROGRESS')).toList();
+        print('getActivePLanModel$models');
         return SuccessRepositoryResult(data: models);
       } else {
         return SuccessRepositoryResult(data: []);
@@ -105,6 +108,37 @@ class PlanRepository {
       } else {
         return SuccessRepositoryResult(data: []);
       }
+    } on DioException catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    } catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    }
+  }
+
+  Future<RepositoryResult<PlanCreateModel>> editPlanCreateState({
+    required int planId,
+    required String title,
+    required String motivation,
+    required String icon,
+    required String planStatus,
+    required String startedAt,
+    required String finishedAt,
+  }) async {
+    try {
+      final ApiResponse<PlanCreateResponseBody> result =
+          await _planDataSource.patchPlan(
+        planId: planId,
+        body: PlanCreateRequestBody(
+          title: title,
+          motivation: motivation,
+          icon: icon,
+          planStatus: planStatus,
+          startedAt: startedAt,
+          finishedAt: finishedAt.length == 8 ? '20$finishedAt' : finishedAt,
+        ),
+      );
+      final model = PlanCreateModel.fromResponse(result.data);
+      return SuccessRepositoryResult(data: model);
     } on DioException catch (e) {
       return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
     } catch (e) {

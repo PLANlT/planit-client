@@ -29,7 +29,7 @@ PlanResponseBody _$PlanResponseBodyFromJson(Map<String, dynamic> json) =>
       icon: json['icon'] as String,
       motivation: json['motivation'] as String,
       totalTasks: (json['totalTasks'] as num).toInt(),
-      dday: json['dday'] as String,
+      dday: json['dday'] as String?,
     );
 
 Map<String, dynamic> _$PlanResponseBodyToJson(PlanResponseBody instance) =>

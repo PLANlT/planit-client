@@ -21,7 +21,8 @@ class PlanResponseBody {
   final String icon;
   final String motivation;
   final int totalTasks;
-  final String dday;
+  @JsonKey(name: 'dday')
+  final String? dday;
 
   PlanResponseBody(
       {required this.planId,
@@ -29,7 +30,7 @@ class PlanResponseBody {
       required this.icon,
       required this.motivation,
       required this.totalTasks,
-      required this.dday});
+      this.dday});
   factory PlanResponseBody.fromJson(Map<String, dynamic> json) =>
       _$PlanResponseBodyFromJson(json);
   Map<String, dynamic> toJson() => _$PlanResponseBodyToJson(this);

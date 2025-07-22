@@ -59,12 +59,12 @@ class PlanListCard extends StatelessWidget {
                   ],
                 ),
               ),
-              if (plan.dDay != null)
+              if (plan.dday != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: PlanMainchip(
                     bordercolor: PlanitColors.white01,
-                    title: '${plan.dDay}',
+                    title: '${plan.dday}',
                     backgroundcolor: PlanitColors.white01,
                     textcolor: PlanitColors.black03,
                   ),
