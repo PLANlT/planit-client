@@ -37,9 +37,15 @@ abstract class PlanDataSource {
   @PATCH('/planit/plans/{planId}/delete')
   @Headers({'accessToken': 'true'})
   Future<void> deletePlan({
-    @Path('planId') int planId,
+    @Path('planId') required int planId,
   });
 
+  @PATCH('/planit/plans/{planId}')
+  @Headers({'accessToken': 'true'})
+  Future<ApiResponse<PlanCreateResponseBody>> patchPlan({
+    @Path('planId') required int planId,
+    @Body() required PlanCreateRequestBody body,
+  });
   @POST('/planit/plans')
   @Headers({'accessToken': 'true'})
   Future<ApiResponse<PlanCreateResponseBody>> postPlan({

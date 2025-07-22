@@ -15,7 +15,9 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 
 class PlanDetailView extends HookConsumerWidget {
   final int planId;
-  const PlanDetailView({required this.planId, super.key});
+  final String planStatus;
+  const PlanDetailView(
+      {required this.planId, required this.planStatus, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,6 +98,7 @@ class PlanDetailView extends HookConsumerWidget {
                           context: context,
                           builder: (context) {
                             return PlanMoreBottomSheet(
+                              planStatus: planStatus,
                               planId: planId,
                               onClick: (planId) {
                                 viewModel.clickDeletePlan(planId);

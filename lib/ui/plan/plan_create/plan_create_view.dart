@@ -21,7 +21,9 @@ import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class PlanCreateView extends HookConsumerWidget {
-  const PlanCreateView({super.key});
+  final int? planId;
+  final String? planStatus;
+  const PlanCreateView({super.key, this.planId, this.planStatus});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,6 +32,24 @@ class PlanCreateView extends HookConsumerWidget {
     final toast = FToast().init(context);
     final titleController = useTextEditingController();
     final motivationController = useTextEditingController();
+    useEffect(() {
+      if (planId != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          viewmodel.init(planId!);
+        });
+      }
+      if (planStatus != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          viewmodel.updatePlanStatus(planStatus!);
+        });
+      }
+      return null;
+    }, [planId, planStatus]);
+    useEffect(() {
+      titleController.text = state.title;
+      motivationController.text = state.motivation;
+      return null;
+    }, [state.title, state.motivation]);
 
     return DefaultLayout(
         child: SingleChildScrollView(
@@ -260,17 +280,31 @@ class PlanCreateView extends HookConsumerWidget {
 
                         if (state.isNextEnabled) {
                           try {
-                            await viewmodel.uploadPlan();
-                            toast.showToast(
-                              child: PlanitToast(
-                                label: '플랜이 제작됐어요!',
-                              ),
-                            );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PlanView()), //임시
-                            );
+                            if (planId == null) {
+                              await viewmodel.uploadPlan();
+                              toast.showToast(
+                                child: PlanitToast(
+                                  label: '플랜이 제작됐어요!',
+                                ),
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PlanView()), //임시
+                              );
+                            } else {
+                              await viewmodel.updatePlanCreateInfo(planId!);
+                              toast.showToast(
+                                child: PlanitToast(
+                                  label: '플랜이 수정됐어요!',
+                                ),
+                              );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PlanView()), //임시
+                              );
+                            }
                           } catch (e) {
                             toast.showToast(
                               child: PlanitToast(

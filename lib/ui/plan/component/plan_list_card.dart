@@ -12,10 +12,12 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class PlanListCard extends StatelessWidget {
   final PlanModel plan;
+  final String planStatus;
 
   const PlanListCard({
     super.key,
     required this.plan,
+    required this.planStatus
   });
 
   @override
@@ -27,6 +29,7 @@ class PlanListCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PlanDetailView(
               planId: plan.planId,
+              planStatus : planStatus
             ),
           ),
         );
