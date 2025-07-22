@@ -7,14 +7,16 @@ import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bottom_sheet_view.dart';
+import 'package:planit/ui/plan/plan_template/plan_template.dart';
 import 'package:planit/ui/plan/plan_template/plan_template_detail_view.dart';
 
 class TemplateDetailCard extends StatelessWidget {
-  final String title;
-  final String taskType;
+  final PlanTemplateDetail templateDetail;
 
-  const TemplateDetailCard(
-      {super.key, required this.title, required this.taskType});
+  const TemplateDetailCard({
+    super.key,
+    required this.templateDetail,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,9 @@ class TemplateDetailCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => PlanTemplateDetailView()));
+                  builder: (context) => PlanTemplateDetailView(
+                        templateDetai: templateDetail,
+                      )));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -42,8 +46,9 @@ class TemplateDetailCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PlanitText('다이어트', style: PlanitTypos.title3),
-                      PlanitText('식단 + 운동 병행 플랜',
+                      PlanitText(templateDetail.title,
+                          style: PlanitTypos.title3),
+                      PlanitText(templateDetail.DescriptionShort,
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400)),
                     ],

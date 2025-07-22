@@ -8,9 +8,11 @@ import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
 import 'package:planit/ui/plan/component/template_detail_card.dart';
+import 'package:planit/ui/plan/plan_template/plan_template.dart';
 
 class PlanTemplateDetailView extends StatelessWidget {
-  const PlanTemplateDetailView({super.key});
+  final PlanTemplateDetail templateDetai;
+  const PlanTemplateDetailView({required this.templateDetai, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class PlanTemplateDetailView extends StatelessWidget {
         children: [
           AppBar(
             backgroundColor: PlanitColors.transparent,
-            title: PlanitText('운동 템플릿',
+            title: PlanitText(templateDetai.title,
                 style: PlanitTypos.body2.copyWith(color: PlanitColors.black01)),
           ),
           Padding(
@@ -31,7 +33,7 @@ class PlanTemplateDetailView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PlanitText('설명', style: PlanitTypos.title3),
-                PlanitText('식단 관리와 가벼운 유산소 운동으로 구성된 건강한 다이어트 플랜입니다.',
+                PlanitText(templateDetai.DescriptionLong,
                     style: PlanitTypos.body2)
               ],
             ),
@@ -44,14 +46,14 @@ class PlanTemplateDetailView extends StatelessWidget {
           SizedBox(
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: 3,
+              itemCount: templateDetai.tasks.length,
               itemBuilder: (context, index) {
                 return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: TaskCard(
-                      title: 'title',
-                      taskType: 'ALL',
-                      taskId: 2,
+                      title: templateDetai.tasks[index].title,
+                      taskType: templateDetai.tasks[index].taskType,
+                      taskId: -99,
                     ));
               },
             ),
