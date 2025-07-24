@@ -252,26 +252,7 @@ class _PlanViewAllState extends State<PlanViewAll> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppBar(
-            toolbarHeight: 92,
-            backgroundColor: PlanitColors.white02,
-            automaticallyImplyLeading: false,
-            title: PlanitText('내 플랜', style: PlanitTypos.title2),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitButton(
-                    onPressed: () {
-                      context.pushNamed(
-                        PlanCreateView.routeName,
-                      );
-                    },
-                    buttonColor: PlanitButtonColor.black,
-                    buttonSize: PlanitButtonSize.small,
-                    label: '+ 새 플랜'),
-              ),
-            ],
-          ),
+          BuildAppBar(),
           if (widget.isActive)
             Padding(
               padding: const EdgeInsets.only(top: 20),
