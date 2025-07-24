@@ -22,6 +22,18 @@ class TaskRepository {
     required TaskDataSource taskDataSource,
   }) : _taskDataSource = taskDataSource;
 
+  Future<RepositoryResult<RoutineModel>> getRoutinebyTaskId(
+      {required int taskId}) async {
+    try {
+      final ApiResponse<RoutineResponseBody> result =
+          await _taskDataSource.getRoutine(taskId: taskId);
+      final model = RoutineModel.fromResponse(result.data);
+      return SuccessRepositoryResult(data: model);
+    } on DioException catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    }
+  }
+
   Future<RepositoryResult<void>> removeTask({required int taskId}) async {
     try {
       await _taskDataSource.deleteTask(taskId: taskId);
@@ -43,7 +55,7 @@ class TaskRepository {
         body: RoutineRequestBody(
             routineDay: routineModel.routineDay,
             taskType: routineModel.taskType,
-            routineTime: routineModel.routineTime),
+            routineTime: routineModel.routineTimeString!),
       );
       final model = RoutineModel.fromResponse(result.data);
       return SuccessRepositoryResult(data: model);

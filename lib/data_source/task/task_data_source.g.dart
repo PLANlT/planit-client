@@ -56,7 +56,7 @@ class _TaskDataSource implements TaskDataSource {
 
   @override
   Future<ApiResponse<RoutineResponseBody>> patchRoutine({
-     int? taskId,
+    required int taskId,
     required RoutineRequestBody body,
   }) async {
     final _extra = <String, dynamic>{};
@@ -90,7 +90,7 @@ class _TaskDataSource implements TaskDataSource {
   }
 
   @override
-  Future<void> deleteTask({int? taskId}) async {
+  Future<void> deleteTask({required int taskId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'accessToken': 'true'};
@@ -107,6 +107,39 @@ class _TaskDataSource implements TaskDataSource {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     await _dio.fetch<void>(_options);
+  }
+
+  @override
+  Future<ApiResponse<RoutineResponseBody>> getRoutine({
+    required int taskId,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ApiResponse<RoutineResponseBody>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/planit/tasks/${taskId}/routine',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ApiResponse<RoutineResponseBody> _value;
+    try {
+      _value = ApiResponse<RoutineResponseBody>.fromJson(
+        _result.data!,
+        (json) => RoutineResponseBody.fromJson(json as Map<String, dynamic>),
+      );
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

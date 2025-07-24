@@ -25,6 +25,10 @@ class TaskEditBottomSheetViewModel
         _taskId = taskId,
         super(TaskEditBottomSheetState());
 
+  void init() {
+    fetchRoutineBytaskId();
+  }
+
 //월화수목금토일 버튼 하나 누를때 추가/삭제
   void toggleDay(String day) {
     final updated = [...state.routinDayList];
@@ -82,7 +86,7 @@ class TaskEditBottomSheetViewModel
       taskId: _taskId,
       routineModel: RoutineModel(
         taskType: taskType,
-        routineTime: '12:12', // TODO: state에서 실제 시간 받아오기
+        routineTimeString: '12:12', // TODO: state에서 실제 시간 받아오기
         routineDay: routineDay,
       ),
     );
@@ -101,5 +105,41 @@ class TaskEditBottomSheetViewModel
 
   void toggleTimeSetting() {
     state = state.copyWith(timeSetting: !state.timeSetting);
+  }
+
+  void fetchRoutineBytaskId() async {
+    state = state.copyWith(loadingStatus: LoadingStatus.loading);
+    final routineResult =
+        await _taskRepository.getRoutinebyTaskId(taskId: _taskId);
+    switch (routineResult) {
+      case SuccessRepositoryResult():
+        late List<String> tasktype;
+        if (routineResult.data.taskType == 'PASSIONATE') tasktype = ['HIGH'];
+        if (routineResult.data.taskType == 'SLOW') tasktype = ['LOW'];
+        if (routineResult.data.taskType == 'ALL') tasktype = ['LOW', 'HIGH'];
+
+        const dayMap = {
+          'MONDAY': '월',
+          'TUESDAY': '화',
+          'WEDNESDAY': '수',
+          'THURSDAY': '목',
+          'FRIDAY': '금',
+          'SATURDAY': '토',
+          'SUNDAY': '일',
+        };
+
+        final List<String> routineDayList =
+            routineResult.data.routineDay.map((e) => dayMap[e] ?? e).toList();
+        state = state.copyWith(
+            loadingStatus: LoadingStatus.success,
+            routinDayList: routineDayList,
+            taskType: tasktype,
+            timeList: ['12']);
+      case FailureRepositoryResult():
+        state = state.copyWith(
+          loadingStatus: LoadingStatus.error,
+          errorMessage: '루틴 불러오기에 실패했어요',
+        );
+    }
   }
 }

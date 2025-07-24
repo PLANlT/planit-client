@@ -15,7 +15,7 @@ PlanCreateResponseBody _$PlanCreateResponseBodyFromJson(
       motivation: json['motivation'] as String,
       planStatus: json['planStatus'] as String,
       startedAt: json['startedAt'] as String,
-      finishedAt: json['finishedAt'] as String,
+      finishedAt: json['finishedAt'] as String?,
     );
 
 Map<String, dynamic> _$PlanCreateResponseBodyToJson(

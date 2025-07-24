@@ -112,6 +112,7 @@ class PlanView extends HookConsumerWidget {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: PlanListCard(
+                          planStatus: 'IN_PROGRESS',
                           plan: item,
                         ),
                       );
@@ -161,6 +162,7 @@ class PlanView extends HookConsumerWidget {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: PlanListCard(
+                          planStatus: 'PAUSED',
                           plan: item,
                         ),
                       );
@@ -317,7 +319,10 @@ class _PlanViewAllState extends State<PlanViewAll> {
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 8),
-                        child: PlanListCard(plan: plans[index]),
+                        child: PlanListCard(
+                          plan: plans[index],
+                          planStatus: 'PAUSED',
+                        ),
                       );
                     },
                   ),

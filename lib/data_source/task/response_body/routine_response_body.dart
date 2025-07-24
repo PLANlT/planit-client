@@ -7,17 +7,43 @@ class RoutineResponseBody {
   final int taskId;
   final String taskType;
   final List<String> routineDay;
-  final String routineTime;
+  final RoutineTime? routineTime;
 
   RoutineResponseBody({
     required this.taskId,
     required this.taskType,
     required this.routineDay,
-    required this.routineTime,
+    this.routineTime,
   });
 
-  factory RoutineResponseBody.fromJson(Map<String, dynamic> json) =>
-      _$RoutineResponseBodyFromJson(json);
+  factory RoutineResponseBody.fromJson(Map<String, dynamic> json) {
+    final rawTime = json['routineTime'];
+
+    RoutineTime? parsedTime;
+
+    if (rawTime == null) {
+      parsedTime = null;
+    } else if (rawTime is Map<String, dynamic>) {
+      parsedTime = RoutineTime.fromJson(rawTime);
+    } else if (rawTime is String) {
+      final parts = rawTime.split(':');
+      parsedTime = RoutineTime(
+        hour: int.tryParse(parts[0]) ?? 0,
+        minute: int.tryParse(parts[1]) ?? 0,
+        second: int.tryParse(parts[2]) ?? 0,
+        nano: 0,
+      );
+    } else {
+      parsedTime = null;
+    }
+
+    return RoutineResponseBody(
+      taskId: json['taskId'],
+      taskType: json['taskType'],
+      routineDay: List<String>.from(json['routineDay']),
+      routineTime: parsedTime,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$RoutineResponseBodyToJson(this);
 }

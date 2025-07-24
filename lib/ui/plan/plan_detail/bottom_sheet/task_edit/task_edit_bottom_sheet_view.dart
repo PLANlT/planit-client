@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -19,12 +20,16 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(taskId);
-
     final TaskEditBottomSheetState state =
         ref.watch(taskEditViewModelProvider(taskId));
     final TaskEditBottomSheetViewModel viewmodel =
         ref.read(taskEditViewModelProvider(taskId).notifier);
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        viewmodel.init();
+      });
+      return null;
+    }, []);
 
     return Wrap(children: [
       PlanitBottomSheet(

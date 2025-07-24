@@ -12,10 +12,12 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class PlanListCard extends StatelessWidget {
   final PlanModel plan;
+  final String planStatus;
 
   const PlanListCard({
     super.key,
     required this.plan,
+    required this.planStatus
   });
 
   @override
@@ -27,6 +29,7 @@ class PlanListCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PlanDetailView(
               planId: plan.planId,
+              planStatus : planStatus
             ),
           ),
         );
@@ -59,12 +62,12 @@ class PlanListCard extends StatelessWidget {
                   ],
                 ),
               ),
-              if (plan.dDay != null)
+              if (plan.dday != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: PlanMainchip(
                     bordercolor: PlanitColors.white01,
-                    title: '${plan.dDay}',
+                    title: '${plan.dday}',
                     backgroundcolor: PlanitColors.white01,
                     textcolor: PlanitColors.black03,
                   ),

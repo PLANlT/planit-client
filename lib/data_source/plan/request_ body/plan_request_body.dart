@@ -7,8 +7,8 @@ class PlanCreateRequestBody {
   final String motivation;
   final String icon;
   final String planStatus;
-  final String startedAt;
-  final String finishedAt;
+  final String? startedAt;
+  final String? finishedAt;
 
   PlanCreateRequestBody(
       {required this.title,
@@ -16,7 +16,7 @@ class PlanCreateRequestBody {
       required this.icon,
       required this.planStatus,
       required this.startedAt,
-      required this.finishedAt});
+      this.finishedAt});
   Map<String, dynamic> toJson() => _$PlanCreateRequestBodyToJson(this);
   factory PlanCreateRequestBody.fromJson(Map<String, dynamic> json) =>
       _$PlanCreateRequestBodyFromJson(json);

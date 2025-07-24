@@ -8,18 +8,28 @@ class TemplateList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<String> templateImage = [
-      'assets/templates/health.svg',
-      'assets/templates/mediation.svg',
-      'assets/templates/money.svg',
-      'assets/templates/self_development.svg',
-      'assets/templates/social.svg',
+      'assets/templates/health.svg', // 운동
+      'assets/templates/mediation.svg', // 마음 정리
+      'assets/templates/money.svg', // 재정
+      'assets/templates/self_development.svg', // 자기계발 (필요시 추가)
+      'assets/templates/social.svg', // 관계
     ];
+
+    // 이미지 인덱스별 템플릿 이름 매핑
+    final List<String> templateNames = [
+      '운동',
+      '마음 정리',
+      '재정',
+      '자기계발',
+      '관계',
+    ];
+
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: SizedBox(
-        height: 100, // 가로 스크롤이라 height만 지정
+        height: 100,
         child: ListView.builder(
-          shrinkWrap: true, // width는 shrinkWrap으로 조정
+          shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           itemCount: templateImage.length,
           itemBuilder: (context, index) {
@@ -28,7 +38,9 @@ class TemplateList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PlanTeamplateView(),
+                    builder: (context) => PlanTeamplateView(
+                      templateName: templateNames[index], // 여기서 이름 전달
+                    ),
                   ),
                 );
               },
