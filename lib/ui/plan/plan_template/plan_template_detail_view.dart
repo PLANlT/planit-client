@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/repository/plan/plan_repository.dart';
 import 'package:planit/repository/task/model/task_model.dart';
@@ -9,6 +10,7 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
 import 'package:planit/ui/plan/component/template_detail_card.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
@@ -16,6 +18,7 @@ import 'package:planit/ui/plan/plan_template/plan_template.dart';
 import 'package:planit/ui/plan/plan_template/plan_template_detail_view_model.dart';
 
 class PlanTemplateDetailView extends HookConsumerWidget {
+  static String get routeName => 'template_detail';
   final PlanTemplateDetail templateDetai;
   const PlanTemplateDetailView({required this.templateDetai, super.key});
 
@@ -76,10 +79,7 @@ class PlanTemplateDetailView extends HookConsumerWidget {
                     try {
                       await viewmodel.createPlanAndAddTask(templateDetai);
                       if (context.mounted) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => PlanView()),
-                        );
+                        context.pushNamed(RootTab.routeName);
                       }
                     } catch (e) {
                       // 에러 처리 로직 추가

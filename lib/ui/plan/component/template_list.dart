@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/ui/plan/plan_template/plan_teamplate_view.dart';
 
 class TemplateList extends StatelessWidget {
@@ -35,13 +36,9 @@ class TemplateList extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PlanTeamplateView(
-                      templateName: templateNames[index], // 여기서 이름 전달
-                    ),
-                  ),
+                context.pushNamed(
+                  PlanTeamplateView.routeName,
+                  pathParameters: {'templateName': templateNames[index]},
                 );
               },
               child: Padding(

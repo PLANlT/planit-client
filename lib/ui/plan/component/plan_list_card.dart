@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_chip.dart';
@@ -14,24 +15,18 @@ class PlanListCard extends StatelessWidget {
   final PlanModel plan;
   final String planStatus;
 
-  const PlanListCard({
-    super.key,
-    required this.plan,
-    required this.planStatus
-  });
+  const PlanListCard({super.key, required this.plan, required this.planStatus});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PlanDetailView(
-              planId: plan.planId,
-              planStatus : planStatus
-            ),
-          ),
+        context.pushNamed(
+          'plan_detail',
+          pathParameters: {
+            'planId': plan.planId.toString(),
+            'planStatus': planStatus, // 예: 'active' or 'completed'
+          },
         );
       },
       child: Container(

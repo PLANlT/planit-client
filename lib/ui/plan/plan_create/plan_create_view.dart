@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -14,6 +15,7 @@ import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/component/plan_wrap_grid.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
@@ -21,6 +23,7 @@ import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class PlanCreateView extends HookConsumerWidget {
+  static String get routeName => 'plan_create';
   final int? planId;
   final String? planStatus;
   const PlanCreateView({super.key, this.planId, this.planStatus});
@@ -287,11 +290,7 @@ class PlanCreateView extends HookConsumerWidget {
                                   label: '플랜이 제작됐어요!',
                                 ),
                               );
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PlanView()), //임시
-                              );
+                              context.goNamed(RootTab.routeName);
                             } else {
                               await viewmodel.updatePlanCreateInfo(planId!);
                               toast.showToast(
@@ -299,11 +298,7 @@ class PlanCreateView extends HookConsumerWidget {
                                   label: '플랜이 수정됐어요!',
                                 ),
                               );
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => PlanView()), //임시
-                              );
+                              context.goNamed(RootTab.routeName);
                             }
                           } catch (e) {
                             toast.showToast(
