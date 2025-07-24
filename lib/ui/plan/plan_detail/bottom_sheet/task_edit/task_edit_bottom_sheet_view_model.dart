@@ -108,7 +108,7 @@ class TaskEditBottomSheetViewModel
   }
 
   void fetchRoutineBytaskId() async {
-    state = state.copyWith(loadingStatus: LoadingStatus.error);
+    state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final routineResult =
         await _taskRepository.getRoutinebyTaskId(taskId: _taskId);
     switch (routineResult) {

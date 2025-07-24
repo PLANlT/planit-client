@@ -41,7 +41,7 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
     // 1) 플랜 생성
     final planCreateResult = await _planRepository.createPlan(
       title: templateDetail.title,
-      motivation: templateDetail.DescriptionShort,
+      motivation: templateDetail.descriptionShort,
       icon: icon,
       planStatus: 'IN_PROGRESS',
       startedAt: startedAt,
@@ -54,9 +54,17 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
 
     final PlanCreateModel createdPlan =
         (planCreateResult as SuccessRepositoryResult).data;
+    final planId = createdPlan.planId;
+    if (planId == null) {
+      return const FailureRepositoryResult(
+        error: 'Plan creation failed: planId is null',
+        messages: ['플랜 생성에 실패했습니다.'],
+      );
+    }
+
     for (final task in templateDetail.tasks) {
-      final taskAddResult = await _taskRepository.addTask(
-          title: task.title, planId: createdPlan.planId!);
+      final taskAddResult =
+          await _taskRepository.addTask(title: task.title, planId: planId);
 
       if (taskAddResult is FailureRepositoryResult) {
         // 실패 시 처리 (예: 에러 반환, 로그 기록 등)

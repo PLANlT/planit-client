@@ -48,7 +48,7 @@ class TemplateDetailCard extends StatelessWidget {
                     children: [
                       PlanitText(templateDetail.title,
                           style: PlanitTypos.title3),
-                      PlanitText(templateDetail.DescriptionShort,
+                      PlanitText(templateDetail.descriptionShort,
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400)),
                     ],

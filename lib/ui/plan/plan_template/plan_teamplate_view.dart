@@ -29,6 +29,7 @@ class PlanTeamplateView extends StatelessWidget {
         break;
       case '자기계발':
         template = PlanTemplates.selfGrowthPlanTemplate;
+        break;
       default:
         throw Exception('알 수 없는 템플릿 이름입니다: $templateName');
     }

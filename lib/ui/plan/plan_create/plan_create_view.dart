@@ -308,7 +308,9 @@ class PlanCreateView extends HookConsumerWidget {
                           } catch (e) {
                             toast.showToast(
                               child: PlanitToast(
-                                label: '플랜 생성에 실패했습니다.',
+                                label: planId == null
+                                    ? '플랜 생성에 실패했습니다.'
+                                    : '플랜 수정에 실패했습니다.',
                               ),
                             );
                           }

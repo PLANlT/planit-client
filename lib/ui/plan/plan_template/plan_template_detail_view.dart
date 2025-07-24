@@ -6,6 +6,7 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
@@ -39,7 +40,7 @@ class PlanTemplateDetailView extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PlanitText('설명', style: PlanitTypos.title3),
-                PlanitText(templateDetai.DescriptionLong,
+                PlanitText(templateDetai.descriptionLong,
                     style: PlanitTypos.body2)
               ],
             ),
@@ -59,7 +60,7 @@ class PlanTemplateDetailView extends HookConsumerWidget {
                     child: TaskCard(
                       title: templateDetai.tasks[index].title,
                       taskType: templateDetai.tasks[index].taskType,
-                      taskId: -99,
+                      taskId: index,
                     ));
               },
             ),
@@ -71,12 +72,21 @@ class PlanTemplateDetailView extends HookConsumerWidget {
             child: SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                  onPressed: () {
-                    viewmodel.createPlanAndAddTask(templateDetai);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PlanView()), //임시
-                    );
+                  onPressed: () async {
+                    try {
+                      await viewmodel.createPlanAndAddTask(templateDetai);
+                      if (context.mounted) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PlanView()),
+                        );
+                      }
+                    } catch (e) {
+                      // 에러 처리 로직 추가
+                      PlanitToast(
+                        label: '플랜 만들기에 실패했습니다',
+                      );
+                    }
                   },
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
