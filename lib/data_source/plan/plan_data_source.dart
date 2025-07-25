@@ -37,7 +37,7 @@ abstract class PlanDataSource {
   @PATCH('/planit/plans/{planId}/delete')
   @Headers({'accessToken': 'true'})
   Future<void> deletePlan({
-    @Path('planId') int planId,
+    @Path('planId') required int planId,
   });
 
   @POST('/planit/plans')

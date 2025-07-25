@@ -82,7 +82,7 @@ class _PlanDataSource implements PlanDataSource {
   }
 
   @override
-  Future<void> deletePlan({int? planId}) async {
+  Future<void> deletePlan({required int planId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'accessToken': 'true'};

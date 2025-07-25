@@ -56,7 +56,7 @@ class _TaskDataSource implements TaskDataSource {
 
   @override
   Future<ApiResponse<RoutineResponseBody>> patchRoutine({
-     int? taskId,
+    required int taskId,
     required RoutineRequestBody body,
   }) async {
     final _extra = <String, dynamic>{};
@@ -90,7 +90,7 @@ class _TaskDataSource implements TaskDataSource {
   }
 
   @override
-  Future<void> deleteTask({int? taskId}) async {
+  Future<void> deleteTask({required int taskId}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{r'accessToken': 'true'};
