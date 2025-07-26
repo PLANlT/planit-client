@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/recovery/recovery_deep_breath_view.dart';
 
@@ -11,6 +12,8 @@ import '../common/const/planit_button_style.dart';
 import '../common/view/default_layout.dart';
 
 class RecoveryDescriptionView extends StatelessWidget {
+  static String get routeName => 'description';
+
   const RecoveryDescriptionView({super.key});
 
   @override
@@ -63,10 +66,8 @@ class RecoveryDescriptionView extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => RecoveryDeepBreathView(),
-                  ),
+                onPressed: () => context.goNamed(
+                  RecoveryDeepBreathView.routeName,
                 ),
                 buttonColor: PlanitButtonColor.black,
                 buttonSize: PlanitButtonSize.large,

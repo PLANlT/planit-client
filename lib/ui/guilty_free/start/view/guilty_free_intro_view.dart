@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
@@ -11,6 +12,8 @@ import 'package:planit/ui/common/view/default_layout.dart';
 import 'guilty_free_reason_view.dart';
 
 class GuiltyFreeIntroView extends StatelessWidget {
+  static String get routeName => 'guilty-intro';
+
   const GuiltyFreeIntroView({super.key});
 
   @override
@@ -84,10 +87,8 @@ class GuiltyFreeIntroView extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => GuiltyFreeReasonView(),
-                  ),
+                onPressed: () => context.goNamed(
+                  GuiltyFreeReasonView.routeName,
                 ),
                 buttonColor: PlanitButtonColor.black,
                 buttonSize: PlanitButtonSize.large,

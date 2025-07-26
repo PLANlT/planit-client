@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
@@ -10,6 +11,8 @@ import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/recovery/recovery_stop_phone_view.dart';
 
 class RecoveryIntroView extends StatelessWidget {
+  static String get routeName => 'intro';
+
   const RecoveryIntroView({super.key});
 
   @override
@@ -50,10 +53,8 @@ class RecoveryIntroView extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => RecoveryStopPhoneView(),
-                      ),
+                    onPressed: () => context.goNamed(
+                      RecoveryStopPhoneView.routeName,
                     ),
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,

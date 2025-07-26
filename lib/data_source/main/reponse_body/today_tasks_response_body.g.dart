@@ -37,7 +37,7 @@ TodayPlanResponseBody _$TodayPlanResponseBodyFromJson(
           .map(
               (e) => TaskStatusResponseBody.fromJson(e as Map<String, dynamic>))
           .toList(),
-      dDay: json['dday'] as String,
+      dDay: json['dday'] as String?,
     );
 
 Map<String, dynamic> _$TodayPlanResponseBodyToJson(
