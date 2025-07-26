@@ -17,13 +17,15 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 
 class ArchivingDetailView extends HookConsumerWidget {
-  const ArchivingDetailView({super.key});
+  final int planId;
+  const ArchivingDetailView({super.key, required this.planId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PlanDetailState state = ref.watch(planDetailViewModelProvider(0));
+    final PlanDetailState state =
+        ref.watch(planDetailViewModelProvider(planId));
     final PlanDetailViewModel viewModel =
-        ref.read(planDetailViewModelProvider(0).notifier);
+        ref.read(planDetailViewModelProvider(planId).notifier);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -54,7 +56,7 @@ class ArchivingDetailView extends HookConsumerWidget {
               Align(
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
-                  state.planDetail!.icon,
+                  '${state.planDetail!.icon}.svg',
                   width: 120,
                   height: 120,
                 ),
