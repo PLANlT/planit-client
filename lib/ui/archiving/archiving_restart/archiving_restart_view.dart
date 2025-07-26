@@ -6,6 +6,7 @@ import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingRestartView extends StatelessWidget {
   const ArchivingRestartView({super.key});
@@ -56,7 +57,14 @@ class ArchivingRestartView extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlanView(),
+                      ),
+                    );
+                  },
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
                   label: '해당 플랜으로 다시 시작하기'),

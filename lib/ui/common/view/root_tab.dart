@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:planit/core/guilty_free_status.dart';
 import 'package:planit/service/app/app_service.dart';
 import 'package:planit/service/app/app_state.dart';
-import 'package:planit/ui/archiving/archiving_view.dart';
+import 'package:planit/ui/archiving/archiving_main/archiving_view.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/main/main_view.dart';

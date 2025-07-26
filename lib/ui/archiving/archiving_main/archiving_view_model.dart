@@ -5,7 +5,7 @@ import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/archiving/archiving_repository.dart';
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
-import 'package:planit/ui/archiving/archiving_state.dart';
+import 'package:planit/ui/archiving/archiving_main/archiving_state.dart';
 
 final archivingViewModelProvider =
     StateNotifierProvider<ArchivingViewModel, ArchivingState>((ref) =>
