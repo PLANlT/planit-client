@@ -26,7 +26,7 @@ class GuiltyFreeIngViewModel extends StateNotifier<GuiltyFreeIngState> {
       state = state.copyWith(loadingStatus: LoadingStatus.loading);
     }
 
-    final RepositoryResult<void> result = await _guiltyFreeRepository.endGuiltyFree();
+    final RepositoryResult<void> result = _guiltyFreeRepository.endGuiltyFree();
 
     switch (result) {
       case SuccessRepositoryResult<void>():
