@@ -28,6 +28,7 @@ class PlanViewModel extends StateNotifier<PlanState> {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final RepositoryResult<List<PlanModel>> activePlanresult =
         await _planRepository.getActivePlanList();
+
     final RepositoryResult<List<PlanModel>> pausePlanresult =
         await _planRepository.getPausePlanList();
 //ActivePlanList 불러오기 파트

@@ -13,7 +13,9 @@ RoutineResponseBody _$RoutineResponseBodyFromJson(Map<String, dynamic> json) =>
       routineDay: (json['routineDay'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      routineTime: json['routineTime'] as String,
+      routineTime: json['routineTime'] == null
+          ? null
+          : RoutineTime.fromJson(json['routineTime'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RoutineResponseBodyToJson(

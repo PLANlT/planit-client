@@ -39,4 +39,10 @@ abstract class TaskDataSource {
   Future<void> deleteTask({
     @Path('taskId') required int taskId,
   });
+
+  @GET('/planit/tasks/{taskId}/routine')
+  @Headers({'accessToken': 'true'})
+  Future<ApiResponse<RoutineResponseBody>> getRoutine({
+    @Path('taskId') required int taskId,
+  });
 }

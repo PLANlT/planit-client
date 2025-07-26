@@ -40,6 +40,12 @@ abstract class PlanDataSource {
     @Path('planId') required int planId,
   });
 
+  @PATCH('/planit/plans/{planId}')
+  @Headers({'accessToken': 'true'})
+  Future<ApiResponse<PlanCreateResponseBody>> patchPlan({
+    @Path('planId') required int planId,
+    @Body() required PlanCreateRequestBody body,
+  });
   @POST('/planit/plans')
   @Headers({'accessToken': 'true'})
   Future<ApiResponse<PlanCreateResponseBody>> postPlan({

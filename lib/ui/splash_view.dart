@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:planit/core/guilty_free_status.dart';
 import 'package:planit/service/app/app_service.dart';
 import 'package:planit/service/storage/planit_storage_service.dart';
 import 'package:planit/service/storage/storage_key.dart';
@@ -12,6 +13,7 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/onboarding/onboarding_view.dart';
+import 'package:planit/ui/recovery/recovery_complete_view.dart';
 
 class SplashView extends ConsumerStatefulWidget {
   static String get routeName => 'splash';
@@ -28,17 +30,31 @@ class _SplashViewState extends ConsumerState<SplashView> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(appServiceProvider.notifier).getGuiltyFreeStatus();
+      // 길티프리 상태 확인>메인을 길티프리 진행 페이지로 대체 또는 길티프리 종료 페이지 랜딩 위함
+      await ref.read(appServiceProvider.notifier).getGuiltyFreeStatus();
+      final bool isGuiltyFreeFinished =
+          ref.read(appServiceProvider).guiltyFreeStatus == GuiltyFreeStatus.end;
+      // 로그인 상태 확인>로그인 페이지 랜딩 위함 (Go-router로 리다이렉트)
       await ref.read(appServiceProvider.notifier).checkLoginStatus();
+      // 설치 후 첫 실행인지 확인>온보딩 랜딩 위함
       final bool shouldGoMain =
           await ref.read(planitStorageServiceProvider).getBool(
                 key: StorageKey.isNotFirstLaunch,
               );
+      // 화면 안정성을 위한 딜레이
       await Future.delayed(Duration(seconds: 2));
       if (mounted) {
+        // 첫 실행이 아닌 경우 (온보딩X)
         if (shouldGoMain) {
-          context.goNamed(RootTab.routeName);
+          // 길티프리 프리 모드가 자동으로 종료된 경우라면 길티프리 종료 페이지로
+          // 그렇지 않다면 메인으로
+          context.goNamed(
+            isGuiltyFreeFinished
+                ? RecoveryCompleteView.routeName
+                : RootTab.routeName,
+          );
         } else {
+          // 첫 실행인 경우 온보딩으로
           context.goNamed(OnboardingView.routeName);
         }
       }

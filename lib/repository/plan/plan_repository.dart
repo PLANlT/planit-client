@@ -14,6 +14,7 @@ import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/repository/task/model/task_model.dart';
 import 'package:planit/ui/common/assets.dart';
+import 'package:planit/ui/plan/plan_template/plan_template.dart';
 
 final AutoDisposeProvider<PlanRepository> planRepositoryProvider =
     Provider.autoDispose<PlanRepository>(
@@ -45,7 +46,7 @@ class PlanRepository {
     required String icon,
     required String planStatus,
     required String startedAt,
-    required String finishedAt,
+    required String? finishedAt,
   }) async {
     try {
       final ApiResponse<PlanCreateResponseBody> result =
@@ -56,7 +57,9 @@ class PlanRepository {
           icon: icon,
           planStatus: planStatus,
           startedAt: startedAt,
-          finishedAt: finishedAt.length == 8 ? '20$finishedAt' : finishedAt,
+          finishedAt: finishedAt != null && finishedAt.length == 8
+              ? '20$finishedAt'
+              : finishedAt,
         ),
       );
       final model = PlanCreateModel.fromResponse(result.data);
@@ -112,6 +115,37 @@ class PlanRepository {
     }
   }
 
+  Future<RepositoryResult<PlanCreateModel>> editPlanCreateState({
+    required int planId,
+    required String title,
+    required String motivation,
+    required String icon,
+    required String planStatus,
+    required String startedAt,
+    required String finishedAt,
+  }) async {
+    try {
+      final ApiResponse<PlanCreateResponseBody> result =
+          await _planDataSource.patchPlan(
+        planId: planId,
+        body: PlanCreateRequestBody(
+          title: title,
+          motivation: motivation,
+          icon: icon,
+          planStatus: planStatus,
+          startedAt: startedAt,
+          finishedAt: finishedAt.length == 8 ? '20$finishedAt' : finishedAt,
+        ),
+      );
+      final model = PlanCreateModel.fromResponse(result.data);
+      return SuccessRepositoryResult(data: model);
+    } on DioException catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    } catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    }
+  }
+
   Future<RepositoryResult<PlanDetailModel>> getPlanDetailByPlanId(
       int planId) async {
     try {
@@ -132,4 +166,5 @@ class PlanRepository {
       return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
     }
   }
+
 }

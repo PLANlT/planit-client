@@ -13,8 +13,8 @@ PlanCreateRequestBody _$PlanCreateRequestBodyFromJson(
       motivation: json['motivation'] as String,
       icon: json['icon'] as String,
       planStatus: json['planStatus'] as String,
-      startedAt: json['startedAt'] as String,
-      finishedAt: json['finishedAt'] as String,
+      startedAt: json['startedAt'] as String?,
+      finishedAt: json['finishedAt'] as String?,
     );
 
 Map<String, dynamic> _$PlanCreateRequestBodyToJson(

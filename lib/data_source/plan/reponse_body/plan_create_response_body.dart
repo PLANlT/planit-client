@@ -10,7 +10,7 @@ class PlanCreateResponseBody {
   final String motivation;
   final String planStatus;
   final String startedAt;
-  final String finishedAt;
+  final String? finishedAt;
 
   PlanCreateResponseBody({
     required this.planId,
@@ -19,10 +19,11 @@ class PlanCreateResponseBody {
     required this.motivation,
     required this.planStatus,
     required this.startedAt,
-    required this.finishedAt,
+    this.finishedAt,
   });
 
-  factory PlanCreateResponseBody.fromJson(Map<String, dynamic> json) => _$PlanCreateResponseBodyFromJson(json);
+  factory PlanCreateResponseBody.fromJson(Map<String, dynamic> json) =>
+      _$PlanCreateResponseBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$PlanCreateResponseBodyToJson(this);
 }

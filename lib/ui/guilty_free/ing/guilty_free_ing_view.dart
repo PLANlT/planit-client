@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -19,6 +20,8 @@ import '../../common/comopnent/planit_toast.dart';
 import 'history/guilty_free_history_view.dart';
 
 class GuiltyFreeIngView extends HookConsumerWidget {
+  static String get routeName => 'guilty-ing';
+
   const GuiltyFreeIngView({super.key});
 
   @override
@@ -70,11 +73,7 @@ class GuiltyFreeIngView extends HookConsumerWidget {
           ),
           Spacer(flex: 3),
           TextButton(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => GuiltyFreeHistoryView(),
-              ),
-            ),
+            onPressed: () => context.goNamed(GuiltyFreeHistoryView.routeName),
             style: TextButton.styleFrom(
               overlayColor: PlanitColors.black01,
             ),

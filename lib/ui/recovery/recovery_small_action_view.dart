@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/ui/recovery/component/recovery_bg.dart';
 import 'package:planit/ui/recovery/recovery_complete_view.dart';
 
@@ -9,6 +10,8 @@ import '../common/view/default_layout.dart';
 import 'component/recovery_timer.dart';
 
 class RecoverySmallActionView extends StatefulWidget {
+  static String get routeName => 'small';
+
   const RecoverySmallActionView({super.key});
 
   @override
@@ -47,11 +50,7 @@ class _RecoverySmallActionViewState extends State<RecoverySmallActionView>
     // 애니메이션 완료 리스너
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => RecoveryCompleteView(),
-          ),
-        );
+        context.goNamed(RecoveryCompleteView.routeName);
       }
     });
 
@@ -74,14 +73,6 @@ class _RecoverySmallActionViewState extends State<RecoverySmallActionView>
         deviceSize.height < 700 ? 120 : (deviceSize.width - 80.0) / 2;
 
     return DefaultLayout(
-      // 테스트용 건너뛰기 버튼
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => RecoveryCompleteView(),
-          ),
-        ),
-      ),
       title: '회복 루틴',
       appBarColor: PlanitColors.transparent,
       extendBodyBehindAppBar: true,
