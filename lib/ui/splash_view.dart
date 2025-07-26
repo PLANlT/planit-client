@@ -12,8 +12,8 @@ import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
+import 'package:planit/ui/guilty_free/end/guilty_free_end_view.dart';
 import 'package:planit/ui/onboarding/onboarding_view.dart';
-import 'package:planit/ui/recovery/recovery_complete_view.dart';
 
 class SplashView extends ConsumerStatefulWidget {
   static String get routeName => 'splash';
@@ -50,7 +50,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
           // 그렇지 않다면 메인으로
           context.goNamed(
             isGuiltyFreeFinished
-                ? RecoveryCompleteView.routeName
+                ? GuiltyFreeEndView.routeName
                 : RootTab.routeName,
           );
         } else {
