@@ -44,6 +44,11 @@ class GuiltyFreeRepository {
     try {
       final ApiResponse<GuiltyFreeDateResponseBody> result =
           await _guiltyFreeDataSource.getGuiltyFreeDate();
+      // 성공 시 로컬에 저장
+      _planitStorageService.setString(
+        key: StorageKey.lastGuiltyFreeDate,
+        value: result.data.activatedAt,
+      );
       final data = GuiltyFreeDateModel.fromResponse(result.data);
       return SuccessRepositoryResult(data: data);
     } on DioException catch (e) {
