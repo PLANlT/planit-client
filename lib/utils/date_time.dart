@@ -8,3 +8,7 @@ DateTime? stringToDateTime(String dateString) {
     return DateTime.tryParse(dateString);
   }
 }
+
+String dashDateToDot(String dateString) {
+  return dateString.replaceAll('-', '.');
+}
