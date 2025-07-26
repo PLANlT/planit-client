@@ -22,7 +22,7 @@ class TodayPlanModel {
   final int planId;
   final String title;
   final List<TaskStatusModel> tasks;
-  final String dDay;
+  final String? dDay;
 
   const TodayPlanModel({
     required this.planId,
