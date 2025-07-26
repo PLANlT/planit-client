@@ -98,8 +98,10 @@ class PlanDetailView extends HookConsumerWidget {
                           context: context,
                           builder: (context) {
                             return PlanMoreBottomSheet(
+                              title: state.planDetail!.title,
                               planStatus: planStatus,
                               planId: planId,
+                              icon: state.planDetail!.icon,
                             );
                           },
                         );

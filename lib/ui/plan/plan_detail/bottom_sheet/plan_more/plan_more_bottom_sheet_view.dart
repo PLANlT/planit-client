@@ -12,8 +12,14 @@ import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bott
 class PlanMoreBottomSheet extends HookConsumerWidget {
   final int planId;
   final String planStatus;
+  final String icon;
+  final String title;
   const PlanMoreBottomSheet(
-      {super.key, required this.planId, required this.planStatus});
+      {super.key,
+      required this.title,
+      required this.planId,
+      required this.planStatus,
+      required this.icon});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,7 +68,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          ArchivingCompleteView(),
+                          ArchivingCompleteView(icon: icon, title: title),
                     ),
                   );
                 },

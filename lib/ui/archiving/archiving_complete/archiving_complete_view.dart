@@ -15,7 +15,10 @@ import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingCompleteView extends StatelessWidget {
-  const ArchivingCompleteView({super.key});
+  final String icon;
+  final String title;
+  const ArchivingCompleteView(
+      {super.key, required this.icon, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +63,7 @@ class ArchivingCompleteView extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ArchivingCompleteNavigator();
+                    return ArchivingCompleteNavigator(icon: icon, title: title);
                   }));
                 },
                 child: Container(

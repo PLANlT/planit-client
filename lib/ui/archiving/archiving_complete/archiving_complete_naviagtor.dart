@@ -10,10 +10,14 @@ import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingCompleteNavigator extends StatelessWidget {
-  const ArchivingCompleteNavigator({super.key});
+  final String icon;
+  final String title;
+  const ArchivingCompleteNavigator(
+      {super.key, required this.icon, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +40,11 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset('assets/planets/planet1.svg'),
+                        SvgPicture.asset('$icon.svg'),
                         const SizedBox(height: 8),
-                        PlanitText('다이어트', style: PlanitTypos.title2),
+                        PlanitText(title, style: PlanitTypos.title2),
                         PlanitText(
-                          '2일 전 완료',
+                          '${DateTime.now().toIso8601String().substring(0, 10)} 완료',
                           style: PlanitTypos.body3
                               .copyWith(color: Color(0xFF666666)),
                         ),
@@ -65,7 +69,12 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return RootTab();
+                      }));
+                    },
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
                     label: '아카이브에서 내 행성 보기',
@@ -74,7 +83,12 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return RootTab();
+                      }));
+                    },
                     buttonColor: PlanitButtonColor.white,
                     buttonSize: PlanitButtonSize.large,
                     label: '홈으로 돌아가기',
