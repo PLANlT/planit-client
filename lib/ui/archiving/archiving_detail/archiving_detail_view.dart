@@ -141,7 +141,10 @@ class ArchivingDetailView extends HookConsumerWidget {
             child: PlanitButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ArchivingRestartView();
+                    return ArchivingRestartView(
+                      planId: planId,
+                      title: state.planDetail?.title ?? '',
+                    );
                   }));
                 },
                 buttonColor: PlanitButtonColor.black,
