@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:planit/routes/app_router.dart';
-import 'package:planit/ui/splash_view.dart';
 
 Future<void> main() async {
   // runApp 실행전 초기화
