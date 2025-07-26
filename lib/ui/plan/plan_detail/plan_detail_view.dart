@@ -100,9 +100,6 @@ class PlanDetailView extends HookConsumerWidget {
                             return PlanMoreBottomSheet(
                               planStatus: planStatus,
                               planId: planId,
-                              onClick: (planId) {
-                                viewModel.clickDeletePlan(planId);
-                              },
                             );
                           },
                         );

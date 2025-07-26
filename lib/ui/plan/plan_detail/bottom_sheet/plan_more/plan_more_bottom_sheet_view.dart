@@ -5,20 +5,19 @@ import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
+import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view_model.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_view.dart';
 
 class PlanMoreBottomSheet extends HookConsumerWidget {
-  final void Function(int planId) onClick;
   final int planId;
   final String planStatus;
   const PlanMoreBottomSheet(
-      {super.key,
-      required this.onClick,
-      required this.planId,
-      required this.planStatus});
+      {super.key, required this.planId, required this.planStatus});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewmodel = ref.read(planMoreBottomSheetViewModelProvider.notifier);
+
     return Wrap(children: [
       PlanitBottomSheet(
         content: Column(
@@ -44,7 +43,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             ),
             GestureDetector(
               onTap: () {
-                onClick(planId);
+                viewmodel.clickDeletePlan(planId);
                 Navigator.pop(context);
               },
               child: PlanitText(
@@ -55,7 +54,11 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             Divider(
               color: PlanitColors.white03,
             ),
-            PlanitText('🎉 목표 달성하기 🎉', style: PlanitTypos.body2)
+            GestureDetector(
+                onTap: () {
+                  viewmodel.clickCompletePlan(planId);
+                },
+                child: PlanitText('🎉 목표 달성하기 🎉', style: PlanitTypos.body2))
           ],
         ),
       ),
