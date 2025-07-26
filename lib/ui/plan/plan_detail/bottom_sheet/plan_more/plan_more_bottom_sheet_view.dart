@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/archiving/archiving_complete/archiving_complete_view.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
@@ -57,6 +58,13 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             GestureDetector(
                 onTap: () {
                   viewmodel.clickCompletePlan(planId);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ArchivingCompleteView(),
+                    ),
+                  );
                 },
                 child: PlanitText('🎉 목표 달성하기 🎉', style: PlanitTypos.body2))
           ],
