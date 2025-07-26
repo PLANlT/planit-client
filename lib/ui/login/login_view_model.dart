@@ -4,6 +4,7 @@ import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/auth/auth_repository.dart';
 import 'package:planit/repository/auth/model/sign_in_model.dart';
+import 'package:planit/repository/guilty_free/guilty_free_repository.dart';
 import 'package:planit/ui/login/login_state.dart';
 
 import '../../service/app/app_service.dart';
@@ -13,18 +14,22 @@ final AutoDisposeStateNotifierProvider<LoginViewModel, LoginState>
   (ref) => LoginViewModel(
     authRepository: ref.read(authRepositoryProvider),
     appService: ref.read(appServiceProvider.notifier),
+    guiltyFreeRepository: ref.read(guiltyFreeRepositoryProvider),
   ),
 );
 
 class LoginViewModel extends StateNotifier<LoginState> {
   final AuthRepository _authRepository;
   final AppService _appService;
+  final GuiltyFreeRepository _guiltyFreeRepository;
 
   LoginViewModel({
     required AuthRepository authRepository,
     required AppService appService,
+    required GuiltyFreeRepository guiltyFreeRepository,
   })  : _authRepository = authRepository,
         _appService = appService,
+        _guiltyFreeRepository = guiltyFreeRepository,
         super(LoginState());
 
   // 구글 로그인
@@ -163,13 +168,22 @@ class LoginViewModel extends StateNotifier<LoginState> {
       accessToken: accessToken,
       refreshToken: refreshToken,
     );
-    if (mounted) {
+    // 로그인 성공 시 마지막 길티프리 사용일 불러오기
+    try {
+      await _guiltyFreeRepository.getGuiltyFreeDate();
+      if (mounted) {
+        state = state.copyWith(
+          loadingStatus: LoadingStatus.success,
+          isLoginCompleted: true,
+        );
+      }
+      debugPrint('[로그인 완료]');
+    } catch (e) {
       state = state.copyWith(
-        loadingStatus: LoadingStatus.success,
-        isLoginCompleted: true,
+        loadingStatus: LoadingStatus.error,
+        errorMessage: e.toString(),
       );
     }
-    debugPrint('[로그인 완료]');
   }
 
   // 회원가입을 위해 약관동의 라우팅 처리+임시 토큰 저장

@@ -5,6 +5,7 @@ import 'package:planit/routes/redirect_notifier.dart';
 import 'package:planit/ui/common/const/web_view_params.dart';
 import 'package:planit/ui/common/view/planit_web_view.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
+import 'package:planit/ui/guilty_free/end/guilty_free_end_view.dart';
 import 'package:planit/ui/guilty_free/ing/history/guilty_free_history_view.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
 import 'package:planit/ui/guilty_free/start/view/guilty_free_intro_view.dart';
@@ -206,6 +207,14 @@ class AppRouter {
             ),
           ),
         ],
+      ),
+      // 길티프리 종료 화면
+      GoRoute(
+        path: '/guilty-end',
+        name: GuiltyFreeEndView.routeName,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: GuiltyFreeEndView(),
+        ),
       ),
     ],
   );

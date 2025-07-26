@@ -101,7 +101,16 @@ class AppService extends StateNotifier<AppState> {
       );
       final DateTime? lastDate = stringToDateTime(lastDateString);
 
-      if (lastDate != null && lastDate.isBefore(today) && today.hour >= 6) {
+      // 시간을 포함하고 isBefore을 사용하면, 같은 날이어도 전날 취급되어
+      // 시간 제외하고 날짜만 비교하도록 변경
+      final DateTime todayDate = DateTime(today.year, today.month, today.day);
+      final DateTime lastDateOnly = DateTime(
+        lastDate!.year,
+        lastDate.month,
+        lastDate.day,
+      );
+
+      if (lastDateOnly.isBefore(todayDate) && today.hour >= 6) {
         status = GuiltyFreeStatus.end;
         _planitStorageService.setString(
           key: StorageKey.guiltyFreeStatus,

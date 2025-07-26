@@ -140,6 +140,7 @@ class _Advice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 12.0,
       children: [
         PlanitText(
