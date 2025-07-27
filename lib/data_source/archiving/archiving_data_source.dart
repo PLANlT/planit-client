@@ -25,7 +25,7 @@ abstract class ArchivingDataSource {
   @Headers({'accessToken': 'true'})
   Future<ApiResponse<ArchivingPlanResponseBody>> getArchivingPlanLists();
 
-  @PATCH('/planit/plans/{planId}/restart')
+  @PATCH('/planit/archives/{planId}/restart')
   @Headers({'accessToken': 'true'})
   Future<ApiResponse<ArchivingRestartPlanResponseBody>> restartPlan({
     @Path('planId') required int planId,

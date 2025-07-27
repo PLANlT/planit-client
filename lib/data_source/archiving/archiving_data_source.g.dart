@@ -63,7 +63,7 @@ class _ArchivingDataSource implements ArchivingDataSource {
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/planit/plans/${planId}/restart',
+            '/planit/archives/${planId}/restart',
             queryParameters: queryParameters,
             data: _data,
           )
