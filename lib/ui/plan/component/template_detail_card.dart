@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/repository/task/model/task_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -24,12 +25,8 @@ class TemplateDetailCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => PlanTemplateDetailView(
-                        templateDetai: templateDetail,
-                      )));
+          context.pushNamed(PlanTemplateDetailView.routeName,
+              extra: templateDetail);
         },
         child: Container(
           decoration: BoxDecoration(

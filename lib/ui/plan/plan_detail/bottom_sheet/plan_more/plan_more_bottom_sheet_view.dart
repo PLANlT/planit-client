@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -36,13 +37,10 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
               padding: const EdgeInsets.only(top: 12),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PlanCreateView(
-                                planId: planId,
-                                planStatus: planStatus,
-                              )));
+                  context.pushNamed(
+                    PlanCreateView.routeName,
+                    queryParameters: {'planId': planId.toString()},
+                  );
                 },
                 child: PlanitText('플랜 수정', style: PlanitTypos.body2),
               ),

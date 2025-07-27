@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -16,6 +17,7 @@ import 'package:planit/ui/plan/plan_main/plan_state.dart';
 import 'package:planit/ui/plan/plan_main/plan_view_model.dart';
 
 class PlanView extends HookConsumerWidget {
+  static String get routeName => 'plan';
   const PlanView({super.key});
 
   @override
@@ -126,13 +128,9 @@ class PlanView extends HookConsumerWidget {
                         width: double.infinity,
                         child: PlanitButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PlanViewAll(
-                                            planList: state.activePlans,
-                                            isActive: true,
-                                          )));
+                              context.pushNamed(PlanViewAll.routeName,
+                                  pathParameters: {'isActive': 'true'},
+                                  extra: state.activePlans);
                             },
                             buttonColor: PlanitButtonColor.white,
                             buttonSize: PlanitButtonSize.large,
@@ -176,13 +174,9 @@ class PlanView extends HookConsumerWidget {
                         width: double.infinity,
                         child: PlanitButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PlanViewAll(
-                                            planList: state.pausePlans,
-                                            isActive: false,
-                                          )));
+                              context.pushNamed(PlanViewAll.routeName,
+                                  pathParameters: {'isActive': 'false'},
+                                  extra: state.pausePlans);
                             },
                             buttonColor: PlanitButtonColor.white,
                             buttonSize: PlanitButtonSize.large,
@@ -214,6 +208,7 @@ class PlanView extends HookConsumerWidget {
 }
 
 class PlanViewAll extends StatefulWidget {
+  static String get routeName => 'plan_all';
   final List<PlanModel> planList;
   final bool isActive;
 
@@ -257,29 +252,7 @@ class _PlanViewAllState extends State<PlanViewAll> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AppBar(
-            toolbarHeight: 92,
-            backgroundColor: PlanitColors.white02,
-            automaticallyImplyLeading: false,
-            title: PlanitText('내 플랜', style: PlanitTypos.title2),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PlanCreateView(),
-                        ),
-                      );
-                    },
-                    buttonColor: PlanitButtonColor.black,
-                    buttonSize: PlanitButtonSize.small,
-                    label: '+ 새 플랜'),
-              ),
-            ],
-          ),
+          BuildAppBar(),
           if (widget.isActive)
             Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -370,12 +343,7 @@ class BuildAppBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: PlanitButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PlanCreateView(),
-                ),
-              );
+              context.pushNamed(PlanCreateView.routeName);
             },
             buttonColor: PlanitButtonColor.black,
             buttonSize: PlanitButtonSize.small,

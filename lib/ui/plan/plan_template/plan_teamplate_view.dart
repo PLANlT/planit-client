@@ -7,6 +7,7 @@ import 'package:planit/ui/plan/component/template_detail_card.dart';
 import 'package:planit/ui/plan/plan_template/plan_template.dart';
 
 class PlanTeamplateView extends StatelessWidget {
+  static String get routeName => 'plan_template';
   final String templateName;
   const PlanTeamplateView({required this.templateName, super.key});
 
