@@ -37,7 +37,7 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
     };
 
     final icon = iconMap[templateDetail.category] ?? 'assets/planets/planet3';
-    // 1) 플랜 생성
+
     final planCreateResult = await _planRepository.createPlan(
       title: templateDetail.title,
       motivation: templateDetail.descriptionShort,
@@ -65,7 +65,7 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
       final taskAddResult = await _taskRepository.addTask(
         title: task.title,
         planId: planId,
-        taskType: 'ALL',
+        taskType: task.taskType,
       );
 
       if (taskAddResult is FailureRepositoryResult) {
