@@ -4,11 +4,10 @@ import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/plan/plan_repository.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_state.dart';
 
-final planMoreBottomSheetViewModelProvider = StateNotifierProvider<
+final planMoreBottomSheetViewModelProvider = StateNotifierProvider.autoDispose<
     PlanMoreBottomSheetViewModel, PlanMoreBottomSheetState>(
   (ref) {
-    final planRepository = ref
-        .watch(planRepositoryProvider); // planRepositoryProvider는 기존에 정의돼 있어야 함
+    final planRepository = ref.watch(planRepositoryProvider);
     return PlanMoreBottomSheetViewModel(planRepository: planRepository);
   },
 );
@@ -40,7 +39,7 @@ class PlanMoreBottomSheetViewModel
     }
   }
 
-  Future<void> clickCompletePlan(int planId) async {
+  Future<bool> clickCompletePlan(int planId) async {
     state =
         state.copyWith(loadingStatus: LoadingStatus.loading, errorMessage: '');
 
@@ -49,12 +48,14 @@ class PlanMoreBottomSheetViewModel
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
+        return true;
 
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '플랜 성공에 실패했어요.',
         );
+        return false;
     }
   }
 }

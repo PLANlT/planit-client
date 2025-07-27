@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/archiving/archiving_complete/archiving_complete_view.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
@@ -61,17 +62,17 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             ),
             GestureDetector(
                 onTap: () async {
-                  await viewmodel.clickCompletePlan(planId);
-                  final state = ref.read(planMoreBottomSheetViewModelProvider);
-                  if (state.loadingStatus == LoadingStatus.success &&
-                      context.mounted) {
+                  final success = await viewmodel.clickCompletePlan(planId);
+                  if (!context.mounted) return;
+
+                  if (success) {
                     context.pushNamed(
                       ArchivingCompleteView.routeName,
                       pathParameters: {'title': title, 'icon': icon},
                     );
-                  } else if (state.loadingStatus == LoadingStatus.error &&
-                      context.mounted) {
-                    // 에러 처리 (예: 스낵바 표시)
+                  } else {
+                    final state =
+                        ref.read(planMoreBottomSheetViewModelProvider);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(state.errorMessage)),
                     );
