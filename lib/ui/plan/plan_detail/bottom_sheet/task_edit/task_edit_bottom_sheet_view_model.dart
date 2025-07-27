@@ -5,8 +5,8 @@ import 'package:planit/repository/task/model/routine_model.dart';
 import 'package:planit/repository/task/task_repository.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_state.dart';
 
-final taskEditViewModelProvider = StateNotifierProvider.family<
-    TaskEditBottomSheetViewModel, TaskEditBottomSheetState, int>(
+final taskEditViewModelProvider = StateNotifierProvider.autoDispose
+    .family<TaskEditBottomSheetViewModel, TaskEditBottomSheetState, int>(
   (ref, taskId) => TaskEditBottomSheetViewModel(
     taskId: taskId,
     taskRepository: ref.read(taskRepositoryProvider),
@@ -89,7 +89,7 @@ class TaskEditBottomSheetViewModel
         routineDay: routineDay,
       ),
     );
-
+    if (!mounted) return;
     // 결과 처리
     switch (editRoutineResult) {
       case SuccessRepositoryResult():
@@ -110,6 +110,7 @@ class TaskEditBottomSheetViewModel
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final routineResult =
         await _taskRepository.getRoutinebyTaskId(taskId: _taskId);
+    if (!mounted) return;
     switch (routineResult) {
       case SuccessRepositoryResult():
         late List<String> tasktype;

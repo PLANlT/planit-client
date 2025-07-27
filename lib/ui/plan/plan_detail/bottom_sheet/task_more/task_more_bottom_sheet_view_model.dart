@@ -4,8 +4,8 @@ import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/task/task_repository.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bottom_sheet_state.dart';
 
-final taskMoreBottomSheetViewModelProvider = StateNotifierProvider.family<
-    TaskMoreBottomSheetViewModel, TaskMoreBottomSheetState, int>(
+final taskMoreBottomSheetViewModelProvider = StateNotifierProvider.autoDispose
+    .family<TaskMoreBottomSheetViewModel, TaskMoreBottomSheetState, int>(
   (ref, taskId) => TaskMoreBottomSheetViewModel(
     taskRepository: ref.read(taskRepositoryProvider),
     taskid: taskId,
@@ -27,7 +27,7 @@ class TaskMoreBottomSheetViewModel
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
     final result = await _taskRepository.removeTask(taskId: _taskId);
-
+    if (!mounted) return;
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);

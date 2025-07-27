@@ -7,6 +7,7 @@ import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/archiving/archiving_complete/archiving_complete_view.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view_model.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
@@ -48,9 +49,20 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
               color: PlanitColors.white03,
             ),
             GestureDetector(
-              onTap: () {
-                viewmodel.clickDeletePlan(planId);
-                Navigator.pop(context);
+              onTap: () async {
+                final success = await viewmodel.clickDeletePlan(planId);
+                if (!context.mounted) return;
+                context.pushNamed(
+                  RootTab.routeName,
+                );
+                if (success) {
+                  Navigator.pop(context);
+                } else {
+                  final state = ref.read(planMoreBottomSheetViewModelProvider);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.errorMessage)),
+                  );
+                }
               },
               child: PlanitText(
                 '플랜 삭제',

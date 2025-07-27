@@ -5,8 +5,8 @@ import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/repository/plan/plan_repository.dart';
 import 'package:planit/ui/plan/plan_main/plan_state.dart';
 
-final StateNotifierProvider<PlanViewModel, PlanState> planViewModelProvider =
-    StateNotifierProvider(
+final planViewModelProvider =
+    StateNotifierProvider.autoDispose<PlanViewModel, PlanState>(
   (ref) => PlanViewModel(
     planRepository: ref.read(planRepositoryProvider),
   ),
@@ -28,9 +28,11 @@ class PlanViewModel extends StateNotifier<PlanState> {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final RepositoryResult<List<PlanModel>> activePlanresult =
         await _planRepository.getActivePlanList();
+    if (!mounted) return;
 
     final RepositoryResult<List<PlanModel>> pausePlanresult =
         await _planRepository.getPausePlanList();
+    if (!mounted) return;
 //ActivePlanList 불러오기 파트
     switch (activePlanresult) {
       case SuccessRepositoryResult<List<PlanModel>>():
@@ -57,6 +59,5 @@ class PlanViewModel extends StateNotifier<PlanState> {
           errorMessage: '플랜 목록 불러오기에 실패했어요.',
         );
     }
-//PausePla
   }
 }

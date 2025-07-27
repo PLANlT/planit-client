@@ -8,10 +8,11 @@ import 'package:planit/ui/plan/plan_template/plan_template.dart';
 import 'package:planit/ui/plan/plan_template/plan_template_state.dart';
 
 final planTemplateViewModelProvider =
-    StateNotifierProvider<PlanTemplateViewModel, PlanTemplateState>(
+    StateNotifierProvider.autoDispose<PlanTemplateViewModel, PlanTemplateState>(
   (ref) => PlanTemplateViewModel(
-      planRepository: ref.read(planRepositoryProvider),
-      taskRepository: ref.read(taskRepositoryProvider)),
+    planRepository: ref.read(planRepositoryProvider),
+    taskRepository: ref.read(taskRepositoryProvider),
+  ),
 );
 
 class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
@@ -24,7 +25,6 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
       : _planRepository = planRepository,
         _taskRepository = taskRepository,
         super(const PlanTemplateState());
-
   Future<RepositoryResult<void>> createPlanAndAddTask(
       PlanTemplateDetail templateDetail) async {
     final startedAt = DateFormat('yyyy-MM-dd').format(DateTime.now());
@@ -46,7 +46,11 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
       startedAt: startedAt,
       finishedAt: null,
     );
-
+    if (!mounted)
+      return const FailureRepositoryResult(
+        error: '뷰모델이 해제되었습니다.',
+        messages: ['작업이 취소되었습니다.'],
+      );
     if (planCreateResult is FailureRepositoryResult) {
       return planCreateResult; // 실패 바로 반환
     }
@@ -68,6 +72,11 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
         taskType: task.taskType,
       );
 
+      if (!mounted)
+        return const FailureRepositoryResult(
+          error: '뷰모델이 해제되었습니다.',
+          messages: ['작업이 취소되었습니다.'],
+        );
       if (taskAddResult is FailureRepositoryResult) {
         // 실패 시 처리 (예: 에러 반환, 로그 기록 등)
         return taskAddResult;

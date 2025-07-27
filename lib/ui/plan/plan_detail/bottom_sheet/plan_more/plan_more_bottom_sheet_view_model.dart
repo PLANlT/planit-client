@@ -20,22 +20,25 @@ class PlanMoreBottomSheetViewModel
       : _planRepository = planRepository,
         super(const PlanMoreBottomSheetState()); // 초기 상태 설정
 
-  Future<void> clickDeletePlan(int planId) async {
+  Future<bool> clickDeletePlan(int planId) async {
     // 로딩 시작
     state =
         state.copyWith(loadingStatus: LoadingStatus.loading, errorMessage: '');
 
     final result = await _planRepository.removePlan(planId: planId);
+    if (!mounted) return false;
 
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
+        return true;
 
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '플랜 삭제에 실패했어요.',
         );
+        return false;
     }
   }
 
@@ -44,6 +47,7 @@ class PlanMoreBottomSheetViewModel
         state.copyWith(loadingStatus: LoadingStatus.loading, errorMessage: '');
 
     final result = await _planRepository.completePlanByPlanId(planId);
+    if (!mounted) return false;
 
     switch (result) {
       case SuccessRepositoryResult():
