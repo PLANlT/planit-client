@@ -8,7 +8,8 @@ import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view_model.dart';
-import 'package:planit/ui/plan/plan_main/plan_view.dart';
+
+import '../../../../archiving/archiving_complete/archiving_complete_view.dart';
 
 class PlanMoreBottomSheet extends HookConsumerWidget {
   final int planId;
