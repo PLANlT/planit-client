@@ -126,4 +126,30 @@ class MypageViewModel extends StateNotifier<MypageState> {
       state = state.copyWith(isGuiltyFreePushAccept: newStatus);
     }
   }
+
+  Future<void> withdraw() async {
+    if (mounted) {
+      state = state.copyWith(loadingStatus: LoadingStatus.loading);
+    }
+
+    final RepositoryResult<void> result = await _mypageRepository.withdraw();
+    switch (result) {
+      case SuccessRepositoryResult<void>():
+        _appService.signOut();
+        if (mounted) {
+          state = state.copyWith(
+            loadingStatus: LoadingStatus.success,
+          );
+        }
+      case FailureRepositoryResult<void>():
+        if (mounted) {
+          state = state.copyWith(
+            loadingStatus: LoadingStatus.error,
+            errorMessage: result.messages == null
+                ? '회원탈퇴에 실패했어요.\n다시 시도해주세요'
+                : result.messages!.first,
+          );
+        }
+    }
+  }
 }

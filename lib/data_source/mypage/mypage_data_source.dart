@@ -25,4 +25,8 @@ abstract class MypageDataSource {
   @GET('/planit/members/consecutive-days')
   @Headers({'accessToken': 'true'})
   Future<ApiResponse<ConsecutiveDaysResponseBody>> getConsecutiveDays();
+
+  @PATCH('/planit/members/delete')
+  @Headers({'accessToken': 'true'})
+  Future<ApiResponse<void>> delete();
 }

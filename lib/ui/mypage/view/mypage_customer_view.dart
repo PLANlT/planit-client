@@ -4,7 +4,9 @@ import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
+import 'package:planit/ui/common/const/planit_urls.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MypageCustomerView extends StatelessWidget {
   static String get routeName => 'customer';
@@ -35,7 +37,15 @@ class MypageCustomerView extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final Uri url = Uri.parse(PlanitUrls.googleForm);
+                      if (await canLaunchUrl(url)) {
+                        await launchUrl(
+                          url,
+                          mode: LaunchMode.externalApplication,
+                        );
+                      }
+                    },
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
                     label: '문의 폼 열기',

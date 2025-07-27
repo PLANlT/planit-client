@@ -95,9 +95,11 @@ class AuthInterceptor extends QueuedInterceptor {
       try {
         final Response result = await dio.post(
           '/planit/auth/refresh',
-          data: {
-            'refreshToken': refreshToken,
-          },
+          options: Options(
+            headers: {
+              'Authorization': refreshToken,
+            }
+          )
         );
 
         final newAccessToken = result.data['data']['accessToken'];
