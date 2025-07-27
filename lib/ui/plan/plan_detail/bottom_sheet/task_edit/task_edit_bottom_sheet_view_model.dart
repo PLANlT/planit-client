@@ -28,6 +28,12 @@ class TaskEditBottomSheetViewModel
     fetchRoutineBytaskId();
   }
 
+  // 시간 리스트 업데이트 함수 추가
+  void updateSelectedTime(String time) {
+    // 예: 시간은 한 개만 저장한다고 가정하고 리스트 교체
+    state = state.copyWith(time: time);
+  }
+
 //월화수목금토일 버튼 하나 누를때 추가/삭제
   void toggleDay(String day) {
     final updated = [...state.routinDayList];
@@ -85,7 +91,7 @@ class TaskEditBottomSheetViewModel
       taskId: _taskId,
       routineModel: RoutineModel(
         taskType: taskType,
-        routineTimeString: '12:12', // TODO: state에서 실제 시간 받아오기
+        routineTimeString: state.time,
         routineDay: routineDay,
       ),
     );
@@ -117,7 +123,8 @@ class TaskEditBottomSheetViewModel
         if (routineResult.data.taskType == 'PASSIONATE') tasktype = ['HIGH'];
         if (routineResult.data.taskType == 'SLOW') tasktype = ['LOW'];
         if (routineResult.data.taskType == 'ALL') tasktype = ['LOW', 'HIGH'];
-
+        final String routineTime =
+            routineResult.data.routineTimeString ?? '00:00';
         const dayMap = {
           'MONDAY': '월',
           'TUESDAY': '화',
@@ -131,10 +138,12 @@ class TaskEditBottomSheetViewModel
         final List<String> routineDayList =
             routineResult.data.routineDay.map((e) => dayMap[e] ?? e).toList();
         state = state.copyWith(
-            loadingStatus: LoadingStatus.success,
-            routinDayList: routineDayList,
-            taskType: tasktype,
-            timeList: ['12']);
+          loadingStatus: LoadingStatus.success,
+          routinDayList: routineDayList,
+          taskType: tasktype,
+          time: routineTime,
+          timeSetting: routineTime.isNotEmpty, // 서버에서 줘야함
+        );
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,

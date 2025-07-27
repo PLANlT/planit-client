@@ -119,21 +119,45 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                   padding: const EdgeInsets.only(top: 4),
                   child: Row(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(4)),
-                          color: PlanitColors.white02,
-                        ),
-                        width: 56,
-                        height: 40,
-                        child: Center(
-                          child: PlanitText(
-                            '8:00',
-                            style: TextStyle(
-                              //피그마에 size14, weight400라 적혀있어서 TextStyle썼습니다
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: PlanitColors.black04,
+                      GestureDetector(
+                        onTap: state.timeSetting
+                            ? () async {
+                                final now = TimeOfDay.now();
+                                final pickedTime = await showTimePicker(
+                                  context: context,
+                                  initialTime: now,
+                                );
+                                if (pickedTime != null) {
+                                  final hour = pickedTime.hour
+                                      .toString()
+                                      .padLeft(2, '0');
+                                  final minute = pickedTime.minute
+                                      .toString()
+                                      .padLeft(2, '0');
+                                  final formattedTime =
+                                      '$hour:$minute'; // 예: "09:00"
+                                  viewmodel.updateSelectedTime(formattedTime);
+                                }
+                              }
+                            : null,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(4)),
+                            color: PlanitColors.white02,
+                          ),
+                          width: 56,
+                          height: 40,
+                          child: Center(
+                            child: PlanitText(
+                              state.time,
+                              style: TextStyle(
+                                //피그마에 size14, weight400라 적혀있어서 TextStyle썼습니다
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: state.timeSetting
+                                    ? PlanitColors.black01
+                                    : PlanitColors.black04,
+                              ),
                             ),
                           ),
                         ),
