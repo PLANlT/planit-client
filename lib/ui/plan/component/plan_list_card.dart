@@ -21,7 +21,7 @@ class PlanListCard extends StatelessWidget {
           'plan_detail',
           pathParameters: {
             'planId': plan.planId.toString(),
-            'planStatus': planStatus, // 예: 'active' or 'completed'
+            'planStatus': planStatus, 
           },
         );
       },

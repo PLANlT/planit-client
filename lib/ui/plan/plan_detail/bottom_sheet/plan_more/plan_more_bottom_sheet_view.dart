@@ -26,7 +26,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewmodel = ref.read(planMoreBottomSheetViewModelProvider.notifier);
+    final viewmodel = ref.watch(planMoreBottomSheetViewModelProvider.notifier);
 
     return Wrap(children: [
       PlanitBottomSheet(
@@ -39,7 +39,10 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                 onTap: () {
                   context.pushNamed(
                     PlanCreateView.routeName,
-                    queryParameters: {'planId': planId.toString()},
+                    queryParameters: {
+                      'planId': planId.toString(),
+                      'planStatus': planStatus
+                    },
                   );
                 },
                 child: PlanitText('플랜 수정', style: PlanitTypos.body2),
@@ -56,7 +59,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                   RootTab.routeName,
                 );
                 if (success) {
-                  Navigator.pop(context);
+                  context.pop();
                 } else {
                   final state = ref.read(planMoreBottomSheetViewModelProvider);
                   ScaffoldMessenger.of(context).showSnackBar(
