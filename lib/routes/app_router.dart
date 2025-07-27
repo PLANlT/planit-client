@@ -3,6 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/routes/redirect_notifier.dart';
+import 'package:planit/ui/archiving/archiving_complete/archiving_complete_naviagtor.dart';
+import 'package:planit/ui/archiving/archiving_complete/archiving_complete_view.dart';
+import 'package:planit/ui/archiving/archiving_detail/archiving_detail_view.dart';
+import 'package:planit/ui/archiving/archiving_main/archiving_view.dart';
+import 'package:planit/ui/archiving/archiving_restart/archiving_restart_view.dart';
 import 'package:planit/ui/common/const/web_view_params.dart';
 import 'package:planit/ui/common/view/planit_web_view.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
@@ -165,7 +170,67 @@ class AppRouter {
                         child: PlanTemplateDetailView(
                             templateDetai: templateDetail));
                   }),
+              GoRoute(
+                path: 'archiving',
+                name: ArchivingView.routeName,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: ArchivingView(),
+                ),
+                routes: [
+                  GoRoute(
+                      path: 'archivingDetail/:planId',
+                      name: ArchivingDetailView.routeName,
+                      pageBuilder: (context, state) {
+                        final planIdStr = state.pathParameters['planId']!;
+                        final planId = int.parse(planIdStr);
+                        return NoTransitionPage(
+                          child: ArchivingDetailView(
+                            planId: planId,
+                          ),
+                        );
+                      }),
+                  GoRoute(
+                    path: 'archivingRestart/:planId/:title',
+                    name: ArchivingRestartView.routeName,
+                    pageBuilder: (context, state) {
+                      final planIdStr = state.pathParameters['planId']!;
+                      final planId = int.parse(planIdStr);
+                      final title = state.pathParameters['title']!;
+
+                      return NoTransitionPage(
+                        child: ArchivingRestartView(
+                          planId: planId,
+                          title: title,
+                        ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'archivingComplete/:icon/:title',
+                    name: ArchivingCompleteView.routeName,
+                    pageBuilder: (context, state) {
+                      final icon = state.pathParameters['icon']!;
+                      final title = state.pathParameters['title']!;
+                      return NoTransitionPage(
+                          child:
+                              ArchivingCompleteView(icon: icon, title: title));
+                    },
+                  ),
+                  GoRoute(
+                    path: 'archivingCompleteNavigator/:icon/:title',
+                    name: ArchivingCompleteNavigator.routeName,
+                    pageBuilder: (context, state) {
+                      final icon = state.pathParameters['icon']!;
+                      final title = state.pathParameters['title']!;
+                      return NoTransitionPage(
+                          child: ArchivingCompleteNavigator(
+                              icon: icon, title: title));
+                    },
+                  )
+                ],
+              ),
             ],
+            //아카이빙
           ),
           // 길티프리
           GoRoute(

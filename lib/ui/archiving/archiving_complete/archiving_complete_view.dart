@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/repository/plan/model/plan_detail_model.dart';
@@ -15,6 +16,7 @@ import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingCompleteView extends StatelessWidget {
+  static String get routeName => 'archiving-complete';
   final String icon;
   final String title;
   const ArchivingCompleteView(
@@ -62,9 +64,10 @@ class ArchivingCompleteView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 36),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ArchivingCompleteNavigator(icon: icon, title: title);
-                  }));
+                  context.pushNamed(
+                    ArchivingCompleteNavigator.routeName,
+                    pathParameters: {'title': title, 'icon': icon},
+                  );
                 },
                 child: Container(
                     decoration: BoxDecoration(color: PlanitColors.white02),

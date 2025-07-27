@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
@@ -15,6 +16,7 @@ import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingCompleteNavigator extends StatelessWidget {
+  static String get routeName => 'archiving-complete-navigator';
   final String icon;
   final String title;
   const ArchivingCompleteNavigator(
@@ -71,10 +73,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return RootTab();
-                      }));
+                      context.pushNamed(RootTab.routeName);
                     },
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
@@ -85,10 +84,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return RootTab();
-                      }));
+                      context.pushNamed(RootTab.routeName);
                     },
                     buttonColor: PlanitButtonColor.white,
                     buttonSize: PlanitButtonSize.large,

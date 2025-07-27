@@ -67,11 +67,9 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                   final state = ref.read(planMoreBottomSheetViewModelProvider);
                   if (state.loadingStatus == LoadingStatus.success &&
                       context.mounted) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlanView(),
-                      ),
+                    context.pushNamed(
+                      ArchivingCompleteView.routeName,
+                      pathParameters: {'title': title, 'icon': icon},
                     );
                   } else if (state.loadingStatus == LoadingStatus.error &&
                       context.mounted) {

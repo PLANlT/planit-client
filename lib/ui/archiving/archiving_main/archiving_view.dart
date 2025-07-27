@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -12,6 +13,7 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 
 class ArchivingView extends HookConsumerWidget {
+  static String get routeName => 'archiving';
   const ArchivingView({super.key});
 
   @override
@@ -174,11 +176,12 @@ class _ArchivePlanScrollState extends State<ArchivePlanScroll> {
                 aspectRatio: aspectRatio,
                 child: GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ArchivingDetailView(
-                                  planId: widget.plans[index].planId)));
+                      context.pushNamed(
+                        ArchivingDetailView.routeName,
+                        pathParameters: {
+                          'planId': widget.plans[index].planId.toString()
+                        },
+                      );
                     },
                     child: ArchivePlanCard(plan: widget.plans[index])),
               ),
