@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/archiving/archiving_restart_view.dart';
+import 'package:planit/ui/archiving/archiving_restart/archiving_restart_view.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
@@ -17,13 +17,15 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 
 class ArchivingDetailView extends HookConsumerWidget {
-  const ArchivingDetailView({super.key});
+  final int planId;
+  const ArchivingDetailView({super.key, required this.planId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final PlanDetailState state = ref.watch(planDetailViewModelProvider(0));
+    final PlanDetailState state =
+        ref.watch(planDetailViewModelProvider(planId));
     final PlanDetailViewModel viewModel =
-        ref.read(planDetailViewModelProvider(0).notifier);
+        ref.read(planDetailViewModelProvider(planId).notifier);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -54,7 +56,7 @@ class ArchivingDetailView extends HookConsumerWidget {
               Align(
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
-                  state.planDetail!.icon,
+                  '${state.planDetail!.icon}.svg',
                   width: 120,
                   height: 120,
                 ),
@@ -139,7 +141,10 @@ class ArchivingDetailView extends HookConsumerWidget {
             child: PlanitButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ArchivingRestartView();
+                    return ArchivingRestartView(
+                      planId: planId,
+                      title: state.planDetail?.title ?? '',
+                    );
                   }));
                 },
                 buttonColor: PlanitButtonColor.black,

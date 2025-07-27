@@ -98,11 +98,10 @@ class PlanDetailView extends HookConsumerWidget {
                           context: context,
                           builder: (context) {
                             return PlanMoreBottomSheet(
+                              title: state.planDetail!.title,
                               planStatus: planStatus,
                               planId: planId,
-                              onClick: (planId) {
-                                viewModel.clickDeletePlan(planId);
-                              },
+                              icon: state.planDetail!.icon,
                             );
                           },
                         );

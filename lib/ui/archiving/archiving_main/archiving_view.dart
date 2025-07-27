@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/archiving/archiving_detail_view.dart';
+import 'package:planit/ui/archiving/archiving_detail/archiving_detail_view.dart';
+import 'package:planit/ui/archiving/archiving_main/archiving_view_model.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 
-class ArchivingView extends StatelessWidget {
+class ArchivingView extends HookConsumerWidget {
   const ArchivingView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final cardWidth = deviceWidth * 0.6;
     final aspectRatio = 223 / 300;
+    final viewmodel = ref.read(archivingViewModelProvider.notifier);
+    final state = ref.watch(archivingViewModelProvider);
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        viewmodel.init();
+      });
+      return null;
+    }, []);
+
     return DefaultLayout(
       extendBodyBehindAppBar: true,
       child: Column(
@@ -38,7 +51,9 @@ class ArchivingView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 52),
             child: SizedBox(
               height: cardWidth / aspectRatio,
-              child: ArchivePlanScroll(),
+              child: ArchivePlanScroll(
+                plans: state.archivingPlans,
+              ),
             ),
           ), // 위로 lift 되는 카드
         ],
@@ -48,8 +63,8 @@ class ArchivingView extends StatelessWidget {
 }
 
 class ArchivePlanCard extends StatelessWidget {
-  final int index;
-  const ArchivePlanCard({super.key, required this.index});
+  final ArchivingPlanModel plan;
+  const ArchivePlanCard({super.key, required this.plan});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,14 +77,19 @@ class ArchivePlanCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            Assets.planet1,
+            plan.icon.endsWith('.svg') ? plan.icon : '${plan.icon}.svg',
             width: 100,
             height: 100,
+            placeholderBuilder: (context) => Container(
+              width: 100,
+              height: 100,
+              color: PlanitColors.white03,
+            ),
           ),
-          PlanitText('다이어트', style: PlanitTypos.title2),
-          PlanitText('2일 전 완료',
+          PlanitText(plan.title, style: PlanitTypos.title2),
+          PlanitText('${plan.completedDaysAgo}일 전 완료',
               style: PlanitTypos.body3.copyWith(color: Color(0xFF666666))),
-          PlanitText('365일동안 진행했어요!',
+          PlanitText('${plan.progressDays}일동안 진행했어요!',
               style: PlanitTypos.body3.copyWith(
                   color: PlanitColors.alert, fontWeight: FontWeight.w400)),
           Padding(
@@ -83,7 +103,7 @@ class ArchivePlanCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Center(
-                  child: PlanitText('매일 조금씩, 꾸준히 나아가자',
+                  child: PlanitText(plan.motivation,
                       style: PlanitTypos.body3
                           .copyWith(color: PlanitColors.black03)),
                 ),
@@ -97,7 +117,8 @@ class ArchivePlanCard extends StatelessWidget {
 }
 
 class ArchivePlanScroll extends StatefulWidget {
-  const ArchivePlanScroll({super.key});
+  final List<ArchivingPlanModel> plans;
+  const ArchivePlanScroll({super.key, required this.plans});
 
   @override
   State<ArchivePlanScroll> createState() => _ArchivePlanScrollState();
@@ -128,7 +149,7 @@ class _ArchivePlanScrollState extends State<ArchivePlanScroll> {
       child: PageView.builder(
         clipBehavior: Clip.none,
         controller: _pageController,
-        itemCount: 5,
+        itemCount: widget.plans.length,
         itemBuilder: (context, index) {
           return AnimatedBuilder(
             animation: _pageController,
@@ -156,9 +177,10 @@ class _ArchivePlanScrollState extends State<ArchivePlanScroll> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ArchivingDetailView()));
+                              builder: (context) => ArchivingDetailView(
+                                  planId: widget.plans[index].planId)));
                     },
-                    child: ArchivePlanCard(index: index)),
+                    child: ArchivePlanCard(plan: widget.plans[index])),
               ),
             ),
           );

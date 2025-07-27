@@ -122,4 +122,13 @@ class PlanitTypos {
     leadingDistribution: TextLeadingDistribution.proportional,
     fontFamily: 'BlackHanSans',
   );
+
+  static const TextStyle blackHansSansRegular120 = TextStyle(
+    fontSize: 120,
+    fontWeight: FontWeight.w400,
+    height: 1.0,
+    letterSpacing: -0.48, // -0.01 * 48
+    leadingDistribution: TextLeadingDistribution.proportional,
+    fontFamily: 'BlackHanSans',
+  );
 }

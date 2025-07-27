@@ -5,10 +5,12 @@ import 'package:planit/core/api_response.dart';
 import 'package:planit/core/error_message.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/data_source/plan/plan_data_source.dart';
+import 'package:planit/data_source/plan/reponse_body/archiving_complete_plan_response_body.dart';
 import 'package:planit/data_source/plan/reponse_body/plan_create_response_body.dart';
 import 'package:planit/data_source/plan/reponse_body/plan_detail_response_body.dart';
 import 'package:planit/data_source/plan/reponse_body/plan_response_body.dart';
 import 'package:planit/data_source/plan/request_%20body/plan_request_body.dart';
+import 'package:planit/repository/archiving/model/archiving_complete_model.dart';
 import 'package:planit/repository/plan/model/plan_create_model.dart';
 import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
@@ -167,4 +169,18 @@ class PlanRepository {
     }
   }
 
+  Future<RepositoryResult<ArchivingCompleteModel>> completePlanByPlanId(
+      int planId) async {
+    try {
+      final ApiResponse<ArchivingCompletePlanResponseBody> result =
+          await _planDataSource.completePlan(planId: planId);
+      final data = result.data;
+      final model = ArchivingCompleteModel.fromResponse(data);
+      return SuccessRepositoryResult(data: model);
+    } on DioException catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    } catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    }
+  }
 }
