@@ -16,7 +16,7 @@ class ArchivingCompleteModel {
     required this.motivation,
     required this.planStatus,
     required this.startedAt,
-    required this.finishedAt,
+    this.finishedAt,
   });
 
   ArchivingCompleteModel.fromResponse(

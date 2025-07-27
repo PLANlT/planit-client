@@ -34,7 +34,7 @@ class ArchivingRestartViewModel extends StateNotifier<ArchivingRestartState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '아키이빙 불러오기에 실패했어요.',
+          errorMessage: '아키이빙 재시작에 실패했어요.',
         );
     }
   }

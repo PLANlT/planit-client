@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/core/loading_status.dart';
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -66,14 +67,24 @@ class ArchivingRestartView extends HookConsumerWidget {
             child: SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                  onPressed: () {
-                    viewmodel.restartArchivingPlan(planId);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PlanView(),
-                      ),
-                    );
+                  onPressed: () async {
+                    await viewmodel.restartArchivingPlan(planId);
+                    final state = ref.read(archivingRestartViewModelProvider);
+                    if (state.loadingStatus == LoadingStatus.success &&
+                        context.mounted) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlanView(),
+                        ),
+                      );
+                    } else if (state.loadingStatus == LoadingStatus.error &&
+                        context.mounted) {
+                      // 에러 처리 (예: 스낵바 표시)
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.errorMessage)),
+                      );
+                    }
                   },
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,

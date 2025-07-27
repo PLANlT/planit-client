@@ -20,13 +20,13 @@ class ArchivingView extends HookConsumerWidget {
     final cardWidth = deviceWidth * 0.6;
     final aspectRatio = 223 / 300;
     final viewmodel = ref.read(archivingViewModelProvider.notifier);
-    final state = ref.read(archivingViewModelProvider);
+    final state = ref.watch(archivingViewModelProvider);
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         viewmodel.init();
       });
       return null;
-    });
+    }, []);
 
     return DefaultLayout(
       extendBodyBehindAppBar: true,
@@ -77,9 +77,14 @@ class ArchivePlanCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            '${plan.icon}.svg',
+            plan.icon.endsWith('.svg') ? plan.icon : '${plan.icon}.svg',
             width: 100,
             height: 100,
+            placeholderBuilder: (context) => Container(
+              width: 100,
+              height: 100,
+              color: PlanitColors.white03,
+            ),
           ),
           PlanitText(plan.title, style: PlanitTypos.title2),
           PlanitText('${plan.completedDaysAgo}일 전 완료',

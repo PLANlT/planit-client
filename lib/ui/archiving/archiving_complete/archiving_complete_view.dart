@@ -74,7 +74,7 @@ class ArchivingCompleteView extends StatelessWidget {
                       spacing: 10,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        PlanitText("플랜 '다이어트' ", style: PlanitTypos.title2),
+                        PlanitText('플랜 $title ', style: PlanitTypos.title2),
                         PlanitText('하나의 행성계를 이루었어요!', style: PlanitTypos.body2)
                       ],
                     )),

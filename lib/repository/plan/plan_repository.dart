@@ -179,6 +179,8 @@ class PlanRepository {
       return SuccessRepositoryResult(data: model);
     } on DioException catch (e) {
       return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
+    } catch (e) {
+      return FailureRepositoryResult(error: e, messages: [networkErrorMsg]);
     }
   }
 }

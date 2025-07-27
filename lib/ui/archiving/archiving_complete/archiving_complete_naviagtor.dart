@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -44,7 +45,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                         const SizedBox(height: 8),
                         PlanitText(title, style: PlanitTypos.title2),
                         PlanitText(
-                          '${DateTime.now().toIso8601String().substring(0, 10)} 완료',
+                          '${DateFormat('yyyy-MM-dd').format(DateTime.now())} 완료',
                           style: PlanitTypos.body3
                               .copyWith(color: Color(0xFF666666)),
                         ),
