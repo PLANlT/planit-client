@@ -15,35 +15,58 @@ class ConditionTipTableRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 32),
-      child: Table(
-        columnWidths: {
-          0: const FlexColumnWidth(4),
-          1: const FixedColumnWidth(40),
-          2: const FlexColumnWidth(4),
-        },
-        children: [
-          TableRow(children: [
-            PlanitText(
-              left,
-              style: PlanitTypos.body3.copyWith(color: PlanitColors.black03),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(right: double.infinity),
-              child: PlanitText('→',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: PlanitColors.black03,
-                  )),
-            ),
-            PlanitText(
-              right,
-              style: PlanitTypos.body3.copyWith(color: PlanitColors.black03),
-            ),
-          ]),
-        ],
-      ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 3,
+          child: PlanitText(
+            left,
+            style: PlanitTypos.body3.copyWith(color: PlanitColors.black03),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: PlanitText(
+            '→',
+            style: PlanitTypos.body3.copyWith(color: PlanitColors.white03),
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: PlanitText(
+            right,
+            style: PlanitTypos.body3.copyWith(color: PlanitColors.black03),
+          ),
+        ),
+      ],
     );
+    // return Table(
+    //   columnWidths: {
+    //     0: const FlexColumnWidth(4),
+    //     1: const FixedColumnWidth(40),
+    //     2: const FlexColumnWidth(4),
+    //   },
+    //   children: [
+    //     TableRow(children: [
+    //       PlanitText(
+    //         left,
+    //         style: PlanitTypos.body3.copyWith(color: PlanitColors.black03),
+    //       ),
+    //       const Padding(
+    //         padding: EdgeInsets.only(right: double.infinity),
+    //         child: PlanitText('→',
+    //             style: TextStyle(
+    //               fontSize: 18,
+    //               color: PlanitColors.black03,
+    //             )),
+    //       ),
+    //       PlanitText(
+    //         right,
+    //         style: PlanitTypos.body3.copyWith(color: PlanitColors.black03),
+    //       ),
+    //     ]),
+    //   ],
+    // );
   }
 }
