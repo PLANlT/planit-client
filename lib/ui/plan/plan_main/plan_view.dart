@@ -108,6 +108,7 @@ class PlanView extends HookConsumerWidget {
                   ),
                 ],
               ),
+            SizedBox(height: 40),
           ],
         ),
       ),
