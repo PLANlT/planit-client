@@ -206,11 +206,37 @@ class PlanCreateView extends HookConsumerWidget {
                             context: context,
                             firstDate: DateTime.now(),
                             lastDate: DateTime(2100),
+                            builder: (context, child) => Theme(
+                              data: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.light(
+                                  primary: PlanitColors.white03,
+                                  surface: PlanitColors.white01,
+                                  onPrimary: PlanitColors.red,
+                                  onSurface: PlanitColors.black01,
+                                ),
+                                textTheme: TextTheme(
+                                  bodyLarge: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: 'Pretendard',
+                                    color: PlanitColors.black01,
+                                  ),
+                                ),
+                                textButtonTheme: TextButtonThemeData(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: PlanitColors.black01,
+                                    textStyle: PlanitTypos.body2,
+                                  ),
+                                ),
+                              ),
+                              child: child!,
+                            ),
                           );
 
                           if (selectedDate != null) {
-                            final formatDate =
-                                DateFormat('yy-MM-dd').format(selectedDate);
+                            final formatDate = DateFormat('yy-MM-dd').format(
+                              selectedDate,
+                            );
                             viewmodel.updateSelectedDate(formatDate);
                             viewmodel.calculateDday(selectedDate);
                           }
