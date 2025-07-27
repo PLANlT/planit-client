@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
@@ -11,10 +12,12 @@ import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingRestartView extends HookConsumerWidget {
   final int planId;
+  static String get routeName => 'archiving-restart';
   final String title;
   const ArchivingRestartView(
       {super.key, required this.planId, required this.title});
@@ -72,12 +75,7 @@ class ArchivingRestartView extends HookConsumerWidget {
                     final state = ref.read(archivingRestartViewModelProvider);
                     if (state.loadingStatus == LoadingStatus.success &&
                         context.mounted) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PlanView(),
-                        ),
-                      );
+                      context.pushNamed(RootTab.routeName);
                     } else if (state.loadingStatus == LoadingStatus.error &&
                         context.mounted) {
                       // 에러 처리 (예: 스낵바 표시)

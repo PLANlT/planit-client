@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -18,6 +19,7 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 
 class ArchivingDetailView extends HookConsumerWidget {
   final int planId;
+  static String get routeName => 'archiving-detail';
   const ArchivingDetailView({super.key, required this.planId});
 
   @override
@@ -140,12 +142,13 @@ class ArchivingDetailView extends HookConsumerWidget {
             width: double.infinity,
             child: PlanitButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ArchivingRestartView(
-                      planId: planId,
-                      title: state.planDetail?.title ?? '',
-                    );
-                  }));
+                  context.pushNamed(
+                    ArchivingRestartView.routeName,
+                    pathParameters: {
+                      'planId': planId.toString(),
+                      'title': state.planDetail!.title
+                    },
+                  );
                 },
                 buttonColor: PlanitButtonColor.black,
                 buttonSize: PlanitButtonSize.large,
