@@ -61,12 +61,25 @@ class MainViewModel extends StateNotifier<MainState> {
       return;
     }
 
-    final DateTime? lastCompleteTaskDate = stringToDateTime(
+    final DateTime? lastCompleteTaskDateTime = stringToDateTime(
       lastCompleteTaskDateString,
     );
-    final DateTime today = DateTime.now();
+    final DateTime todayDatetime = DateTime.now();
+
+    // 시각 포함하지 않고 날짜만 비교
+    final lastDate = DateTime(
+      lastCompleteTaskDateTime!.year,
+      lastCompleteTaskDateTime.month,
+      lastCompleteTaskDateTime.day,
+    );
+    final today = DateTime(
+      todayDatetime.year,
+      todayDatetime.month,
+      todayDatetime.day,
+    );
+
     // 오늘 이전이 아니라면 == 오늘이거나, 오늘 이후라면>첫 달성을 한 것
-    if (!lastCompleteTaskDate!.isBefore(today)) {
+    if (!lastDate.isBefore(today)) {
       state = state.copyWith(taskStatus: TaskStatus.partial);
     } else {
       state = state.copyWith(taskStatus: TaskStatus.nothing);
