@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
+import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_text_field.dart';
+import 'package:planit/ui/common/const/planit_button_style.dart';
 
 class TaskAddBottomSheetView extends StatefulWidget {
   final void Function(String title) onConfirm;
@@ -17,57 +19,68 @@ class TaskAddBottomSheetView extends StatefulWidget {
 
 class _TaskAddBottomSheetViewState extends State<TaskAddBottomSheetView> {
   late final TextEditingController controller;
+
+  // 텍스트필드 내 입력값 즉시 감지하기 위함
+  bool isTextNotEmpty = false;
+
   @override
   void initState() {
     super.initState();
-    controller = TextEditingController();
+    controller = TextEditingController()
+      ..addListener(() {
+        final newValue = controller.text.isNotEmpty;
+        if (isTextNotEmpty != newValue) {
+          setState(() {
+            isTextNotEmpty = newValue;
+          });
+        }
+      });
   }
 
   @override
   void dispose() {
-    controller.dispose(); 
+    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [
-      PlanitBottomSheet(
-        content: Column(
-          spacing: 8.0,
+    return PlanitBottomSheet(
+      content: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(
+          top: 16,
+        ),
+        child: Column(
           children: [
-            PlanitText('할 일을 생성해주세요', style: PlanitTypos.title3),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              child: PlanitTextField(
-                hintText: '내용을 입력해주세요',
-                controller: controller,
+            PlanitText(
+              '할 일을 작성해주세요',
+              style: PlanitTypos.title3.copyWith(
+                color: PlanitColors.black01,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: GestureDetector(
-                onTap: () {
+            SizedBox(height: 16),
+            PlanitTextField(
+              hintText: '내용을 입력해주세요',
+              controller: controller,
+            ),
+            SizedBox(height: 32),
+            SizedBox(
+              width: double.infinity,
+              child: PlanitButton(
+                onPressed: () {
                   final title = controller.text.trim();
                   widget.onConfirm(title);
-                  Navigator.of(context).pop();
+                  context.pop();
                 },
-                child: PlanitText('생성', style: PlanitTypos.body2),
+                buttonColor: PlanitButtonColor.black,
+                buttonSize: PlanitButtonSize.large,
+                label: '생성하기',
+                enabled: isTextNotEmpty,
               ),
             ),
-            Divider(
-              color: PlanitColors.white03,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: PlanitText('취소',
-                  style: PlanitTypos.body2.copyWith(color: PlanitColors.alert)),
-            )
           ],
         ),
       ),
-    ]);
+    );
   }
 }

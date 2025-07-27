@@ -52,13 +52,14 @@ class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
     }
   }
 
-
-
   Future<void> clickAddButton(String title) async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
-    final taskAddResult =
-        await _taskRepository.addTask(title: title, planId: _planId);
+    final taskAddResult = await _taskRepository.addTask(
+      title: title,
+      planId: _planId,
+      taskType: 'ALL',
+    );
 
     if (taskAddResult is SuccessRepositoryResult<TaskModel>) {
       final planDetailResult =

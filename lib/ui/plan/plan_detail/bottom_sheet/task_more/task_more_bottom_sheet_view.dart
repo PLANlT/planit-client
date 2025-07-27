@@ -9,6 +9,7 @@ import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bott
 
 class TaskMoreBottomSheetView extends HookConsumerWidget {
   final int taskId;
+
   const TaskMoreBottomSheetView({
     super.key,
     required this.taskId,
@@ -18,14 +19,12 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TaskMoreBottomSheetViewModel viewmodel =
         ref.read(taskMoreBottomSheetViewModelProvider(taskId).notifier);
-    return Wrap(children: [
-      PlanitBottomSheet(
-        content: Column(
-          spacing: 8.0,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: GestureDetector(
+    return Wrap(
+      children: [
+        PlanitBottomSheet(
+          content: Column(
+            children: [
+              GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
                   showModalBottomSheet(
@@ -36,22 +35,40 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
                     ),
                   );
                 },
-                child: PlanitText('수정', style: PlanitTypos.body2),
+                // 터치 영역 확장 위해 흰색 컨테이너 사용
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  color: PlanitColors.white01,
+                  child: PlanitText(
+                    '할 일 상세 설정',
+                    style: PlanitTypos.body2.copyWith(
+                      color: PlanitColors.black01,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            Divider(
-              color: PlanitColors.white03,
-            ),
-            GestureDetector(
-              onTap: () {
-                viewmodel.clickDeleteTask();
-              },
-              child: PlanitText('삭제',
-                  style: PlanitTypos.body2.copyWith(color: PlanitColors.alert)),
-            )
-          ],
+              Divider(
+                color: PlanitColors.white03,
+              ),
+              GestureDetector(
+                onTap: () {
+                  viewmodel.clickDeleteTask();
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  color: PlanitColors.white01,
+                  child: PlanitText(
+                    '삭제',
+                    style: PlanitTypos.body2.copyWith(
+                      color: PlanitColors.alert,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 }

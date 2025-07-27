@@ -6,7 +6,7 @@ part of 'task_data_source.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
 class _TaskDataSource implements TaskDataSource {
   _TaskDataSource(this._dio, {this.baseUrl, this.errorLogger});
@@ -18,18 +18,15 @@ class _TaskDataSource implements TaskDataSource {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ApiResponse<TaskCreateResponseBody>> createTask(
-    int planId,
-    String title,
-  ) async {
+  Future<ApiResponse<TaskCreateResponseBody>> createTask({
+    required int planId,
+    required TaskRequestBody body,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'planId': planId,
-      r'title': title,
-    };
+    final queryParameters = <String, dynamic>{r'planId': planId};
     final _headers = <String, dynamic>{r'accessToken': 'true'};
     _headers.removeWhere((k, v) => v == null);
-    const Map<String, dynamic>? _data = null;
+    final _data = body;
     final _options = _setStreamType<ApiResponse<TaskCreateResponseBody>>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

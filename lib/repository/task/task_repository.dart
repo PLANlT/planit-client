@@ -4,6 +4,7 @@ import 'package:planit/core/api_response.dart';
 import 'package:planit/core/error_message.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/data_source/task/request_body/routine_request_body.dart';
+import 'package:planit/data_source/task/request_body/task_request_body.dart';
 import 'package:planit/data_source/task/response_body/routine_response_body.dart';
 import 'package:planit/data_source/task/response_body/task_create_response_body.dart';
 import 'package:planit/data_source/task/task_data_source.dart';
@@ -64,11 +65,20 @@ class TaskRepository {
     }
   }
 
-  Future<RepositoryResult<TaskModel>> addTask(
-      {required String title, required int planId}) async {
+  Future<RepositoryResult<TaskModel>> addTask({
+    required String title,
+    required int planId,
+    required String taskType,
+  }) async {
     try {
       final ApiResponse<TaskCreateResponseBody> result =
-          await _taskDataSource.createTask(planId, title);
+          await _taskDataSource.createTask(
+        planId: planId,
+        body: TaskRequestBody(
+          title: title,
+          taskType: taskType,
+        ),
+      );
       final model = TaskModel.fromResponse(result.data);
       return SuccessRepositoryResult(data: model);
     } on DioException catch (e) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:planit/theme/planit_colors.dart';
-import 'package:planit/ui/common/assets.dart';
 
 class PlanetWrapGrid extends StatelessWidget {
   final String? selectedIcon;

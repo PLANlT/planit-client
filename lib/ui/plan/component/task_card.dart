@@ -12,11 +12,12 @@ class TaskCard extends StatelessWidget {
   final String taskType;
   final int taskId;
 
-  const TaskCard(
-      {super.key,
-      required this.title,
-      required this.taskId,
-      required this.taskType});
+  const TaskCard({
+    super.key,
+    required this.title,
+    required this.taskId,
+    required this.taskType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,18 +60,19 @@ class TaskCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: false,
-                        builder: (context) {
-                          return TaskMoreBottomSheetView(
-                            taskId: taskId,
-                          );
-                        },
-                      );
-                    },
-                    child: SvgPicture.asset(Assets.more)),
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: false,
+                      builder: (context) {
+                        return TaskMoreBottomSheetView(
+                          taskId: taskId,
+                        );
+                      },
+                    );
+                  },
+                  child: SvgPicture.asset(Assets.more),
+                ),
               ),
             ],
           ),

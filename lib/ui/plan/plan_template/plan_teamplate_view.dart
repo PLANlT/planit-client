@@ -9,6 +9,7 @@ import 'package:planit/ui/plan/plan_template/plan_template.dart';
 class PlanTeamplateView extends StatelessWidget {
   static String get routeName => 'plan_template';
   final String templateName;
+
   const PlanTeamplateView({required this.templateName, super.key});
 
   @override
@@ -36,27 +37,24 @@ class PlanTeamplateView extends StatelessWidget {
     }
 
     return DefaultLayout(
-        child: Column(children: [
-      AppBar(
-        backgroundColor: PlanitColors.transparent,
-        title: PlanitText(template.title,
-            style: PlanitTypos.body2.copyWith(color: PlanitColors.black01)),
+      title: templateName,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemCount: template.templateDetails.length,
+              separatorBuilder: (context, index) => SizedBox(height: 12),
+              itemBuilder: (context, index) {
+                return TemplateDetailCard(
+                  templateDetail: template.templateDetails[index],
+                );
+              },
+            ),
+          ),
+        ],
       ),
-      Padding(
-        padding: const EdgeInsets.only(top: 32),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: template.templateDetails.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: TemplateDetailCard(
-                templateDetail: template.templateDetails[index],
-              ),
-            );
-          },
-        ),
-      ),
-    ]));
+    );
   }
 }

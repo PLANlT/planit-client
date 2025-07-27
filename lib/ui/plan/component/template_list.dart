@@ -25,29 +25,33 @@ class TemplateList extends StatelessWidget {
       '관계',
     ];
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 20),
-      child: SizedBox(
-        height: 100,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: templateImage.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                context.pushNamed(
-                  PlanTeamplateView.routeName,
-                  pathParameters: {'templateName': templateNames[index]},
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: SvgPicture.asset(templateImage[index]),
+    return SizedBox(
+      height: 112,
+      child: ListView.separated(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: templateImage.length,
+        padding: EdgeInsets.zero,
+        separatorBuilder: (context, index) => SizedBox(width: 12),
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              context.pushNamed(
+                PlanTeamplateView.routeName,
+                pathParameters: {'templateName': templateNames[index]},
+              );
+            },
+            child: Padding(
+              // 첫번째 아이템에만 좌측 패딩
+              padding: EdgeInsets.only(left: index == 0 ? 20 : 0),
+              child: SvgPicture.asset(
+                templateImage[index],
+                height: 112,
+                width: 144,
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

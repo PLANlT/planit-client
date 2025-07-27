@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/plan/model/plan_create_model.dart';
 import 'package:planit/repository/plan/plan_repository.dart';
@@ -63,8 +62,11 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
     }
 
     for (final task in templateDetail.tasks) {
-      final taskAddResult =
-          await _taskRepository.addTask(title: task.title, planId: planId);
+      final taskAddResult = await _taskRepository.addTask(
+        title: task.title,
+        planId: planId,
+        taskType: 'ALL',
+      );
 
       if (taskAddResult is FailureRepositoryResult) {
         // 실패 시 처리 (예: 에러 반환, 로그 기록 등)
