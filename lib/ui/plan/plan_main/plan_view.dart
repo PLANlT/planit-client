@@ -13,6 +13,7 @@ import 'package:planit/ui/plan/component/plan_list_card.dart';
 import 'package:planit/ui/plan/component/template_list.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
+import 'package:planit/ui/plan/plan_main/plan_all_view.dart';
 import 'package:planit/ui/plan/plan_main/plan_state.dart';
 import 'package:planit/ui/plan/plan_main/plan_view_model.dart';
 
@@ -142,6 +143,7 @@ class _PlanList extends StatelessWidget {
           SizedBox(height: 12),
           // 진행 중인 플랜 리스트
           ListView.separated(
+            physics: NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             itemCount: plans.length > 5 ? 5 : plans.length,
@@ -163,7 +165,7 @@ class _PlanList extends StatelessWidget {
                 child: PlanitButton(
                   onPressed: () {
                     context.pushNamed(
-                      PlanViewAll.routeName,
+                      PlanAllView.routeName,
                       pathParameters: {
                         'isActive':
                             planStatus == 'IN_PROGRESS' ? 'true' : 'false',
@@ -177,138 +179,6 @@ class _PlanList extends StatelessWidget {
                 ),
               ),
             ),
-        ],
-      ),
-    );
-  }
-}
-
-class PlanViewAll extends StatefulWidget {
-  static String get routeName => 'plan_all';
-  final List<PlanModel> planList;
-  final bool isActive;
-
-  const PlanViewAll(
-      {super.key, required this.planList, required this.isActive});
-
-  @override
-  State<PlanViewAll> createState() => _PlanViewAllState();
-}
-
-class _PlanViewAllState extends State<PlanViewAll> {
-  late final PageController _pageController;
-  int _currentPage = 0;
-  late final List<List<PlanModel>> _pagedPlans;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-    _pagedPlans = _paginate(widget.planList, 6);
-  }
-
-  List<List<PlanModel>> _paginate(List<PlanModel> plans, int size) {
-    List<List<PlanModel>> pages = [];
-    for (int i = 0; i < plans.length; i += size) {
-      pages.add(
-        plans.sublist(i, (i + size > plans.length) ? plans.length : i + size),
-      );
-    }
-    return pages;
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultLayout(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BuildAppBar(),
-          if (widget.isActive)
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitText(
-                  '진행 중인 플랜',
-                  style: PlanitTypos.body2.copyWith(
-                    color: PlanitColors.black01,
-                  ),
-                ),
-              ),
-            ),
-          if (!widget.isActive)
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: PlanitText(
-                  '잠시 중단한 플랜',
-                  style: PlanitTypos.body2.copyWith(
-                    color: PlanitColors.black01,
-                  ),
-                ),
-              ),
-            ),
-          Expanded(
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: _pagedPlans.length,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
-              itemBuilder: (context, pageIndex) {
-                final plans = _pagedPlans[pageIndex];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20)
-                      .copyWith(top: 16),
-                  child: ListView.builder(
-                    itemCount: plans.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: PlanListCard(
-                          plan: plans[index],
-                          planStatus: 'PAUSED',
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                _pagedPlans.length,
-                (index) {
-                  final isActive = index == _currentPage;
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 4),
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isActive
-                          ? PlanitColors.black02
-                          : PlanitColors.white03,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
         ],
       ),
     );

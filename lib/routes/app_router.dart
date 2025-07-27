@@ -19,6 +19,7 @@ import 'package:planit/ui/mypage/view/mypage_view.dart';
 import 'package:planit/ui/onboarding/onboarding_view.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
+import 'package:planit/ui/plan/plan_main/plan_all_view.dart';
 import 'package:planit/ui/plan/plan_main/plan_view.dart';
 import 'package:planit/ui/plan/plan_template/plan_teamplate_view.dart';
 import 'package:planit/ui/plan/plan_template/plan_template.dart';
@@ -107,13 +108,13 @@ class AppRouter {
             routes: [
               GoRoute(
                 path: 'all/:isActive',
-                name: PlanViewAll.routeName,
+                name: PlanAllView.routeName,
                 pageBuilder: (context, state) {
                   final planList = state.extra as List<PlanModel>? ?? [];
                   final isActiveStr = state.pathParameters['isActive']!;
                   final isActive = bool.parse(isActiveStr);
                   return NoTransitionPage(
-                      child: PlanViewAll(
+                      child: PlanAllView(
                     planList: planList,
                     isActive: isActive,
                   ));
