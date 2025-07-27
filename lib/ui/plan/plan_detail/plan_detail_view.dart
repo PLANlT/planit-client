@@ -54,6 +54,7 @@ class PlanDetailView extends HookConsumerWidget {
               icon: Icon(Icons.add, color: PlanitColors.white01),
               onPressed: () {
                 showModalBottomSheet(
+                  isScrollControlled: true,
                   context: context,
                   builder: (context) {
                     return TaskAddBottomSheetView(

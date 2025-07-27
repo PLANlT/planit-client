@@ -34,6 +34,10 @@ class PlanitBottomSheet extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: height,
+      // 키보드 올라올 때 바텀시트가 키보드 위로 올라갈 수 있도록
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
       decoration: BoxDecoration(
         color: PlanitColors.white01,
         borderRadius: BorderRadius.only(
