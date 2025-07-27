@@ -51,4 +51,23 @@ class MypageRepository {
       );
     }
   }
+
+  Future<RepositoryResult<void>> withdraw() async {
+    try {
+      await _mypageDataSource.delete();
+      return SuccessRepositoryResult(data: null);
+    } on DioException catch (e) {
+      final int? statusCode = e.response?.statusCode;
+
+      return switch (statusCode) {
+        // 탈퇴 요청이 이미 완료되어 에러 응답이 반환됨
+        // UI 상에서는 그냥 로그아웃 시키면 되므로 Success 반환
+        400 => SuccessRepositoryResult(data: null),
+        _ => FailureRepositoryResult(
+            error: e,
+            messages: [networkErrorMsg],
+          ),
+      };
+    }
+  }
 }

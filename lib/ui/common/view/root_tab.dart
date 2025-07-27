@@ -32,6 +32,7 @@ class _RootTabState extends ConsumerState<RootTab>
     super.initState();
     controller = TabController(
       length: 3,
+      initialIndex: 1,
       vsync: this, // controller를 선언하는 state
       // vsync를 위해 with SingleTickerProviderStateMixin 추가
     );
