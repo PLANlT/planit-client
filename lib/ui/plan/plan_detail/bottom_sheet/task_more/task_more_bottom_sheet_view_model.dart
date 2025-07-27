@@ -23,20 +23,23 @@ class TaskMoreBottomSheetViewModel
         _taskId = taskid,
         super(TaskMoreBottomSheetState());
 
-  void clickDeleteTask() async {
+  Future<bool> clickDeleteTask() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
     final result = await _taskRepository.removeTask(taskId: _taskId);
-    if (!mounted) return;
+    if (!mounted) return false;
+
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
+        return true;
 
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '작업 삭제에 실패했어요.',
         );
+        return false;
     }
   }
 }
