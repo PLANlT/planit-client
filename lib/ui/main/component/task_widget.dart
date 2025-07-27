@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -95,10 +96,14 @@ class _Task extends StatelessWidget {
                         ),
                         SizedBox(height: 16.0),
                         GestureDetector(
-                          onTap: () => onCheckboxTap(
-                            taskId: task.taskId,
-                            isCurrentCompleted: task.isCompleted,
-                          ),
+                          onTap: () {
+                            // 바텀시트 닫은 후에 완료 처리
+                            context.pop();
+                            onCheckboxTap(
+                              taskId: task.taskId,
+                              isCurrentCompleted: task.isCompleted,
+                            );
+                          },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: PlanitText(
