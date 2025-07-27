@@ -62,8 +62,11 @@ class PlanTemplateViewModel extends StateNotifier<PlanTemplateState> {
     }
 
     for (final task in templateDetail.tasks) {
-      final taskAddResult =
-          await _taskRepository.addTask(title: task.title, planId: planId);
+      final taskAddResult = await _taskRepository.addTask(
+        title: task.title,
+        planId: planId,
+        taskType: 'ALL',
+      );
 
       if (taskAddResult is FailureRepositoryResult) {
         // 실패 시 처리 (예: 에러 반환, 로그 기록 등)
