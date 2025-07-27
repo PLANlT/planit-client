@@ -26,7 +26,7 @@ class TodayPlanResponseBody {
   final String title;
   final List<TaskStatusResponseBody> tasks;
   @JsonKey(name: 'dday')
-  final String dDay;
+  final String? dDay;
 
   TodayPlanResponseBody({
     required this.planId,

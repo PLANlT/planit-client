@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/assets.dart';
 
 // 모든 view의 start 위젯입니다
 class DefaultLayout extends StatelessWidget {
@@ -29,25 +32,31 @@ class DefaultLayout extends StatelessWidget {
       // Body와 AppBar가 겹치도록
       extendBodyBehindAppBar: extendBodyBehindAppBar,
       backgroundColor: backgroundColor ?? PlanitColors.white01,
-      appBar: renderAppBar(),
+      appBar: renderAppBar(context),
       body: child,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
     );
   }
 
-  AppBar? renderAppBar() {
+  AppBar? renderAppBar(BuildContext context) {
     if (title == null) {
       return null;
     } else {
-      // TODO: AppBar 커스텀
       return AppBar(
         backgroundColor: appBarColor ?? PlanitColors.white01,
         foregroundColor: PlanitColors.black01,
+        scrolledUnderElevation: 0,
         elevation: 0,
+        leading: IconButton(
+          onPressed: () => context.pop(),
+          icon: SvgPicture.asset(Assets.chevronLeft),
+        ),
         title: Text(
           title!,
-          style: PlanitTypos.body2,
+          style: PlanitTypos.body2.copyWith(
+            color: PlanitColors.black01,
+          ),
         ),
       );
     }

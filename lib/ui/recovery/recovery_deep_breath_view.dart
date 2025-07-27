@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/recovery/recovery_small_action_view.dart';
@@ -11,6 +12,8 @@ import 'component/recovery_bg.dart';
 import 'component/recovery_timer.dart';
 
 class RecoveryDeepBreathView extends StatefulWidget {
+  static String get routeName => 'breath';
+
   const RecoveryDeepBreathView({super.key});
 
   @override
@@ -33,6 +36,7 @@ class _RecoveryDeepBreathViewState extends State<RecoveryDeepBreathView>
   );
 
   int _remainSeconds = 60;
+  bool activateBtn = false;
 
   @override
   void initState() {
@@ -48,7 +52,9 @@ class _RecoveryDeepBreathViewState extends State<RecoveryDeepBreathView>
     // 애니메이션 완료 리스너
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        // TODO: 버튼 활성화
+        setState(() {
+          activateBtn = true;
+        });
       }
     });
 
@@ -110,14 +116,13 @@ class _RecoveryDeepBreathViewState extends State<RecoveryDeepBreathView>
               SizedBox(
                 width: double.infinity,
                 child: PlanitButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => RecoverySmallActionView(),
-                    ),
+                  onPressed: () => context.goNamed(
+                    RecoverySmallActionView.routeName,
                   ),
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
                   label: '다음',
+                  enabled: activateBtn,
                 ),
               ),
             ],

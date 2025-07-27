@@ -11,7 +11,7 @@ import '../main_view_model.dart';
 class TaskWidget extends StatelessWidget {
   final String planTitle;
   final List<TaskStatusModel> tasks;
-  final String dDay;
+  final String? dDay;
   final int planIndex;
   final OnCheckboxTap onCheckboxTap;
 
@@ -154,7 +154,7 @@ class _Task extends StatelessWidget {
 }
 
 class _DDay extends StatelessWidget {
-  final String dDay;
+  final String? dDay;
 
   const _DDay({
     required this.dDay,
@@ -162,7 +162,7 @@ class _DDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (dDay.isEmpty)
+    return (dDay == null)
         ? SizedBox.shrink()
         : Container(
             decoration: BoxDecoration(
@@ -177,7 +177,7 @@ class _DDay extends StatelessWidget {
               vertical: 4.0,
             ),
             child: PlanitText(
-              dDay,
+              dDay!,
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,

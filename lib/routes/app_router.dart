@@ -6,6 +6,10 @@ import 'package:planit/routes/redirect_notifier.dart';
 import 'package:planit/ui/common/const/web_view_params.dart';
 import 'package:planit/ui/common/view/planit_web_view.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
+import 'package:planit/ui/guilty_free/ing/history/guilty_free_history_view.dart';
+import 'package:planit/ui/guilty_free/start/view/guilty_free_blocked_view.dart';
+import 'package:planit/ui/guilty_free/start/view/guilty_free_intro_view.dart';
+import 'package:planit/ui/guilty_free/start/view/guilty_free_reason_view.dart';
 import 'package:planit/ui/login/login_view.dart';
 import 'package:planit/ui/login/tos_view.dart';
 import 'package:planit/ui/mypage/view/mypage_account_view.dart';
@@ -18,8 +22,14 @@ import 'package:planit/ui/plan/plan_main/plan_view.dart';
 import 'package:planit/ui/plan/plan_template/plan_teamplate_view.dart';
 import 'package:planit/ui/plan/plan_template/plan_template.dart';
 import 'package:planit/ui/plan/plan_template/plan_template_detail_view.dart';
+import 'package:planit/ui/recovery/recovery_complete_view.dart';
+import 'package:planit/ui/recovery/recovery_deep_breath_view.dart';
+import 'package:planit/ui/recovery/recovery_description_view.dart';
+import 'package:planit/ui/recovery/recovery_small_action_view.dart';
+import 'package:planit/ui/recovery/recovery_stop_phone_view.dart';
 import 'package:planit/ui/splash_view.dart';
 
+import '../ui/recovery/recovery_intro_view.dart';
 import 'app_router_interceptor.dart';
 
 final Provider<AppRouter> appRouterProvider =
@@ -52,7 +62,6 @@ class AppRouter {
       context,
       state,
     ),
-    navigatorKey: rootNavigatorKey,
     refreshListenable: _refreshListenable,
     initialLocation: '/splash',
     routes: [
@@ -64,6 +73,7 @@ class AppRouter {
           child: RootTab(),
         ),
         routes: [
+          // 마이페이지
           GoRoute(
             path: 'main/mypage',
             name: MypageView.routeName,
@@ -156,6 +166,80 @@ class AppRouter {
                   }),
             ],
           ),
+          // 길티프리
+          GoRoute(
+            path: 'guilty-intro',
+            name: GuiltyFreeIntroView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: GuiltyFreeIntroView(),
+            ),
+            routes: [
+              GoRoute(
+                path: '/reason',
+                name: GuiltyFreeReasonView.routeName,
+                pageBuilder: (context, state) => NoTransitionPage(
+                  child: GuiltyFreeReasonView(),
+                ),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: 'guilty-blocked',
+            name: GuiltyFreeBlockedView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: GuiltyFreeBlockedView(),
+            ),
+          ),
+          GoRoute(
+            path: 'guilty-history',
+            name: GuiltyFreeHistoryView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: GuiltyFreeHistoryView(),
+            ),
+          ),
+          // 회복루틴
+          GoRoute(
+            path: 'intro',
+            name: RecoveryIntroView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: RecoveryIntroView(),
+            ),
+          ),
+          GoRoute(
+            path: 'intro/phone',
+            name: RecoveryStopPhoneView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: RecoveryStopPhoneView(),
+            ),
+          ),
+          GoRoute(
+            path: 'intro/phone/description',
+            name: RecoveryDescriptionView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: RecoveryDescriptionView(),
+            ),
+          ),
+          GoRoute(
+            path: 'intro/phone/description/breath',
+            name: RecoveryDeepBreathView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: RecoveryDeepBreathView(),
+            ),
+          ),
+          GoRoute(
+            path: 'intro/phone/description/breath/small',
+            name: RecoverySmallActionView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: RecoverySmallActionView(),
+            ),
+          ),
+          GoRoute(
+            path: 'intro/phone/description/breath/small/complete',
+            name: RecoveryCompleteView.routeName,
+            pageBuilder: (context, state) => NoTransitionPage(
+              child: RecoveryCompleteView(),
+            ),
+          ),
         ],
       ),
       // 스플래시
@@ -191,7 +275,7 @@ class AppRouter {
         ),
         routes: [
           GoRoute(
-            path: 'tos',
+            path: '/tos',
             name: TosView.routeName,
             pageBuilder: (context, state) => NoTransitionPage(
               child: TosView(),
