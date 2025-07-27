@@ -26,10 +26,10 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
     await getPlanCreateInfo(planId);
   }
 
-  Future<void> updatePlanCreateInfo(int planId) async {
+  Future<bool> updatePlanCreateInfo(int planId) async {
     if (state.selectedDate == null) {
       state = state.copyWith(loadingStatus: LoadingStatus.error);
-      return;
+      return false;
     }
 
     // 필요한 값들을 state에서 가져옵니다.
@@ -53,17 +53,18 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
         planStatus: planStatus,
         startedAt: startedAt,
         finishedAt: finishedAt!);
-    if (!mounted) return;
+
+    if (!mounted) return false;
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
-        break;
+        return true;
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '플랜 수정에 실패했어요.',
         );
-        break;
+        return false;
     }
   }
 
@@ -158,6 +159,10 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
 
   void updateClickedNext() {
     state = state.copyWith(isClickedNext: true);
+    final enabled = state.title.isNotEmpty &&
+        state.icon.isNotEmpty &&
+        state.planStatus.isNotEmpty;
+    state = state.copyWith(isNextEnabled: enabled);
   }
 
   bool updateIsNextEnabled({

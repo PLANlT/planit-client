@@ -15,6 +15,7 @@ import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+
 import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/component/plan_wrap_grid.dart';
@@ -344,8 +345,9 @@ class PlanCreateView extends HookConsumerWidget {
                   child: PlanitButton(
                     onPressed: () async {
                       viewmodel.updateClickedNext();
-
-                      if (state.isNextEnabled) {
+                      // 방금 상태를 변경했기 때문에, 최신 상태를 ref.read()로 즉시 가져옴
+                      final latestState = ref.read(planViewModelProvider);
+                      if (latestState.isNextEnabled) {
                         try {
                           if (planId == null) {
                             await viewmodel.uploadPlan();
@@ -358,14 +360,18 @@ class PlanCreateView extends HookConsumerWidget {
                               context.goNamed(RootTab.routeName);
                             }
                           } else {
-                            await viewmodel.updatePlanCreateInfo(planId!);
-                            toast.showToast(
-                              child: PlanitToast(
-                                label: '플랜이 수정됐어요!',
-                              ),
-                            );
+                            final success =
+                                await viewmodel.updatePlanCreateInfo(planId!);
+
                             if (context.mounted) {
-                              context.goNamed(RootTab.routeName);
+                              if (success) {
+                                toast.showToast(
+                                    child: PlanitToast(label: '플랜이 수정됐어요!'));
+                                context.goNamed(RootTab.routeName);
+                              } else {
+                                toast.showToast(
+                                    child: PlanitToast(label: '플랜 수정에 실패했어요.'));
+                              }
                             }
                           }
                         } catch (e) {
@@ -381,7 +387,7 @@ class PlanCreateView extends HookConsumerWidget {
                     },
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
-                    label: '플랜 만들기',
+                    label: planId != null ? '플랜 수정하기' : '플랜 만들기',
                   ),
                 ),
               ),
