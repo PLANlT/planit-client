@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:planit/core/loading_status.dart';
-import 'package:planit/ui/plan/component/plan_list_card.dart';
 
 part 'plan_create_state.freezed.dart';
 

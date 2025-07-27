@@ -2,10 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
-import 'package:planit/repository/plan/model/plan_model.dart';
 import 'package:planit/repository/plan/plan_repository.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
-import 'package:planit/ui/plan/plan_main/plan_state.dart';
 
 //StateNotifierProvider 생성자에 타입 명시하는 걸 추가하여 타입 안정성 향상
 final StateNotifierProvider<PlanCreateViewModel, PlanCreateState>

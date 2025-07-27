@@ -20,7 +20,6 @@ import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/component/plan_wrap_grid.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
-import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class PlanCreateView extends HookConsumerWidget {
   static String get routeName => 'plan_create';

@@ -2,7 +2,6 @@
 import 'package:planit/data_source/plan/reponse_body/plan_detail_response_body.dart';
 import 'package:planit/data_source/task/response_body/task_create_response_body.dart';
 import 'package:planit/repository/task/model/task_model.dart';
-import 'package:planit/ui/main/component/task_widget.dart';
 
 class PlanDetailModel {
   final int planId;

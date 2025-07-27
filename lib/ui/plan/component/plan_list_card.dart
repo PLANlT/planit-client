@@ -3,13 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/common/comopnent/planit_chip.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/common/const/planit_chips_style.dart';
 import 'package:planit/repository/plan/model/plan_model.dart';
-import 'package:planit/ui/plan/component/custom_chip.dart';
 import 'package:planit/ui/plan/component/plan_main_chip.dart';
-import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 
 class PlanListCard extends StatelessWidget {
   final PlanModel plan;
