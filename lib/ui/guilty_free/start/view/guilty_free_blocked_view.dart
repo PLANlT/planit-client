@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
-import 'package:planit/ui/main/main_view.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 
 class GuiltyFreeBlockedView extends StatelessWidget {
   static String get routeName => 'guilty-blocked';
@@ -76,11 +77,7 @@ class GuiltyFreeBlockedView extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: PlanitButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => MainView(),
-                    ),
-                  ),
+                  onPressed: () => context.goNamed(RootTab.routeName),
                   buttonColor: PlanitButtonColor.black,
                   buttonSize: PlanitButtonSize.large,
                   label: '오늘도 한 걸음 하기',
