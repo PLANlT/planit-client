@@ -26,7 +26,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewmodel = ref.watch(planMoreBottomSheetViewModelProvider.notifier);
+    final viewmodel = ref.read(planMoreBottomSheetViewModelProvider.notifier);
 
     return Wrap(children: [
       PlanitBottomSheet(

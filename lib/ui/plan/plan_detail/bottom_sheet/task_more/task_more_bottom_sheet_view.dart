@@ -19,7 +19,7 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TaskMoreBottomSheetViewModel viewmodel =
-        ref.watch(taskMoreBottomSheetViewModelProvider(taskId).notifier);
+        ref.read(taskMoreBottomSheetViewModelProvider(taskId).notifier);
     return Wrap(
       children: [
         PlanitBottomSheet(
