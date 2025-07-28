@@ -357,7 +357,7 @@ class PlanCreateView extends HookConsumerWidget {
                               ),
                             );
                             if (context.mounted) {
-                              context.goNamed(RootTab.routeName);
+                              context.pop(true);
                             }
                           } else {
                             final success =

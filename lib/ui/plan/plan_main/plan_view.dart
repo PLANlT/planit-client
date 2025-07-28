@@ -39,7 +39,7 @@ class PlanView extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BuildAppBar(),
+            BuildAppBar(viewmodel: viewmodel,),
             SizedBox(height: 20),
             // 진행 중인 플랜
             if (state.activePlans.isNotEmpty)
@@ -187,7 +187,8 @@ class _PlanList extends StatelessWidget {
 }
 
 class BuildAppBar extends StatelessWidget {
-  const BuildAppBar({super.key});
+  final PlanViewModel viewmodel;
+  const BuildAppBar({super.key, required this.viewmodel});
 
   @override
   Widget build(BuildContext context) {
@@ -202,8 +203,11 @@ class BuildAppBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: PlanitButton(
-            onPressed: () {
-              context.pushNamed(PlanCreateView.routeName);
+            onPressed: () async {
+              final result = await context.pushNamed(PlanCreateView.routeName);
+              if (result == true) {
+                viewmodel.init();
+              }
             },
             buttonColor: PlanitButtonColor.black,
             buttonSize: PlanitButtonSize.small,
