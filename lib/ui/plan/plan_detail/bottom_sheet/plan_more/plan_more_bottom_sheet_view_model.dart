@@ -7,10 +7,17 @@ import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bott
 final planMoreBottomSheetViewModelProvider = StateNotifierProvider.autoDispose<
     PlanMoreBottomSheetViewModel, PlanMoreBottomSheetState>(
   (ref) {
-    final planRepository = ref.watch(planRepositoryProvider);
+    final link = ref.keepAlive();
+
+    Future.delayed(const Duration(seconds: 5), () {
+      link.close();
+    });
+    final planRepository = ref.read(planRepositoryProvider);
+
     return PlanMoreBottomSheetViewModel(planRepository: planRepository);
   },
 );
+
 
 class PlanMoreBottomSheetViewModel
     extends StateNotifier<PlanMoreBottomSheetState> {

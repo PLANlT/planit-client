@@ -6,10 +6,18 @@ import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bott
 
 final taskMoreBottomSheetViewModelProvider = StateNotifierProvider.autoDispose
     .family<TaskMoreBottomSheetViewModel, TaskMoreBottomSheetState, int>(
-  (ref, taskId) => TaskMoreBottomSheetViewModel(
-    taskRepository: ref.read(taskRepositoryProvider),
-    taskid: taskId,
-  ),
+  (ref, taskId) {
+    final link = ref.keepAlive(); 
+
+    Future.delayed(const Duration(seconds: 5), () {
+      link.close();
+    });
+
+    return TaskMoreBottomSheetViewModel(
+      taskRepository: ref.read(taskRepositoryProvider),
+      taskid: taskId,
+    );
+  },
 );
 
 class TaskMoreBottomSheetViewModel
@@ -28,7 +36,6 @@ class TaskMoreBottomSheetViewModel
 
     final result = await _taskRepository.removeTask(taskId: _taskId);
     if (!mounted) return false;
-
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
