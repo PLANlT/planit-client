@@ -3,15 +3,22 @@ default_platform(:android)
 platform :android do
     desc "Planit"
     lane :distribute do
-        # 번들 빌드 명령어 실행
-        sh("cd .. && fvm flutter build appbundle --release")
+        # apk 빌드 명령어 실행
+        sh("cd .. && fvm flutter build apk --release")
 
+        # 생성된 apk > app distribution 업로드
         release = firebase_app_distribution(
             app: "1:895754219044:android:b89609547619b1283332b1",
             testers: "kimyohada226@gmail.com, eg4rang2003@gmail.com",
-            release_notes: "Fastlane으로 배포해볼게요!"
-            android_artifact_type: "AAB",
-            android_artifact_path: "../build/app/outputs/bundle/release/app-release.aab",
+            release_notes: "v1.0.0 미완성",
+
+            android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk"
+        )
+
+        # 슬랙 알림 전송
+        slack(
+            message: ":새: 테스트앱이 올라왔다짹! <@chanel>\n> 출시 노트 : v1.0.0 미완성",
+            slack_url: "https://hooks.slack.com/services/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"
         )
     end
 end
