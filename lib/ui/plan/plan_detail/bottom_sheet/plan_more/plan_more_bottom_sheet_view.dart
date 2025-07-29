@@ -4,8 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/archiving/archiving_complete/archiving_complete_view.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view_model.dart';
 
@@ -38,7 +40,10 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                 onTap: () {
                   context.pushNamed(
                     PlanCreateView.routeName,
-                    queryParameters: {'planId': planId.toString()},
+                    queryParameters: {
+                      'planId': planId.toString(),
+                      'planStatus': planStatus
+                    },
                   );
                 },
                 child: PlanitText('플랜 수정', style: PlanitTypos.body2),
@@ -48,9 +53,20 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
               color: PlanitColors.white03,
             ),
             GestureDetector(
-              onTap: () {
-                viewmodel.clickDeletePlan(planId);
-                Navigator.pop(context);
+              onTap: () async {
+                final success = await viewmodel.clickDeletePlan(planId);
+                if (!context.mounted) return;
+                context.pushNamed(
+                  RootTab.routeName,
+                );
+                if (success) {
+                  context.pop();
+                } else {
+                  final state = ref.read(planMoreBottomSheetViewModelProvider);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.errorMessage)),
+                  );
+                }
               },
               child: PlanitText(
                 '플랜 삭제',
@@ -62,17 +78,17 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             ),
             GestureDetector(
                 onTap: () async {
-                  await viewmodel.clickCompletePlan(planId);
-                  final state = ref.read(planMoreBottomSheetViewModelProvider);
-                  if (state.loadingStatus == LoadingStatus.success &&
-                      context.mounted) {
+                  final success = await viewmodel.clickCompletePlan(planId);
+                  if (!context.mounted) return;
+
+                  if (success) {
                     context.pushNamed(
                       ArchivingCompleteView.routeName,
                       pathParameters: {'title': title, 'icon': icon},
                     );
-                  } else if (state.loadingStatus == LoadingStatus.error &&
-                      context.mounted) {
-                    // 에러 처리 (예: 스낵바 표시)
+                  } else {
+                    final state =
+                        ref.read(planMoreBottomSheetViewModelProvider);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(state.errorMessage)),
                     );

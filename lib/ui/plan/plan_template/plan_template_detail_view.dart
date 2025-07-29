@@ -33,41 +33,41 @@ class PlanTemplateDetailView extends HookConsumerWidget {
           ),
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 24).copyWith(top: 32),
+                const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 32),
             child: Column(
               spacing: 20,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PlanitText('설명', style: PlanitTypos.title3),
-                PlanitText(templateDetai.descriptionLong,
-                    style: PlanitTypos.body2)
+                PlanitText(
+                  templateDetai.descriptionLong,
+                  style: PlanitTypos.body2.copyWith(color: Color(0xFF555555)),
+                )
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24)
-                .copyWith(top: 32, bottom: 12),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 40),
             child: PlanitText('미리보기', style: PlanitTypos.title3),
           ),
-          SizedBox(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: templateDetai.tasks.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: TaskCard(
-                      title: templateDetai.tasks[index].title,
-                      taskType: templateDetai.tasks[index].taskType,
-                      taskId: index,
-                    ));
-              },
-            ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: templateDetai.tasks.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: TaskCard(
+                    title: templateDetai.tasks[index].title,
+                    taskType: templateDetai.tasks[index].taskType,
+                    taskId: index,
+                  ));
+            },
           ),
           Spacer(),
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 12).copyWith(bottom: 32),
+                const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 40),
             child: SizedBox(
               width: double.infinity,
               child: PlanitButton(

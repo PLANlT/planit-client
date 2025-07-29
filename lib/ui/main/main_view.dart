@@ -51,12 +51,14 @@ class MainView extends HookConsumerWidget {
 
     // taskStatus를 감지하여, nothing에서 partial로 변경될 때에만 첫달성 화면 노출
     useValueChanged<TaskStatus, void>(state.taskStatus, (oldValue, _) {
-      if (oldValue == TaskStatus.nothing && state.taskStatus == TaskStatus.partial) {
+      // 이전 값이 nothing이고, 변화된 값이 nothing이 아닐 때
+      if (oldValue == TaskStatus.nothing &&
+          state.taskStatus != TaskStatus.nothing) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => FirstCompleteView(
-                consecutiveDays: 102,
+                consecutiveDays: state.consecutiveDay,
               ),
             ),
           );

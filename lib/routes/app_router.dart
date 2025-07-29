@@ -144,10 +144,14 @@ class AppRouter {
                 name: PlanCreateView.routeName,
                 pageBuilder: (context, state) {
                   final planIdStr = state.uri.queryParameters['planId'];
+                  final planStatus = state.uri.queryParameters['planStatus'];
                   final planId =
                       planIdStr != null ? int.tryParse(planIdStr) : null;
                   return NoTransitionPage(
-                    child: PlanCreateView(planId: planId), // null 허용
+                    child: PlanCreateView(
+                      planId: planId,
+                      planStatus: planStatus,
+                    ), // null 허용
                   );
                 },
               ),
