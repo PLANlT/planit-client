@@ -73,7 +73,7 @@ class TosView extends HookConsumerWidget {
                       PlanitWebView.routeName,
                       extra: WebViewParams(
                         title: '서비스 이용약관',
-                        url: PlanitUrls.termOfInfo,
+                        url: PlanitUrls.termOfUse,
                       ),
                     ),
                   ),
@@ -85,7 +85,7 @@ class TosView extends HookConsumerWidget {
                       PlanitWebView.routeName,
                       extra: WebViewParams(
                         title: '개인정보처리방침',
-                        url: PlanitUrls.termOfUse,
+                        url: PlanitUrls.termOfInfo,
                       ),
                     ),
                   ),

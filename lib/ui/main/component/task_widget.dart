@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:planit/repository/main/model/main_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -95,12 +96,20 @@ class _Task extends StatelessWidget {
                         ),
                         SizedBox(height: 16.0),
                         GestureDetector(
-                          onTap: () => onCheckboxTap(
-                            taskId: task.taskId,
-                            isCurrentCompleted: task.isCompleted,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          onTap: () {
+                            // 바텀시트 닫은 후에 완료 처리
+                            context.pop();
+                            onCheckboxTap(
+                              taskId: task.taskId,
+                              isCurrentCompleted: task.isCompleted,
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16.0,
+                              horizontal: 20,
+                            ),
+                            color: PlanitColors.transparent,
                             child: PlanitText(
                               '네',
                               style: PlanitTypos.body2.copyWith(
@@ -115,8 +124,12 @@ class _Task extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16.0,
+                              horizontal: 20,
+                            ),
+                            color: PlanitColors.transparent,
                             child: PlanitText(
                               '아니오',
                               style: PlanitTypos.body2.copyWith(

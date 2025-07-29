@@ -201,13 +201,8 @@ class _TextBox extends StatelessWidget {
           ),
           SizedBox(height: 8.0),
           PlanitText(
-            '남은 일들도',
-            style: PlanitTypos.body1.copyWith(
-              color: PlanitColors.black03,
-            ),
-          ),
-          PlanitText(
-            '빠르게 마감해볼까요?',
+            '남은 일들도\n빠르게 마감해볼까요?',
+            textAlign: TextAlign.center,
             style: PlanitTypos.body1.copyWith(
               color: PlanitColors.black03,
             ),
