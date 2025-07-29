@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/common/comopnent/planit_loading.dart';
+import 'package:planit/ui/common/comopnent/planit_dim_loading.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
@@ -98,10 +98,7 @@ class LoginView extends HookConsumerWidget {
               ],
             ),
           ),
-          if (state.loadingStatus == LoadingStatus.loading)
-            Center(
-              child: PlanitLoading(),
-            ),
+          if (state.loadingStatus == LoadingStatus.loading) PlanitDimLoading(),
         ],
       ),
     );

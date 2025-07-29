@@ -3,10 +3,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
+import 'package:planit/ui/common/comopnent/planit_dim_loading.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/const/planit_urls.dart';
@@ -41,105 +43,110 @@ class TosView extends HookConsumerWidget {
     }, [state.isLoginCompleted]);
 
     return DefaultLayout(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
-          bottom: 100.0,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Spacer(),
-            PlanitText(
-              '서비스 약관에\n동의해주세요',
-              style: PlanitTypos.title1.copyWith(
-                color: PlanitColors.black01,
-              ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
+              bottom: 100.0,
             ),
-            SizedBox(height: 40.0),
-            Container(
-              decoration: BoxDecoration(
-                color: PlanitColors.white02,
-                borderRadius: BorderRadius.circular(12.0),
-              ),
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                spacing: 12.0,
-                children: [
-                  _CheckRow(
-                    text: '서비스 이용약관',
-                    isChecked: state.isTermOfInfoAgreed,
-                    onCheckTap: () => viewModel.agreeTermOfInfo(),
-                    onChevronTap: () => context.pushNamed(
-                      PlanitWebView.routeName,
-                      extra: WebViewParams(
-                        title: '서비스 이용약관',
-                        url: PlanitUrls.termOfUse,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Spacer(),
+                PlanitText(
+                  '서비스 약관에\n동의해주세요',
+                  style: PlanitTypos.title1.copyWith(
+                    color: PlanitColors.black01,
+                  ),
+                ),
+                SizedBox(height: 40.0),
+                Container(
+                  decoration: BoxDecoration(
+                    color: PlanitColors.white02,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    spacing: 12.0,
+                    children: [
+                      _CheckRow(
+                        text: '서비스 이용약관',
+                        isChecked: state.isTermOfInfoAgreed,
+                        onCheckTap: () => viewModel.agreeTermOfInfo(),
+                        onChevronTap: () => context.pushNamed(
+                          PlanitWebView.routeName,
+                          extra: WebViewParams(
+                            title: '서비스 이용약관',
+                            url: PlanitUrls.termOfInfo,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  _CheckRow(
-                    text: '개인정보처리방침',
-                    isChecked: state.isTermOfUseAgreed,
-                    onCheckTap: () => viewModel.agreeTermOfUse(),
-                    onChevronTap: () => context.pushNamed(
-                      PlanitWebView.routeName,
-                      extra: WebViewParams(
-                        title: '개인정보처리방침',
-                        url: PlanitUrls.termOfInfo,
+                      _CheckRow(
+                        text: '개인정보처리방침',
+                        isChecked: state.isTermOfUseAgreed,
+                        onCheckTap: () => viewModel.agreeTermOfUse(),
+                        onChevronTap: () => context.pushNamed(
+                          PlanitWebView.routeName,
+                          extra: WebViewParams(
+                            title: '개인정보처리방침',
+                            url: PlanitUrls.termOfUse,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  _CheckRow(
-                    text: '개인정보 수집 및 이용',
-                    isChecked: state.isTermOfPrivacyAgreed,
-                    onCheckTap: () => viewModel.agreeTermOfPrivacy(),
-                    onChevronTap: () => context.pushNamed(
-                      PlanitWebView.routeName,
-                      extra: WebViewParams(
-                        title: '개인정보 수집 및 이용',
-                        url: PlanitUrls.termOfPrivacy,
+                      _CheckRow(
+                        text: '개인정보 수집 및 이용',
+                        isChecked: state.isTermOfPrivacyAgreed,
+                        onCheckTap: () => viewModel.agreeTermOfPrivacy(),
+                        onChevronTap: () => context.pushNamed(
+                          PlanitWebView.routeName,
+                          extra: WebViewParams(
+                            title: '개인정보 수집 및 이용',
+                            url: PlanitUrls.termOfPrivacy,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  _CheckRow(
-                    text: '개인정보 제3자 동의 이용',
-                    isChecked: state.isThirdPartyAdConsent,
-                    onCheckTap: () => viewModel.agreeThirdPartyAdConsent(),
-                    onChevronTap: () => context.pushNamed(
-                      PlanitWebView.routeName,
-                      extra: WebViewParams(
-                        title: '개인정보 제3자 동의 이용',
-                        url: PlanitUrls.thirdPartyConsent,
+                      _CheckRow(
+                        text: '개인정보 제3자 동의 이용',
+                        isChecked: state.isThirdPartyAdConsent,
+                        onCheckTap: () => viewModel.agreeThirdPartyAdConsent(),
+                        onChevronTap: () => context.pushNamed(
+                          PlanitWebView.routeName,
+                          extra: WebViewParams(
+                            title: '개인정보 제3자 동의 이용',
+                            url: PlanitUrls.thirdPartyConsent,
+                          ),
+                        ),
                       ),
-                    ),
+                      _CheckRow(
+                        text: '만 14세 이상입니다',
+                        isChecked: state.isAgeRestrictionAgreed,
+                        onCheckTap: () => viewModel.agreeAgeRestriction(),
+                        onChevronTap: () => {},
+                        showChevron: false,
+                      ),
+                    ],
                   ),
-                  _CheckRow(
-                    text: '만 14세 이상입니다',
-                    isChecked: state.isAgeRestrictionAgreed,
-                    onCheckTap: () => viewModel.agreeAgeRestriction(),
-                    onChevronTap: () => {},
-                    showChevron: false,
+                ),
+                Spacer(),
+                SizedBox(
+                  width: double.infinity,
+                  child: PlanitButton(
+                    onPressed: () => viewModel.appSignUp(),
+                    buttonColor: PlanitButtonColor.black,
+                    buttonSize: PlanitButtonSize.large,
+                    label: '가입 완료',
+                    enabled: state.isAgeRestrictionAgreed &&
+                        state.isTermOfPrivacyAgreed &&
+                        state.isThirdPartyAdConsent &&
+                        state.isTermOfUseAgreed &&
+                        state.isTermOfInfoAgreed,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: PlanitButton(
-                onPressed: () => viewModel.appSignUp(),
-                buttonColor: PlanitButtonColor.black,
-                buttonSize: PlanitButtonSize.large,
-                label: '가입 완료',
-                enabled: state.isAgeRestrictionAgreed &&
-                    state.isTermOfPrivacyAgreed &&
-                    state.isThirdPartyAdConsent &&
-                    state.isTermOfUseAgreed &&
-                    state.isTermOfInfoAgreed,
-              ),
-            ),
-          ],
-        ),
+          ),
+          if (state.loadingStatus == LoadingStatus.loading) PlanitDimLoading(),
+        ],
       ),
     );
   }
