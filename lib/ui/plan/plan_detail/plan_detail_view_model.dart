@@ -8,12 +8,13 @@ import 'package:planit/repository/task/task_repository.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 
 //플랜 메인화면 -> 플랜 상세화면으로 넘어갈때 , planID를 넘겨주기 위헤 family로 동적으로 넣어줄 수 있게 함.
-final planDetailViewModelProvider =
-    StateNotifierProvider.family<PlanDetailViewModel, PlanDetailState, int>(
+final planDetailViewModelProvider = StateNotifierProvider.autoDispose
+    .family<PlanDetailViewModel, PlanDetailState, int>(
   (ref, planId) => PlanDetailViewModel(
-      planId: planId,
-      planRepository: ref.read(planRepositoryProvider),
-      taskRepositroy: ref.read(taskRepositoryProvider)),
+    planId: planId,
+    planRepository: ref.read(planRepositoryProvider),
+    taskRepositroy: ref.read(taskRepositoryProvider),
+  ),
 );
 
 class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
@@ -39,16 +40,19 @@ class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final RepositoryResult<PlanDetailModel> planDetailResult =
         await _planRepository.getPlanDetailByPlanId(_planId);
+    if (!mounted) return;
     switch (planDetailResult) {
       case SuccessRepositoryResult<PlanDetailModel>():
         state = state.copyWith(
             loadingStatus: LoadingStatus.success,
             planDetail: planDetailResult.data);
+        break;
       case FailureRepositoryResult<PlanDetailModel>():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '플랜 목록 불러오기에 실패했어요.',
         );
+        break;
     }
   }
 
@@ -60,11 +64,12 @@ class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
       planId: _planId,
       taskType: 'ALL',
     );
+    if (!mounted) return;
 
     if (taskAddResult is SuccessRepositoryResult<TaskModel>) {
       final planDetailResult =
           await _planRepository.getPlanDetailByPlanId(_planId);
-
+      if (!mounted) return;
       if (planDetailResult is SuccessRepositoryResult<PlanDetailModel>) {
         state = state.copyWith(
           loadingStatus: LoadingStatus.success,
