@@ -8,7 +8,6 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/archiving/archiving_detail/archiving_detail_view.dart';
 import 'package:planit/ui/archiving/archiving_main/archiving_view_model.dart';
-import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 

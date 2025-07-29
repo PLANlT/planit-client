@@ -13,7 +13,6 @@ import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 

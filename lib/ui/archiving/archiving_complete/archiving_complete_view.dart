@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
-import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/archiving/archiving_complete/archiving_complete_naviagtor.dart';
-import 'package:planit/ui/archiving/archiving_main/archiving_view.dart';
-import 'package:planit/ui/archiving/archiving_restart/archiving_restart_view_model.dart';
-import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
-import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingCompleteView extends StatelessWidget {
   static String get routeName => 'archiving-complete';
