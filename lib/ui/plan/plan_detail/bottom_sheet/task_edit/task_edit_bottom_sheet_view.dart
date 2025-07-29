@@ -43,6 +43,7 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
               top: 24,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 PlanitText(
                   '루틴 설정',

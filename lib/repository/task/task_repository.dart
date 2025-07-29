@@ -56,7 +56,7 @@ class TaskRepository {
         body: RoutineRequestBody(
             routineDay: routineModel.routineDay,
             taskType: routineModel.taskType,
-            routineTime: routineModel.routineTimeString!),
+            routineTime: routineModel.routineTimeString),
       );
       final model = RoutineModel.fromResponse(result.data);
       return SuccessRepositoryResult(data: model);
