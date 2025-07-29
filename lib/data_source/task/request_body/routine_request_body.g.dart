@@ -12,7 +12,7 @@ RoutineRequestBody _$RoutineRequestBodyFromJson(Map<String, dynamic> json) =>
           .map((e) => e as String)
           .toList(),
       taskType: json['taskType'] as String,
-      routineTime: json['routineTime'] as String,
+      routineTime: json['routineTime'] as String?,
     );
 
 Map<String, dynamic> _$RoutineRequestBodyToJson(RoutineRequestBody instance) =>

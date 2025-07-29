@@ -4,19 +4,22 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/assets.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/plan/plan_detail/bottom_sheet/plan_more/plan_more_bottom_sheet_view.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bottom_sheet_view.dart';
 
 class TaskCard extends StatelessWidget {
   final String title;
   final String taskType;
   final int taskId;
+  final bool showMore;
+  final VoidCallback? onTaskDeleted; //삭제 성공시 DetailView 새로고침을 위함
 
   const TaskCard({
     super.key,
     required this.title,
     required this.taskId,
     required this.taskType,
+    this.showMore = true,
+    this.onTaskDeleted,
   });
 
   @override
@@ -57,23 +60,27 @@ class TaskCard extends StatelessWidget {
                   child: SvgPicture.asset(Assets.high),
                 ),
               ],
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: false,
-                      builder: (context) {
-                        return TaskMoreBottomSheetView(
-                          taskId: taskId,
-                        );
-                      },
-                    );
-                  },
-                  child: SvgPicture.asset(Assets.more),
+              if (showMore)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: GestureDetector(
+                    onTap: () async {
+                      final result = await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: false,
+                        builder: (context) {
+                          return TaskMoreBottomSheetView(
+                            taskId: taskId,
+                          );
+                        },
+                      );
+                      if (result == true) {
+                        onTaskDeleted?.call();
+                      }
+                    },
+                    child: SvgPicture.asset(Assets.more),
+                  ),
                 ),
-              ),
             ],
           ),
         ),

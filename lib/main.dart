@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
@@ -16,6 +17,12 @@ Future<void> main() async {
     nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
     javaScriptAppKey: dotenv.env['KAKAO_JAVASCRIPT_APP_KEY'],
   );
+
+  // 화면 세로로 고정
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(
     ProviderScope(

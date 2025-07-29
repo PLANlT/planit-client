@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -26,7 +27,7 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  context.pop(context);
                   showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
@@ -51,8 +52,16 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
                 color: PlanitColors.white03,
               ),
               GestureDetector(
-                onTap: () {
-                  viewmodel.clickDeleteTask();
+                onTap: () async {
+                  final result = await viewmodel.clickDeleteTask();
+                  if (!context.mounted) return;
+                  if (result) {
+                    context.pop(true);  // 성공 시 모달 닫으면서 true 전달
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('삭제에 실패했어요.')),
+                    );
+                  }
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 16),

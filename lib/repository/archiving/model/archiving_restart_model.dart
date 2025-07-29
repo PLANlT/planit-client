@@ -1,5 +1,4 @@
 import 'package:planit/data_source/archiving/response_body/archiving_restart_plan_response_body.dart';
-import 'package:planit/data_source/plan/reponse_body/archiving_complete_plan_response_body.dart';
 
 class ArchivingRestartModel {
   final int planId;

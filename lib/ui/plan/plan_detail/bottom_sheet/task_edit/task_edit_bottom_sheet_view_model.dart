@@ -5,8 +5,8 @@ import 'package:planit/repository/task/model/routine_model.dart';
 import 'package:planit/repository/task/task_repository.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_edit/task_edit_bottom_sheet_state.dart';
 
-final taskEditViewModelProvider = StateNotifierProvider.family<
-    TaskEditBottomSheetViewModel, TaskEditBottomSheetState, int>(
+final taskEditViewModelProvider = StateNotifierProvider.autoDispose
+    .family<TaskEditBottomSheetViewModel, TaskEditBottomSheetState, int>(
   (ref, taskId) => TaskEditBottomSheetViewModel(
     taskId: taskId,
     taskRepository: ref.read(taskRepositoryProvider),
@@ -26,6 +26,12 @@ class TaskEditBottomSheetViewModel
 
   void init() {
     fetchRoutineBytaskId();
+  }
+
+  // 시간 리스트 업데이트 함수 추가
+  void updateSelectedTime(String time) {
+    // 예: 시간은 한 개만 저장한다고 가정하고 리스트 교체
+    state = state.copyWith(time: time);
   }
 
 //월화수목금토일 버튼 하나 누를때 추가/삭제
@@ -85,11 +91,11 @@ class TaskEditBottomSheetViewModel
       taskId: _taskId,
       routineModel: RoutineModel(
         taskType: taskType,
-        routineTimeString: '12:12', // TODO: state에서 실제 시간 받아오기
+        routineTimeString: state.timeSetting ? state.time : null,
         routineDay: routineDay,
       ),
     );
-
+    if (!mounted) return;
     // 결과 처리
     switch (editRoutineResult) {
       case SuccessRepositoryResult():
@@ -110,6 +116,7 @@ class TaskEditBottomSheetViewModel
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final routineResult =
         await _taskRepository.getRoutinebyTaskId(taskId: _taskId);
+    if (!mounted) return;
     switch (routineResult) {
       case SuccessRepositoryResult():
         late List<String> tasktype;
@@ -130,10 +137,13 @@ class TaskEditBottomSheetViewModel
         final List<String> routineDayList =
             routineResult.data.routineDay.map((e) => dayMap[e] ?? e).toList();
         state = state.copyWith(
-            loadingStatus: LoadingStatus.success,
-            routinDayList: routineDayList,
-            taskType: tasktype,
-            timeList: ['12']);
+          loadingStatus: LoadingStatus.success,
+          routinDayList: routineDayList,
+          taskType: tasktype,
+          time: routineResult.data.routineTimeString ?? '00:00',
+          timeSetting:
+              routineResult.data.routineTimeString == null ? false : true,
+        );
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
