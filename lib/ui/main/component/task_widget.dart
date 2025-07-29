@@ -104,8 +104,12 @@ class _Task extends StatelessWidget {
                               isCurrentCompleted: task.isCompleted,
                             );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16.0,
+                              horizontal: 20,
+                            ),
+                            color: PlanitColors.transparent,
                             child: PlanitText(
                               '네',
                               style: PlanitTypos.body2.copyWith(
@@ -120,8 +124,12 @@ class _Task extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () => Navigator.of(context).pop(),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16.0,
+                              horizontal: 20,
+                            ),
+                            color: PlanitColors.transparent,
                             child: PlanitText(
                               '아니오',
                               style: PlanitTypos.body2.copyWith(
