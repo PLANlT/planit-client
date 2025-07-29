@@ -34,7 +34,7 @@ class MypageBottomInfoWidget extends StatelessWidget {
                   PlanitWebView.routeName,
                   extra: WebViewParams(
                     title: '이용약관',
-                    url: PlanitUrls.termOfInfo,
+                    url: PlanitUrls.termOfUse,
                   ),
                 ),
                 child: PlanitText(
@@ -49,7 +49,7 @@ class MypageBottomInfoWidget extends StatelessWidget {
                   PlanitWebView.routeName,
                   extra: WebViewParams(
                     title: '개인정보처리방침',
-                    url: PlanitUrls.termOfUse,
+                    url: PlanitUrls.termOfInfo,
                   ),
                 ),
                 child: PlanitText(

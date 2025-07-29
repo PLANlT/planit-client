@@ -4,12 +4,20 @@ import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/task/task_repository.dart';
 import 'package:planit/ui/plan/plan_detail/bottom_sheet/task_more/task_more_bottom_sheet_state.dart';
 
-final taskMoreBottomSheetViewModelProvider = StateNotifierProvider.family<
-    TaskMoreBottomSheetViewModel, TaskMoreBottomSheetState, int>(
-  (ref, taskId) => TaskMoreBottomSheetViewModel(
-    taskRepository: ref.read(taskRepositoryProvider),
-    taskid: taskId,
-  ),
+final taskMoreBottomSheetViewModelProvider = StateNotifierProvider.autoDispose
+    .family<TaskMoreBottomSheetViewModel, TaskMoreBottomSheetState, int>(
+  (ref, taskId) {
+    final link = ref.keepAlive(); 
+
+    Future.delayed(const Duration(seconds: 5), () {
+      link.close();
+    });
+
+    return TaskMoreBottomSheetViewModel(
+      taskRepository: ref.read(taskRepositoryProvider),
+      taskid: taskId,
+    );
+  },
 );
 
 class TaskMoreBottomSheetViewModel
@@ -23,20 +31,22 @@ class TaskMoreBottomSheetViewModel
         _taskId = taskid,
         super(TaskMoreBottomSheetState());
 
-  void clickDeleteTask() async {
+  Future<bool> clickDeleteTask() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
     final result = await _taskRepository.removeTask(taskId: _taskId);
-
+    if (!mounted) return false;
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
+        return true;
 
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '작업 삭제에 실패했어요.',
         );
+        return false;
     }
   }
 }

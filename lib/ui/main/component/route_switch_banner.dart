@@ -45,13 +45,9 @@ class RouteSwitchBanner extends StatelessWidget {
               children: [
                 Text(
                   isSlow ? '천천히 루트' : '열정 루트',
-                  style: isSlow
-                      ? PlanitTypos.title2.copyWith(
-                          color: PlanitColors.black01,
-                        )
-                      : PlanitTypos.title1.copyWith(
-                          color: PlanitColors.black01,
-                        ),
+                  style: PlanitTypos.title2.copyWith(
+                    color: PlanitColors.black01,
+                  ),
                 ),
                 Text(
                   '오늘도 한 걸음이면 돼요.',

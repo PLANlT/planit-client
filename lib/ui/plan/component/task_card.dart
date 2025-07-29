@@ -11,6 +11,7 @@ class TaskCard extends StatelessWidget {
   final String taskType;
   final int taskId;
   final bool showMore;
+  final VoidCallback? onTaskDeleted; //삭제 성공시 DetailView 새로고침을 위함
 
   const TaskCard({
     super.key,
@@ -18,6 +19,7 @@ class TaskCard extends StatelessWidget {
     required this.taskId,
     required this.taskType,
     this.showMore = true,
+    this.onTaskDeleted,
   });
 
   @override
@@ -62,8 +64,8 @@ class TaskCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
+                    onTap: () async {
+                      final result = await showModalBottomSheet(
                         context: context,
                         isScrollControlled: false,
                         builder: (context) {
@@ -72,6 +74,9 @@ class TaskCard extends StatelessWidget {
                           );
                         },
                       );
+                      if (result == true) {
+                        onTaskDeleted?.call();
+                      }
                     },
                     child: SvgPicture.asset(Assets.more),
                   ),

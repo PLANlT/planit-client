@@ -6,9 +6,9 @@ import 'package:planit/repository/plan/plan_repository.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_state.dart';
 
 //StateNotifierProvider 생성자에 타입 명시하는 걸 추가하여 타입 안정성 향상
-final StateNotifierProvider<PlanCreateViewModel, PlanCreateState>
+final AutoDisposeStateNotifierProvider<PlanCreateViewModel, PlanCreateState>
     planViewModelProvider =
-    StateNotifierProvider<PlanCreateViewModel, PlanCreateState>(
+    StateNotifierProvider.autoDispose<PlanCreateViewModel, PlanCreateState>(
   (ref) => PlanCreateViewModel(
     planRepository: ref.read(planRepositoryProvider),
   ),
@@ -26,10 +26,10 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
     await getPlanCreateInfo(planId);
   }
 
-  Future<void> updatePlanCreateInfo(int planId) async {
+  Future<bool> updatePlanCreateInfo(int planId) async {
     if (state.selectedDate == null) {
       state = state.copyWith(loadingStatus: LoadingStatus.error);
-      return;
+      return false;
     }
 
     // 필요한 값들을 state에서 가져옵니다.
@@ -54,20 +54,24 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
         startedAt: startedAt,
         finishedAt: finishedAt!);
 
+    if (!mounted) return false;
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
+        return true;
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '플랜 수정에 실패했어요.',
         );
+        return false;
     }
   }
 
   Future<void> getPlanCreateInfo(int planId) async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final result = await _planRepository.getPlanDetailByPlanId(planId);
+    if (!mounted) return;
     switch (result) {
       case SuccessRepositoryResult():
         state = state.copyWith(
@@ -76,11 +80,13 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
           motivation: result.data.motivation,
           icon: result.data.icon,
         );
+        break;
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '플랜 업로드에 실패했어요.',
         );
+        break;
     }
   }
 
@@ -153,6 +159,10 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
 
   void updateClickedNext() {
     state = state.copyWith(isClickedNext: true);
+    final enabled = state.title.isNotEmpty &&
+        state.icon.isNotEmpty &&
+        state.planStatus.isNotEmpty;
+    state = state.copyWith(isNextEnabled: enabled);
   }
 
   bool updateIsNextEnabled({

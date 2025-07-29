@@ -1,6 +1,5 @@
-// dart format width=80
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -16,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TaskEditBottomSheetState {
   List<String> get routinDayList;
-  List<String> get timeList;
+  String get time;
   bool get timeSetting;
   List<String> get taskType;
   LoadingStatus get loadingStatus;
@@ -37,7 +36,7 @@ mixin _$TaskEditBottomSheetState {
             other is TaskEditBottomSheetState &&
             const DeepCollectionEquality()
                 .equals(other.routinDayList, routinDayList) &&
-            const DeepCollectionEquality().equals(other.timeList, timeList) &&
+            (identical(other.time, time) || other.time == time) &&
             (identical(other.timeSetting, timeSetting) ||
                 other.timeSetting == timeSetting) &&
             const DeepCollectionEquality().equals(other.taskType, taskType) &&
@@ -51,7 +50,7 @@ mixin _$TaskEditBottomSheetState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(routinDayList),
-      const DeepCollectionEquality().hash(timeList),
+      time,
       timeSetting,
       const DeepCollectionEquality().hash(taskType),
       loadingStatus,
@@ -59,7 +58,7 @@ mixin _$TaskEditBottomSheetState {
 
   @override
   String toString() {
-    return 'TaskEditBottomSheetState(routinDayList: $routinDayList, timeList: $timeList, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'TaskEditBottomSheetState(routinDayList: $routinDayList, time: $time, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
@@ -71,7 +70,7 @@ abstract mixin class $TaskEditBottomSheetStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<String> routinDayList,
-      List<String> timeList,
+      String time,
       bool timeSetting,
       List<String> taskType,
       LoadingStatus loadingStatus,
@@ -92,7 +91,7 @@ class _$TaskEditBottomSheetStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? routinDayList = null,
-    Object? timeList = null,
+    Object? time = null,
     Object? timeSetting = null,
     Object? taskType = null,
     Object? loadingStatus = null,
@@ -103,10 +102,10 @@ class _$TaskEditBottomSheetStateCopyWithImpl<$Res>
           ? _self.routinDayList
           : routinDayList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      timeList: null == timeList
-          ? _self.timeList
-          : timeList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      time: null == time
+          ? _self.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
       timeSetting: null == timeSetting
           ? _self.timeSetting
           : timeSetting // ignore: cast_nullable_to_non_nullable
@@ -127,18 +126,198 @@ class _$TaskEditBottomSheetStateCopyWithImpl<$Res>
   }
 }
 
+/// Adds pattern-matching-related methods to [TaskEditBottomSheetState].
+extension TaskEditBottomSheetStatePatterns on TaskEditBottomSheetState {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_TaskEditBottomSheetState value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _TaskEditBottomSheetState() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_TaskEditBottomSheetState value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _TaskEditBottomSheetState():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_TaskEditBottomSheetState value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _TaskEditBottomSheetState() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            List<String> routinDayList,
+            String time,
+            bool timeSetting,
+            List<String> taskType,
+            LoadingStatus loadingStatus,
+            String errorMessage)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _TaskEditBottomSheetState() when $default != null:
+        return $default(_that.routinDayList, _that.time, _that.timeSetting,
+            _that.taskType, _that.loadingStatus, _that.errorMessage);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            List<String> routinDayList,
+            String time,
+            bool timeSetting,
+            List<String> taskType,
+            LoadingStatus loadingStatus,
+            String errorMessage)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _TaskEditBottomSheetState():
+        return $default(_that.routinDayList, _that.time, _that.timeSetting,
+            _that.taskType, _that.loadingStatus, _that.errorMessage);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            List<String> routinDayList,
+            String time,
+            bool timeSetting,
+            List<String> taskType,
+            LoadingStatus loadingStatus,
+            String errorMessage)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _TaskEditBottomSheetState() when $default != null:
+        return $default(_that.routinDayList, _that.time, _that.timeSetting,
+            _that.taskType, _that.loadingStatus, _that.errorMessage);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 
 class _TaskEditBottomSheetState implements TaskEditBottomSheetState {
   const _TaskEditBottomSheetState(
       {final List<String> routinDayList = const [],
-      final List<String> timeList = const [],
+      this.time = '',
       this.timeSetting = false,
       final List<String> taskType = const [],
       this.loadingStatus = LoadingStatus.none,
       this.errorMessage = ''})
       : _routinDayList = routinDayList,
-        _timeList = timeList,
         _taskType = taskType;
 
   final List<String> _routinDayList;
@@ -150,15 +329,9 @@ class _TaskEditBottomSheetState implements TaskEditBottomSheetState {
     return EqualUnmodifiableListView(_routinDayList);
   }
 
-  final List<String> _timeList;
   @override
   @JsonKey()
-  List<String> get timeList {
-    if (_timeList is EqualUnmodifiableListView) return _timeList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_timeList);
-  }
-
+  final String time;
   @override
   @JsonKey()
   final bool timeSetting;
@@ -194,7 +367,7 @@ class _TaskEditBottomSheetState implements TaskEditBottomSheetState {
             other is _TaskEditBottomSheetState &&
             const DeepCollectionEquality()
                 .equals(other._routinDayList, _routinDayList) &&
-            const DeepCollectionEquality().equals(other._timeList, _timeList) &&
+            (identical(other.time, time) || other.time == time) &&
             (identical(other.timeSetting, timeSetting) ||
                 other.timeSetting == timeSetting) &&
             const DeepCollectionEquality().equals(other._taskType, _taskType) &&
@@ -208,7 +381,7 @@ class _TaskEditBottomSheetState implements TaskEditBottomSheetState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_routinDayList),
-      const DeepCollectionEquality().hash(_timeList),
+      time,
       timeSetting,
       const DeepCollectionEquality().hash(_taskType),
       loadingStatus,
@@ -216,7 +389,7 @@ class _TaskEditBottomSheetState implements TaskEditBottomSheetState {
 
   @override
   String toString() {
-    return 'TaskEditBottomSheetState(routinDayList: $routinDayList, timeList: $timeList, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
+    return 'TaskEditBottomSheetState(routinDayList: $routinDayList, time: $time, timeSetting: $timeSetting, taskType: $taskType, loadingStatus: $loadingStatus, errorMessage: $errorMessage)';
   }
 }
 
@@ -230,7 +403,7 @@ abstract mixin class _$TaskEditBottomSheetStateCopyWith<$Res>
   @useResult
   $Res call(
       {List<String> routinDayList,
-      List<String> timeList,
+      String time,
       bool timeSetting,
       List<String> taskType,
       LoadingStatus loadingStatus,
@@ -251,7 +424,7 @@ class __$TaskEditBottomSheetStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? routinDayList = null,
-    Object? timeList = null,
+    Object? time = null,
     Object? timeSetting = null,
     Object? taskType = null,
     Object? loadingStatus = null,
@@ -262,10 +435,10 @@ class __$TaskEditBottomSheetStateCopyWithImpl<$Res>
           ? _self._routinDayList
           : routinDayList // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      timeList: null == timeList
-          ? _self._timeList
-          : timeList // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      time: null == time
+          ? _self.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
       timeSetting: null == timeSetting
           ? _self.timeSetting
           : timeSetting // ignore: cast_nullable_to_non_nullable
