@@ -10,15 +10,15 @@ platform :android do
         release = firebase_app_distribution(
             app: "1:895754219044:android:b89609547619b1283332b1",
             testers: "kimyohada226@gmail.com, eg4rang2003@gmail.com",
-            release_notes: "v1.0.0 미완성",
+            release_notes: "v1.0.0",
 
             android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk"
         )
 
         # 슬랙 알림 전송
         slack(
-            message: ":새: 테스트앱이 올라왔다짹! <@chanel>\n> 출시 노트 : v1.0.0 미완성",
-            slack_url: "https://hooks.slack.com/services/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"
+            message: ":bird: 테스트앱이 올라왔다짹! \n [출시노트] 슬랙 테스트입니다! 암것도 없어요",
+            slack_url: "https://hooks.slack.com/services/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"
         )
     end
 end
