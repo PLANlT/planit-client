@@ -15,8 +15,11 @@ class ArchivingCompleteNavigator extends StatelessWidget {
   final String icon;
   final String title;
 
-  const ArchivingCompleteNavigator(
-      {super.key, required this.icon, required this.title});
+  const ArchivingCompleteNavigator({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +76,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      context.pushNamed(RootTab.routeName);
+                      context.goNamed(RootTab.routeName);
                     },
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
@@ -84,7 +87,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      context.pushNamed(RootTab.routeName);
+                      context.goNamed(RootTab.routeName);
                     },
                     buttonColor: PlanitButtonColor.white,
                     buttonSize: PlanitButtonSize.large,
