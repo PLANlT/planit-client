@@ -196,7 +196,7 @@ class MainViewModel extends StateNotifier<MainState> {
         if (mounted) {
           state = state.copyWith(
             loadingStatus: LoadingStatus.success,
-            consecutiveDay: result.data.currentConsecutiveDays,
+            consecutiveDay: result.data.currentConsecutiveDays + 1,
           );
         }
       case FailureRepositoryResult<ConsecutiveDaysModel>():
