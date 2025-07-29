@@ -14,6 +14,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
   static String get routeName => 'archiving-complete-navigator';
   final String icon;
   final String title;
+
   const ArchivingCompleteNavigator(
       {super.key, required this.icon, required this.title});
 
@@ -43,8 +44,9 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                         PlanitText(title, style: PlanitTypos.title2),
                         PlanitText(
                           '${DateFormat('yyyy-MM-dd').format(DateTime.now())} 완료',
-                          style: PlanitTypos.body3
-                              .copyWith(color: Color(0xFF666666)),
+                          style: PlanitTypos.body3.copyWith(
+                            color: Color(0xFF666666),
+                          ),
                         ),
                       ],
                     ),
@@ -53,7 +55,9 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                 const SizedBox(height: 20),
                 PlanitText(
                   '이 플랜은 아카이브에 저장되었어요.',
-                  style: PlanitTypos.body2.copyWith(color: Color(0xFF666666)),
+                  style: PlanitTypos.body2.copyWith(
+                    color: Color(0xFF666666),
+                  ),
                 ),
               ],
             ),
@@ -63,6 +67,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
             right: 20,
             bottom: 32,
             child: Column(
+              spacing: 12,
               children: [
                 SizedBox(
                   width: double.infinity,
