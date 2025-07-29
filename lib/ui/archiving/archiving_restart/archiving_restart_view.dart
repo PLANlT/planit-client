@@ -14,15 +14,22 @@ import 'package:planit/ui/common/view/root_tab.dart';
 
 class ArchivingRestartView extends HookConsumerWidget {
   final int planId;
+
   static String get routeName => 'archiving-restart';
   final String title;
-  const ArchivingRestartView(
-      {super.key, required this.planId, required this.title});
+
+  const ArchivingRestartView({
+    super.key,
+    required this.planId,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ArchivingRestartViewModel viewmodel =
-        ref.read(archivingRestartViewModelProvider.notifier);
+    final ArchivingRestartViewModel viewmodel = ref.read(
+      archivingRestartViewModelProvider.notifier,
+    );
+
     final deviceWidth = MediaQuery.of(context).size.width;
     return DefaultLayout(
       title: title,
@@ -39,51 +46,69 @@ class ArchivingRestartView extends HookConsumerWidget {
           Column(
             spacing: 8,
             children: [
-              PlanitText('이 여정을 다시 시작해볼까요?', style: PlanitTypos.title2),
-              PlanitText('그때처럼, 이번에도 당신은 해낼 수 있어요.',
-                  style: PlanitTypos.body3.copyWith(color: Color(0xFF666666))),
+              PlanitText(
+                '이 여정을 다시 시작해볼까요?',
+                style: PlanitTypos.title2.copyWith(
+                  color: PlanitColors.black01,
+                ),
+              ),
+              PlanitText(
+                '그때처럼, 이번에도 당신은 해낼 수 있어요.',
+                style: PlanitTypos.body3.copyWith(
+                  color: Color(0xFF666666),
+                ),
+              ),
             ],
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12).copyWith(top: 20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ).copyWith(top: 20),
             child: Container(
-              height: 80,
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: PlanitColors.white02),
+                borderRadius: BorderRadius.circular(12),
+                color: PlanitColors.white02,
+              ),
               child: Center(
-                  child: PlanitText(
-                '이전 플랜의 이름과 감정 상태를 포함해,\n등록한 태스크와 반복/리마인드 설정도 복원됩니다.',
-                style: PlanitTypos.body3.copyWith(color: PlanitColors.black02),
-                textAlign: TextAlign.center,
-              )),
+                child: PlanitText(
+                  '이전 플랜의 이름과 감정 상태를 포함해,\n등록한 태스크와 반복/리마인드 설정도 복원됩니다.',
+                  style: PlanitTypos.body3.copyWith(
+                    color: PlanitColors.black02,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           ),
           Spacer(),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 12).copyWith(bottom: 80),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ).copyWith(bottom: 80),
             child: SizedBox(
               width: double.infinity,
               child: PlanitButton(
-                  onPressed: () async {
-                    await viewmodel.restartArchivingPlan(planId);
-                    final state = ref.read(archivingRestartViewModelProvider);
-                    if (state.loadingStatus == LoadingStatus.success &&
-                        context.mounted) {
-                      context.pushNamed(RootTab.routeName);
-                    } else if (state.loadingStatus == LoadingStatus.error &&
-                        context.mounted) {
-                      // 에러 처리 (예: 스낵바 표시)
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.errorMessage)),
-                      );
-                    }
-                  },
-                  buttonColor: PlanitButtonColor.black,
-                  buttonSize: PlanitButtonSize.large,
-                  label: '해당 플랜으로 다시 시작하기'),
+                onPressed: () async {
+                  await viewmodel.restartArchivingPlan(planId);
+                  final state = ref.read(archivingRestartViewModelProvider);
+                  if (state.loadingStatus == LoadingStatus.success &&
+                      context.mounted) {
+                    context.goNamed(RootTab.routeName);
+                  } else if (state.loadingStatus == LoadingStatus.error &&
+                      context.mounted) {
+                    // 에러 처리 (예: 스낵바 표시)
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(state.errorMessage),
+                      ),
+                    );
+                  }
+                },
+                buttonColor: PlanitButtonColor.black,
+                buttonSize: PlanitButtonSize.large,
+                label: '해당 플랜으로 다시 시작하기',
+              ),
             ),
           )
         ],
