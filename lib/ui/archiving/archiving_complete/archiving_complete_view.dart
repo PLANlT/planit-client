@@ -1,26 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
-import 'package:planit/repository/plan/model/plan_detail_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/archiving/archiving_complete/archiving_complete_naviagtor.dart';
-import 'package:planit/ui/archiving/archiving_main/archiving_view.dart';
-import 'package:planit/ui/archiving/archiving_restart/archiving_restart_view_model.dart';
-import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
-import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
-import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
-class ArchivingCompleteView extends StatelessWidget {
+class ArchivingCompleteView extends StatefulWidget {
   static String get routeName => 'archiving-complete';
   final String icon;
   final String title;
-  const ArchivingCompleteView(
-      {super.key, required this.icon, required this.title});
+
+  const ArchivingCompleteView({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
+
+  @override
+  State<ArchivingCompleteView> createState() => _ArchivingCompleteViewState();
+}
+
+class _ArchivingCompleteViewState extends State<ArchivingCompleteView> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(Duration(seconds: 3));
+      if (mounted) {
+        context.pushNamed(
+          ArchivingCompleteNavigator.routeName,
+          pathParameters: {'title': widget.title, 'icon': widget.icon},
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,26 +78,19 @@ class ArchivingCompleteView extends StatelessWidget {
             right: 12,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 36),
-              child: GestureDetector(
-                onTap: () {
-                  context.pushNamed(
-                    ArchivingCompleteNavigator.routeName,
-                    pathParameters: {'title': title, 'icon': icon},
-                  );
-                },
-                child: Container(
-                    decoration: BoxDecoration(color: PlanitColors.white02),
-                    width: double.infinity,
-                    height: 103,
-                    child: Column(
-                      spacing: 10,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        PlanitText('플랜 $title ', style: PlanitTypos.title2),
-                        PlanitText('하나의 행성계를 이루었어요!', style: PlanitTypos.body2)
-                      ],
-                    )),
-              ),
+              child: Container(
+                  decoration: BoxDecoration(color: PlanitColors.white02),
+                  width: double.infinity,
+                  height: 103,
+                  child: Column(
+                    spacing: 10,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PlanitText('플랜 ${widget.title} ',
+                          style: PlanitTypos.title2),
+                      PlanitText('하나의 행성계를 이루었어요!', style: PlanitTypos.body2)
+                    ],
+                  )),
             ),
           ),
         ],

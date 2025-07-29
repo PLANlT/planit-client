@@ -6,7 +6,7 @@ part 'routine_request_body.g.dart';
 class RoutineRequestBody {
   final List<String> routineDay;
   final String taskType;
-  final String routineTime;
+  final String? routineTime;
 
   RoutineRequestBody({
     required this.routineDay,

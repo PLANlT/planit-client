@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
-import 'package:planit/ui/archiving/archiving_main/archiving_view.dart';
-import 'package:planit/ui/archiving/archiving_restart/archiving_restart_view_model.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/common/view/root_tab.dart';
-import 'package:planit/ui/plan/plan_main/plan_view.dart';
 
 class ArchivingCompleteNavigator extends StatelessWidget {
   static String get routeName => 'archiving-complete-navigator';
   final String icon;
   final String title;
-  const ArchivingCompleteNavigator(
-      {super.key, required this.icon, required this.title});
+
+  const ArchivingCompleteNavigator({
+    super.key,
+    required this.icon,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +47,9 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                         PlanitText(title, style: PlanitTypos.title2),
                         PlanitText(
                           '${DateFormat('yyyy-MM-dd').format(DateTime.now())} 완료',
-                          style: PlanitTypos.body3
-                              .copyWith(color: Color(0xFF666666)),
+                          style: PlanitTypos.body3.copyWith(
+                            color: Color(0xFF666666),
+                          ),
                         ),
                       ],
                     ),
@@ -58,7 +58,9 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                 const SizedBox(height: 20),
                 PlanitText(
                   '이 플랜은 아카이브에 저장되었어요.',
-                  style: PlanitTypos.body2.copyWith(color: Color(0xFF666666)),
+                  style: PlanitTypos.body2.copyWith(
+                    color: Color(0xFF666666),
+                  ),
                 ),
               ],
             ),
@@ -68,12 +70,13 @@ class ArchivingCompleteNavigator extends StatelessWidget {
             right: 20,
             bottom: 32,
             child: Column(
+              spacing: 12,
               children: [
                 SizedBox(
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      context.pushNamed(RootTab.routeName);
+                      context.goNamed(RootTab.routeName);
                     },
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
@@ -84,7 +87,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      context.pushNamed(RootTab.routeName);
+                      context.goNamed(RootTab.routeName);
                     },
                     buttonColor: PlanitButtonColor.white,
                     buttonSize: PlanitButtonSize.large,

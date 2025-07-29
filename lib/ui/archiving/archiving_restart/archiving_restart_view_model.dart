@@ -1,12 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:planit/core/api_response.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/archiving/archiving_repository.dart';
-import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/repository/archiving/model/archiving_restart_model.dart';
-import 'package:planit/ui/archiving/archiving_main/archiving_state.dart';
 import 'package:planit/ui/archiving/archiving_restart/archiving_restart_state.dart';
 
 final archivingRestartViewModelProvider =
@@ -34,7 +30,7 @@ class ArchivingRestartViewModel extends StateNotifier<ArchivingRestartState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '아키이빙 재시작에 실패했어요.',
+          errorMessage: '아카이빙 재시작에 실패했어요.',
         );
     }
   }

@@ -91,7 +91,7 @@ class TaskEditBottomSheetViewModel
       taskId: _taskId,
       routineModel: RoutineModel(
         taskType: taskType,
-        routineTimeString: state.time,
+        routineTimeString: state.timeSetting ? state.time : null,
         routineDay: routineDay,
       ),
     );
@@ -123,8 +123,7 @@ class TaskEditBottomSheetViewModel
         if (routineResult.data.taskType == 'PASSIONATE') tasktype = ['HIGH'];
         if (routineResult.data.taskType == 'SLOW') tasktype = ['LOW'];
         if (routineResult.data.taskType == 'ALL') tasktype = ['LOW', 'HIGH'];
-        final String routineTime =
-            routineResult.data.routineTimeString ?? '00:00';
+
         const dayMap = {
           'MONDAY': '월',
           'TUESDAY': '화',
@@ -141,8 +140,9 @@ class TaskEditBottomSheetViewModel
           loadingStatus: LoadingStatus.success,
           routinDayList: routineDayList,
           taskType: tasktype,
-          time: routineTime,
-          timeSetting: routineTime.isNotEmpty, // 서버에서 줘야함
+          time: routineResult.data.routineTimeString ?? '00:00',
+          timeSetting:
+              routineResult.data.routineTimeString == null ? false : true,
         );
       case FailureRepositoryResult():
         state = state.copyWith(
