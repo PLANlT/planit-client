@@ -23,7 +23,7 @@ class AppRouterInterceptor {
       // 웹뷰 화면도 리다이렉트 하지 않음 (회원가입 도중 약관 웹뷰를 열기 때문)
       if (state.fullPath?.startsWith('/login') == false &&
           state.fullPath?.startsWith('/splash') == false &&
-          state.fullPath?.startsWith('/onboarding') == false&&
+          state.fullPath?.startsWith('/onboarding') == false &&
           state.fullPath?.startsWith('/webView') == false) {
         return '/login';
       }
