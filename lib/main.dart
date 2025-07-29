@@ -1,23 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
+import 'package:planit/routes/app_router.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  // runApp 실행전 초기화
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // env 로드
+  await dotenv.load(fileName: 'assets/.env');
+
+  // Flutter SDK 초기화
+  KakaoSdk.init(
+    nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
+    javaScriptAppKey: dotenv.env['KAKAO_JAVASCRIPT_APP_KEY'],
+  );
+
+  // 화면 세로로 고정
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
+  runApp(
+    ProviderScope(
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(home: Home());
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: ref.watch(appRouterProvider).router,
+    );
   }
 }

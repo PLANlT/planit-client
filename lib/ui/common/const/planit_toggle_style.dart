@@ -1,0 +1,4 @@
+enum PlanitToggleStyle {
+  on,
+  off,
+}

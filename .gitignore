@@ -41,3 +41,22 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# FVM Version Cache
+.fvm/
+
+assets/.env
+android/google-services.json
+
+android/app/google-services.json
+android/app/fastlane_key.json
+firebase.json
+lib/firebase_options.dart
+
+android/app/debug.keystore
+android/upload-keystore.jks
+
+android/app/src/main/res/xml/network_security_config.xml
+lib/ui/common/const/planit_urls.dart
+
+android/app/key.properties
