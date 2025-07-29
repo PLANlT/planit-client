@@ -13,6 +13,7 @@ import 'package:planit/ui/common/view/default_layout.dart';
 
 class ArchivingView extends HookConsumerWidget {
   static String get routeName => 'archiving';
+
   const ArchivingView({super.key});
 
   @override
@@ -40,11 +41,20 @@ class ArchivingView extends HookConsumerWidget {
           Column(
             spacing: 4,
             children: [
-              PlanitText('기억 속의 플랜들',
-                  style: PlanitTypos.title1.copyWith(fontSize: 28)),
-              PlanitText('그동안의 여정을 다시 떠올려보세요.',
-                  style:
-                      PlanitTypos.body3.copyWith(fontWeight: FontWeight.w400)),
+              PlanitText(
+                '기억 속의 플랜들',
+                style: PlanitTypos.title1.copyWith(
+                  fontSize: 28,
+                  color: PlanitColors.black01,
+                ),
+              ),
+              PlanitText(
+                '그동안의 여정을 다시 떠올려보세요.',
+                style: PlanitTypos.body3.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: PlanitColors.black01,
+                ),
+              ),
             ],
           ),
           SvgPicture.asset('assets/mascots/jumping.svg'),
@@ -65,7 +75,9 @@ class ArchivingView extends HookConsumerWidget {
 
 class ArchivePlanCard extends StatelessWidget {
   final ArchivingPlanModel plan;
+
   const ArchivePlanCard({super.key, required this.plan});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,6 +85,7 @@ class ArchivePlanCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: PlanitColors.white02,
       ),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 18),
       child: Column(
         spacing: 8,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -88,14 +101,22 @@ class ArchivePlanCard extends StatelessWidget {
             ),
           ),
           PlanitText(plan.title, style: PlanitTypos.title2),
-          PlanitText('${plan.completedDaysAgo}일 전 완료',
-              style: PlanitTypos.body3.copyWith(color: Color(0xFF666666))),
-          PlanitText('${plan.progressDays}일동안 진행했어요!',
-              style: PlanitTypos.body3.copyWith(
-                  color: PlanitColors.alert, fontWeight: FontWeight.w400)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Container(
+          PlanitText(
+            '${plan.completedDaysAgo}일 전 완료',
+            style: PlanitTypos.body3.copyWith(
+              color: Color(0xFF666666),
+            ),
+          ),
+          PlanitText(
+            '${plan.progressDays}일동안 진행했어요!',
+            style: PlanitTypos.body3.copyWith(
+              color: PlanitColors.alert,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          // 동기 없을 때 비노출
+          if (plan.motivation.isNotEmpty)
+            Container(
               decoration: BoxDecoration(
                 color: PlanitColors.white01,
                 borderRadius: BorderRadius.circular(8),
@@ -104,13 +125,15 @@ class ArchivePlanCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Center(
-                  child: PlanitText(plan.motivation,
-                      style: PlanitTypos.body3
-                          .copyWith(color: PlanitColors.black03)),
+                  child: PlanitText(
+                    plan.motivation,
+                    style: PlanitTypos.body3.copyWith(
+                      color: PlanitColors.black03,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          )
+            )
         ],
       ),
     );
@@ -119,6 +142,7 @@ class ArchivePlanCard extends StatelessWidget {
 
 class ArchivePlanScroll extends StatefulWidget {
   final List<ArchivingPlanModel> plans;
+
   const ArchivePlanScroll({super.key, required this.plans});
 
   @override
