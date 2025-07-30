@@ -43,13 +43,13 @@ class TodayPlanResponseBody {
 class TaskStatusResponseBody {
   final int taskId;
   final String title;
-  final String routineTime;
+  final String? routineTime;
   final bool isCompleted;
 
   TaskStatusResponseBody({
     required this.taskId,
     required this.title,
-    required this.routineTime,
+    this.routineTime,
     required this.isCompleted,
   });
 

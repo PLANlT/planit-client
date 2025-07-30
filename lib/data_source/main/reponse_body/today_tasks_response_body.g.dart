@@ -54,7 +54,7 @@ TaskStatusResponseBody _$TaskStatusResponseBodyFromJson(
     TaskStatusResponseBody(
       taskId: (json['taskId'] as num).toInt(),
       title: json['title'] as String,
-      routineTime: json['routineTime'] as String,
+      routineTime: json['routineTime'] as String?,
       isCompleted: json['isCompleted'] as bool,
     );
 
