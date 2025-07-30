@@ -1,8 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:planit/repository/archiving/model/archiving_plan_model.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -57,15 +59,30 @@ class ArchivingView extends HookConsumerWidget {
               ),
             ],
           ),
+
           SvgPicture.asset('assets/mascots/jumping.svg'),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 52),
-            child: SizedBox(
-              height: cardWidth / aspectRatio,
-              child: ArchivePlanScroll(
-                plans: state.archivingPlans,
-              ),
-            ),
+            child: state.archivingPlans.isNotEmpty
+                ? SizedBox(
+                    height: cardWidth / aspectRatio,
+                    child: ArchivePlanScroll(
+                      viewmodel: viewmodel,
+                      plans: state.archivingPlans,
+                    ),
+                  )
+                : Column(
+                    children: [
+                      SizedBox(height: 88),
+                      PlanitText(
+                        '아직 플랜이\n존재하지 않아요!',
+                        style: PlanitTypos.body3
+                            .copyWith(color: PlanitColors.black03),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
           ), // 위로 lift 되는 카드
         ],
       ),
@@ -143,7 +160,13 @@ class ArchivePlanCard extends StatelessWidget {
 class ArchivePlanScroll extends StatefulWidget {
   final List<ArchivingPlanModel> plans;
 
-  const ArchivePlanScroll({super.key, required this.plans});
+  final ArchivingViewModel viewmodel;
+
+  const ArchivePlanScroll({
+    super.key,
+    required this.plans,
+    required this.viewmodel,
+  });
 
   @override
   State<ArchivePlanScroll> createState() => _ArchivePlanScrollState();
@@ -198,13 +221,16 @@ class _ArchivePlanScrollState extends State<ArchivePlanScroll> {
               child: AspectRatio(
                 aspectRatio: aspectRatio,
                 child: GestureDetector(
-                    onTap: () {
-                      context.pushNamed(
+                    onTap: () async {
+                      final result = await context.pushNamed(
                         ArchivingDetailView.routeName,
                         pathParameters: {
                           'planId': widget.plans[index].planId.toString()
                         },
                       );
+                      if (result == true) {
+                        widget.viewmodel.init();
+                      }
                     },
                     child: ArchivePlanCard(plan: widget.plans[index])),
               ),
