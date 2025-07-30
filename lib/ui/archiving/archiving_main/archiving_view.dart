@@ -57,15 +57,29 @@ class ArchivingView extends HookConsumerWidget {
               ),
             ],
           ),
+
           SvgPicture.asset('assets/mascots/jumping.svg'),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 52),
-            child: SizedBox(
-              height: cardWidth / aspectRatio,
-              child: ArchivePlanScroll(
-                plans: state.archivingPlans,
-              ),
-            ),
+            child: state.archivingPlans.isNotEmpty
+                ? SizedBox(
+                    height: cardWidth / aspectRatio,
+                    child: ArchivePlanScroll(
+                      plans: state.archivingPlans,
+                    ),
+                  )
+                : Column(
+                    children: [
+                      SizedBox(height: 88),
+                      PlanitText(
+                        '아직 플랜이\n존재하지 않아요!',
+                        style: PlanitTypos.body3
+                            .copyWith(color: PlanitColors.black03),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
           ), // 위로 lift 되는 카드
         ],
       ),
