@@ -41,6 +41,33 @@ class PlanCreateView extends HookConsumerWidget {
     final titleController = useTextEditingController();
     final motivationController = useTextEditingController();
 
+    final titleFocusNode = useFocusNode();
+    final motivationFocusNode = useFocusNode();
+
+    useEffect(() {
+      void titleFocusListener() {
+        if (!titleFocusNode.hasFocus) {
+          // 포커스를 잃을 때 업데이트
+          viewmodel.updateTitle(titleController.text);
+        }
+      }
+
+      void motivationFocusListener() {
+        if (!motivationFocusNode.hasFocus) {
+          // 포커스를 잃을 때 업데이트
+          viewmodel.updateMotivation(motivationController.text);
+        }
+      }
+
+      titleFocusNode.addListener(titleFocusListener);
+      motivationFocusNode.addListener(motivationFocusListener);
+
+      return () {
+        titleFocusNode.removeListener(titleFocusListener);
+        motivationFocusNode.removeListener(motivationFocusListener);
+      };
+    }, [titleFocusNode, motivationFocusNode]);
+
     useEffect(() {
       if (planId != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -110,7 +137,7 @@ class PlanCreateView extends HookConsumerWidget {
                               ? '당신의 목표는 무엇인가요?'
                               : null,
                       controller: titleController,
-                      onChanged: viewmodel.updateTitle,
+                      focusNode: titleFocusNode,
                     ),
                   ),
                 ],
@@ -140,8 +167,8 @@ class PlanCreateView extends HookConsumerWidget {
                   PlanitTextField(
                     hintText: '이 플랜을 지속할 수 있는 요소가 있나요?',
                     controller: motivationController,
-                    onChanged: viewmodel.updateMotivation,
                     maxLength: 40,
+                    focusNode: motivationFocusNode,
                   ),
                 ],
               ),

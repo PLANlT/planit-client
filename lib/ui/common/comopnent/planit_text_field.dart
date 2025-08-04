@@ -18,6 +18,8 @@ class PlanitTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool enabled;
   final int? maxLength;
+  final FocusNode? focusNode;
+  final Function(String)? onSubmitted;
 
   const PlanitTextField({
     super.key,
@@ -28,6 +30,8 @@ class PlanitTextField extends StatelessWidget {
     this.keyboardType,
     this.enabled = true,
     this.maxLength,
+    this.focusNode,
+    this.onSubmitted,
   });
 
   @override
@@ -41,6 +45,8 @@ class PlanitTextField extends StatelessWidget {
     );
 
     return TextField(
+      onSubmitted: onSubmitted,
+      focusNode: focusNode,
       controller: controller,
       onTapOutside: (PointerDownEvent event) {
         FocusManager.instance.primaryFocus?.unfocus();
