@@ -20,7 +20,12 @@ import 'component/route_switch_banner.dart';
 class MainView extends HookConsumerWidget {
   static String get routeName => 'main';
 
-  const MainView({super.key});
+  final VoidCallback goToPlan;
+
+  const MainView({
+    super.key,
+    required this.goToPlan,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -93,6 +98,7 @@ class MainView extends HookConsumerWidget {
                     : state.plans.passionatePlans,
                 showRecoveryRoutineBanner: state.showRecoveryRoutineBanner,
                 onCheckboxTap: viewModel.onCheckboxTap,
+                goToPlan: () => goToPlan(),
               ),
             ],
           ),

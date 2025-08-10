@@ -45,6 +45,10 @@ class _RootTabState extends ConsumerState<RootTab>
     });
   }
 
+  void changeTap(int index) {
+    controller.animateTo(index);
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -121,7 +125,11 @@ class _RootTabState extends ConsumerState<RootTab>
         controller: controller,
         children: [
           PlanView(),
-          isGuiltyFree ? GuiltyFreeIngView() : MainView(),
+          isGuiltyFree
+              ? GuiltyFreeIngView()
+              : MainView(
+                  goToPlan: () => changeTap(0),
+                ),
           ArchivingView(),
         ],
       ),
