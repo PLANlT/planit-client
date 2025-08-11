@@ -132,7 +132,8 @@ class PlanDetailView extends HookConsumerWidget {
                     ),
                     // 동기
                     Padding(
-                      padding: const EdgeInsets.only(top: 4.0, bottom: 40),
+                      padding: const EdgeInsets.symmetric(horizontal: 20)
+                          .copyWith(top: 4, bottom: 40),
                       child: PlanitText(
                         state.planDetail!.motivation,
                         style: PlanitTypos.body3.copyWith(
