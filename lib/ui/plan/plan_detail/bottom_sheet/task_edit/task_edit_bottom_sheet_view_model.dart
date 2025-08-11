@@ -56,7 +56,7 @@ class TaskEditBottomSheetViewModel
     state = state.copyWith(taskType: updated);
   }
 
-  void saveEditedRoutine() async {
+  Future<bool> saveEditedRoutine() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
     // taskType 설정
@@ -95,16 +95,18 @@ class TaskEditBottomSheetViewModel
         routineDay: routineDay,
       ),
     );
-    if (!mounted) return;
+    if (!mounted) return false;
     // 결과 처리
     switch (editRoutineResult) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
+        return true;
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
           errorMessage: '루틴 설정에 실패했어요',
         );
+        return false;
     }
   }
 

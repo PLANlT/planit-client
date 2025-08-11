@@ -152,7 +152,7 @@ class PlanDetailView extends HookConsumerWidget {
                             title: item.title,
                             taskType: item.taskType,
                             taskId: item.taskId,
-                            onTaskDeleted: () {
+                            needsRefresh: () {
                               viewModel.init();
                             },
                           ),

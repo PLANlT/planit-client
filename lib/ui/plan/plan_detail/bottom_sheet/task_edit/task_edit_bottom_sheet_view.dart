@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
@@ -259,9 +260,16 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                   child: SizedBox(
                     width: double.infinity,
                     child: PlanitButton(
-                      onPressed: () {
-                        viewmodel.saveEditedRoutine();
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        final result = await viewmodel.saveEditedRoutine();
+                        if (!context.mounted) return;
+                        if (result) {
+                          context.pop(true);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('수정에 실패했어요.')),
+                          );
+                        }
                       },
                       buttonColor: PlanitButtonColor.black,
                       buttonSize: PlanitButtonSize.large,
