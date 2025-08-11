@@ -37,14 +37,20 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(top: 12),
               child: GestureDetector(
-                onTap: () {
-                  context.pushNamed(
+                onTap: () async {
+                  final result = await context.pushNamed(
                     PlanCreateView.routeName,
                     queryParameters: {
                       'planId': planId.toString(),
                       'planStatus': planStatus
                     },
                   );
+                  if (!context.mounted) {
+                    return;
+                  }
+                  if (result == true) {
+                    context.pop(true);
+                  }
                 },
                 child: PlanitText('플랜 수정', style: PlanitTypos.body2),
               ),

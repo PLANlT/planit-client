@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -96,8 +97,8 @@ class PlanDetailView extends HookConsumerWidget {
                             top: 8,
                             right: 20,
                             child: GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
+                              onTap: () async {
+                                final result = await showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
                                     return PlanMoreBottomSheet(
@@ -108,6 +109,12 @@ class PlanDetailView extends HookConsumerWidget {
                                     );
                                   },
                                 );
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                if (result == true) {
+                                  context.pop(true);
+                                }
                               },
                               child: SvgPicture.asset(
                                 Assets.more,

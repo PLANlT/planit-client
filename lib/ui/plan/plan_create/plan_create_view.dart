@@ -394,7 +394,7 @@ class PlanCreateView extends HookConsumerWidget {
                               if (success) {
                                 toast.showToast(
                                     child: PlanitToast(label: '플랜이 수정됐어요!'));
-                                context.goNamed(RootTab.routeName);
+                                context.pop(true);
                               } else {
                                 toast.showToast(
                                     child: PlanitToast(label: '플랜 수정에 실패했어요.'));

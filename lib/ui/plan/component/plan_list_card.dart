@@ -10,20 +10,28 @@ import 'package:planit/ui/plan/component/plan_main_chip.dart';
 class PlanListCard extends StatelessWidget {
   final PlanModel plan;
   final String planStatus;
+  final VoidCallback? needsRefresh;
 
-  const PlanListCard({super.key, required this.plan, required this.planStatus});
+  const PlanListCard(
+      {super.key,
+      required this.plan,
+      required this.planStatus,
+      this.needsRefresh});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.pushNamed(
+      onTap: () async {
+        final result = await context.pushNamed(
           'plan_detail',
           pathParameters: {
             'planId': plan.planId.toString(),
-            'planStatus': planStatus, 
+            'planStatus': planStatus,
           },
         );
+        if (result == true && needsRefresh != null) {
+          needsRefresh!();
+        }
       },
       child: Container(
           decoration: BoxDecoration(
