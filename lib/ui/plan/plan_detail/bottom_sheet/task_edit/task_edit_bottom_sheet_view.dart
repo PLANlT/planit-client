@@ -29,6 +29,8 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
       taskEditViewModelProvider(taskId).notifier,
     );
 
+    final showConditionError = useState(false);
+
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         viewmodel.init();
@@ -188,6 +190,9 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           viewmodel.toggleType('HIGH');
+                          if (showConditionError.value) {
+                            showConditionError.value = false;
+                          }
                         },
                         child: PlanitChip(
                           chipColor: state.taskType.contains('HIGH')
@@ -199,6 +204,9 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           viewmodel.toggleType('LOW');
+                          if (showConditionError.value) {
+                            showConditionError.value = false;
+                          }
                         },
                         child: PlanitChip(
                           chipColor: state.taskType.contains('LOW')
@@ -210,6 +218,17 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                     ],
                   ),
                 ),
+                // 에러 메시지 표시
+                if (showConditionError.value)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: PlanitText(
+                      '컨디션을 선택해주세요',
+                      style: PlanitTypos.caption.copyWith(
+                        color: PlanitColors.alert,
+                      ),
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
                   // 물음표까지 터치영역 확장
@@ -261,6 +280,11 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                     width: double.infinity,
                     child: PlanitButton(
                       onPressed: () async {
+                        if (state.taskType.isEmpty) {
+                          showConditionError.value = true;
+                          return; 
+                        }
+
                         final result = await viewmodel.saveEditedRoutine();
                         if (!context.mounted) return;
                         if (result) {

@@ -66,8 +66,10 @@ class TaskEditBottomSheetViewModel
       taskType = 'ALL';
     } else if (taskTypeSet.contains('HIGH')) {
       taskType = 'PASSIONATE';
-    } else {
+    } else if (taskTypeSet.contains('LOW')) {
       taskType = 'SLOW';
+    } else {
+      return false;
     }
 
     // 요일 매핑
