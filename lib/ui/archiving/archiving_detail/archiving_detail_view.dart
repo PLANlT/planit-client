@@ -7,11 +7,14 @@ import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/archiving/archiving_restart/archiving_restart_view.dart';
+import 'package:planit/ui/common/assets.dart';
+import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_loading.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
+import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_state.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
@@ -63,9 +66,47 @@ class ArchivingDetailView extends HookConsumerWidget {
                               height: 120,
                             ),
                           ),
+                          Positioned(
+                            top: 8,
+                            right: 20,
+                            child: GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return PlanitBottomSheet(
+                                        height: 124,
+                                        content: GestureDetector(
+                                          onTap: () async {
+                                            await viewModel
+                                                .clickDeletePlan(planId);
+                                            context.pop();
+                                            context.pop(true);
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 16),
+                                            child: PlanitText('아카이브 삭제',
+                                                style: PlanitTypos.body2
+                                                    .copyWith(
+                                                        color:
+                                                            PlanitColors.red)),
+                                          ),
+                                        ));
+                                  },
+                                );
+                              },
+                              child: SvgPicture.asset(
+                                Assets.more,
+                                width: 24,
+                                height: 24,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
