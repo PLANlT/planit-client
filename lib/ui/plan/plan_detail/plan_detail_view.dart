@@ -141,23 +141,24 @@ class PlanDetailView extends HookConsumerWidget {
                       ),
                     ),
                     // 태스크 리스트
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.planDetail!.tasks.length,
-                      itemBuilder: (context, index) {
-                        final item = state.planDetail!.tasks[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: TaskCard(
-                            title: item.title,
-                            taskType: item.taskType,
-                            taskId: item.taskId,
-                            needsRefresh: () {
-                              viewModel.init();
-                            },
-                          ),
-                        );
-                      },
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.planDetail!.tasks.length,
+                        itemBuilder: (context, index) {
+                          final item = state.planDetail!.tasks[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: TaskCard(
+                              title: item.title,
+                              taskType: item.taskType,
+                              taskId: item.taskId,
+                              needsRefresh: () {
+                                viewModel.init();
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),
