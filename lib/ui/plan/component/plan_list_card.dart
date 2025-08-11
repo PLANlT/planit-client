@@ -10,11 +10,13 @@ import 'package:planit/ui/plan/component/plan_main_chip.dart';
 class PlanListCard extends StatelessWidget {
   final PlanModel plan;
   final String planStatus;
+  final String? dDay;
   final VoidCallback? needsRefresh;
 
   const PlanListCard(
       {super.key,
       required this.plan,
+      required this.dDay,
       required this.planStatus,
       this.needsRefresh});
 
@@ -27,6 +29,7 @@ class PlanListCard extends StatelessWidget {
           pathParameters: {
             'planId': plan.planId.toString(),
             'planStatus': planStatus,
+            'dDay': dDay ?? ''
           },
         );
         if (result == true && needsRefresh != null) {

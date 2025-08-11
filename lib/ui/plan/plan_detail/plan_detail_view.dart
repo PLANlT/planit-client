@@ -19,9 +19,13 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 class PlanDetailView extends HookConsumerWidget {
   final int planId;
   final String planStatus;
+  final String? dDay;
 
   const PlanDetailView(
-      {required this.planId, required this.planStatus, super.key});
+      {required this.planId,
+      required this.planStatus,
+      required this.dDay,
+      super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -104,6 +108,7 @@ class PlanDetailView extends HookConsumerWidget {
                                     return PlanMoreBottomSheet(
                                       title: state.planDetail!.title,
                                       planStatus: planStatus,
+                                      dDay : dDay,
                                       planId: planId,
                                       icon: state.planDetail!.icon,
                                     );

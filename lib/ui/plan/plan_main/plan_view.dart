@@ -158,6 +158,7 @@ class _PlanList extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = plans[index];
               return PlanListCard(
+                dDay: item.dday,
                 needsRefresh: needsRefresh,
                 planStatus: planStatus,
                 plan: item,

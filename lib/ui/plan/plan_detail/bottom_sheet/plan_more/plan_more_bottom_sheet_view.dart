@@ -15,11 +15,13 @@ import '../../../../archiving/archiving_complete/archiving_complete_view.dart';
 
 class PlanMoreBottomSheet extends HookConsumerWidget {
   final int planId;
-  final String planStatus;
-  final String icon;
-  final String title;
+  final String planStatus; //플랜 수정할때 넘겨줘야함
+  final String? dDay; // 플랜 수정할때 넘겨줘야함
+  final String icon; //아카이빙 완료할때 넘겨줘야함
+  final String title; //아카이빙 완료 할때 넘겨줘어함
   const PlanMoreBottomSheet(
       {super.key,
+      required this.dDay,
       required this.title,
       required this.planId,
       required this.planStatus,
@@ -42,7 +44,8 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                     PlanCreateView.routeName,
                     queryParameters: {
                       'planId': planId.toString(),
-                      'planStatus': planStatus
+                      'planStatus': planStatus,
+                      'dDay': dDay
                     },
                   );
                   if (!context.mounted) {

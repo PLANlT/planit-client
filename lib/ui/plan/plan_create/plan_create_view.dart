@@ -25,9 +25,10 @@ import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
 class PlanCreateView extends HookConsumerWidget {
   static String get routeName => 'plan_create';
   final int? planId;
+  final String? dDay;
   final String? planStatus;
 
-  const PlanCreateView({super.key, this.planId, this.planStatus});
+  const PlanCreateView({super.key, this.planId, this.planStatus, this.dDay});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -78,6 +79,11 @@ class PlanCreateView extends HookConsumerWidget {
       if (planStatus != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           viewmodel.updatePlanStatus(planStatus!);
+        });
+      }
+      if (dDay != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          viewmodel.calculateFinalDate(dDay!);
         });
       }
       return null;

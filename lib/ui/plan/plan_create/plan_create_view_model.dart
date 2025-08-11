@@ -68,6 +68,23 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
     }
   }
 
+  void calculateFinalDate(String dDayString) {
+    final dDayValue =
+        int.tryParse(dDayString.replaceAll('D-', '').replaceAll('D+', ''));
+
+    if (dDayValue == null) {
+      return; 
+    }
+
+    final now = DateTime.now();
+    final targetDate = now.add(Duration(days: dDayValue));
+
+    final finalDay =
+        '${targetDate.year.toString().padLeft(4, '0')}-${targetDate.month.toString().padLeft(2, '0')}-${targetDate.day.toString().padLeft(2, '0')}';
+    state = state.copyWith(selectedDate: finalDay);
+    return;
+  }
+
   Future<void> getPlanCreateInfo(int planId) async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final result = await _planRepository.getPlanDetailByPlanId(planId);
