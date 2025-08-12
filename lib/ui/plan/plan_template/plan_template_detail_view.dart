@@ -11,6 +11,8 @@ import 'package:planit/ui/plan/component/task_card.dart';
 import 'package:planit/ui/plan/plan_template/plan_template.dart';
 import 'package:planit/ui/plan/plan_template/plan_template_detail_view_model.dart';
 
+import '../plan_main/plan_view_model.dart';
+
 class PlanTemplateDetailView extends HookConsumerWidget {
   static String get routeName => 'template_detail';
   final PlanTemplateDetail templateDetai;
@@ -20,6 +22,7 @@ class PlanTemplateDetailView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewmodel = ref.read(planTemplateViewModelProvider.notifier);
+    final PlanViewModel planViewModel = ref.read(planViewModelProvider.notifier);
 
     return DefaultLayout(
       title: templateDetai.title,
@@ -73,6 +76,7 @@ class PlanTemplateDetailView extends HookConsumerWidget {
                 onPressed: () async {
                   try {
                     await viewmodel.createPlanAndAddTask(templateDetai);
+                    planViewModel.init();
                     if (context.mounted) {
                       context.pop();
                     }
