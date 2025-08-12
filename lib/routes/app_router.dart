@@ -126,14 +126,17 @@ class AppRouter {
                 },
               ),
               GoRoute(
-                  path: 'detail/:planStatus/:planId',
+                  path: 'detail/:planId',
                   name: 'plan_detail',
                   pageBuilder: (context, state) {
-                    final planStatus = state.pathParameters['planStatus']!;
+                    final planStatus = state.uri.queryParameters['planStatus']!;
                     final planIdStr = state.pathParameters['planId']!;
+                    final dDay = state.uri.queryParameters['dDay'];
+
                     final planId = int.parse(planIdStr);
                     return NoTransitionPage(
                       child: PlanDetailView(
+                        dDay: dDay,
                         planId: planId,
                         planStatus: planStatus,
                       ),
@@ -145,12 +148,14 @@ class AppRouter {
                 pageBuilder: (context, state) {
                   final planIdStr = state.uri.queryParameters['planId'];
                   final planStatus = state.uri.queryParameters['planStatus'];
+                  final dDay = state.uri.queryParameters['dDay'];
                   final planId =
                       planIdStr != null ? int.tryParse(planIdStr) : null;
                   return NoTransitionPage(
                     child: PlanCreateView(
                       planId: planId,
                       planStatus: planStatus,
+                      dDay: dDay,
                     ), // null 허용
                   );
                 },

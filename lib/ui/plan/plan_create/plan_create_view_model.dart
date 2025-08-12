@@ -68,6 +68,50 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
     }
   }
 
+  // void calculateFinalDate(String dDayString) {
+  //   final dDayValue =
+  //       int.tryParse(dDayString.replaceAll('D-', '').replaceAll('D+', ''));
+
+  //   if (dDayValue == null) {
+  //     return;
+  //   }
+
+  //   final now = DateTime.now();
+  //   final targetDate = now.add(Duration(days: dDayValue));
+
+  //   final finalDay =
+  //       '${targetDate.year.toString().padLeft(4, '0')}-${targetDate.month.toString().padLeft(2, '0')}-${targetDate.day.toString().padLeft(2, '0')}';
+  //   state = state.copyWith(selectedDate: finalDay);
+  //   return;
+  // }
+
+  void calculateFinalDate(String dDayString) {
+    final input = dDayString.trim().toUpperCase();
+    final now = DateTime.now();
+
+    // 형식: D-10 / D+3
+    final match = RegExp(r'^D([+-])(\d+)$').firstMatch(input);
+    DateTime targetDate;
+    if (match != null) {
+      final sign = match.group(1)!; // '-' or '+'
+      final days = int.parse(match.group(2)!);
+      // D-10: 10일 남음 → +10
+      // D+3 : 3일 지남 → -3
+      final delta = sign == '-' ? days : -days;
+      targetDate = now.add(Duration(days: delta));
+    } else {
+      // 숫자만 들어오는 경우도 허용
+      final parsed = int.tryParse(input);
+      if (parsed == null) {
+        return;
+      }
+      targetDate = now.add(Duration(days: parsed));
+    }
+
+    final finalDay = DateFormat('yyyy-MM-dd').format(targetDate);
+    state = state.copyWith(selectedDate: finalDay);
+  }
+
   Future<void> getPlanCreateInfo(int planId) async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
     final result = await _planRepository.getPlanDetailByPlanId(planId);
