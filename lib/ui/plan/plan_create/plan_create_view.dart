@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
@@ -377,6 +378,9 @@ class PlanCreateView extends HookConsumerWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () async {
+                      if (state.loadingStatus == LoadingStatus.loading) {
+                        return;
+                      }
                       viewmodel.updateClickedNext();
                       // 방금 상태를 변경했기 때문에, 최신 상태를 ref.read()로 즉시 가져옴
                       final latestState = ref.read(planViewModelProvider);

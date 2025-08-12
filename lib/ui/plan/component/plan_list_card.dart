@@ -24,14 +24,12 @@ class PlanListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final result = await context.pushNamed(
-          'plan_detail',
-          pathParameters: {
-            'planId': plan.planId.toString(),
-            'planStatus': planStatus,
-            'dDay': dDay ?? ''
-          },
-        );
+        final result = await context.pushNamed('plan_detail', pathParameters: {
+          'planId': plan.planId.toString(),
+        }, queryParameters: {
+          'dDay': dDay,
+          'planStatus': planStatus,
+        });
         if (result == true && needsRefresh != null) {
           needsRefresh!();
         }

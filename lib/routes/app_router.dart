@@ -126,12 +126,13 @@ class AppRouter {
                 },
               ),
               GoRoute(
-                  path: 'detail/:planStatus/:planId/:dDay',
+                  path: 'detail/:planId',
                   name: 'plan_detail',
                   pageBuilder: (context, state) {
-                    final planStatus = state.pathParameters['planStatus']!;
+                    final planStatus = state.uri.queryParameters['planStatus']!;
                     final planIdStr = state.pathParameters['planId']!;
-                    final dDay = state.pathParameters['dDay']!;
+                    final dDay = state.uri.queryParameters['dDay'];
+
                     final planId = int.parse(planIdStr);
                     return NoTransitionPage(
                       child: PlanDetailView(

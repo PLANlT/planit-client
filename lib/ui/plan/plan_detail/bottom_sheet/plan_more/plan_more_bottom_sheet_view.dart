@@ -40,14 +40,16 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
               padding: const EdgeInsets.only(top: 12),
               child: GestureDetector(
                 onTap: () async {
+                   final params = <String, String>{
+                    'planId': planId.toString(),
+                    'planStatus': planStatus,
+                    if (dDay != null) 'dDay': dDay!,
+                  };
                   final result = await context.pushNamed(
                     PlanCreateView.routeName,
-                    queryParameters: {
-                      'planId': planId.toString(),
-                      'planStatus': planStatus,
-                      'dDay': dDay
-                    },
+                    queryParameters: params,
                   );
+                  
                   if (!context.mounted) {
                     return;
                   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
@@ -280,18 +281,27 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                     width: double.infinity,
                     child: PlanitButton(
                       onPressed: () async {
+                        if (state.loadingStatus == LoadingStatus.loading) {
+                          return;
+                        }
                         if (state.taskType.isEmpty) {
                           showConditionError.value = true;
-                          return; 
+                          return;
                         }
-
-                        final result = await viewmodel.saveEditedRoutine();
-                        if (!context.mounted) return;
-                        if (result) {
-                          context.pop(true);
-                        } else {
+                        try {
+                          final result = await viewmodel.saveEditedRoutine();
+                          if (!context.mounted) return;
+                          if (result) {
+                            context.pop(true);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('수정에 실패했어요.')),
+                            );
+                          }
+                        } catch (e) {
+                          if (!context.mounted) return;
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('수정에 실패했어요.')),
+                            const SnackBar(content: Text('오류가 발생했어요.')),
                           );
                         }
                       },
