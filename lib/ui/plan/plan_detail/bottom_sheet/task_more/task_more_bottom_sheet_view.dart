@@ -26,15 +26,18 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
           content: Column(
             children: [
               GestureDetector(
-                onTap: () {
-                  context.pop(context);
-                  showModalBottomSheet(
+                onTap: () async {
+                  final result = await showModalBottomSheet(
                     isScrollControlled: true,
                     context: context,
                     builder: (context) => TaskEditBottomSheetView(
                       taskId: taskId,
                     ),
                   );
+                  if (!context.mounted) return;
+                  if (result == true) {
+                    context.pop(true);
+                  }
                 },
                 // 터치 영역 확장 위해 흰색 컨테이너 사용
                 child: Container(
@@ -56,7 +59,7 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
                   final result = await viewmodel.clickDeleteTask();
                   if (!context.mounted) return;
                   if (result) {
-                    context.pop(true);  // 성공 시 모달 닫으면서 true 전달
+                    context.pop(true); // 성공 시 모달 닫으면서 true 전달
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('삭제에 실패했어요.')),

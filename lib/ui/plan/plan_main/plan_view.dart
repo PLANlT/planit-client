@@ -39,7 +39,9 @@ class PlanView extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BuildAppBar(viewmodel: viewmodel,),
+            BuildAppBar(
+              viewmodel: viewmodel,
+            ),
             SizedBox(height: 20),
             // 진행 중인 플랜
             if (state.activePlans.isNotEmpty)
@@ -47,6 +49,7 @@ class PlanView extends HookConsumerWidget {
                 title: '진행 중인 플랜',
                 plans: state.activePlans,
                 planStatus: 'IN_PROGRESS',
+                needsRefresh: viewmodel.init,
               ),
             // 잠시 중단한 플랜
             if (state.pausePlans.isNotEmpty)
@@ -59,6 +62,7 @@ class PlanView extends HookConsumerWidget {
                   title: '잠시 중단한 플랜',
                   plans: state.pausePlans,
                   planStatus: 'PAUSED',
+                  needsRefresh: viewmodel.init,
                 ),
               ),
             // 템플릿 텍스트
@@ -120,11 +124,13 @@ class _PlanList extends StatelessWidget {
   final String title;
   final List<PlanModel> plans;
   final String planStatus;
+  final VoidCallback? needsRefresh;
 
   const _PlanList({
     required this.title,
     required this.plans,
     required this.planStatus,
+    this.needsRefresh,
   });
 
   @override
@@ -152,6 +158,8 @@ class _PlanList extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = plans[index];
               return PlanListCard(
+                dDay: item.dday,
+                needsRefresh: needsRefresh,
                 planStatus: planStatus,
                 plan: item,
               );

@@ -77,6 +77,7 @@ class _PlanAllViewState extends State<PlanAllView> {
                     separatorBuilder: (context, index) => SizedBox(height: 12),
                     itemBuilder: (context, index) {
                       return PlanListCard(
+                        dDay: plans[index].dday,
                         plan: plans[index],
                         planStatus: 'PAUSED',
                       );
