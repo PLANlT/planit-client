@@ -71,17 +71,23 @@ class MainView extends HookConsumerWidget {
       }
     });
 
+    bool showAnimation = state.taskStatus == TaskStatus.partial ||
+        state.taskStatus == TaskStatus.allPassionate;
+
     return DefaultLayout(
       child: Stack(
         children: [
           Column(
             children: [
               MainTopWidget(
+                // 값 변할 시 재빌드 될 수 있도록 key로 전달
+                key: ValueKey(showAnimation),
                 status: state.taskStatus,
                 type: state.routeType,
                 onGuiltyFreePressed: viewModel.checkCanUseGuiltyFree(),
                 canUseGuiltyFree: state.canUseGuiltyFree,
                 consecutiveDay: state.consecutiveDay,
+                showAnimation: showAnimation,
               ),
               RouteSwitchBanner(
                 type: state.routeType,
