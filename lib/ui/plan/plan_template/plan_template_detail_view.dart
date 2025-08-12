@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/comopnent/planit_toast.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
-import 'package:planit/ui/common/view/root_tab.dart';
 import 'package:planit/ui/plan/component/task_card.dart';
 import 'package:planit/ui/plan/plan_template/plan_template.dart';
 import 'package:planit/ui/plan/plan_template/plan_template_detail_view_model.dart';
