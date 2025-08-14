@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
@@ -18,9 +19,13 @@ import 'package:planit/ui/plan/plan_detail/plan_detail_view_model.dart';
 class PlanDetailView extends HookConsumerWidget {
   final int planId;
   final String planStatus;
+  final String? dDay;
 
   const PlanDetailView(
-      {required this.planId, required this.planStatus, super.key});
+      {required this.planId,
+      required this.planStatus,
+      required this.dDay,
+      super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,18 +101,25 @@ class PlanDetailView extends HookConsumerWidget {
                             top: 8,
                             right: 20,
                             child: GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
+                              onTap: () async {
+                                final result = await showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
                                     return PlanMoreBottomSheet(
                                       title: state.planDetail!.title,
                                       planStatus: planStatus,
+                                      dDay : dDay,
                                       planId: planId,
                                       icon: state.planDetail!.icon,
                                     );
                                   },
                                 );
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                if (result == true) {
+                                  context.pop(true);
+                                }
                               },
                               child: SvgPicture.asset(
                                 Assets.more,
@@ -132,7 +144,8 @@ class PlanDetailView extends HookConsumerWidget {
                     ),
                     // 동기
                     Padding(
-                      padding: const EdgeInsets.only(top: 4.0, bottom: 40),
+                      padding: const EdgeInsets.symmetric(horizontal: 20)
+                          .copyWith(top: 4, bottom: 40),
                       child: PlanitText(
                         state.planDetail!.motivation,
                         style: PlanitTypos.body3.copyWith(
@@ -141,23 +154,24 @@ class PlanDetailView extends HookConsumerWidget {
                       ),
                     ),
                     // 태스크 리스트
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.planDetail!.tasks.length,
-                      itemBuilder: (context, index) {
-                        final item = state.planDetail!.tasks[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: TaskCard(
-                            title: item.title,
-                            taskType: item.taskType,
-                            taskId: item.taskId,
-                            onTaskDeleted: () {
-                              viewModel.init();
-                            },
-                          ),
-                        );
-                      },
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.planDetail!.tasks.length,
+                        itemBuilder: (context, index) {
+                          final item = state.planDetail!.tasks[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: TaskCard(
+                              title: item.title,
+                              taskType: item.taskType,
+                              taskId: item.taskId,
+                              needsRefresh: () {
+                                viewModel.init();
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ],
                 ),

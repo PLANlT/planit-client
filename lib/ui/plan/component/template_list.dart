@@ -42,8 +42,10 @@ class TemplateList extends StatelessWidget {
               );
             },
             child: Padding(
-              // 첫번째 아이템에만 좌측 패딩
-              padding: EdgeInsets.only(left: index == 0 ? 20 : 0),
+              // 첫번째 아이템에만 좌측 패딩, 마지막 아이템에만 오른쪽 패딩
+              padding: EdgeInsets.only(
+                  left: index == 0 ? 20 : 0,
+                  right: index == templateImage.length - 1 ? 20 : 0),
               child: SvgPicture.asset(
                 templateImage[index],
                 height: 112,

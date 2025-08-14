@@ -25,6 +25,7 @@ import 'package:planit/ui/onboarding/onboarding_view.dart';
 import 'package:planit/ui/plan/plan_create/plan_create_view.dart';
 import 'package:planit/ui/plan/plan_detail/plan_detail_view.dart';
 import 'package:planit/ui/plan/plan_main/plan_all_view.dart';
+import 'package:planit/ui/plan/plan_main/plan_view.dart';
 import 'package:planit/ui/plan/plan_template/plan_teamplate_view.dart';
 import 'package:planit/ui/plan/plan_template/plan_template.dart';
 import 'package:planit/ui/plan/plan_template/plan_template_detail_view.dart';
@@ -38,11 +39,12 @@ import 'package:planit/ui/splash_view.dart';
 import '../ui/recovery/recovery_intro_view.dart';
 import 'app_router_interceptor.dart';
 
-final Provider<AppRouter> appRouterProvider =
-    Provider<AppRouter>((ref) => AppRouter(
-          appRouterInterceptor: AppRouterInterceptor(ref: ref),
-          refreshListenable: ref.read(redirectNotifierProvider),
-        ));
+final Provider<AppRouter> appRouterProvider = Provider<AppRouter>(
+  (ref) => AppRouter(
+    appRouterInterceptor: AppRouterInterceptor(ref: ref),
+    refreshListenable: ref.read(redirectNotifierProvider),
+  ),
+);
 
 class AppRouter {
   static final GlobalKey<NavigatorState> rootNavigatorKey =
@@ -103,7 +105,7 @@ class AppRouter {
               ),
             ],
           ),
-          //플랜
+          // 플랜
           GoRoute(
             path: 'all/:isActive',
             name: PlanAllView.routeName,
@@ -119,14 +121,17 @@ class AppRouter {
             },
           ),
           GoRoute(
-              path: 'detail/:planStatus/:planId',
+              path: 'detail/:planId',
               name: 'plan_detail',
               pageBuilder: (context, state) {
-                final planStatus = state.pathParameters['planStatus']!;
+                final planStatus = state.uri.queryParameters['planStatus']!;
                 final planIdStr = state.pathParameters['planId']!;
+                final dDay = state.uri.queryParameters['dDay'];
+
                 final planId = int.parse(planIdStr);
                 return NoTransitionPage(
                   child: PlanDetailView(
+                    dDay: dDay,
                     planId: planId,
                     planStatus: planStatus,
                   ),
@@ -138,94 +143,91 @@ class AppRouter {
             pageBuilder: (context, state) {
               final planIdStr = state.uri.queryParameters['planId'];
               final planStatus = state.uri.queryParameters['planStatus'];
+              final dDay = state.uri.queryParameters['dDay'];
               final planId = planIdStr != null ? int.tryParse(planIdStr) : null;
               return NoTransitionPage(
                 child: PlanCreateView(
                   planId: planId,
                   planStatus: planStatus,
+                  dDay: dDay,
                 ), // null 허용
               );
             },
           ),
           GoRoute(
-              path: 'template/:templateName',
-              name: PlanTeamplateView.routeName,
-              pageBuilder: (context, state) {
-                final templateName = state.pathParameters['templateName']!;
-                return NoTransitionPage(
-                  child: PlanTeamplateView(
-                    templateName: templateName,
-                  ),
-                );
-              }),
+            path: 'template/:templateName',
+            name: PlanTeamplateView.routeName,
+            pageBuilder: (context, state) {
+              final templateName = state.pathParameters['templateName']!;
+              return NoTransitionPage(
+                child: PlanTeamplateView(
+                  templateName: templateName,
+                ),
+              );
+            },
+          ),
           GoRoute(
-              path: '/templateDetail',
-              name: PlanTemplateDetailView.routeName,
-              pageBuilder: (context, state) {
-                final templateDetail = state.extra as PlanTemplateDetail;
-                return NoTransitionPage(
-                    child:
-                        PlanTemplateDetailView(templateDetai: templateDetail));
-              }),
-          GoRoute(
-            path: 'archiving',
-            name: ArchivingView.routeName,
-            pageBuilder: (context, state) => NoTransitionPage(
-              child: ArchivingView(),
-            ),
-            routes: [
-              GoRoute(
-                  path: 'archivingDetail/:planId',
-                  name: ArchivingDetailView.routeName,
-                  pageBuilder: (context, state) {
-                    final planIdStr = state.pathParameters['planId']!;
-                    final planId = int.parse(planIdStr);
-                    return NoTransitionPage(
-                      child: ArchivingDetailView(
-                        planId: planId,
-                      ),
-                    );
-                  }),
-              GoRoute(
-                path: 'archivingRestart/:planId/:title',
-                name: ArchivingRestartView.routeName,
-                pageBuilder: (context, state) {
-                  final planIdStr = state.pathParameters['planId']!;
-                  final planId = int.parse(planIdStr);
-                  final title = state.pathParameters['title']!;
-
-                  return NoTransitionPage(
-                    child: ArchivingRestartView(
-                      planId: planId,
-                      title: title,
-                    ),
-                  );
-                },
-              ),
-              GoRoute(
-                path: 'archivingComplete/:icon/:title',
-                name: ArchivingCompleteView.routeName,
-                pageBuilder: (context, state) {
-                  final icon = state.pathParameters['icon']!;
-                  final title = state.pathParameters['title']!;
-                  return NoTransitionPage(
-                      child: ArchivingCompleteView(icon: icon, title: title));
-                },
-              ),
-              GoRoute(
-                path: 'archivingCompleteNavigator/:icon/:title',
-                name: ArchivingCompleteNavigator.routeName,
-                pageBuilder: (context, state) {
-                  final icon = state.pathParameters['icon']!;
-                  final title = state.pathParameters['title']!;
-                  return NoTransitionPage(
-                      child:
-                          ArchivingCompleteNavigator(icon: icon, title: title));
-                },
-              )
-            ],
+            path: 'templateDetail',
+            name: PlanTemplateDetailView.routeName,
+            pageBuilder: (context, state) {
+              final templateDetail = state.extra as PlanTemplateDetail;
+              return NoTransitionPage(
+                child: PlanTemplateDetailView(templateDetai: templateDetail),
+              );
+            },
           ),
           //아카이빙
+          GoRoute(
+            path: 'archivingDetail/:planId',
+            name: ArchivingDetailView.routeName,
+            pageBuilder: (context, state) {
+              final planIdStr = state.pathParameters['planId']!;
+              final planId = int.parse(planIdStr);
+              return NoTransitionPage(
+                child: ArchivingDetailView(
+                  planId: planId,
+                ),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'archivingRestart/:planId/:title',
+            name: ArchivingRestartView.routeName,
+            pageBuilder: (context, state) {
+              final planIdStr = state.pathParameters['planId']!;
+              final planId = int.parse(planIdStr);
+              final title = state.pathParameters['title']!;
+
+              return NoTransitionPage(
+                child: ArchivingRestartView(
+                  planId: planId,
+                  title: title,
+                ),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'archivingComplete/:icon/:title',
+            name: ArchivingCompleteView.routeName,
+            pageBuilder: (context, state) {
+              final icon = state.pathParameters['icon']!;
+              final title = state.pathParameters['title']!;
+              return NoTransitionPage(
+                child: ArchivingCompleteView(icon: icon, title: title),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'archivingCompleteNavigator/:icon/:title',
+            name: ArchivingCompleteNavigator.routeName,
+            pageBuilder: (context, state) {
+              final icon = state.pathParameters['icon']!;
+              final title = state.pathParameters['title']!;
+              return NoTransitionPage(
+                child: ArchivingCompleteNavigator(icon: icon, title: title),
+              );
+            },
+          ),
           // 길티프리
           GoRoute(
             path: 'guilty-intro',
