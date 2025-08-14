@@ -123,6 +123,12 @@ class _LineAnimationState extends State<LineAnimation>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: SlideTransition(
