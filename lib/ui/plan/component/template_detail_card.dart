@@ -22,7 +22,7 @@ class TemplateDetailCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
         onTap: () {
-          context.pushNamed(PlanTemplateDetailView.routeName,
+          context.goNamed(PlanTemplateDetailView.routeName,
               extra: templateDetail);
         },
         child: Container(

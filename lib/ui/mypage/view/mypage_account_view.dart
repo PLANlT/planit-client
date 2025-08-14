@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:planit/core/loading_status.dart';
+import 'package:planit/theme/planit_colors.dart';
+import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_loading.dart';
+import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/mypage/component/account_info_widget.dart';
@@ -54,7 +59,43 @@ class MypageAccountView extends HookConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: PlanitButton(
-                        onPressed: () => viewModel.withdraw(),
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) => PlanitBottomSheet(
+                              content: Padding(
+                                padding: EdgeInsetsGeometry.only(
+                                  top: 16.0,
+                                  bottom: 24.0,
+                                ),
+                                child: Column(
+                                  children: [
+                                    PlanitText(
+                                      '정말 회원 탈퇴를 진행할까요?',
+                                      style: PlanitTypos.title3.copyWith(
+                                        color: PlanitColors.red,
+                                      ),
+                                    ),
+                                    SizedBox(height: 16.0),
+                                    BottomSheetBtn(
+                                      label: '네, 진행할게요',
+                                      onTap: viewModel.withdraw,
+                                      labelColor: PlanitColors.red,
+                                    ),
+                                    Divider(
+                                      color: PlanitColors.white03,
+                                      height: 0.5,
+                                    ),
+                                    BottomSheetBtn(
+                                      label: '아니오',
+                                      onTap: context.pop,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                         buttonColor: PlanitButtonColor.red,
                         buttonSize: PlanitButtonSize.large,
                         label: '회원탈퇴',
@@ -70,6 +111,39 @@ class MypageAccountView extends HookConsumerWidget {
               child: PlanitLoading(),
             ),
         ],
+      ),
+    );
+  }
+}
+
+class BottomSheetBtn extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  final Color labelColor;
+
+  const BottomSheetBtn({
+    super.key,
+    required this.label,
+    required this.onTap,
+    this.labelColor = PlanitColors.black01,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        color: PlanitColors.transparent,
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.0,
+          vertical: 16.0,
+        ),
+        child: PlanitText(
+          label,
+          style: PlanitTypos.body2.copyWith(
+            color: labelColor,
+          ),
+        ),
       ),
     );
   }
