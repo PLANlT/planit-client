@@ -68,7 +68,7 @@ class _ArchivingCompleteViewState extends State<ArchivingCompleteView> {
           //마스코트 별 위에서 부터 올라옴
           Positioned.fill(
             child:
-                Align(alignment: Alignment.center, child: MainStartAnimation()),
+                Align(alignment: Alignment.center, child: MainStarAnimation()),
           ),
 
           // PlaniT 로고 opacity 0 > 1
@@ -331,13 +331,13 @@ class _OrbitAnimationState extends State<OrbitAnimation>
   }
 }
 
-class MainStartAnimation extends StatefulWidget {
-  const MainStartAnimation({super.key});
+class MainStarAnimation extends StatefulWidget {
+  const MainStarAnimation({super.key});
   @override
   _MainStarAnimationState createState() => _MainStarAnimationState();
 }
 
-class _MainStarAnimationState extends State<MainStartAnimation>
+class _MainStarAnimationState extends State<MainStarAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
@@ -370,6 +370,12 @@ class _MainStarAnimationState extends State<MainStartAnimation>
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
