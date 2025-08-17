@@ -190,14 +190,17 @@ class ArchivingDetailView extends HookConsumerWidget {
                       child: SizedBox(
                         width: double.infinity,
                         child: PlanitButton(
-                          onPressed: () {
-                            context.pushNamed(
+                          onPressed: () async {
+                            final result = await context.pushNamed(
                               ArchivingRestartView.routeName,
                               pathParameters: {
                                 'planId': planId.toString(),
                                 'title': state.planDetail!.title
                               },
                             );
+                            if (result == true) {
+                              context.pop(true);
+                            }
                           },
                           buttonColor: PlanitButtonColor.black,
                           buttonSize: PlanitButtonSize.large,
