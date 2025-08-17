@@ -260,6 +260,12 @@ class _TextAnimationState extends State<TextAnimation>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: FadeTransition(
@@ -311,6 +317,12 @@ class _OrbitAnimationState extends State<OrbitAnimation>
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
     _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
