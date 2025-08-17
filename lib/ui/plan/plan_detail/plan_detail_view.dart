@@ -119,6 +119,8 @@ class PlanDetailView extends HookConsumerWidget {
                                 }
                                 if (result == true) {
                                   context.pop(true);
+                                } else if (result == 'goToArchiving') {
+                                  context.pop('goToArchiving');
                                 }
                               },
                               child: SvgPicture.asset(

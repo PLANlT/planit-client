@@ -110,11 +110,17 @@ class AppRouter {
             path: 'all/:isActive',
             name: PlanAllView.routeName,
             pageBuilder: (context, state) {
-              final planList = state.extra as List<PlanModel>? ?? [];
+              final extraData = state.extra as Map<String, dynamic>? ?? {};
+              final planList = extraData['planList'] as List<PlanModel>? ?? [];
+              final goToArchiving = extraData['goToArchiving'] as VoidCallback;
+              final needsRefresh = extraData['needsRefresh'] as VoidCallback;
+
               final isActiveStr = state.pathParameters['isActive']!;
               final isActive = bool.parse(isActiveStr);
               return NoTransitionPage(
                   child: PlanAllView(
+                needsRefresh: needsRefresh,
+                goToArchiving: goToArchiving,
                 planList: planList,
                 isActive: isActive,
               ));

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
+import 'package:planit/ui/archiving/archiving_main/archiving_view.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
 import 'package:planit/ui/common/comopnent/planit_text.dart';
 import 'package:planit/ui/common/const/planit_button_style.dart';
@@ -76,7 +77,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      context.goNamed(RootTab.routeName);
+                      context.pop('goToArchiving');
                     },
                     buttonColor: PlanitButtonColor.black,
                     buttonSize: PlanitButtonSize.large,
@@ -87,7 +88,7 @@ class ArchivingCompleteNavigator extends StatelessWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () {
-                      context.goNamed(RootTab.routeName);
+                      context.pop(true);
                     },
                     buttonColor: PlanitButtonColor.white,
                     buttonSize: PlanitButtonSize.large,

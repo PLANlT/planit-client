@@ -12,12 +12,16 @@ class PlanListCard extends StatelessWidget {
   final String planStatus;
   final String? dDay;
   final VoidCallback? needsRefresh;
+  final VoidCallback goToArchiving;
+  final bool isFromPlanAll;
 
   const PlanListCard(
       {super.key,
       required this.plan,
       required this.dDay,
       required this.planStatus,
+      required this.isFromPlanAll,
+      required this.goToArchiving,
       this.needsRefresh});
 
   @override
@@ -31,7 +35,15 @@ class PlanListCard extends StatelessWidget {
           'planStatus': planStatus,
         });
         if (result == true && needsRefresh != null) {
+          if (isFromPlanAll) {
+            context.pop(true);
+          }
           needsRefresh!();
+        } else if (result == 'goToArchiving') {
+          if (isFromPlanAll) {
+            context.pop(true);
+          }
+          goToArchiving();
         }
       },
       child: Container(
