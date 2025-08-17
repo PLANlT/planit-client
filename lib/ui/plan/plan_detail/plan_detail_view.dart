@@ -108,7 +108,7 @@ class PlanDetailView extends HookConsumerWidget {
                                     return PlanMoreBottomSheet(
                                       title: state.planDetail!.title,
                                       planStatus: planStatus,
-                                      dDay : dDay,
+                                      dDay: dDay,
                                       planId: planId,
                                       icon: state.planDetail!.icon,
                                     );
@@ -154,6 +154,19 @@ class PlanDetailView extends HookConsumerWidget {
                       ),
                     ),
                     // 태스크 리스트
+                    if (state.planDetail!.tasks.isEmpty)
+                      Column(
+                        children: [
+                          SizedBox(height: 88),
+                          PlanitText(
+                            '아직 할 일이\n존재하지 않아요!',
+                            style: PlanitTypos.body3
+                                .copyWith(color: PlanitColors.black03),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+
                     Expanded(
                       child: ListView.builder(
                         itemCount: state.planDetail!.tasks.length,

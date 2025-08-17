@@ -40,7 +40,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
               padding: const EdgeInsets.only(top: 12),
               child: GestureDetector(
                 onTap: () async {
-                   final params = <String, String>{
+                  final params = <String, String>{
                     'planId': planId.toString(),
                     'planStatus': planStatus,
                     if (dDay != null) 'dDay': dDay!,
@@ -49,7 +49,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                     PlanCreateView.routeName,
                     queryParameters: params,
                   );
-                  
+
                   if (!context.mounted) {
                     return;
                   }
@@ -67,11 +67,8 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
               onTap: () async {
                 final success = await viewmodel.clickDeletePlan(planId);
                 if (!context.mounted) return;
-                context.pushNamed(
-                  RootTab.routeName,
-                );
                 if (success) {
-                  context.pop();
+                  context.pop(true);
                 } else {
                   final state = ref.read(planMoreBottomSheetViewModelProvider);
                   ScaffoldMessenger.of(context).showSnackBar(
