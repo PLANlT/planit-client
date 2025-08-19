@@ -62,7 +62,7 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '플랜 수정에 실패했어요.',
+          errorMessage: '플랜 수정에 오류가 발생했어요. 다시 시도해주세요.',
         );
         return false;
     }
@@ -128,7 +128,7 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '플랜 업로드에 실패했어요.',
+          errorMessage: '플랜 업로드에 오류가 발생했어요. 다시 시도해주세요.',
         );
         break;
     }
@@ -185,7 +185,7 @@ class PlanCreateViewModel extends StateNotifier<PlanCreateState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '플랜 업로드에 실패했어요.',
+          errorMessage: '플랜 업로드에 오류가 발생했어요. 다시 시도해주세요.',
         );
     }
   }

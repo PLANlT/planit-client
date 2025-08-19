@@ -66,7 +66,7 @@ class MypageViewModel extends StateNotifier<MypageState> {
         if (mounted) {
           state = state.copyWith(
               loadingStatus: LoadingStatus.error,
-              errorMessage: '내 정보를 불러오는데 실패했어요.');
+              errorMessage: '내 정보를 불러오는데 오류가 발생했어요. 다시 시도해주세요.');
         }
     }
   }
@@ -93,7 +93,7 @@ class MypageViewModel extends StateNotifier<MypageState> {
         if (mounted) {
           state = state.copyWith(
             loadingStatus: LoadingStatus.error,
-            errorMessage: '연속일 정보를 불러오는데 실패했어요.',
+            errorMessage: '연속일 정보를 불러오는데 오류가 발생했어요. 다시 시도해주세요.',
           );
         }
     }
@@ -116,7 +116,7 @@ class MypageViewModel extends StateNotifier<MypageState> {
         if (mounted) {
           state = state.copyWith(
             loadingStatus: LoadingStatus.error,
-            errorMessage: '로그아웃에 실패했어요.\n다시 시도해주세요.',
+            errorMessage: '로그아웃에 오류가 발생했어요. 다시 시도해주세요.',
           );
         }
     }
@@ -153,7 +153,7 @@ class MypageViewModel extends StateNotifier<MypageState> {
           state = state.copyWith(
             loadingStatus: LoadingStatus.error,
             errorMessage: result.messages == null
-                ? '회원탈퇴에 실패했어요.\n다시 시도해주세요'
+                ? '회원탈퇴에 오류가 발생했어요.\n다시 시도해주세요'
                 : result.messages!.first,
           );
         }

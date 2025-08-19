@@ -106,7 +106,7 @@ class TaskEditBottomSheetViewModel
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '루틴 설정에 실패했어요',
+          errorMessage: '루틴 설정에 오류가 발생했어요. 다시 시도해주세요',
         );
         return false;
     }
@@ -151,7 +151,7 @@ class TaskEditBottomSheetViewModel
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '루틴 불러오기에 실패했어요',
+          errorMessage: '루틴 불러오기에 오류가 발생했어요. 다시 시도해주세요',
         );
     }
   }

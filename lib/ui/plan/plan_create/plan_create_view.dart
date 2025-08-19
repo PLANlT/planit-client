@@ -407,7 +407,7 @@ class PlanCreateView extends HookConsumerWidget {
                                 context.pop(true);
                               } else {
                                 toast.showToast(
-                                    child: PlanitToast(label: '플랜 수정에 실패했어요.'));
+                                    child: PlanitToast(label: '플랜 수정에 오류가 발생했어요. 다시 시도해주세요.'));
                               }
                             }
                           }
@@ -415,8 +415,8 @@ class PlanCreateView extends HookConsumerWidget {
                           toast.showToast(
                             child: PlanitToast(
                               label: planId == null
-                                  ? '플랜 생성에 실패했습니다.'
-                                  : '플랜 수정에 실패했습니다.',
+                                  ? '플랜 생성에 오류가 발생했어요. 다시 시도해주세요.'
+                                  : '플랜 수정에 오류가 발생했어요. 다시 시도해주세요.',
                             ),
                           );
                         }
