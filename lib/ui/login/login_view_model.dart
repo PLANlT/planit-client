@@ -255,4 +255,10 @@ class LoginViewModel extends StateNotifier<LoginState> {
       state = state.copyWith(isLoginCompleted: null);
     }
   }
+
+  void clearErrMsg() {
+    if (mounted) {
+      state = state.copyWith(errorMessage: '');
+    }
+  }
 }

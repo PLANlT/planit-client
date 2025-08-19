@@ -159,4 +159,10 @@ class MypageViewModel extends StateNotifier<MypageState> {
         }
     }
   }
+
+  void clearErrMsg() {
+    if (mounted) {
+      state = state.copyWith(errorMessage: '');
+    }
+  }
 }

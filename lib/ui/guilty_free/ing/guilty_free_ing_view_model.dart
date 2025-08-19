@@ -44,4 +44,10 @@ class GuiltyFreeIngViewModel extends StateNotifier<GuiltyFreeIngState> {
         }
     }
   }
+
+  void clearErrMsg() {
+    if (mounted) {
+      state = state.copyWith(errorMessage: '');
+    }
+  }
 }

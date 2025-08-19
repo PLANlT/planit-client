@@ -208,6 +208,12 @@ class MainViewModel extends StateNotifier<MainState> {
         }
     }
   }
+
+  void clearErrMsg() {
+    if (mounted) {
+      state = state.copyWith(errorMessage: '');
+    }
+  }
 }
 
 typedef OnCheckboxTap = void Function({
