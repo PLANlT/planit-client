@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:planit/core/loading_status.dart';
 import 'package:planit/core/repository_result.dart';
 import 'package:planit/repository/auth/auth_repository.dart';
@@ -32,8 +33,14 @@ class MypageViewModel extends StateNotifier<MypageState> {
         super(MypageState());
 
   Future<void> initMypage() async {
+    await getAppVersion();
     await getMyInfo();
     await getConsecutiveDays();
+  }
+
+  Future<void> getAppVersion() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    state = state.copyWith(appVersion: info.version);
   }
 
   Future<void> getMyInfo() async {
