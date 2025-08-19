@@ -72,9 +72,9 @@ class Assets {
 
   // onboarding
   static const String onboarding1 = 'assets/onboarding/onboarding1.svg';
-  static const String onboarding2_1 = 'assets/onboarding/onboarding2-1.svg';
-  static const String onboarding2_2 = 'assets/onboarding/onboarding2-2.svg';
-  static const String onboarding2_3 = 'assets/onboarding/onboarding2-3.svg';
-  static const String onboarding3 = 'assets/onboarding/onboarding3.svg';
-  static const String onboarding4 = 'assets/onboarding/onboarding4.svg';
+  static const String onboarding2_1 = 'assets/onboarding/onboarding2.svg';
+  static const String onboarding2_2 = 'assets/onboarding/onboarding3.svg';
+  static const String onboarding2_3 = 'assets/onboarding/onboarding4.svg';
+  static const String onboarding3 = 'assets/onboarding/onboarding5.svg';
+  static const String onboarding4 = 'assets/onboarding/onboarding6.svg';
 }
