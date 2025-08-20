@@ -10,20 +10,42 @@ import 'package:planit/ui/plan/component/plan_main_chip.dart';
 class PlanListCard extends StatelessWidget {
   final PlanModel plan;
   final String planStatus;
+  final String? dDay;
+  final VoidCallback? needsRefresh;
+  final VoidCallback goToArchiving;
+  final bool isFromPlanAll;
 
-  const PlanListCard({super.key, required this.plan, required this.planStatus});
+  const PlanListCard(
+      {super.key,
+      required this.plan,
+      required this.dDay,
+      required this.planStatus,
+      required this.isFromPlanAll,
+      required this.goToArchiving,
+      this.needsRefresh});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.pushNamed(
-          'plan_detail',
-          pathParameters: {
-            'planId': plan.planId.toString(),
-            'planStatus': planStatus, 
-          },
-        );
+      onTap: () async {
+        final result = await context.pushNamed('plan_detail', pathParameters: {
+          'planId': plan.planId.toString(),
+        }, queryParameters: {
+          if (dDay != null) 'dDay': dDay!,
+          'planStatus': planStatus,
+        });
+        if (!context.mounted) return;
+        if (result == true && needsRefresh != null) {
+          if (isFromPlanAll) {
+            context.pop(true);
+          }
+          needsRefresh!();
+        } else if (result == 'goToArchiving') {
+          if (isFromPlanAll) {
+            context.pop(true);
+          }
+          goToArchiving();
+        }
       },
       child: Container(
           decoration: BoxDecoration(

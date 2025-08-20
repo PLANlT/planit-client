@@ -62,7 +62,7 @@ class MypageBottomInfoWidget extends StatelessWidget {
             ],
           ),
           PlanitText(
-            'PLANIT $appVersion',
+            'PLANIT v$appVersion',
             style: PlanitTypos.caption.copyWith(
               color: PlanitColors.black03,
             ),

@@ -33,7 +33,7 @@ class ArchivingViewModel extends StateNotifier<ArchivingState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '아키이빙 불러오기에 실패했어요.',
+          errorMessage: '아키이빙 불러오기에 오류가 발생했어요. 다시 시도해주세요.',
         );
     }
   }

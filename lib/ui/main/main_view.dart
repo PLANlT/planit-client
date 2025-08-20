@@ -20,7 +20,12 @@ import 'component/route_switch_banner.dart';
 class MainView extends HookConsumerWidget {
   static String get routeName => 'main';
 
-  const MainView({super.key});
+  final VoidCallback goToPlan;
+
+  const MainView({
+    super.key,
+    required this.goToPlan,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,6 +50,7 @@ class MainView extends HookConsumerWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           toast.showToast(child: PlanitToast(label: state.completeMessage));
         });
+        viewModel.clearErrMsg();
       }
       return null;
     }, [state.completeMessage]);
@@ -66,17 +72,23 @@ class MainView extends HookConsumerWidget {
       }
     });
 
+    bool showAnimation = state.taskStatus == TaskStatus.partial ||
+        state.taskStatus == TaskStatus.allPassionate;
+
     return DefaultLayout(
       child: Stack(
         children: [
           Column(
             children: [
               MainTopWidget(
+                // 값 변할 시 재빌드 될 수 있도록 key로 전달
+                key: ValueKey(showAnimation),
                 status: state.taskStatus,
                 type: state.routeType,
                 onGuiltyFreePressed: viewModel.checkCanUseGuiltyFree(),
                 canUseGuiltyFree: state.canUseGuiltyFree,
                 consecutiveDay: state.consecutiveDay,
+                showAnimation: showAnimation,
               ),
               RouteSwitchBanner(
                 type: state.routeType,
@@ -93,6 +105,7 @@ class MainView extends HookConsumerWidget {
                     : state.plans.passionatePlans,
                 showRecoveryRoutineBanner: state.showRecoveryRoutineBanner,
                 onCheckboxTap: viewModel.onCheckboxTap,
+                goToPlan: () => goToPlan(),
               ),
             ],
           ),

@@ -3,7 +3,9 @@ import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/ui/common/view/default_layout.dart';
 import 'package:planit/ui/onboarding/onboarding_first_tap.dart';
 import 'package:planit/ui/onboarding/onboarding_fourth_tap.dart';
+import 'package:planit/ui/onboarding/onboarding_sixth_tap.dart';
 import 'package:planit/ui/onboarding/onboarding_second_tap.dart';
+import 'package:planit/ui/onboarding/onboarding_fifth_tap.dart';
 import 'package:planit/ui/onboarding/onboarding_third_tap.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -44,7 +46,7 @@ class _OnboardingViewState extends State<OnboardingView> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 40.0),
+            padding: EdgeInsets.only(top: 60.0, bottom: 40.0),
             child: SmoothPageIndicator(
               controller: _controller,
               count: pages.length,
@@ -68,4 +70,6 @@ final List<Widget> pages = <Widget>[
   const OnboardingSecondTap(),
   const OnboardingThirdTap(),
   const OnboardingFourthTap(),
+  const OnboardingFifthTap(),
+  const OnboardingSixthTap(),
 ];

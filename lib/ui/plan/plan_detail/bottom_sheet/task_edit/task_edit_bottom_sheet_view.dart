@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_bottom_sheet.dart';
@@ -27,6 +29,8 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
     final TaskEditBottomSheetViewModel viewmodel = ref.read(
       taskEditViewModelProvider(taskId).notifier,
     );
+
+    final showConditionError = useState(false);
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -187,6 +191,9 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           viewmodel.toggleType('HIGH');
+                          if (showConditionError.value) {
+                            showConditionError.value = false;
+                          }
                         },
                         child: PlanitChip(
                           chipColor: state.taskType.contains('HIGH')
@@ -198,6 +205,9 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           viewmodel.toggleType('LOW');
+                          if (showConditionError.value) {
+                            showConditionError.value = false;
+                          }
                         },
                         child: PlanitChip(
                           chipColor: state.taskType.contains('LOW')
@@ -209,6 +219,17 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                     ],
                   ),
                 ),
+                // 에러 메시지 표시
+                if (showConditionError.value)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: PlanitText(
+                      '컨디션을 선택해주세요',
+                      style: PlanitTypos.caption.copyWith(
+                        color: PlanitColors.alert,
+                      ),
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12),
                   // 물음표까지 터치영역 확장
@@ -259,9 +280,30 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                   child: SizedBox(
                     width: double.infinity,
                     child: PlanitButton(
-                      onPressed: () {
-                        viewmodel.saveEditedRoutine();
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        if (state.loadingStatus == LoadingStatus.loading) {
+                          return;
+                        }
+                        if (state.taskType.isEmpty) {
+                          showConditionError.value = true;
+                          return;
+                        }
+                        try {
+                          final result = await viewmodel.saveEditedRoutine();
+                          if (!context.mounted) return;
+                          if (result) {
+                            context.pop(true);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('수정에 오류가 발생했어요. 다시 시도해주세요.')),
+                            );
+                          }
+                        } catch (e) {
+                          if (!context.mounted) return;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('오류가 발생했어요.')),
+                          );
+                        }
                       },
                       buttonColor: PlanitButtonColor.black,
                       buttonSize: PlanitButtonSize.large,

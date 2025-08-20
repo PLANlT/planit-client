@@ -45,6 +45,10 @@ class _RootTabState extends ConsumerState<RootTab>
     });
   }
 
+  void changeTap(int index) {
+    controller.animateTo(index);
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -120,8 +124,14 @@ class _RootTabState extends ConsumerState<RootTab>
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
         children: [
-          PlanView(),
-          isGuiltyFree ? GuiltyFreeIngView() : MainView(),
+          PlanView(
+            goToArchiving: () => changeTap(2),
+          ),
+          isGuiltyFree
+              ? GuiltyFreeIngView()
+              : MainView(
+                  goToPlan: () => changeTap(0),
+                ),
           ArchivingView(),
         ],
       ),

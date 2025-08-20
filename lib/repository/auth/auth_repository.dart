@@ -49,7 +49,7 @@ class AuthRepository {
         if (error is PlatformException && error.code == 'CANCELED') {
           return FailureRepositoryResult(
             error: error,
-            messages: ['카카오 계정 연동에 실패했어요.'],
+            messages: ['카카오 계정 연동에 오류가 발생했어요. 다시 시도해주세요.'],
           );
         }
         // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인
@@ -65,7 +65,7 @@ class AuthRepository {
           debugPrint('카카오계정으로 로그인 실패 $error');
           return FailureRepositoryResult(
             error: error,
-            messages: ['카카오 계정 연동에 실패했어요.'],
+            messages: ['카카오 계정 연동에 오류가 발생했어요. 다시 시도해주세요.'],
           );
         }
       }
@@ -83,7 +83,7 @@ class AuthRepository {
         debugPrint('카카오계정으로 로그인 실패 $error');
         return FailureRepositoryResult(
           error: error,
-          messages: ['카카오 계정 연동에 실패했어요.'],
+          messages: ['카카오 계정 연동에 오류가 발생했어요. 다시 시도해주세요.'],
         );
       }
     }
@@ -105,7 +105,7 @@ class AuthRepository {
       debugPrint('구글로 로그인 실패 $error');
       return FailureRepositoryResult(
         error: error,
-        messages: ['구글 계정 연동에 실패했어요.'],
+        messages: ['구글 계정 연동에 오류가 발생했어요. 다시 시도해주세요.'],
       );
     }
   }
@@ -119,7 +119,7 @@ class AuthRepository {
         debugPrint('네이버 액세스 토큰이 없어요.');
         return FailureRepositoryResult(
           error: 'Failed to get access token from Naver',
-          messages: ['네이버 로그인 토큰이 유효하지 않아요.'],
+          messages: ['네이버 계정 연동에 오류가 발생했어요. 다시 시도해주세요.'],
         );
       }
 
@@ -134,14 +134,14 @@ class AuthRepository {
         debugPrint('네이버로 로그인 실패 ${data.errorMessage}');
         return FailureRepositoryResult(
           error: data.errorMessage,
-          messages: ['네이버 계정 연동에 실패했어요.'],
+          messages: ['네이버 계정 연동에 오류가 발생했어요. 다시 시도해주세요.'],
         );
       }
     } catch (e) {
       debugPrint('네이버로 로그인 실패  $e');
       return FailureRepositoryResult(
         error: e,
-        messages: ['네이버 계정 연동에 실패했어요.'],
+        messages: ['네이버 계정 연동에 오류가 발생했어요. 다시 시도해주세요.'],
       );
     }
   }
@@ -165,10 +165,18 @@ class AuthRepository {
       );
       return SuccessRepositoryResult(data: apiData);
     } on DioException catch (e) {
-      return FailureRepositoryResult(
-        error: e,
-        messages: [networkErrorMsg],
-      );
+      final int? statusCode = e.response?.statusCode;
+
+      return switch (statusCode) {
+        400 => FailureRepositoryResult(
+            error: e,
+            messages: ['이미 가입된 이메일이에요.\n다른 소셜 계정으로 로그인해주세요.'],
+          ),
+        _ => FailureRepositoryResult(
+            error: e,
+            messages: [networkErrorMsg],
+          ),
+      };
     }
   }
 

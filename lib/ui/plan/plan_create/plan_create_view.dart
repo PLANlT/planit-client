@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:planit/core/loading_status.dart';
 import 'package:planit/theme/planit_colors.dart';
 import 'package:planit/theme/planit_typos.dart';
 import 'package:planit/ui/common/comopnent/planit_button.dart';
@@ -25,9 +26,10 @@ import 'package:planit/ui/plan/plan_create/plan_create_view_model.dart';
 class PlanCreateView extends HookConsumerWidget {
   static String get routeName => 'plan_create';
   final int? planId;
+  final String? dDay;
   final String? planStatus;
 
-  const PlanCreateView({super.key, this.planId, this.planStatus});
+  const PlanCreateView({super.key, this.planId, this.planStatus, this.dDay});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -78,6 +80,11 @@ class PlanCreateView extends HookConsumerWidget {
       if (planStatus != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           viewmodel.updatePlanStatus(planStatus!);
+        });
+      }
+      if (dDay != null) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          viewmodel.calculateFinalDate(dDay!);
         });
       }
       return null;
@@ -371,6 +378,9 @@ class PlanCreateView extends HookConsumerWidget {
                   width: double.infinity,
                   child: PlanitButton(
                     onPressed: () async {
+                      if (state.loadingStatus == LoadingStatus.loading) {
+                        return;
+                      }
                       viewmodel.updateClickedNext();
                       // 방금 상태를 변경했기 때문에, 최신 상태를 ref.read()로 즉시 가져옴
                       final latestState = ref.read(planViewModelProvider);
@@ -394,10 +404,10 @@ class PlanCreateView extends HookConsumerWidget {
                               if (success) {
                                 toast.showToast(
                                     child: PlanitToast(label: '플랜이 수정됐어요!'));
-                                context.goNamed(RootTab.routeName);
+                                context.pop(true);
                               } else {
                                 toast.showToast(
-                                    child: PlanitToast(label: '플랜 수정에 실패했어요.'));
+                                    child: PlanitToast(label: '플랜 수정에 오류가 발생했어요. 다시 시도해주세요.'));
                               }
                             }
                           }
@@ -405,8 +415,8 @@ class PlanCreateView extends HookConsumerWidget {
                           toast.showToast(
                             child: PlanitToast(
                               label: planId == null
-                                  ? '플랜 생성에 실패했습니다.'
-                                  : '플랜 수정에 실패했습니다.',
+                                  ? '플랜 생성에 오류가 발생했어요. 다시 시도해주세요.'
+                                  : '플랜 수정에 오류가 발생했어요. 다시 시도해주세요.',
                             ),
                           );
                         }

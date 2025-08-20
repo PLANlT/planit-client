@@ -11,12 +11,14 @@ class PlanListView extends StatelessWidget {
   final List<TodayPlanModel> plans;
   final bool showRecoveryRoutineBanner;
   final OnCheckboxTap onCheckboxTap;
+  final VoidCallback goToPlan;
 
   const PlanListView({
     super.key,
     required this.plans,
     required this.showRecoveryRoutineBanner,
     required this.onCheckboxTap,
+    required this.goToPlan,
   });
 
   @override
@@ -40,12 +42,22 @@ class PlanListView extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                Text(
-                  '새 플랜 제작하기',
-                  style: PlanitTypos.caption.copyWith(
-                    color: PlanitColors.black03,
+                GestureDetector(
+                  onTap: goToPlan,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    color: PlanitColors.transparent,
+                    child: Text(
+                      '새 플랜 제작하기',
+                      style: PlanitTypos.caption.copyWith(
+                        color: PlanitColors.black03,
+                        decoration: TextDecoration.underline,
+                        decorationColor: PlanitColors.black03,
+                        decorationThickness: 0.8,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),

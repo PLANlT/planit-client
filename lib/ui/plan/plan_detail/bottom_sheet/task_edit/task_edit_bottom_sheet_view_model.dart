@@ -56,7 +56,7 @@ class TaskEditBottomSheetViewModel
     state = state.copyWith(taskType: updated);
   }
 
-  void saveEditedRoutine() async {
+  Future<bool> saveEditedRoutine() async {
     state = state.copyWith(loadingStatus: LoadingStatus.loading);
 
     // taskType 설정
@@ -66,8 +66,10 @@ class TaskEditBottomSheetViewModel
       taskType = 'ALL';
     } else if (taskTypeSet.contains('HIGH')) {
       taskType = 'PASSIONATE';
-    } else {
+    } else if (taskTypeSet.contains('LOW')) {
       taskType = 'SLOW';
+    } else {
+      return false;
     }
 
     // 요일 매핑
@@ -95,16 +97,18 @@ class TaskEditBottomSheetViewModel
         routineDay: routineDay,
       ),
     );
-    if (!mounted) return;
+    if (!mounted) return false;
     // 결과 처리
     switch (editRoutineResult) {
       case SuccessRepositoryResult():
         state = state.copyWith(loadingStatus: LoadingStatus.success);
+        return true;
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '루틴 설정에 실패했어요',
+          errorMessage: '루틴 설정에 오류가 발생했어요. 다시 시도해주세요',
         );
+        return false;
     }
   }
 
@@ -147,7 +151,7 @@ class TaskEditBottomSheetViewModel
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '루틴 불러오기에 실패했어요',
+          errorMessage: '루틴 불러오기에 오류가 발생했어요. 다시 시도해주세요',
         );
     }
   }

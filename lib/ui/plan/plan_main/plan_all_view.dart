@@ -9,12 +9,15 @@ class PlanAllView extends StatefulWidget {
   static String get routeName => 'plan_all';
   final List<PlanModel> planList;
   final bool isActive;
+  final VoidCallback goToArchiving;
+  final VoidCallback needsRefresh;
 
-  const PlanAllView({
-    super.key,
-    required this.planList,
-    required this.isActive,
-  });
+  const PlanAllView(
+      {super.key,
+      required this.needsRefresh,
+      required this.planList,
+      required this.isActive,
+      required this.goToArchiving});
 
   @override
   State<PlanAllView> createState() => _PlanAllViewState();
@@ -77,6 +80,10 @@ class _PlanAllViewState extends State<PlanAllView> {
                     separatorBuilder: (context, index) => SizedBox(height: 12),
                     itemBuilder: (context, index) {
                       return PlanListCard(
+                        needsRefresh: widget.needsRefresh,
+                        isFromPlanAll: true,
+                        goToArchiving: widget.goToArchiving,
+                        dDay: plans[index].dday,
                         plan: plans[index],
                         planStatus: 'PAUSED',
                       );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:planit/ui/common/assets.dart';
-import 'package:planit/ui/onboarding/onboarding_layout.dart';
+
+import '../common/assets.dart';
+import 'onboarding_layout.dart';
 
 class OnboardingThirdTap extends StatelessWidget {
   const OnboardingThirdTap({super.key});
@@ -8,9 +9,9 @@ class OnboardingThirdTap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingLayout(
-      title: '실패해도 괜찮아요.\n‘길티프리 모드’가 있어요.',
+      title: '할 일을\n컨디션에 따라 나누세요',
       description:
-          '최근 실행이 어렵다면,\n스스로를 비난하지 말고 잠시 쉬어가요.\nPLANIT은 다시 시작할 준비가 되었을 때\n당신을 기다릴게요.',
+          '힘든 컨디션이라도 해낼 수 있는\n한 걸음을 스스로 정하고,\n아주 조금씩이라도 실천해봐요.\n\n하루의 컨디션 때문에\n계획 전체를 포기하는 날은 없어질 거에요!',
       asset: Assets.onboarding3,
       showButton: false,
     );

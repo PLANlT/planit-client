@@ -229,21 +229,21 @@ class LoginViewModel extends StateNotifier<LoginState> {
             case FailureRepositoryResult<SignInModel>():
               if (mounted) {
                 state = state.copyWith(
-                  errorMessage: '회원가입에 실패했어요. 다시 시도해주세요',
+                  errorMessage: loginResult.messages!.first,
                 );
               }
           }
         case FailureRepositoryResult<void>():
           if (mounted) {
             state = state.copyWith(
-              errorMessage: '회원가입에 실패했어요. 다시 시도해주세요',
+              errorMessage: result.messages!.first,
             );
           }
       }
     } catch (e) {
       if (mounted) {
         state = state.copyWith(
-          errorMessage: '회원가입에 실패했어요. 다시 시도해주세요',
+          errorMessage: '회원가입에 오류가 발생했어요. 다시 시도해주세요',
         );
       }
     }
@@ -253,6 +253,12 @@ class LoginViewModel extends StateNotifier<LoginState> {
   void routingRefresh() {
     if (mounted) {
       state = state.copyWith(isLoginCompleted: null);
+    }
+  }
+
+  void clearErrMsg() {
+    if (mounted) {
+      state = state.copyWith(errorMessage: '');
     }
   }
 }

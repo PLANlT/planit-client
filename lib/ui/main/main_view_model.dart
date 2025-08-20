@@ -104,7 +104,7 @@ class MainViewModel extends StateNotifier<MainState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '플랜 목록 불러오기에 실패했어요.',
+          errorMessage: '플랜 목록 불러오기에 오류가 발생했어요. 다시 시도해주세요.',
         );
     }
   }
@@ -203,9 +203,15 @@ class MainViewModel extends StateNotifier<MainState> {
         if (mounted) {
           state = state.copyWith(
             loadingStatus: LoadingStatus.error,
-            errorMessage: '연속일 정보를 불러오는데 실패했어요.',
+            errorMessage: '연속일 정보를 불러오는데 오류가 발생했어요. 다시 시도해주세요.',
           );
         }
+    }
+  }
+
+  void clearErrMsg() {
+    if (mounted) {
+      state = state.copyWith(errorMessage: '');
     }
   }
 }

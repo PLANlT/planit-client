@@ -19,8 +19,9 @@ import 'package:planit/ui/plan/plan_main/plan_view_model.dart';
 
 class PlanView extends HookConsumerWidget {
   static String get routeName => 'plan';
+  final VoidCallback goToArchiving;
 
-  const PlanView({super.key});
+  const PlanView({super.key, required this.goToArchiving});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,14 +40,18 @@ class PlanView extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BuildAppBar(viewmodel: viewmodel,),
+            BuildAppBar(
+              viewmodel: viewmodel,
+            ),
             SizedBox(height: 20),
             // 진행 중인 플랜
             if (state.activePlans.isNotEmpty)
               _PlanList(
+                goToArchiving: goToArchiving,
                 title: '진행 중인 플랜',
                 plans: state.activePlans,
                 planStatus: 'IN_PROGRESS',
+                needsRefresh: viewmodel.init,
               ),
             // 잠시 중단한 플랜
             if (state.pausePlans.isNotEmpty)
@@ -56,9 +61,11 @@ class PlanView extends HookConsumerWidget {
                   top: state.activePlans.isNotEmpty ? 40 : 0,
                 ),
                 child: _PlanList(
+                  goToArchiving: goToArchiving,
                   title: '잠시 중단한 플랜',
                   plans: state.pausePlans,
                   planStatus: 'PAUSED',
+                  needsRefresh: viewmodel.init,
                 ),
               ),
             // 템플릿 텍스트
@@ -120,11 +127,15 @@ class _PlanList extends StatelessWidget {
   final String title;
   final List<PlanModel> plans;
   final String planStatus;
+  final VoidCallback goToArchiving;
+  final VoidCallback? needsRefresh;
 
   const _PlanList({
     required this.title,
     required this.plans,
     required this.planStatus,
+    required this.goToArchiving,
+    this.needsRefresh,
   });
 
   @override
@@ -152,9 +163,12 @@ class _PlanList extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = plans[index];
               return PlanListCard(
-                planStatus: planStatus,
-                plan: item,
-              );
+                  isFromPlanAll: false,
+                  dDay: item.dday,
+                  needsRefresh: needsRefresh,
+                  planStatus: planStatus,
+                  plan: item,
+                  goToArchiving: goToArchiving);
             },
           ),
           // 진행 중인 플랜 전체보기 버튼
@@ -165,14 +179,14 @@ class _PlanList extends StatelessWidget {
                 width: double.infinity,
                 child: PlanitButton(
                   onPressed: () {
-                    context.pushNamed(
-                      PlanAllView.routeName,
-                      pathParameters: {
-                        'isActive':
-                            planStatus == 'IN_PROGRESS' ? 'true' : 'false',
-                      },
-                      extra: plans,
-                    );
+                    context.pushNamed(PlanAllView.routeName, pathParameters: {
+                      'isActive':
+                          planStatus == 'IN_PROGRESS' ? 'true' : 'false',
+                    }, extra: {
+                      'planList': plans,
+                      'goToArchiving': goToArchiving,
+                      'needsRefresh' : needsRefresh
+                    });
                   },
                   buttonColor: PlanitButtonColor.white,
                   buttonSize: PlanitButtonSize.large,

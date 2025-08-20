@@ -60,6 +60,7 @@ class _TaskAddBottomSheetViewState extends State<TaskAddBottomSheetView> {
             ),
             SizedBox(height: 16),
             PlanitTextField(
+              maxLength: 30,
               hintText: '내용을 입력해주세요',
               controller: controller,
             ),
