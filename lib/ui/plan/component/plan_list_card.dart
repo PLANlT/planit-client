@@ -31,9 +31,10 @@ class PlanListCard extends StatelessWidget {
         final result = await context.pushNamed('plan_detail', pathParameters: {
           'planId': plan.planId.toString(),
         }, queryParameters: {
-          'dDay': dDay,
+          if (dDay != null) 'dDay': dDay!,
           'planStatus': planStatus,
         });
+        if (!context.mounted) return;
         if (result == true && needsRefresh != null) {
           if (isFromPlanAll) {
             context.pop(true);

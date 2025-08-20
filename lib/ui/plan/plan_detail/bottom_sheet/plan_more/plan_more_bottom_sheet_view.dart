@@ -94,6 +94,7 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                       ArchivingCompleteView.routeName,
                       pathParameters: {'title': title, 'icon': icon},
                     );
+                    if (!context.mounted) return;
                     if (result == true) {
                       context.pop(true);
                     } else if (result == 'goToArchiving') {
