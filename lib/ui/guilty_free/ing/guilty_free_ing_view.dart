@@ -40,6 +40,7 @@ class GuiltyFreeIngView extends HookConsumerWidget {
       if (state.errorMessage.isNotEmpty) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           toast.showToast(child: PlanitToast(label: state.errorMessage));
+          viewModel.clearErrMsg();
         });
       }
       return null;

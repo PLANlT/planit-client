@@ -295,7 +295,7 @@ class TaskEditBottomSheetView extends HookConsumerWidget {
                             context.pop(true);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('수정에 실패했어요.')),
+                              const SnackBar(content: Text('수정에 오류가 발생했어요. 다시 시도해주세요.')),
                             );
                           }
                         } catch (e) {

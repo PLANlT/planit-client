@@ -50,7 +50,7 @@ class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
       case FailureRepositoryResult<PlanDetailModel>():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '플랜 목록 불러오기에 실패했어요.',
+          errorMessage: '플랜 목록 불러오기에 오류가 발생했어요. 다시 시도해주세요.',
         );
         break;
     }
@@ -72,7 +72,7 @@ class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
       case FailureRepositoryResult():
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '플랜 삭제에 실패했어요.',
+          errorMessage: '플랜 삭제에 오류가 발생했어요. 다시 시도해주세요.',
         );
         return false;
     }
@@ -100,13 +100,13 @@ class PlanDetailViewModel extends StateNotifier<PlanDetailState> {
       } else {
         state = state.copyWith(
           loadingStatus: LoadingStatus.error,
-          errorMessage: '플랜 상세 정보 갱신 실패했어요',
+          errorMessage: '플랜 상세 정보 갱신 오류가 발생했어요. 다시 시도해주세요',
         );
       }
     } else {
       state = state.copyWith(
         loadingStatus: LoadingStatus.error,
-        errorMessage: '작업 추가 실패했어요',
+        errorMessage: '작업 추가에 오류가 발생했어요. 다시 시도해주세요',
       );
     }
   }

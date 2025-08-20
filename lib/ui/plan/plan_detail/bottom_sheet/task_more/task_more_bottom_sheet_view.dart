@@ -62,7 +62,7 @@ class TaskMoreBottomSheetView extends HookConsumerWidget {
                     context.pop(true); // 성공 시 모달 닫으면서 true 전달
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('삭제에 실패했어요.')),
+                      const SnackBar(content: Text('삭제에 오류가 발생했어요. 다시 시도해주세요.')),
                     );
                   }
                 },

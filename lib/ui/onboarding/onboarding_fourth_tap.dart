@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:planit/ui/common/assets.dart';
-import 'package:planit/ui/onboarding/onboarding_layout.dart';
+
+import '../common/assets.dart';
+import 'onboarding_layout.dart';
 
 class OnboardingFourthTap extends StatelessWidget {
   const OnboardingFourthTap({super.key});
@@ -8,11 +9,10 @@ class OnboardingFourthTap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingLayout(
-      title: '하루치 작은 성공,\n그게 전부면 충분해요.',
-      description:
-          '매일 한 걸음씩,\n작은 실행을 쌓아 큰 목표에 도달해요.\n완벽보다 가능한 오늘을 PLANIT과 함께해요.',
+      title: '작은 성공을 쌓아\n목표를 달성하세요',
+      description: '한 걸음, 한 걸음...\n힘든 순간에도 놓치 않은 작은 성공들이 쌓여\n우리의 목표 달성을 도와줘요.',
       asset: Assets.onboarding4,
-      showButton: true,
+      showButton: false,
     );
   }
 }

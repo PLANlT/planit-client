@@ -50,6 +50,7 @@ class MainView extends HookConsumerWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           toast.showToast(child: PlanitToast(label: state.completeMessage));
         });
+        viewModel.clearErrMsg();
       }
       return null;
     }, [state.completeMessage]);
