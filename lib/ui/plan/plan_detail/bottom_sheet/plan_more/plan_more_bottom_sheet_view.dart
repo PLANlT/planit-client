@@ -90,10 +90,16 @@ class PlanMoreBottomSheet extends HookConsumerWidget {
                   if (!context.mounted) return;
 
                   if (success) {
-                    context.pushNamed(
+                    final result = await context.pushNamed(
                       ArchivingCompleteView.routeName,
                       pathParameters: {'title': title, 'icon': icon},
                     );
+                    if (!context.mounted) return;
+                    if (result == true) {
+                      context.pop(true);
+                    } else if (result == 'goToArchiving') {
+                      context.pop('goToArchiving');
+                    }
                   } else {
                     final state =
                         ref.read(planMoreBottomSheetViewModelProvider);

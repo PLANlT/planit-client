@@ -124,7 +124,9 @@ class _RootTabState extends ConsumerState<RootTab>
         physics: const NeverScrollableScrollPhysics(),
         controller: controller,
         children: [
-          PlanView(),
+          PlanView(
+            goToArchiving: () => changeTap(2),
+          ),
           isGuiltyFree
               ? GuiltyFreeIngView()
               : MainView(

@@ -31,10 +31,15 @@ class _ArchivingCompleteViewState extends State<ArchivingCompleteView> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(Duration(seconds: 3));
       if (mounted) {
-        context.pushNamed(
+        final result = await context.pushNamed(
           ArchivingCompleteNavigator.routeName,
           pathParameters: {'title': widget.title, 'icon': widget.icon},
         );
+        if (result == true) {
+          context.pop(true);
+        } else if (result == 'goToArchiving') {
+          context.pop('goToArchiving');
+        }
       }
     });
   }

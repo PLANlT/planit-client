@@ -94,7 +94,7 @@ class ArchivingRestartView extends HookConsumerWidget {
                   final state = ref.read(archivingRestartViewModelProvider);
                   if (state.loadingStatus == LoadingStatus.success &&
                       context.mounted) {
-                    context.goNamed(RootTab.routeName);
+                    context.pop(true);
                   } else if (state.loadingStatus == LoadingStatus.error &&
                       context.mounted) {
                     // 에러 처리 (예: 스낵바 표시)
